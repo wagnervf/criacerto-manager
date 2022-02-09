@@ -1,5 +1,5 @@
 # estágio de compilação
-FROM node:lts-alpine as build-stage
+FROM node:16.13-slim
 
 MAINTAINER Wagner Freiria
 
@@ -12,11 +12,7 @@ COPY ./front/ .
 
 RUN npm run build
 
-# estágio de produção
-FROM nginx:stable-alpine as production-stage
+EXPOSE 8080
+CMD [ "http-server", "dist" ]
 
-COPY --from=build-stage /app/dist /usr/share/nginx/html
 
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]

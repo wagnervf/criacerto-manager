@@ -68,9 +68,12 @@ services:
     image: node:16.13-slim
     container_name: container_vue
     ports:
-      - "80:80"
+      - "8080:8080"
     volumes:
       - ./front:/home/node/app
+
+    command: 'npm run serve'  
+
     links: 
       - node
     networks:
