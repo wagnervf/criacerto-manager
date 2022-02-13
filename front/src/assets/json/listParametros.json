@@ -32,14 +32,6 @@
     "icon": "mdi-currency-brl",
     "to": "/manutencaotouro/index",
     "subtitle": "Exame Andrológico, Aluguel de Pasto, Sal Mineral, Rações, Produtos Veterinários, Juros Anuais, Valor de Venda do Touro de Descarte"
-  },
-  { "divider": true, "inset": true },
-  {
-    "id": 5,
-    "title": "Configuração do Cria Certo",
-    "icon": "mdi-cog-sync",
-    "to": "/Usuarios/profile"
-    
   }
   
 ]

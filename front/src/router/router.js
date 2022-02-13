@@ -21,6 +21,11 @@ const routes = [
         path: "Home/home",
         component: () => import("@/views/Home/Home.vue"),
       },
+      {
+        name: "Monta Natural",
+        path: "montanatural/index",
+        component: () => import("@/views/MontaNatural/Index.vue"),
+      },
       
 
       {

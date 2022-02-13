@@ -2,11 +2,13 @@
 
 //import VueJwtDecode from "vue-jwt-decode";
 
-import Menu from "../../assets/json/listParametros.json";
+import Menu from "../../assets/json/listSimulacoes.json";
+import Config from "../../assets/json/listConfiguracao.json";
 
   export default {
     data: () => ({
       items: Menu,
+      config: Config,
       outer: [
         {
           id: 1,
