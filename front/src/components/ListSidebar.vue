@@ -11,6 +11,7 @@
           no-action
           link
           dense
+          dark
           class="py-1"
         >
         
@@ -65,30 +66,7 @@
     </v-list>
 
 
-    <v-list nav dense class="mt-12 pt-12">
-      <v-divider></v-divider>
-
-      <v-list-item to="/login" nav dense>
-        <v-list-item-avatar>
-          <v-icon>mdi-information</v-icon>
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title>Sobre</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      
     
-      <v-list-item to="/Sobre/sobre" nav dense>
-        <v-list-item-avatar>
-          <v-icon>mdi-logout</v-icon>
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title>Sair</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
   </div>
 </template>
 

@@ -48,6 +48,25 @@
         "to": "/Usuarios/profile"
       }
     ]
+  },
+  {
+    "id": 4,
+    "title": "Ralatórios",
+    "icon": "mdi-note-text",
+    "children": [
+      {
+        "id": 41,
+        "title": "Raltórios Simulações",
+        "icon": "mdi-account-multiple",
+        "to": "/Usuarios/usuarios"
+      },
+      {
+        "id": 42,
+        "title": "Raltórios Gerais",
+        "icon": "mdi-account",
+        "to": "/Usuarios/profile"
+      }
+    ]
   }
   
 ]

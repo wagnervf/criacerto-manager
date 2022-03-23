@@ -16,19 +16,10 @@ export default {
   data: () => ({
     drawer: true,
     mini: false,
-    user: {
-      name: "",
-    email: ""
-
-    }
+    
   }),
 
-  mounted() {
-  this.getUserLocalStorage();
-  // var u =  JSON.parse(localStorage.getItem("userLogged"))
-   
-   
-  },
+  
 
   computed: {
     ...mapState(["SidebarColor", "SidebarBg"]),
@@ -50,15 +41,7 @@ export default {
 
   methods: {
 
-    getUserLocalStorage() {
-      let user = JSON.parse(localStorage.getItem("userLogged"));
-      console.log(user);
-
-      if (user) {
-        this.user.name = user.name;
-        this.user.email = user.email;
-      }
-    }
+   
   },
 };
 

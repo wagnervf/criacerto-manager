@@ -86,7 +86,7 @@
             Criar Conta
           </v-btn>
 
-          <v-btn to="/dashboard/basic-dashboard" text color="white">
+          <v-btn to="/Home/home" text color="white">
             Início
           </v-btn>
         </div>

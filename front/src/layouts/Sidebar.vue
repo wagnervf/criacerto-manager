@@ -8,20 +8,20 @@
     permanent
     elevation-4
     id="main-sidebar"
-    clipped
   >
-    <v-sheet color="grey lighten-4" style="display: inline-flex;" class="pa-2">
-      <v-app-bar-nav-icon @click.stop="mini = !mini" style="margin: 10% 5% 1% 3%"></v-app-bar-nav-icon>
+    <v-sheet color="grey lighten-4" class="pa-2  d-flex align-center">
+      <v-app-bar-nav-icon @click.stop="mini = !mini"></v-app-bar-nav-icon>
 
-      <v-list-item-content class="mx-2">
-        <v-list-item-title class="text-h6"> {{user.name}} </v-list-item-title>
-        <v-list-item-subtitle>{{user.email}}</v-list-item-subtitle>
-      </v-list-item-content>
+      <p class="py-0 px-3">
+        Cria Certo
+        <span class="font-weight-bold teal--text">Manager</span>
+        <v-icon class="teal--text px-1"> mdi-cogs</v-icon>
+      </p>
     </v-sheet>
-    
+
     <v-divider class="pb-2"></v-divider>
 
-    <ListSidebar />     
+    <ListSidebar />
 
     <v-footer justify-end absolute end>
       <v-list-item class="px-0">
@@ -39,4 +39,9 @@
 
 <script src="./sidebar.js"></script>
 
+<style>
+.v-application p{
+  margin-bottom : 0px;
+}
 
+</style>

@@ -33,7 +33,7 @@ exports.findEvento = async (req, res) => {
 };
 
 
-/*
+
 exports.findEvento = async (req, res) => {
   eventoModel.find({
     field: query,
@@ -55,7 +55,7 @@ exports.findEvento = async (req, res) => {
 
   });
 };
-*/
+
 
 
 
