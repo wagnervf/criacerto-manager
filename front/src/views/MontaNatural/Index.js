@@ -75,14 +75,36 @@ import Menu from "../../assets/json/listParametros.json";
       ],
       open: [1, 2],
       search: null,
-     
+      meta: null
      
     }),
     
 
 
     computed: {
+
+      currentRouteName() {
+        console.log(this.$router)
+        return this.$route.name;
+      },
+
+      // compareTitle(){
+      //   //this.meta = breadCrumbs;
+      //   if (typeof this.$route.meta.breadCrumb === "function") {
+      //     this.meta = this.$route.meta.breadCrumb.call(this, this.$route);
+      //   }
+      //   console.log(this.meta);
+      //   //return meta == this.$route.name
+      // },
      
+
+      breadCrumbs() {
+        if (typeof this.$route.meta.breadCrumb === "function") {
+          return this.$route.meta.breadCrumb.call(this, this.$route);
+        }
+        return this.$route.meta.breadCrumb;
+      },
+    
     },
     
     created() {

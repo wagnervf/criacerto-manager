@@ -20,11 +20,58 @@ const routes = [
         name: "Home",
         path: "Home/home",
         component: () => import("@/views/Home/Home.vue"),
+        meta: {
+          breadCrumb: [
+            {
+              text: 'Home'
+            }
+          ]
+        }
       },
       {
         name: "Monta Natural",
         path: "montanatural/index",
         component: () => import("@/views/MontaNatural/Index.vue"),
+        meta: {
+          breadCrumb() {
+            return [
+              {
+                text: 'Lista de Pârametros',
+                to: { name: 'Home' },
+                disabled: false
+              },
+              {
+                text: 'Monta Natural',
+                to: { name: '' },
+                disabled: true
+              },
+            
+    
+            ]
+          }
+        }
+      },
+
+      {
+        name: "Basico",
+        path: "Basico/index",
+        component: () => import("@/views/Basico/Index.vue"),
+        meta: {
+          breadCrumb() {
+            return [
+              {
+                text: 'Monta Natural',
+                to: { name: 'Monta Natural' },
+                disabled: false
+              },              
+              {
+                text: 'Dados Básicos',
+                to: { name: '' },
+                disabled: true
+              },           
+            ]
+          }
+        }
       },
       
 
@@ -58,11 +105,7 @@ const routes = [
         component: () => import("@/views/Sobre/Sobre.vue"),
       },
      
-      {
-        name: "Basico",
-        path: "Basico/index",
-        component: () => import("@/views/Basico/Index.vue"),
-      },
+      
       {
         name: "Dados Rebanho",
         path: "Rebanho/index",
