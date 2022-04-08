@@ -107,7 +107,7 @@
 
       <template v-slot:[`item.descricao`]="{ item }">
         <span class="text-subtitle-2"> {{ item.descricao }}</span>
-      </template>     
+      </template>
       <template v-slot:[`item.ativo`]="{ item }">
         <v-switch v-model="item.ativo" disabled></v-switch>
       </template>
@@ -173,6 +173,7 @@ export default {
       descricao: "",
       ativo: true,
     },
+    
     items: [
       {
         text: "Dashboard",
@@ -226,25 +227,26 @@ export default {
     getTipos() {
       //  TiposSimulacoesServices.getContractsMontaNatural().then((resposta) => {
       TiposSimulacoesServices.getTiposSimulacoes().then((resposta) => {
-     //   console.log(resposta);
+        //   console.log(resposta);
         this.desserts = this.mapedMenu(resposta.tipos);
-     //   console.log(resposta.tipos);
+        //   console.log(resposta.tipos);
       });
     },
 
-    update(value) {    
-     // console.log(value)
-       TiposSimulacoesServices.updateTiposSimulacoes(value.id, value).then((resposta) => {
-        this.snackbar = true;
-        console.log(resposta);
-        if (resposta.status == 201) {
-          this.textSnackbar = resposta.data.message;
-          return;
+    update(value) {
+      // console.log(value)
+      TiposSimulacoesServices.updateTiposSimulacoes(value.id, value).then(
+        (resposta) => {
+          this.snackbar = true;
+          console.log(resposta);
+          if (resposta.status == 201) {
+            this.textSnackbar = resposta.data.message;
+            return;
+          }
+          this.textSnackbar = resposta.data.error;
         }
-        this.textSnackbar = resposta.data.error;
-      });
+      );
     },
-
 
     salvar(value) {
       TiposSimulacoesServices.saveTiposSimulacoes(value).then((resposta) => {
@@ -269,7 +271,7 @@ export default {
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
       this.editedItem = Object.assign({}, item);
-     
+
       this.dialog = true;
     },
 
@@ -304,7 +306,6 @@ export default {
       if (this.editedIndex > -1) {
         Object.assign(this.desserts[this.editedIndex], this.editedItem);
         this.update(this.editedItem);
-         
       } else {
         this.desserts.push(this.editedItem);
         this.salvar(this.editedItem);
@@ -328,5 +329,4 @@ export default {
   font-size: 16px;
   color: rgb(151, 151, 151);
 }
-
 </style>

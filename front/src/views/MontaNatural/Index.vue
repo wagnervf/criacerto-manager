@@ -7,18 +7,9 @@
             <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
 
             <v-toolbar-title>
-              <v-breadcrumbs :items="breadCrumbs">
-                <template v-slot:item="{ item }">
-                  <v-breadcrumbs-item
-                    :to="item.to"
-                   :class="item.disabled ? 'text-h5 teal--text' : 'text-caption crumb-item' "
-                    :disabled="item.disabled"
-                    exact
-                  >
-                    {{ item.text }}
-                  </v-breadcrumbs-item>
-                </template>
-              </v-breadcrumbs>
+              
+              <breadCrumbs />
+
             </v-toolbar-title>
 
             <v-spacer></v-spacer>

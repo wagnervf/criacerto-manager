@@ -3,8 +3,13 @@
 //import VueJwtDecode from "vue-jwt-decode";
 
 import Menu from "../../assets/json/listParametros.json";
+import breadCrumbs from "../../components/breadCrumbs"
 
   export default {
+    components:{breadCrumbs},
+   props: {
+    
+   },
     data: () => ({
       items: Menu,
       outer: [

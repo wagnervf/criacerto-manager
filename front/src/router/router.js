@@ -38,7 +38,8 @@ const routes = [
               {
                 text: 'Lista de Pârametros',
                 to: { name: 'Home' },
-                disabled: false
+                disabled: false,
+                icon: "mdi-arrow-left",
               },
               {
                 text: 'Monta Natural',
@@ -62,6 +63,7 @@ const routes = [
               {
                 text: 'Monta Natural',
                 to: { name: 'Monta Natural' },
+                icon: "mdi-arrow-left",
                 disabled: false
               },              
               {
