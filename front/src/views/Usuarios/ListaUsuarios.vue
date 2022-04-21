@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <v-breadcrumbs :items="breadcrumbs" divider="/"></v-breadcrumbs>
     <v-card class="pa-0 my-2 col-12 mx-auto">
       <v-card-title class="grey lighten-5 text-h5">
         Futura Lista de Usuários

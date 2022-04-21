@@ -39,13 +39,13 @@
         "id": 31,
         "title": "Gerenciar Usuários",
         "icon": "mdi-account-multiple",
-        "to": "/Usuarios/usuarios"
+        "to": "/usuarios/listausuarios"
       },
       {
         "id": 32,
         "title": "Meu Perfil",
         "icon": "mdi-account",
-        "to": "/Usuarios/profile"
+        "to": "/usuarios/perfil"
       }
     ]
   },

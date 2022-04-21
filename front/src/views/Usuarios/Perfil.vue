@@ -1,14 +1,15 @@
 <template>
-  <v-container fluid class="down-top-padding ">
-    <v-row align="center" justify="center" class="align-center">   
-      <v-col cols="12" lg="8">
-        <v-card>
-          <v-card-text>
-            <h3 class="title blue-grey--text text--darken-2 font-weight-regular">Meus Dados</h3>
-            <h6 class="subtitle-2 font-weight-light">Atualize seus dados</h6>
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-text>
+  <v-container fluid>
+    <v-row justify="center">
+      <v-col cols="12" lg="12" justify-center flex>
+        <v-card class="mx-auto">
+          <v-toolbar color="grey lighten-3" elevation="0">
+            <v-toolbar-title>
+              Meu Perfil
+            </v-toolbar-title>
+          </v-toolbar>
+
+            <v-card-text>
             <v-text-field
               v-model="dtext"
               label="Nome"
@@ -48,9 +49,11 @@
             </div>
             <v-btn class="text-capitalize mt-5 element-0" color="success">Salvar</v-btn>
           </v-card-text>
+        
         </v-card>
       </v-col>
     </v-row>
+  
   </v-container>
 </template>
 

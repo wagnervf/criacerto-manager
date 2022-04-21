@@ -8,13 +8,12 @@ const routes = [
     path: "/login",
     name: "login",
     component: () => import("@/views/Login/Login.vue"),
-    
   },
   {
     path: "/",
     redirect: "/",
     component: () => import("@/layouts/Layout"),
-    
+
     children: [
       // Components
 
@@ -28,10 +27,10 @@ const routes = [
               text: "Início",
               disabled: true,
               href: "/",
-              icon: "mdi-home"
-            }
-          ]
-        }
+              icon: "mdi-home",
+            },
+          ],
+        },
       },
       {
         name: "Monta Natural",
@@ -45,14 +44,12 @@ const routes = [
               href: "/",
             },
             {
-              text: 'Monta Natural',
-              to: { name: '' },
-              disabled: false
+              text: "Monta Natural",
+              to: { name: "" },
+              disabled: false,
             },
           ],
-
-         
-        }
+        },
       },
 
       {
@@ -60,7 +57,6 @@ const routes = [
         path: "montanatural/dadosbasicos",
         component: () => import("@/views/MontaNatural/DadosBasicos.vue"),
         meta: {
-
           breadCrumb: [
             {
               text: "Início",
@@ -68,27 +64,26 @@ const routes = [
               href: "/",
             },
             {
-              text: 'Monta Natural',
-              to: { name: '' },
+              text: "Monta Natural",
+              to: { name: "" },
               disabled: false,
               href: "index",
             },
             {
-              text: 'Dados Básicos',
-              to: { name: '' },
-              disabled: false
+              text: "Dados Básicos",
+              to: { name: "" },
+              disabled: false,
             },
           ],
-         
-        }
+        },
       },
 
       {
         name: "Monta Natural Dados Tecnicos Rebanho",
         path: "montanatural/dadostecnicosrebanho",
-        component: () => import("@/views/MontaNatural/DadosTecnicosRebanho.vue"),
+        component: () =>
+          import("@/views/MontaNatural/DadosTecnicosRebanho.vue"),
         meta: {
-
           breadCrumb: [
             {
               text: "Início",
@@ -96,19 +91,18 @@ const routes = [
               href: "/",
             },
             {
-              text: 'Monta Natural',
-              to: { name: '' },
+              text: "Monta Natural",
+              to: { name: "" },
               disabled: false,
               href: "index",
             },
             {
-              text: 'Dados Tecnicos Rebanho',
-              to: { name: '' },
-              disabled: false
+              text: "Dados Tecnicos Rebanho",
+              to: { name: "" },
+              disabled: false,
             },
           ],
-         
-        }
+        },
       },
 
       {
@@ -116,7 +110,6 @@ const routes = [
         path: "montanatural/aquisicaotouros",
         component: () => import("@/views/MontaNatural/AquisicaoTouros.vue"),
         meta: {
-
           breadCrumb: [
             {
               text: "Início",
@@ -124,19 +117,18 @@ const routes = [
               href: "/",
             },
             {
-              text: 'Monta Natural',
-              to: { name: '' },
+              text: "Monta Natural",
+              to: { name: "" },
               disabled: false,
               href: "index",
             },
             {
-              text: 'Dados Aquisicao de Touros',
-              to: { name: '' },
-              disabled: false
+              text: "Dados Aquisicao de Touros",
+              to: { name: "" },
+              disabled: false,
             },
           ],
-         
-        }
+        },
       },
 
       {
@@ -144,7 +136,6 @@ const routes = [
         path: "montanatural/manutencaotouros",
         component: () => import("@/views/MontaNatural/ManutencaoTouros.vue"),
         meta: {
-
           breadCrumb: [
             {
               text: "Início",
@@ -152,31 +143,25 @@ const routes = [
               href: "/",
             },
             {
-              text: 'Monta Natural',
-              to: { name: '' },
+              text: "Monta Natural",
+              to: { name: "" },
               disabled: false,
               href: "index",
             },
             {
-              text: 'Dados Manutecao de Touros',
-              to: { name: '' },
-              disabled: false
+              text: "Dados Manutecao de Touros",
+              to: { name: "" },
+              disabled: false,
             },
           ],
-         
-        }
+        },
       },
 
-
-      
-      
-
       {
-        name: "Usuarios",
-        path: "Usuarios/Usuarios",
-        component: () => import("@/views/Usuarios/Usuarios.vue"),
+        name: "Lista de Usuarios",
+        path: "usuarios/listausuarios",
+        component: () => import("@/views/Usuarios/ListaUsuarios.vue"),
         meta: {
-
           breadCrumb: [
             {
               text: "Início",
@@ -184,28 +169,47 @@ const routes = [
               href: "/",
             },
             {
-              text: 'Usuários',
-              to: { name: '' },
-              disabled: false
+              text: "Lista de Usuarios",
+              to: { name: "" },
+              disabled: false,
+              href: "index",
             },
+            
           ],
-         
-        }
+        },
       },
 
-      
+  
+      {
+        name: "Usuarios Meu Perfil",
+        path: "usuarios/perfil",
+        component: () => import("@/views/Usuarios/Perfil.vue"),
+        meta: {
+          breadCrumb: [
+            {
+              text: "Início",
+              disabled: true,
+              href: "/",
+            },
+            {
+              text: "Lista de Usuarios",
+              to: { name: "" },
+              disabled: false,
+              href: "listausuarios",
+            },
+            {
+              text: "Meu Perfil",
+              to: { name: "" },
+              disabled: false,
+            },
+          ],
+        },
+      },
 
-      
       {
         name: "Novo Usuario",
         path: "Usuarios/Add",
         component: () => import("@/views/Usuarios/Add.vue"),
-      },
-
-      {
-        name: "Profile",
-        path: "Usuarios/profile",
-        component: () => import("@/views/Usuarios/Profile.vue"),
       },
 
       {
@@ -218,16 +222,12 @@ const routes = [
         path: "Sobre/sobre",
         component: () => import("@/views/Sobre/Sobre.vue"),
       },
-     
-      
-      
-      
-     
+
       {
         name: "Configuracoes",
         path: "Configuracoes/configuracoes",
         component: () => import("@/views/Configuracoes/Configuracoes.vue"),
-      }
+      },
     ],
   },
 ];

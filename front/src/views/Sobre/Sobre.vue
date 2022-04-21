@@ -1,9 +1,9 @@
 <template>
-  <v-container fluid class="down-top-padding">
+  <v-container fluid class="down-top-padding white elevation-2">
     <v-row>
       <v-col cols="12" lg="12">
-       <v-card flat tile class="grey lighten-4 white--text text-center">
-          <v-card-text class="grey lighten-4">
+       <v-card flat tile class=" text-center">
+          <v-card-text >
             <p class="text-h4">Seja bem-vindo!</p>
             <v-divider></v-divider>
 

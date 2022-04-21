@@ -83,7 +83,7 @@ export default {
   },
   data: () => ({
     userprofile: [
-      { title: "Perfil", to: "", icon: "mdi-account" },
+      { title: "Perfil", to: "/usuarios/perfil", icon: "mdi-account" },
       { title: "Mensagens", to: "", icon: "mdi-email" },
       { title: "Sobre", to: "/Sobre/sobre", icon: "mdi-information" },
       { title: "Sair", to: "/login", icon: "mdi-logout" },
