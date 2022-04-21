@@ -5,25 +5,8 @@
         <v-card class="mx-auto">
           <v-toolbar color="grey lighten-3" elevation="0">
             <v-toolbar-title>
-
-              <v-breadcrumbs :items="breadCrumbs">
-                <template v-slot:item="{ item }">
-                  <v-breadcrumbs-item
-                    :to="item.to"
-                    :class="item.disabled ? 'text-h5 teal--text' : 'text-subtitle-2 crumb-item' "
-                    :disabled="item.disabled"
-                    exact
-                  >
-                    {{ item.text }}
-                  </v-breadcrumbs-item>
-                </template>
-                <template v-slot:divider>
-                  <v-icon>mdi-chevron-right</v-icon>
-                </template>
-              </v-breadcrumbs>
-
+              Dados Básicos
             </v-toolbar-title>
-            <v-spacer></v-spacer>
           </v-toolbar>
 
           <v-form
@@ -98,12 +81,7 @@ export default {
   }),
 
   computed: {
-    breadCrumbs() {
-      if (typeof this.$route.meta.breadCrumb === "function") {
-        return this.$route.meta.breadCrumb.call(this, this.$route);
-      }
-      return this.$route.meta.breadCrumb;
-    },
+  
   },
 
   methods: {

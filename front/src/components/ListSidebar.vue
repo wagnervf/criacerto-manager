@@ -90,9 +90,7 @@ export default {
   .v-list-group__items.v-application--is-ltr {
     padding-left: 10px !important;
   }
-  .v-list {
-    padding: 0px;
-  }
+  
   .v-list-item {
     &__icon--text,
     &__icon:first-child {

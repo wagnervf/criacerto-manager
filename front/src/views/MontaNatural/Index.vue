@@ -4,28 +4,12 @@
       <v-col class="px-1 py-0" cols="12" lg="12" justify-center flex>
         <v-card class="mx-auto">
           <v-toolbar color="grey lighten-3" elevation="0">
-            <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
 
             <v-toolbar-title>
-              <v-breadcrumbs :items="breadCrumbs">
-                <template v-slot:item="{ item }">
-                  <v-breadcrumbs-item
-                    :to="item.to"
-                   :class="item.disabled ? 'text-h5 teal--text' : 'text-caption crumb-item' "
-                    :disabled="item.disabled"
-                    exact
-                  >
-                    {{ item.text }}
-                  </v-breadcrumbs-item>
-                </template>
-              </v-breadcrumbs>
+              Monta Natural
             </v-toolbar-title>
 
-            <v-spacer></v-spacer>
-
-            <v-btn icon>
-              <v-icon>mdi-magnify</v-icon>
-            </v-btn>
+           
           </v-toolbar>
 
           <v-list three-line active-class="primary--text">
@@ -62,6 +46,137 @@
   </v-container>
 </template>
 
-<script src="./Index.js"></script>
+<script>
 
-<style lang="scss"></style>
+
+//import VueJwtDecode from "vue-jwt-decode";
+
+import Menu from "../../assets/json/listParametros.json";
+
+  export default {
+    data: () => ({
+      items: Menu,
+      outer: [
+        {
+          id: 1,
+          name: 'Parâmentro do Cria Certo',
+          children: [
+            {
+              id: 2,
+              name: 'Core team',
+              children: [
+                {
+                  id: 201,
+                  name: 'John',
+                },
+                {
+                  id: 202,
+                  name: 'Kael',
+                },
+                {
+                  id: 203,
+                  name: 'Nekosaur',
+                },
+                {
+                  id: 204,
+                  name: 'Jacek',
+                },
+                {
+                  id: 205,
+                  name: 'Andrew',
+                },
+              ],
+            },
+            {
+              id: 3,
+              name: 'Administrators',
+              children: [
+                {
+                  id: 301,
+                  name: 'Mike',
+                },
+                {
+                  id: 302,
+                  name: 'Hunt',
+                },
+              ],
+            },
+            {
+              id: 4,
+              name: 'Contributors',
+              children: [
+                {
+                  id: 401,
+                  name: 'Phlow',
+                },
+                {
+                  id: 402,
+                  name: 'Brandon',
+                },
+                {
+                  id: 403,
+                  name: 'Sean',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      open: [1, 2],
+      search: null,
+      meta: null
+     
+    }),
+    
+
+
+    computed: {
+
+      currentRouteName() {
+        console.log(this.$router)
+        return this.$route.name;
+      },
+
+      // compareTitle(){
+      //   //this.meta = breadCrumbs;
+      //   if (typeof this.$route.meta.breadCrumb === "function") {
+      //     this.meta = this.$route.meta.breadCrumb.call(this, this.$route);
+      //   }
+      //   console.log(this.meta);
+      //   //return meta == this.$route.name  
+      // },
+     
+
+      breadCrumbs() {
+        if (typeof this.$route.meta.breadCrumb === "function") {
+          return this.$route.meta.breadCrumb.call(this, this.$route);
+        }
+        return this.$route.meta.breadCrumb;
+      },
+    
+    },
+    
+    created() {
+      this.getUser();
+      console.log(this.$route.name);
+    },
+  
+    methods: {
+      getUser() {
+      //  let token = localStorage.getItem("jwt");
+      //  let tokenDecoded = VueJwtDecode.decode(token);
+       // this.user = tokenDecoded;
+      },
+      logOutUser() {
+        localStorage.removeItem("jwt");
+        this.$router.push("/");
+      }
+    },
+  }
+
+
+
+
+</script>
+
+

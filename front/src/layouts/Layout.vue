@@ -2,7 +2,8 @@
   <v-app id="inspire">
     <Header></Header>
     <Sidebar></Sidebar>
-    <v-main class="grey lighten-3 pa-4">   
+    <v-main class="grey lighten-4 pa-4">   
+
       <router-view />
     </v-main>
   </v-app>
@@ -24,9 +25,7 @@ export default {
   props: {
     source: String,
   },
-  data: () => ({
-   
-  }),
+  data: () => ({}),
   computed: {
     ...mapState(["Customizer_drawer"]),
   },

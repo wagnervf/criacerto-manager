@@ -8,22 +8,27 @@ const routes = [
     path: "/login",
     name: "login",
     component: () => import("@/views/Login/Login.vue"),
+    
   },
   {
     path: "/",
-    redirect: "Home/home",
+    redirect: "/",
     component: () => import("@/layouts/Layout"),
+    
     children: [
       // Components
 
       {
         name: "Home",
-        path: "Home/home",
-        component: () => import("@/views/Home/Home.vue"),
+        path: "/",
+        component: () => import("@/views/Home.vue"),
         meta: {
           breadCrumb: [
             {
-              text: 'Home'
+              text: "Início",
+              disabled: true,
+              href: "/",
+              icon: "mdi-home"
             }
           ]
         }
@@ -33,53 +38,162 @@ const routes = [
         path: "montanatural/index",
         component: () => import("@/views/MontaNatural/Index.vue"),
         meta: {
-          breadCrumb() {
-            return [
-              {
-                text: 'Lista de Pârametros',
-                to: { name: 'Home' },
-                disabled: false
-              },
-              {
-                text: 'Monta Natural',
-                to: { name: '' },
-                disabled: true
-              },
-            
-    
-            ]
-          }
+          breadCrumb: [
+            {
+              text: "Início",
+              disabled: true,
+              href: "/",
+            },
+            {
+              text: 'Monta Natural',
+              to: { name: '' },
+              disabled: false
+            },
+          ],
+
+         
         }
       },
 
       {
-        name: "Basico",
-        path: "Basico/index",
-        component: () => import("@/views/Basico/Index.vue"),
+        name: "Monta Natural Dados Basicos",
+        path: "montanatural/dadosbasicos",
+        component: () => import("@/views/MontaNatural/DadosBasicos.vue"),
         meta: {
-          breadCrumb() {
-            return [
-              {
-                text: 'Monta Natural',
-                to: { name: 'Monta Natural' },
-                disabled: false
-              },              
-              {
-                text: 'Dados Básicos',
-                to: { name: '' },
-                disabled: true
-              },           
-            ]
-          }
+
+          breadCrumb: [
+            {
+              text: "Início",
+              disabled: true,
+              href: "/",
+            },
+            {
+              text: 'Monta Natural',
+              to: { name: '' },
+              disabled: false,
+              href: "index",
+            },
+            {
+              text: 'Dados Básicos',
+              to: { name: '' },
+              disabled: false
+            },
+          ],
+         
         }
       },
+
+      {
+        name: "Monta Natural Dados Tecnicos Rebanho",
+        path: "montanatural/dadostecnicosrebanho",
+        component: () => import("@/views/MontaNatural/DadosTecnicosRebanho.vue"),
+        meta: {
+
+          breadCrumb: [
+            {
+              text: "Início",
+              disabled: true,
+              href: "/",
+            },
+            {
+              text: 'Monta Natural',
+              to: { name: '' },
+              disabled: false,
+              href: "index",
+            },
+            {
+              text: 'Dados Tecnicos Rebanho',
+              to: { name: '' },
+              disabled: false
+            },
+          ],
+         
+        }
+      },
+
+      {
+        name: "Monta Natural Aquisicao de Touros",
+        path: "montanatural/aquisicaotouros",
+        component: () => import("@/views/MontaNatural/AquisicaoTouros.vue"),
+        meta: {
+
+          breadCrumb: [
+            {
+              text: "Início",
+              disabled: true,
+              href: "/",
+            },
+            {
+              text: 'Monta Natural',
+              to: { name: '' },
+              disabled: false,
+              href: "index",
+            },
+            {
+              text: 'Dados Aquisicao de Touros',
+              to: { name: '' },
+              disabled: false
+            },
+          ],
+         
+        }
+      },
+
+      {
+        name: "Monta Natural Manutecao de Touros",
+        path: "montanatural/manutencaotouros",
+        component: () => import("@/views/MontaNatural/ManutencaoTouros.vue"),
+        meta: {
+
+          breadCrumb: [
+            {
+              text: "Início",
+              disabled: true,
+              href: "/",
+            },
+            {
+              text: 'Monta Natural',
+              to: { name: '' },
+              disabled: false,
+              href: "index",
+            },
+            {
+              text: 'Dados Manutecao de Touros',
+              to: { name: '' },
+              disabled: false
+            },
+          ],
+         
+        }
+      },
+
+
+      
       
 
       {
         name: "Usuarios",
         path: "Usuarios/Usuarios",
         component: () => import("@/views/Usuarios/Usuarios.vue"),
+        meta: {
+
+          breadCrumb: [
+            {
+              text: "Início",
+              disabled: true,
+              href: "/",
+            },
+            {
+              text: 'Usuários',
+              to: { name: '' },
+              disabled: false
+            },
+          ],
+         
+        }
       },
+
+      
 
       
       {
@@ -106,22 +220,9 @@ const routes = [
       },
      
       
-      {
-        name: "Dados Rebanho",
-        path: "Rebanho/index",
-        component: () => import("@/views/Rebanho/Index.vue"),
-      },
-      {
-        name: "Aquisicao Touro",
-        path: "aquisicaotouro/index",
-        component: () => import("@/views/AquisicaoTouro/Index.vue"),
-      },
-      {
-        name: "Manutencao Touro",
-        path: "manutencaotouro/index",
-        component: () => import("@/views/ManutencaoTouro/Index.vue"),
-      },
-
+      
+      
+     
       {
         name: "Configuracoes",
         path: "Configuracoes/configuracoes",

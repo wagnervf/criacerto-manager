@@ -3,63 +3,73 @@
     app
     max-height="60"
     height="60"
-    color=" lighten-1"
-    class="elevation-1 teal--text"
-    style="border-bottom: solid 3px teal "
+    color="grey lighten-4"
+    class="elevation-0 teal--text"
     light
-    
   >
-   <!-- clipped-left
-    clipped-right -->
+    <v-breadcrumbs :items="rotas">
+    <template v-slot:item="{ item }">
 
-   
+      <v-breadcrumbs-item
+         v-if="item.text == 'Início'"
+        :href="item.href"
+        class="teal--text"   
+      >
+      <v-icon class="mx-2" >mdi-home</v-icon>
+        {{ item.text }}
+      </v-breadcrumbs-item>
+
+      <v-breadcrumbs-item
+        v-else
+        :href="item.href"
+        :disabled="item.disabled"
+      >
+        {{ item.text }}
+      </v-breadcrumbs-item>
+
+
+    </template>
+  </v-breadcrumbs>
 
     <v-spacer />
 
-       <v-list  style="background-color: whitesmoke;">
-        <v-list-item-subtitle> {{user.name}} </v-list-item-subtitle>
-        <!-- <v-list-item-subtitle>{{user.email}}</v-list-item-subtitle> -->
-      </v-list> 
+    <v-list style="background-color: whitesmoke">
+      <v-list-item-subtitle> {{ user.name }} </v-list-item-subtitle>
+    </v-list>
+    
 
-       
-
-    <v-menu  bottom left transition="scale-transition" >
+    <v-menu bottom left transition="scale-transition">
       <template v-slot:activator="{ on }">
-        <v-btn  icon v-on="on" class="mx-4 ">
-          <v-icon>mdi-cog</v-icon>
+        <v-btn icon v-on="on" class="mx-4">
+          <v-icon>mdi-account</v-icon>
           <v-icon>mdi-menu-down</v-icon>
-
         </v-btn>
       </template>
 
       <v-list>
-        <!-- <v-list-item v-for="(item, i) in userprofile" :key="i" @click="href">
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-          
-        </v-list-item> -->
-
-         <v-list-item
-            v-for="item in userprofile"
-            :key="item.title"
-            :active-class="`teal--text`"
-            class="px-2"
-            link
-            router
-            :to="item.to"
-            dense
-          >
-    
-            <v-list-item-content>
-              <v-list-item-title> <v-icon class="px-2">{{ item.icon }}</v-icon> {{item.title}}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+        <v-list-item
+          v-for="item in userprofile"
+          :key="item.title"
+          :active-class="`teal--text`"
+          class="px-2"
+          link
+          router
+          :to="item.to"
+          dense
+        >
+          <v-list-item-content>
+            <v-list-item-title>
+              <v-icon class="px-2">{{ item.icon }}</v-icon>
+              {{ item.title }}</v-list-item-title
+            >
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-menu>
   </v-app-bar>
 </template>
+
 <script>
-// Utilities
-//import { mapState, mapMutations } from "vuex";
 export default {
   name: "Header",
 
@@ -73,31 +83,47 @@ export default {
   },
   data: () => ({
     userprofile: [
-      { title: "Perfil", to: "", icon: "mdi-account"},
-      { title: "Mensagens", to: "", icon: "mdi-email"},
-     // { title: "Configurações" },
-      { title: "Sobre", to:"/Sobre/sobre" , icon: "mdi-information"},
-      { title: "Sair" , to:"/login", icon: "mdi-logout"},
+      { title: "Perfil", to: "", icon: "mdi-account" },
+      { title: "Mensagens", to: "", icon: "mdi-email" },
+      { title: "Sobre", to: "/Sobre/sobre", icon: "mdi-information" },
+      { title: "Sair", to: "/login", icon: "mdi-logout" },
     ],
 
     user: {
-      name: "Não Logado",
-    email: ""
-
+      name: "",
+      email: "",
     },
 
-    href() {
-      return undefined;
-    },
+   breadcrumbs: []
 
-    mounted() {
-  this.getUserLocalStorage();
-  // var u =  JSON.parse(localStorage.getItem("userLogged"))
-   
-   
+    // href() {
+    //   return undefined;
+    // },
+  }),
+
+  created() {
+  //this.breadcrumbs = this.rotas();
+   console.log(this.$route.meta.breadCrumb);
   },
 
-   methods: {
+  mounted() {
+    this.getUserLocalStorage();
+    // var u =  JSON.parse(localStorage.getItem("userLogged"))
+
+  //  console.log(this.$route.name);
+    
+  },
+
+  computed: {
+    rotas() {
+     
+      return this.$route.meta.breadCrumb;
+    },
+  },
+
+  methods: {
+
+    
 
     getUserLocalStorage() {
       let user = JSON.parse(localStorage.getItem("userLogged"));
@@ -107,23 +133,15 @@ export default {
         this.user.name = user.name;
         this.user.email = user.email;
       }
-    }
+    },
   },
-
-  
-  }),
-
-//      "icon": "mdi-cog-sync",
-
-
-  // computed: {
-  //   ...mapState(["Sidebar_drawer"]),
-  // },
-
-  // methods: {
-  //   ...mapMutations({
-  //     setSidebarDrawer: "SET_SIDEBAR_DRAWER",
-  //   }),
-  // },
 };
 </script>
+
+
+
+<style>
+.v-application a {
+  color: rgba(0, 0, 0, 0.54);
+}
+</style>

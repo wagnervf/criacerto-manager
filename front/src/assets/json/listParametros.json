@@ -5,7 +5,7 @@
     "title": "Dados Básico",
     "icon": "mdi-database-edit",   
     "subtitle": "Nomes das Simulações, Dados da Propriedade, Estado e Município",
-    "to": "/Basico/index"
+    "to": "/montanatural/dadosbasicos"
   },
   { "divider": true, "inset": true },
      
@@ -14,7 +14,7 @@
     "title": "Dados Técnicos do Rebanho",
     "icon": "mdi-file-cog",
     "subtitle": "Nº de vacas a cobrir, Nº de Touros, Vida ùtil touro, Taxa de Prenhez, Preço Bezerro, Raças de Touro...",
-    "to": "/Rebanho/index"
+    "to": "/montanatural/dadostecnicosrebanho"
   
   },
   { "divider": true, "inset": true },
@@ -22,16 +22,18 @@
     "id": 4,
     "title": "Aquisição do Touro",
     "icon": "mdi-cow",
-    "to": "/aquisicaotouro/index",
-    "subtitle": "Preço aquisisção de Touro, Despesas da Compra, DEP no Peso à Demanda (240 dias)"
+    "subtitle": "Preço aquisisção de Touro, Despesas da Compra, DEP no Peso à Demanda (240 dias)",
+    "to": "/montanatural/aquisicaotouros"
+
   },
   { "divider": true, "inset": true },
   {
     "id": 5,
     "title": "Manutenção Anual do Touro",
     "icon": "mdi-currency-brl",
-    "to": "/manutencaotouro/index",
-    "subtitle": "Exame Andrológico, Aluguel de Pasto, Sal Mineral, Rações, Produtos Veterinários, Juros Anuais, Valor de Venda do Touro de Descarte"
+    "subtitle": "Exame Andrológico, Aluguel de Pasto, Sal Mineral, Rações, Produtos Veterinários, Juros Anuais, Valor de Venda do Touro de Descarte",
+    "to": "/montanatural/manutencaotouros"
+
   }
   
 ]
