@@ -4,12 +4,10 @@
       <v-col cols="12" lg="12" justify-center flex>
         <v-card class="mx-auto">
           <v-toolbar color="grey lighten-3" elevation="0">
-            <v-toolbar-title>
-              Meu Perfil
-            </v-toolbar-title>
+            <v-toolbar-title> Meu Perfil </v-toolbar-title>
           </v-toolbar>
 
-            <v-card-text>
+          <v-card-text>
             <v-text-field
               v-model="dtext"
               label="Nome"
@@ -45,15 +43,20 @@
               background-color="transparent"
             ></v-textarea>
             <div class="mt-4">
-              <v-select :items="items" filled label="Selecione o País" background-color="transparent"></v-select>
+              <v-select
+                :items="items"
+                filled
+                label="Selecione o País"
+                background-color="transparent"
+              ></v-select>
             </div>
-            <v-btn class="text-capitalize mt-5 element-0" color="success">Salvar</v-btn>
+            <v-btn class="text-capitalize mt-5 element-0" color="success"
+              >Salvar</v-btn
+            >
           </v-card-text>
-        
         </v-card>
       </v-col>
     </v-row>
-  
   </v-container>
 </template>
 
@@ -71,12 +74,12 @@ export default {
     checkbox3: "",
     show1: false,
     rules: {
-      required: value => !!value || "Required.",
-      min: v => v.length >= 8 || "Min 8 characters",
-      emailMatch: () => "The email and password you entered don't match"
+      required: (value) => !!value || "Required.",
+      min: (v) => v.length >= 8 || "Min 8 characters",
+      emailMatch: () => "The email and password you entered don't match",
     },
-    items: ["Brasil", "EUA", "Canada"]
+    items: ["Brasil", "EUA", "Canada"],
   }),
-  components: {}
+  components: {},
 };
 </script>

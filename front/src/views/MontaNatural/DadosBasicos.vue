@@ -4,60 +4,19 @@
       <v-col cols="12" lg="12" justify-center flex>
         <v-card class="mx-auto">
           <v-toolbar color="grey lighten-3" elevation="0">
-            <v-toolbar-title>
-              Dados Básicos
-            </v-toolbar-title>
+            <v-toolbar-title> Dados Básicos </v-toolbar-title>
           </v-toolbar>
 
-          <v-form
-            class="pa-6 white ma-1"
-            ref="form"
-            v-model="valid"
-            lazy-validation
-          >
-            <v-alert class="pa-6" outlined color="grey lighten-3">
-              <v-row justify="space-between">
-                <v-text-field
-                  v-model="form.nomeSimulacao"
-                  label="Nome da Simulação"
-                  required
-                  class="pa-2"
-                  outlined
-                ></v-text-field>
+          <!-- <FormDadosBasico v-model="form.nomeSimulacao"  /> -->
 
-                <v-text-field
-                  v-model="form.nomePropiedade"
-                  label="Nome da Propriedade"
-                  required
-                  class="pa-2"
-                  outlined
-                ></v-text-field>
-              </v-row>
+          <h3>Create user form</h3>
+          <FormDadosBasico @on-submit="createUser" />
 
-              <v-row class="d-flex justify-space-between my-6">
-                <v-select
-                  v-model="form.estado"
-                  :items="items"
-                  label="Estados"
-                  required
-                  class="pa-2"
-                ></v-select>
-                <v-select
-                  v-model="form.cidade"
-                  :items="items"
-                  label="Cidades"
-                  required
-                  class="pa-2"
-                ></v-select>
-              </v-row>
+          <h3>Edit User form</h3>
+          <FormDadosBasico :user="user" @on-submit="updateUser" />
 
-              <v-row class="d-flex justify-end mt-6">
-                <v-btn outlined color="error" class="mr-4"> Cancelar </v-btn>
+          {{ form }}
 
-                <v-btn outlined color="success" class="mr-4"> Salvar </v-btn>
-              </v-row>
-            </v-alert>
-          </v-form>
         </v-card>
       </v-col>
     </v-row>
@@ -65,8 +24,12 @@
 </template>
 
 <script>
+import FormDadosBasico from "../../components/FormDadosBasicos.vue";
+
 export default {
-  name: "Basico Index",
+  name: "Monta Natural DadosBasicos",
+  components: { FormDadosBasico },
+
   data: () => ({
     valid: true,
     form: {
@@ -78,11 +41,15 @@ export default {
 
     select: null,
     items: ["Item 1", "Item 2", "Item 3", "Item 4"],
+
+
+    user: {
+      email: "john@example.com",
+      name: "John",
+    },
   }),
 
-  computed: {
-  
-  },
+  computed: {},
 
   methods: {
     validate() {
@@ -93,6 +60,16 @@ export default {
     },
     resetValidation() {
       this.$refs.form.resetValidation();
+    },
+
+    createUser(userForm) {
+      console.log("creating", userForm);
+      // call an API to create a new user
+    },
+    
+    updateUser(userForm) {
+      console.log("updating", userForm);
+      // call an API to update the existing user
     },
   },
 };
