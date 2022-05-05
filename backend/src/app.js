@@ -9,17 +9,17 @@ const express = require('express');
 const app = express();
 
 
-//habilitando formatos para utilizar nas chamdas
+//Habilitando formatos para utilizar nas chamdas
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.json({ type: 'application/vnd.api+json' }));
 app.use(cors());
 app.use(morgan('dev'));
 
-//Conexão com Banco
+//Conexão com Banco de Dados
 const mongooseConnection = require ('./config/mongooseConnection.config');
 
-//Habilitando a conexão com o Banco
+//Habilitando a conexão com o Banco de Dados
 app.set('mongosse connection', mongooseConnection);
 
 // Rotas da API:

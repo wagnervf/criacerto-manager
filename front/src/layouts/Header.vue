@@ -15,8 +15,8 @@
         :href="item.href"
         class="teal--text"   
       >
-      <v-icon class="mx-2" >mdi-home</v-icon>
-        {{ item.text }}
+      <v-icon class="mx-0" >mdi-home</v-icon>
+        <!-- {{ item.text }} -->
       </v-breadcrumbs-item>
 
       <v-breadcrumbs-item

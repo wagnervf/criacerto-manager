@@ -7,16 +7,25 @@
             <v-toolbar-title> Dados Básicos </v-toolbar-title>
           </v-toolbar>
 
-          <!-- <FormDadosBasico v-model="form.nomeSimulacao"  /> -->
+          <ListEstados />
 
-          <h3>Create user form</h3>
-          <FormDadosBasico @on-submit="createUser" />
+          <!-- <FormCustom
+            @EmitEstado="SetEstado"
+            @EmitCidade="SetCidade"
+          /> -->
 
-          <h3>Edit User form</h3>
-          <FormDadosBasico :user="user" @on-submit="updateUser" />
+          
+        
 
-          {{ form }}
+          <!-- <pre>
+            {{ form }}
+          </pre> -->
 
+          <v-row class="d-flex justify-end ma-6 pb-6">
+            <v-btn outlined color="error" class="mr-4"> Cancelar </v-btn>
+
+            <v-btn outlined color="success" class="mr-4"> Salvar </v-btn>
+          </v-row>
         </v-card>
       </v-col>
     </v-row>
@@ -24,14 +33,17 @@
 </template>
 
 <script>
-import FormDadosBasico from "../../components/FormDadosBasicos.vue";
+//import FormCustom from "../../components/FormCustom.vue";
+import ListEstados from "../../components/estados.vue"
 
 export default {
-  name: "Monta Natural DadosBasicos",
-  components: { FormDadosBasico },
+  name: "MontaNaturalDadosBasicos",
+  components: { 
+    // FormCustom , 
+    ListEstados},
 
   data: () => ({
-    valid: true,
+
     form: {
       nomeSimulacao: "",
       nomePropiedade: "",
@@ -39,14 +51,8 @@ export default {
       cidade: "",
     },
 
-    select: null,
-    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
 
-
-    user: {
-      email: "john@example.com",
-      name: "John",
-    },
+    
   }),
 
   computed: {},
@@ -63,14 +69,22 @@ export default {
     },
 
     createUser(userForm) {
-      console.log("creating", userForm);
+    console.log(userForm);
       // call an API to create a new user
     },
-    
-    updateUser(userForm) {
-      console.log("updating", userForm);
-      // call an API to update the existing user
+
+    SetEstado(e) {
+      this.form.estado = e
     },
+
+     SetCidade(e) {
+      this.form.cidade = e
+    },
+
+    // updateUser(userForm) {
+    //   console.log("updating", userForm);
+    //   // call an API to update the existing user
+    //},
   },
 };
 </script>

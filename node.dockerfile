@@ -1,5 +1,4 @@
 FROM node:16.13-slim
-MAINTAINER Wagner Freiria
 
 WORKDIR /home/node/app
 
