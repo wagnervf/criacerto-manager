@@ -13,6 +13,17 @@
             Novo Usuário
           </v-btn>
         </v-row>
+
+        <v-row justify="end" class="mx-6">
+          <v-btn
+            class="text-capitalize mt-5 element-0"
+            color="success"
+            :to="getListUsers()"
+          >
+            <v-icon left>mdi-plus</v-icon>
+            List
+          </v-btn>
+        </v-row>
       </v-card-title>
 
       <v-sheet class="pa-4">
@@ -119,6 +130,7 @@ const avatars = [
 ];
 
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+import UsuariosServices from "@/services/UsuariosServices";
 
 export default {
   data: () => ({
@@ -130,6 +142,8 @@ export default {
     caseSensitive: false,
    
   }),
+
+
 
   computed: {
     items() {
@@ -160,6 +174,19 @@ export default {
   },
 
   methods: {
+
+    getListUsers() {
+      //  TiposSimulacoesServices.getContractsMontaNatural().then((resposta) => {
+      UsuariosServices.getListaUsuarios().then((resposta) => {
+           console.log(resposta);
+        //this.desserts = this.mapedMenu(resposta.tipos);
+        //   console.log(resposta.tipos);
+      });
+    },
+
+
+
+
     async fetchUsers(item) {
       // Remove in 6 months and say
       // you've made optimizations! :)
@@ -178,3 +205,4 @@ export default {
   },
 };
 </script>
+ 

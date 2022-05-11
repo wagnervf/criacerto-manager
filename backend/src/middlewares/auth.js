@@ -17,7 +17,6 @@ module.exports = (req, res, next) => {
     //secret está sendo usado no banco
     const decoded = jwt.verify(token, 'secret');
 
-
     
     console.log('*************');
     console.log(decoded);
@@ -30,7 +29,7 @@ module.exports = (req, res, next) => {
     //
   } catch (error) {
     console.log(error);
-    return res.status(401).json({ message: 'Fala na Autenticação!' });
+    return res.status(401).json({ message: 'Falha na Autenticação!' });
   }
 
 

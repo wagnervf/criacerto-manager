@@ -1,12 +1,12 @@
 //Arquivo que realiza a conexão com o banco, a tring do banco está no .env
-const dotenv = require('dotenv');
-
-dotenv.config();
+require('dotenv').config();
 
 
 module.exports ={
   local: {
     localDataBaseUrl : process.env.DB_URI,
-    secret: "admin"
+    secret:  process.env.SECRET_API,
   }
 }
+
+// a secret será usado no JWT

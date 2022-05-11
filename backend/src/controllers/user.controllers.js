@@ -1,8 +1,8 @@
 // Funções para o CRUD
 
-
-const User = require('../models/user.model');
-
+const { resource } = require("../app");
+const User = require("../models/user.model");
+const UserModel = require("../models/user.model");
 
 // Método de registro do usuário
 // Método POST criado em user.routes userController.registerNewUser
@@ -13,7 +13,9 @@ exports.registerNewUser = async (req, res) => {
 
     //User já existe
     if (isUser.length > 1) {
-      return res.status(409).json({ message: 'Erro! Esse e-mail já encontra-se em uso!' });
+      return res
+        .status(409)
+        .json({ message: "Erro! Esse e-mail já encontra-se em uso!" });
     }
 
     //Corpo da requisição
@@ -28,40 +30,90 @@ exports.registerNewUser = async (req, res) => {
     // Método vindo de User.model
     const token = await newUser.generateAuthToken();
 
-    res.status(201).json({ message: 'Usuário criado com sucesso!', user, token });
-
+    res
+      .status(201)
+      .json({ message: "Usuário criado com sucesso!", user, token });
   } catch (error) {
     res.status(400).json({ error: error });
   }
 };
 
-
+//
+//
+// Login
+//
+//
 exports.loginUser = async (req, res) => {
-  
   try {
     const email = req.body.email;
     const password = req.body.password;
     const user = await User.findByCredentials(email, password);
 
-
-    //
     if (!user || user == null) {
-    res.status(401).send({ error: 'Erro ao realizar o Login! Verifque a sua conta' });
+      res
+        .status(401)
+        .send({ error: "Erro ao realizar o Login! Verifque a sua conta" });
     }
-    //
+    
+    //Buscando o token do usuário
     const token = await user.generateAuthToken();
-    res.status(201).json({ message: 'Usuário(a) logado com sucesso!', user, token });
-    //
-  } catch (err) { 
-    res.status(401).send({ err: 'Erro ao realizar o Login! Verifque a sua conta' });
-  //  res.status(400).json({ err: err });
+    res
+      .status(201)
+      .json({ message: "Usuário(a) logado com sucesso!", user, token });
+ 
+  } catch (err) {
+    res
+      .status(401)
+      .send({ err: "Erro ao realizar o Login! Verifque a sua conta" });
+    //  res.status(400).json({ err: err });
   }
-
 };
 
-exports.returnUserProfile = async (req, res) => { 
+
+exports.returnUserProfile = async (req, res) => {
   //Esperando o token decodificado do auth.js
   await res.json(req.userData);
+};
 
-  
+//
+//
+// Lista Todos Usuários
+//
+//
+// exports.listUsers = async (req, res) => {
+//   try {
+//     const users = await UserModel.find();
+//     console.log(users);
+//     res.status(201).json({ users });
+
+//   } catch (error) {
+//     console.log(error)
+//     res.status(401).send({ erro: "Nenhum usuário encontrado!" });
+//     //  res.status(400).json({ err: err });
+//   }
+
+  //  res.status(200).send({
+  //   message: users
+  // });
+//};
+
+exports.listUsers = async (req, res) => {
+  console.log(req)
+  UserModel.find({}, (err, docs) => {
+    console.log(docs);
+    res.status(201).json({ message: 'Evento!', err });
+
+    if (err) {
+      console.log(`Error: ` + err)
+    } else {
+      if (docs.length === 0) {
+        console.log("message")
+        res.status(404).json({ message: 'Nada foi encontrado' });
+      } else {
+        res.status(201).json({ message: 'Evento!', docs });
+      }
+    }
+
+
+  });
 };

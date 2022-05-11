@@ -2,7 +2,6 @@
 //Realiza a conexão com com banco usando o mongoose
 //
 
-const express = require("express");
 const mongoose = require("mongoose");
 
 //Importando a conexão com o DB

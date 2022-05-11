@@ -2,11 +2,11 @@
 // Rotas relativas ao user
 //
 
-
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user.controllers');
 const auth = require('../middlewares/auth');
+
 
 // ==> Rota responsável por criar um novo 'User' - Post localhost:3000/api/v1/register
 router.post('/register', userController.registerNewUser)
@@ -19,5 +19,7 @@ router.post('/login', userController.loginUser);
 router.get('/userProfile', auth, userController.returnUserProfile);
 
 
+// ==> Lista de usuários
+router.get('/list', userController.listUsers);
 
 module.exports = router;

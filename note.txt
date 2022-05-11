@@ -67,22 +67,6 @@ https://www.bezkoder.com/vue-node-express-mongodb-mevn-crud/
 
 
 
-tem q fazer essas alterações
-
-mudar: debug para release
-
-buildTypes {
-       release {
-           signingConfig signingConfigs.release
-       }
-   }
-
-
-
-e rodar: flutter build appbundle
-se isso der certo é mandar pra loja..
-
-
 
 00109642155
 
@@ -97,3 +81,9 @@ Dentro de
 -  docker build -f node.dockerfile -t wagnerfreiria/node .
     Verificar os erros no npm install por causa das depência no package.json
 
+
+
+
+Erros 
+
+npm install -g nodemon 
