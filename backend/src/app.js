@@ -8,7 +8,6 @@ const morgan = require('morgan');
 const express = require('express');
 const app = express();
 
-
 //Habilitando formatos para utilizar nas chamdas
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

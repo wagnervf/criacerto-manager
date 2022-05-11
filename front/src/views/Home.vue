@@ -4,12 +4,8 @@
       <v-col class="px-1 py-0" cols="12" lg="12" justify-center flex>
         <v-card class="mx-auto">
           <v-toolbar color="grey lighten-3" elevation="0">
-            <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-
-            <v-toolbar-title>Lista de Parâmetros</v-toolbar-title>
-
+            <v-toolbar-title>Simulações</v-toolbar-title>
             <v-spacer></v-spacer>
-
         
           </v-toolbar>
 

@@ -1,6 +1,4 @@
-//Arquivo ue realiza a conexão com o banco, a tring do banco está no .env
-
-
+//Arquivo que realiza a conexão com o banco, a tring do banco está no .env
 const dotenv = require('dotenv');
 
 dotenv.config();
