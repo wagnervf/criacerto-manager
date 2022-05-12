@@ -7,6 +7,7 @@ const UserModel = require("../models/user.model");
 // Método de registro do usuário
 // Método POST criado em user.routes userController.registerNewUser
 exports.registerNewUser = async (req, res) => {
+  console.log(req.body);
   try {
     let isUser = await User.find({ email: req.body.email });
     console.log(isUser);
@@ -98,7 +99,6 @@ exports.returnUserProfile = async (req, res) => {
 //};
 
 exports.listUsers = async (req, res) => {
-  console.log(req)
   UserModel.find({}, (err, docs) => {
     console.log(docs);
     res.status(201).json({ message: 'Evento!', err });

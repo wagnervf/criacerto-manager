@@ -1,6 +1,7 @@
 //Arquivo que realiza a conexão com o banco, a tring do banco está no .env
 require('dotenv').config();
 
+//console.log(process.env);
 
 module.exports ={
   local: {
