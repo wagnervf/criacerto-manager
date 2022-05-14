@@ -1,0 +1,33 @@
+
+# version: '3'
+
+# services:
+#   vue:
+#     build:
+#       context: .
+#       dockerfile: vue.dockerfile      
+#     container_name: container_vue
+#     restart: always
+#     ports:
+#       - "8080:8080"
+#     volumes:
+#       - ./:/home/node/app
+#     networks:
+#       - rede_criacerto
+
+# networks: 
+#     rede_criacerto:
+#       driver: bridge
+
+version: '3'
+
+services:
+  node:
+    image: node:12
+    container_name: container_vue_2
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./:/srv/app
+    working_dir: /srv/app
+    command: 'npm run serve'

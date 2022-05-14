@@ -32,27 +32,27 @@ exports.saveTipoSimulacao= async (req, res) => {
 //   });
 // };
 
-exports.getTiposSimulacoes = async (req, res) => {
-  TiposSimulacoesModel.find({
-    field: query,
-  }, (err, docs) => {
-    console.log(docs);
-   // res.status(201).json({ message: 'Evento!', err });
+// exports.getTiposSimulacoes = async (req, res) => {
+//   TiposSimulacoesModel.find({
+//     field: query,
+//   }, (err, docs) => {
+//     console.log(docs);
+//    // res.status(201).json({ message: 'Evento!', err });
 
-    if (err) {
-      console.log(`Error: ` + err)
-    } else {
-      if (docs.length === 0) {
-        console.log("message")
-        res.status(404).json({ message: 'Nada foi encontrado' });
-      } else {
-        res.status(201).json({ message: 'Evento!', docs });
-      }
-    }
+//     if (err) {
+//       console.log(`Error: ` + err)
+//     } else {
+//       if (docs.length === 0) {
+//         console.log("message")
+//         res.status(404).json({ message: 'Nada foi encontrado' });
+//       } else {
+//         res.status(201).json({ message: 'Evento!', docs });
+//       }
+//     }
 
 
-  });
-};
+//   });
+// };
 
 /*
 exports.findEvento = async (req, res) => {

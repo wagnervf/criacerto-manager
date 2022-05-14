@@ -1,50 +1,96 @@
 <template>
   <v-container>
-    <v-card class="pa-0 my-2 col-12 mx-auto">
-      <v-card-title class="grey lighten-5 text-h5">
-        Futura Lista de Usuários
-        <v-row justify="end" class="mx-6">
-          <v-btn
-            class="text-capitalize mt-5 element-0"
-            color="success"
-            to="/Usuarios/Add"
-          >
-            <v-icon left>mdi-plus</v-icon>
-            Novo Usuário
-          </v-btn>
-        </v-row>
+    <v-card class="mx-auto">
+      <v-toolbar flat>
+        <v-toolbar-title class="grey--text">
+          Gerenciar Usuários
+        </v-toolbar-title>
 
-        <v-row justify="end" class="mx-6">
-          <v-btn
-            class="text-capitalize mt-5 element-0"
-            color="success"
-            :to="getListUsers()"
-          >
-            <v-icon left>mdi-plus</v-icon>
-            List
-          </v-btn>
-        </v-row>
-      </v-card-title>
+        <v-divider class="mx-4" inset vertical></v-divider>
+        <v-spacer></v-spacer>
 
-      <v-sheet class="pa-4">
-        <v-text-field
-          v-model="search"
-          label="Buscar o usuário"
-          flat
-          hide-details
-          clearable
-          clear-icon="mdi-close-circle-outline"
-        ></v-text-field>
-      </v-sheet>
-      <v-row class="pa-4 col-12">
-        <v-col cols="6">
+        <v-dialog v-model="dialog">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn color="teal" dark class="mb-2" v-bind="attrs" v-on="on">
+              <span>Novo Usuário</span>
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </template>
+
+          <v-card>
+            <v-card-title class="col-12 teal">
+              <v-icon dark>mdi-account-plus</v-icon>
+              <span class="ml-4 text-h5 white--text">{{ formTitle }}</span>
+            </v-card-title>
+
+            <v-container class="col-8 pa-4 mx-auto">
+              <v-row>
+                <v-card-text>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editedItem.nome"
+                      label="Nome"
+                      prepend-icon="mdi-account"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editedItem.email"
+                      label="E-mail"
+                      type="email"
+                      prepend-icon="mdi-email"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editedItem.senha"
+                      label="Senha"
+                      type="password"
+                      prepend-icon="mdi-lock"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editedItem.local"
+                      label="Local"
+                      prepend-icon="mdi-map-marker"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-select
+                      :items="perfis"
+                      v-model="editedItem.perfil"
+                      label="Perfil"
+                      prepend-icon="mdi-badge-account-alert"
+                    ></v-select>
+                  </v-col>
+                </v-card-text>
+
+                <v-card-actions class="col-12 pr-6">
+                  <v-spacer></v-spacer>
+                  <v-btn color="error" depressed @click="close">
+                    Cancelar
+                  </v-btn>
+                  <v-btn color="success" depressed @click="save">
+                    Salvar
+                  </v-btn>
+                </v-card-actions>
+              </v-row>
+              <pre>{{ this.editedItem }}</pre>
+            </v-container>
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+
+      <v-row class="pa-4" justify="space-between">
+        <v-col cols="12"> </v-col>
+
+        <v-col cols="5">
           <v-treeview
             :active.sync="active"
             :items="items"
             :load-children="fetchUsers"
             :open.sync="open"
-            :search="search"
-            :filter="filter"
             activatable
             color="warning"
             open-on-click
@@ -65,7 +111,7 @@
               class="text-h6 grey--text text--lighten-1 font-weight-light"
               style="align-self: center"
             >
-              Select a User
+              Usuário selecionado
             </div>
             <v-card
               v-else
@@ -75,14 +121,6 @@
               max-width="400"
             >
               <v-card-text>
-                <pre>{{selected}}</pre>
-
-                <v-avatar v-if="avatar" size="88">
-                  <v-img
-                    :src="`https://avataaars.io/${avatar}`"
-                    class="mb-6"
-                  ></v-img>
-                </v-avatar>
                 <h3 class="text-h5 mb-2">
                   {{ selected.name }}
                 </h3>
@@ -95,23 +133,36 @@
               </v-card-text>
               <v-divider></v-divider>
               <v-row class="text-left" tag="v-card-text">
+                <pre>{{ selected }}</pre>
                 <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
-                  Company:
+                  Perfil:
                 </v-col>
-                <v-col>{{ selected.company.name }}</v-col>
+                <!-- <v-col>{{ selected.company.name }}</v-col> -->
                 <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
-                  Website:
+                  Setor:
                 </v-col>
                 <v-col>
-                  <a :href="`//${selected.website}`" target="_blank">{{
-                    selected.website
-                  }}</a>
+                  <!-- <a
+                  :href="`//${selected.website}`"
+                  target="_blank"
+                >{{ selected.website }}</a> -->
                 </v-col>
                 <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
-                  Phone:
+                  _ID:
                 </v-col>
-                <v-col>{{ selected.phone }}</v-col>
+                <v-col>{{ selected._id }}</v-col>
               </v-row>
+
+              <v-card-footer>
+                <v-row align="center" justify="space-around">
+                  <v-btn outlined class="ma-2" color="primary">
+                    <v-icon left> mdi-pencil </v-icon> Editar
+                  </v-btn>
+                  <v-btn outlined class="ma-2" color="error">
+                    <v-icon left> mdi-delete </v-icon> Excluir
+                  </v-btn>
+                </v-row>
+              </v-card-footer>
             </v-card>
           </v-scroll-y-transition>
         </v-col>
@@ -121,88 +172,127 @@
 </template>
 
 <script>
-const avatars = [
-  "?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban",
-  "?accessoriesType=Sunglasses&avatarStyle=Circle&clotheColor=Gray02&clotheType=ShirtScoopNeck&eyeType=EyeRoll&eyebrowType=RaisedExcited&facialHairColor=Red&facialHairType=BeardMagestic&hairColor=Red&hatColor=White&mouthType=Twinkle&skinColor=DarkBrown&topType=LongHairBun",
-  "?accessoriesType=Prescription02&avatarStyle=Circle&clotheColor=Black&clotheType=ShirtVNeck&eyeType=Surprised&eyebrowType=Angry&facialHairColor=Blonde&facialHairType=Blank&hairColor=Blonde&hatColor=PastelOrange&mouthType=Smile&skinColor=Black&topType=LongHairNotTooLong",
-  "?accessoriesType=Round&avatarStyle=Circle&clotheColor=PastelOrange&clotheType=Overall&eyeType=Close&eyebrowType=AngryNatural&facialHairColor=Blonde&facialHairType=Blank&graphicType=Pizza&hairColor=Black&hatColor=PastelBlue&mouthType=Serious&skinColor=Light&topType=LongHairBigHair",
-  "?accessoriesType=Kurt&avatarStyle=Circle&clotheColor=Gray01&clotheType=BlazerShirt&eyeType=Surprised&eyebrowType=Default&facialHairColor=Red&facialHairType=Blank&graphicType=Selena&hairColor=Red&hatColor=Blue02&mouthType=Twinkle&skinColor=Pale&topType=LongHairCurly",
-];
-
-const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 import UsuariosServices from "@/services/UsuariosServices";
+const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default {
   data: () => ({
     active: [],
-    avatar: null,
     open: [],
     users: [],
     search: null,
     caseSensitive: false,
-   
+    usuarios: [],
+    selecionado: [],
+    value: 1,
+    ativo: true,
+    perfis: ["Técnico", "Administrador"],
+
+    desserts: [],
+    editedIndex: -1,
+    editedItem: {
+      nome: "",
+      email: "",
+      senha: "",
+      local: "",
+      perfil: "",
+    },
+    defaultItem: {
+      nome: "",
+      email: "",
+      senha: "",
+      local: "",
+      perfil: "",
+    },
+    dialog: false,
+    dialogDelete: false,
   }),
 
-
+  created() {},
 
   computed: {
     items() {
       return [
         {
-          name: "Users",
+          name: "Carregar Usuários",
           children: this.users,
         },
       ];
     },
+
     selected() {
       if (!this.active.length) return undefined;
 
       const id = this.active[0];
+      console.log(this.active);
 
       return this.users.find((user) => user.id === id);
     },
 
-    filter() {
-      return this.caseSensitive
-        ? (item, search, textKey) => item[textKey].indexOf(search) > -1
-        : undefined;
+    formTitle() {
+      return this.editedIndex === -1 ? "Novo Usuário" : "Editar Usuário";
     },
   },
 
   watch: {
-    selected: "randomAvatar",
+    dialog(val) {
+      val || this.close();
+    },
+    dialogDelete(val) {
+      val || this.closeDelete();
+    },
   },
 
   methods: {
+    async fetchUsers(item) {
+      await pause(1500);
 
-    getListUsers() {
-      //  TiposSimulacoesServices.getContractsMontaNatural().then((resposta) => {
-      UsuariosServices.getListaUsuarios().then((resposta) => {
-           console.log(resposta);
-        //this.desserts = this.mapedMenu(resposta.tipos);
-        //   console.log(resposta.tipos);
+      return UsuariosServices.getListaUsuarios()
+        .then((resposta) => item.children.push(...resposta.dados))
+        .catch((err) => console.warn(err));
+    },
+
+    editItem(item) {
+      this.editedIndex = this.desserts.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
+    },
+
+    deleteItem(item) {
+      this.editedIndex = this.desserts.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialogDelete = true;
+    },
+
+    deleteItemConfirm() {
+      this.desserts.splice(this.editedIndex, 1);
+      this.closeDelete();
+    },
+
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
       });
     },
 
-
-
-
-    async fetchUsers(item) {
-      // Remove in 6 months and say
-      // you've made optimizations! :)
-      await pause(1500);
-
-      return fetch("https://jsonplaceholder.typicode.com/users")
-        .then((res) => res.json())
-        .then((json) => item.children.push(...json))
-        .catch((err) => console.warn(err));
-
-        
+    closeDelete() {
+      this.dialogDelete = false;
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
     },
-    randomAvatar() {
-      this.avatar = avatars[Math.floor(Math.random() * avatars.length)];
+
+    save() {
+      if (this.editedIndex > -1) {
+        Object.assign(this.desserts[this.editedIndex], this.editedItem);
+      } else {
+        this.desserts.push(this.editedItem);
+      }
+      this.close();
     },
   },
 };
 </script>
- 

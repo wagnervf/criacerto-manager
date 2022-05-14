@@ -1,8 +1,6 @@
 # estágio de compilação
 FROM node:16.13-slim
 
-MAINTAINER Wagner Freiria
-
 WORKDIR /app
 COPY ./front/package*.json ./
 

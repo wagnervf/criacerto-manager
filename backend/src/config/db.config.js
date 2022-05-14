@@ -5,9 +5,12 @@ require('dotenv').config();
 
 module.exports ={
   local: {
-    localDataBaseUrl : process.env.DB_URI,
-    secret:  process.env.SECRET_API,
+    localDataBaseUrl: 'mongodb://127.0.0.1:27017/managerdb',
+    secret: process.env.SECRET_API,
   }
 }
 
 // a secret será usado no JWT
+
+
+//mongodb://root:admin@localhost:27017/?authSource=admin&replicaSet=DockerConnect&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false

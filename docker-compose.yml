@@ -16,55 +16,56 @@
 version: '3'
 
 services:
-  mongo-express:
-    image: mongo-express
-    container_name: container_mongo_express
-    ports:
-      - 8081:8081
-      - 5050:8081
-    environment:    
-      ME_CONFIG_MONGODB_SERVER: "mongodb"
-      ME_CONFIG_MONGODB_PORT: 27017
-      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
-      ME_CONFIG_MONGODB_ADMINUSERNAME: "root"
-      ME_CONFIG_MONGODB_ADMINPASSWORD: "admin"
-      ME_CONFIG_BASICAUTH_USERNAME: "root"
-      ME_CONFIG_BASICAUTH_PASSWORD: "admin"
-    links:
-      - mongodb
-    networks:
-      - rede-criacerto-manager
+  # mongo:
+  #   image: mongo
+  #   container_name: container_mongo
+  #   restart: always
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: admin
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - ./backend/volumes:/data/db
+  #   networks:
+  #     - rede_criacerto
 
-  mongodb:
-    image: mongo
-    container_name: container_mongodb
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: "root"
-      MONGO_INITDB_ROOT_PASSWORD: "admin"
-      MONGO_INITDB_DATABASE: "manager"
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./backend/volumes:/data/db
-    networks:
-      - rede-criacerto-manager
+  # mongo-express:
+  #   image: mongo-express
+  #   container_name: container_mongo_express
+  #   restart: always
+  #   ports:
+  #     - 8081:8081
+  #     - 5050:8081
+  #   environment:    
+  #     ME_CONFIG_MONGODB_PORT: 27017     
+  #     ME_CONFIG_BASICAUTH_USERNAME: root
+  #     ME_CONFIG_BASICAUTH_PASSWORD: admin
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: root
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+  #     ME_CONFIG_MONGODB_URL: mongodb://127.0.0.1:27017/managerdb
+  #   links:
+  #     - mongo
+  #   networks:
+  #     - rede_criacerto
+ 
   
-  node:
-    build:
-      dockerfile: node.dockerfile
-      context: .
-    image: node:16.13-slim
-    container_name: container_node
-    environment:
-       - DB_URI=mongodb://mongodb:27017/manager
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./backend:/home/node/app
-    links: 
-      - mongodb
-    networks:
-      - rede-criacerto-manager
+  # node:
+  #   build:
+  #     dockerfile: node.dockerfile
+  #     context: .
+  #   image: node:16.13-slim
+  #   container_name: container_node
+  #   #environment:
+  #   #   - DB_URI=mongodb://mongodb:27017/manager
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./backend:/home/node/app
+  #   links: 
+  #     - mongo
+  #   networks:
+  #     - rede_criacerto
 
   vue:
     build:
@@ -79,11 +80,11 @@ services:
 
     command: 'npm run serve'  
 
-    links: 
-      - node
+  #  links: 
+  #    - node
     networks:
-      - rede-criacerto-manager
+      - rede_criacerto
 
 networks: 
-    rede-criacerto-manager:
+    rede_criacerto:
       driver: bridge

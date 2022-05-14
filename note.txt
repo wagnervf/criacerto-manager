@@ -1,4 +1,25 @@
 
+*********************************************************
+---- ORGANIZAR PARA RODAR UM COMANDO SÓ DENTRO DA PASTA RAIZ ----
+************** RODAR AMBIENTE 05/2022 *******************
+
+** Está com erro de permissão quando rado o ambiente com todos os containers juntos na pasta raiz 'criacerto-manager' com o comando 'docker-composer up -d'
+
+** SOLUÇÂO: Rodar os ambientes semparados...
+
+** MONGO: sudo systemctl start mongod
+** BACKEND dentro da pasta 'backente/nodemon server.js'
+** FONTEND: dentro da pasta 'frontender/docker-composer up'
+
+
+*********************************************************
+*********************************************************
+
+
+
+
+
+
 **** BACKEND ******
 
   949  code .
@@ -39,23 +60,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTE3ZDYxM2E4MjljYjZhNTJkNDBlNjA
 
 
 
-address:
-city: "Gwenborough"
-geo: {lat: '-37.3159', lng: '81.1496'}
-street: "Kulas Light"
-suite: "Apt. 556"
-zipcode: "92998-3874"
-[[Prototype]]: Object
-company:
-bs: "harness real-time e-markets"
-catchPhrase: "Multi-layered client-server neural-net"
-name: "Romaguera-Crona"
-[[Prototype]]: Object
-email: "Sincere@april.biz"
-id: 1
-name: "Leanne Graham"
-phone: "1-770-736-8031 x56442"
-username: "Bret"
+
 website: "hildegard.org"
 
 https://www.bezkoder.com/node-express-vue-jwt-auth/

@@ -1,8 +1,7 @@
 // Funções para o CRUD
 
-const { resource } = require("../app");
+// const { resource } = require("../app");
 const User = require("../models/user.model");
-const UserModel = require("../models/user.model");
 
 // Método de registro do usuário
 // Método POST criado em user.routes userController.registerNewUser
@@ -81,39 +80,20 @@ exports.returnUserProfile = async (req, res) => {
 // Lista Todos Usuários
 //
 //
-// exports.listUsers = async (req, res) => {
-//   try {
-//     const users = await UserModel.find();
-//     console.log(users);
-//     res.status(201).json({ users });
-
-//   } catch (error) {
-//     console.log(error)
-//     res.status(401).send({ erro: "Nenhum usuário encontrado!" });
-//     //  res.status(400).json({ err: err });
-//   }
-
-  //  res.status(200).send({
-  //   message: users
-  // });
-//};
-
 exports.listUsers = async (req, res) => {
-  UserModel.find({}, (err, docs) => {
-    console.log(docs);
-    res.status(201).json({ message: 'Evento!', err });
-
+  User.find({}, (err, docs) => {
+    console.log(err);
     if (err) {
-      console.log(`Error: ` + err)
+      res.status(505).json({ Erro: err });
     } else {
       if (docs.length === 0) {
-        console.log("message")
         res.status(404).json({ message: 'Nada foi encontrado' });
       } else {
-        res.status(201).json({ message: 'Evento!', docs });
+        console.log(docs)
+        res.status(201).json({ dados: docs });
       }
     }
 
 
-  });
+   });
 };
