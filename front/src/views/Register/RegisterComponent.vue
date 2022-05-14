@@ -6,7 +6,7 @@
           class="text-center border border-primary p-5"
           style="margin-top: 70px; height: auto; padding-top: 100px !important"
           v-on:submit.prevent="registerSubmitUserForm()"
-        >
+        > 
           <!--INÍCIO BLOCO: Nome-->
           <div class="form-group">
             <input

@@ -1,91 +1,25 @@
 <template>
   <v-container>
     <v-card class="mx-auto">
-      <v-toolbar flat>
-        <v-toolbar-title class="grey--text">
-          Gerenciar Usuários
+      <v-toolbar flat class="grey lighten-4">
+        <v-row class="pa-4" justify="space-between">
+        <v-toolbar-title class="teal--text pa-2">
+         <h4> Gerenciar Usuários</h4>
         </v-toolbar-title>
 
-        <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
 
+        <v-btn color="teal" dark class="mb-2" @click="dialog = !dialog">
+          <span>Novo Usuário</span>
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
         <v-dialog v-model="dialog">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn color="teal" dark class="mb-2" v-bind="attrs" v-on="on">
-              <span>Novo Usuário</span>
-              <v-icon>mdi-plus</v-icon>
-            </v-btn>
-          </template>
-
-          <v-card>
-            <v-card-title class="col-12 teal">
-              <v-icon dark>mdi-account-plus</v-icon>
-              <span class="ml-4 text-h5 white--text">{{ formTitle }}</span>
-            </v-card-title>
-
-            <v-container class="col-8 pa-4 mx-auto">
-              <v-row>
-                <v-card-text>
-                  <v-col cols="12">
-                    <v-text-field
-                      v-model="editedItem.nome"
-                      label="Nome"
-                      prepend-icon="mdi-account"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-text-field
-                      v-model="editedItem.email"
-                      label="E-mail"
-                      type="email"
-                      prepend-icon="mdi-email"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-text-field
-                      v-model="editedItem.senha"
-                      label="Senha"
-                      type="password"
-                      prepend-icon="mdi-lock"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-text-field
-                      v-model="editedItem.local"
-                      label="Local"
-                      prepend-icon="mdi-map-marker"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <v-select
-                      :items="perfis"
-                      v-model="editedItem.perfil"
-                      label="Perfil"
-                      prepend-icon="mdi-badge-account-alert"
-                    ></v-select>
-                  </v-col>
-                </v-card-text>
-
-                <v-card-actions class="col-12 pr-6">
-                  <v-spacer></v-spacer>
-                  <v-btn color="error" depressed @click="close">
-                    Cancelar
-                  </v-btn>
-                  <v-btn color="success" depressed @click="save">
-                    Salvar
-                  </v-btn>
-                </v-card-actions>
-              </v-row>
-              <pre>{{ this.editedItem }}</pre>
-            </v-container>
-          </v-card>
+          <FormAdd  @fecharDialog="dialog = $event" />
         </v-dialog>
+        </v-row>
       </v-toolbar>
 
       <v-row class="pa-4" justify="space-between">
-        <v-col cols="12"> </v-col>
-
-        <v-col cols="5">
           <v-treeview
             :active.sync="active"
             :items="items"
@@ -95,12 +29,13 @@
             color="warning"
             open-on-click
             transition
+            class="pa-4 mx-4"
+
           >
             <template v-slot:prepend="{ item }">
               <v-icon v-if="!item.children"> mdi-account </v-icon>
             </template>
           </v-treeview>
-        </v-col>
 
         <v-divider vertical></v-divider>
 
@@ -173,39 +108,24 @@
 
 <script>
 import UsuariosServices from "@/services/UsuariosServices";
+import FormAdd from "./FormAdd";
+
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default {
+
+  components: { FormAdd },
+
+  props: {},
+
   data: () => ({
     active: [],
     open: [],
     users: [],
-    search: null,
-    caseSensitive: false,
     usuarios: [],
     selecionado: [],
-    value: 1,
-    ativo: true,
     perfis: ["Técnico", "Administrador"],
-
-    desserts: [],
-    editedIndex: -1,
-    editedItem: {
-      nome: "",
-      email: "",
-      senha: "",
-      local: "",
-      perfil: "",
-    },
-    defaultItem: {
-      nome: "",
-      email: "",
-      senha: "",
-      local: "",
-      perfil: "",
-    },
     dialog: false,
-    dialogDelete: false,
   }),
 
   created() {},
@@ -228,19 +148,10 @@ export default {
 
       return this.users.find((user) => user.id === id);
     },
-
-    formTitle() {
-      return this.editedIndex === -1 ? "Novo Usuário" : "Editar Usuário";
-    },
   },
 
   watch: {
-    dialog(val) {
-      val || this.close();
-    },
-    dialogDelete(val) {
-      val || this.closeDelete();
-    },
+    
   },
 
   methods: {
@@ -252,47 +163,14 @@ export default {
         .catch((err) => console.warn(err));
     },
 
-    editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
-
-    deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialogDelete = true;
-    },
-
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
-      this.closeDelete();
-    },
-
-    close() {
-      this.dialog = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    closeDelete() {
-      this.dialogDelete = false;
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      });
-    },
-
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
-      } else {
-        this.desserts.push(this.editedItem);
-      }
-      this.close();
-    },
+   
   },
 };
 </script>
+
+
+<style>
+.v-treeview-node__label {
+ color: #1867c0 !important;
+}
+</style>
