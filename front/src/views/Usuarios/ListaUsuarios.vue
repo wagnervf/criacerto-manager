@@ -1,41 +1,41 @@
 <template>
   <v-container>
     <v-card class="mx-auto">
-      <v-toolbar flat class="grey lighten-4">
-        <v-row class="pa-4" justify="space-between">
-        <v-toolbar-title class="teal--text pa-2">
-         <h4> Gerenciar Usuários</h4>
-        </v-toolbar-title>
+      <v-toolbar flat class="grey lighten-4 pa-4 my-4">
+        <v-row justify="space-between">
+          <v-toolbar-title class="teal--text pa-2">
+            <h4>Gerenciar Usuários</h4>
+          </v-toolbar-title>
 
-        <v-spacer></v-spacer>
+          <v-spacer></v-spacer>
 
-        <v-btn color="teal" dark class="mb-2" @click="dialog = !dialog">
-          <span>Novo Usuário</span>
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
-        <v-dialog v-model="dialog">
-          <FormAdd  @fecharDialog="dialog = $event" />
-        </v-dialog>
+          <v-btn color="teal" dark class="mb-2" @click="dialog = !dialog">
+            <span>Novo Usuário</span>
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+
+          <FormAdd :dialog.sync="dialog" />
+
+
         </v-row>
       </v-toolbar>
 
       <v-row class="pa-4" justify="space-between">
-          <v-treeview
-            :active.sync="active"
-            :items="items"
-            :load-children="fetchUsers"
-            :open.sync="open"
-            activatable
-            color="warning"
-            open-on-click
-            transition
-            class="pa-4 mx-4"
-
-          >
-            <template v-slot:prepend="{ item }">
-              <v-icon v-if="!item.children"> mdi-account </v-icon>
-            </template>
-          </v-treeview>
+        <v-treeview
+          :active.sync="active"
+          :items="items"
+          :load-children="fetchUsers"
+          :open.sync="open"
+          activatable
+          color="warning"
+          open-on-click
+          transition
+          class="pa-4 mx-4"
+        >
+          <template v-slot:prepend="{ item }">
+            <v-icon v-if="!item.children"> mdi-account </v-icon>
+          </template>
+        </v-treeview>
 
         <v-divider vertical></v-divider>
 
@@ -108,12 +108,11 @@
 
 <script>
 import UsuariosServices from "@/services/UsuariosServices";
-import FormAdd from "./FormAdd";
+import FormAdd from "./FormAdd.vue";
 
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default {
-
   components: { FormAdd },
 
   props: {},
@@ -150,9 +149,7 @@ export default {
     },
   },
 
-  watch: {
-    
-  },
+  watch: {},
 
   methods: {
     async fetchUsers(item) {
@@ -162,15 +159,12 @@ export default {
         .then((resposta) => item.children.push(...resposta.dados))
         .catch((err) => console.warn(err));
     },
-
-   
   },
 };
 </script>
 
-
 <style>
 .v-treeview-node__label {
- color: #1867c0 !important;
+  color: #1867c0 !important;
 }
 </style>

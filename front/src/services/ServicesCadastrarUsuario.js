@@ -1,10 +1,3 @@
-/**
- * file: src/services/RegisterService.js
- * data: 13/05/2021
- * description: arquivo responsável pelos métodos de requisições das APIs via
- * HTTP
- * author: Glaucia Lemos <twitter: @glaucia_lemos86>
- */
 
 import swal from 'sweetalert';
 import Api from './Api';
