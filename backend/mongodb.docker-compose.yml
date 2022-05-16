@@ -16,8 +16,24 @@
 version: '3'
 
 services:
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongo-criacerto
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./volumes:/data/db
+    networks:
+      - rede-criacerto
+
+
   mongo-express:
     image: mongo-express
+    restart: always
     container_name: mongo-express-criacerto
     ports:
       - 8081:8081
@@ -33,33 +49,22 @@ services:
     networks:
       - rede-criacerto
 
-  mongo:
-    image: mongo
-    container_name: mongo-criacerto
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: admin
-    ports:
-      - "27017:27017"
-    volumes:
-      - ./backend/volumes:/data/db
-    networks:
-      - rede-criacerto
+
   
-  node:
-    build:
-      dockerfile: node.dockerfile
-      context: .
-    image: node:16.13-slim
-    container_name: cont_node
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./backend:/home/node/app
-    links: 
-      - mongo
-    networks:
-      - rede-criacerto
+  # node:
+  #   build:
+  #     dockerfile: node.dockerfile
+  #     context: .
+  #   image: node:16.13-slim
+  #   container_name: cont_node
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./backend:/home/node/app
+  #   links: 
+  #     - mongo
+  #   networks:
+  #     - rede-criacerto
 
 networks: 
     rede-criacerto:

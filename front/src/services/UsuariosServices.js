@@ -1,10 +1,10 @@
 import swal from "sweetalert";
-import Api from "./Api";
+import ApiAxios from "./ApiAxios";
 
 export default {
   async getListaUsuarios() {
     try {
-      const response = await Api().get("/user/list");
+      const response = await ApiAxios().get("/user/list");
 
       if (response) {
         console.log(response.data);
@@ -13,13 +13,34 @@ export default {
       return response.data;
     } catch (error) {
       swal({
-        title: "Oops!",
-        text: "Alguma coisa deu errado aqui!",
+        title: "Alerta",
+        text: "Nenhum usuário encontrado!",
         icon: "error",
       });
       this.$router.push("/");
     }
   },
+
+
+  async storeUsuario (dados) {
+    try {
+     
+
+    return await ApiAxios().post("user/register", dados)
+
+      .then(function(response) {
+        console.log(response);
+        return response;
+      })
+      .catch(function(error) {
+        console.log(error.response);
+        return error.response;
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
 
   // async getContractsMontaNatural() {
   //   try {

@@ -6,16 +6,14 @@ const User = require("../models/user.model");
 // Método de registro do usuário
 // Método POST criado em user.routes userController.registerNewUser
 exports.registerNewUser = async (req, res) => {
-  console.log(req.body);
   try {
     let isUser = await User.find({ email: req.body.email });
-    console.log(isUser);
 
     //User já existe
     if (isUser.length > 1) {
       return res
         .status(409)
-        .json({ message: "Erro! Esse e-mail já encontra-se em uso!" });
+        .json({ message: "Erro! Esse e-mail já encontra-se em uso!", type: "email" });
     }
 
     //Corpo da requisição
@@ -38,6 +36,9 @@ exports.registerNewUser = async (req, res) => {
   }
 };
 
+
+
+
 //
 //
 // Login
@@ -46,8 +47,8 @@ exports.registerNewUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   try {
     const email = req.body.email;
-    const password = req.body.password;
-    const user = await User.findByCredentials(email, password);
+    const senha = req.body.senha;
+    const user = await User.findByCredentials(email, senha);
 
     if (!user || user == null) {
       res

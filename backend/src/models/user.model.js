@@ -7,14 +7,17 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    name: { type: String, maxlength: 50, required: true },
+    nome: { type: String, maxlength: 50, required: true },
     email: { type: String, maxlength: 50, required: true },
-    password: { type: String, required: true },
+    senha: { type: String, required: true },
+    perfil: { type: String, required: true },
+    local: { type: String, required: true },
     tokens: [
       {
         token: { type: String, required: true },
       },
     ],
+     
   },
   {
     timestamps: true,
@@ -28,10 +31,10 @@ const userSchema = new Schema(
 userSchema.pre("save", async function (next) {
   const user = this;
 
-  //se o password do usuário estiver sendo alterado, encripta ela
+  //se o senha do usuário estiver sendo alterado, encripta ela
   // Senha do usuário tamanhp de 6 caracteres
-  if (user.isModified("password")) {
-    user.password = await bcrypt.hash(user.password, 6);
+  if (user.isModified("senha")) {
+    user.senha = await bcrypt.hash(user.senha, 6);
   }
   next();
 });
@@ -39,12 +42,12 @@ userSchema.pre("save", async function (next) {
 // Criando o token jwt do usuário
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
-  //Utiliza o id, name e email para gerar um token e adicionar o campo 'secret' para compor o token do user
-  // O secret é uma string usada para gerar o token, nesse caso é a password do user, está configurado em db.config.js
+  //Utiliza o id, nome e email para gerar um token e adicionar o campo 'secret' para compor o token do user
+  // O secret é uma string usada para gerar o token, nesse caso é a senha do user, está configurado em db.config.js
   const token = jwt.sign(
     {
       _id: user._id,
-      name: user.name,
+      nome: user.nome,
       email: user.email,
     },
     "secret"
@@ -57,7 +60,7 @@ userSchema.methods.generateAuthToken = async function () {
 };
 
 //pesquisa usando o email do user
-userSchema.statics.findByCredentials = async (email, password) => {
+userSchema.statics.findByCredentials = async (email, senha) => {
   const user = await User.findOne({ email });
   console.log("findByCredentials : ".concat(user));
 
@@ -67,9 +70,9 @@ userSchema.statics.findByCredentials = async (email, password) => {
 
   //Confere se a senha existe
   //Compara a senha informada com a senha do usuário que foi encotrado na consulta User.findOne({ email });
-  const isPasswordMatch = await bcrypt.compare(password, user.password);
+  const isSenhaMatch = await bcrypt.compare(senha, user.senha);
 
-  if (!isPasswordMatch) {
+  if (!isSenhaMatch) {
     throw new Error({ error: "Senha inválida!" });
   }
 

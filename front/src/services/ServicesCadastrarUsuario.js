@@ -1,6 +1,6 @@
 
 import swal from 'sweetalert';
-import Api from './Api';
+import ApiAxios from './ApiAxios';
 
 export default {
   /**
@@ -9,7 +9,7 @@ export default {
    */
   async registerNewUser(newUser) {
     try {
-      const response = await Api().post('/register', newUser);
+      const response = await ApiAxios().post('/register', newUser);
       const { token } = response.data;
 
       if (token) {

@@ -1,28 +1,47 @@
-version: '3'
+version: "3.7"
+
 services:
-  mongodb:
-    build:
-      dockerfile: node.dockerfile
-      context: .
-    networks: rede-criacerto
-    container_name: cont_mongodb
-    restart: always
+  mongo:
+    container_name: mongo
+    image: mongo:4.2
+    environment:
+      - MONGO_INITDB_DATABASE=managerdb
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    ports:
+      - '27017:27017'
+    volumes: 
+      - ./volume:/data/db
+  
+  mongo-express:
+    container_name: mongo-express
+    image: mongo-express
+    depends_on:
+      - mongo
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=admin
+      - ME_CONFIG_MONGODB_AUTH_DATABASE=managerdb
+      - ME_CONFIG_MONGODB_URL=mongodb://root:admin@mongo:27017/managerdb?authSource=admin
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin
+    ports:
+      - '8081:8081'
+    volumes: 
+      - ./volume:/data/db
 
   node:
     build:
       dockerfile: node.dockerfile
       context: .
-    container_name: cont_node
+    image: node:16.13-slim
+    container_name: container_node
+    depends_on:
+      - mongo
     ports:
       - "3000:3000"
     volumes:
       - .:/home/node/app
-    networks:
-      - rede-criacerto
-    restart: always
-    depends_on:
-      - mongodb
-
-networks:
-  production-network:
-    drive: bridge
+    links: 
+      - mongo
+  

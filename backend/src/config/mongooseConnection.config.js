@@ -11,7 +11,7 @@ mongoose.Promise = global.Promise;
 
 // ==> Conexão com o banco de dados
 mongoose
-  .connect(databaseConfig.local.localDataBaseUrl, {
+  .connect('mongodb://root:admin@mongo:27017/managerdb?authSource=admin', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     })

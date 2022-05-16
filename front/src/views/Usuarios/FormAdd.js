@@ -1,9 +1,13 @@
-//import UsuariosServices from "@/services/ServicesCadastrarUsuaio";
+import UsuariosServices from "@/services/UsuariosServices";
+import Snackbar from "../../components/Snackbar.vue";
 export default {
   props: {
     dialog: {
       default: false,
     },
+  },
+  components: {
+    Snackbar,
   },
 
   data() {
@@ -12,20 +16,16 @@ export default {
       perfis: ["Técnico", "Administrador"],
       desserts: [],
       editedIndex: -1,
-      editedItem: {
-        nome: "",
-        email: "",
-        senha: "",
-        local: "",
-        perfil: "",
+      show1: false,
+      formRegister: {
+        nome: "wagner",
+        email: "wagner@gmail.com",
+        senha: "12345",
+        perfil: "Técnico",
+        local: "Ufms",
       },
-      defaultItem: {
-        nome: "",
-        email: "",
-        senha: "",
-        local: "",
-        perfil: "",
-      },
+      errosEmail:[],
+
       valid: false,
 
       nameRules: [
@@ -44,73 +44,75 @@ export default {
       ],
 
       snackbar: false,
-      snackbarText: '',
-      timeout: 2000,
+      snackbarText: "",
+      color: "",
     };
   },
 
   // created() {},
 
-  // computed: {},
+   computed: {
+     erros(){
+      return this.errosEmail.length;
+     }
+
+     
+
+   },
 
   // watch: {},
 
   methods: {
     validate() {
-      this.$refs.form.validate();
-      console.log(this.$refs.form)
-      this.snackbarText = 'Salvo com sucesso!';
-      this.snackbar= true;
+      if (this.$refs.form.validate()) {
+        // console.log(this.formRegister)
+        this.salvarUsuario();
+      }
     },
+
     reset() {
       this.$refs.form.reset();
+      this.formRegister = {};
+      this.errosEmail = [];
+      this.snackbar = false;
+
     },
-
-    // editItem(item) {
-    //   this.editedIndex = this.desserts.indexOf(item);
-    //   this.editedItem = Object.assign({}, item);
-    //   this.dialog = true;
-    // },
-
-    // deleteItem(item) {
-    //   this.editedIndex = this.desserts.indexOf(item);
-    //   this.editedItem = Object.assign({}, item);
-    //   this.dialogDelete = true;
-    // },
-
-    // deleteItemConfirm() {
-    //   this.desserts.splice(this.editedIndex, 1);
-    //   this.closeDelete();
-    // },
 
     close() {
       /// Envia false para compondente Pai fechar o modal.
       /// No componente Pai colocaria @fecharDialog
       //this.$emit("fecharDialog", false);
+
+      // Atualizar o props e fechá-lo
+      // Notificando o componente PAI que deve adicionar um false
+      this.$emit("update", false);
+      this.reset();
       
-      // Atualizar o props e fechálo
-      this.$emit('update:dialog', false);
-      
-      this.$refs.form.resetValidation();
+
     },
-  
 
-   async salvarUsuario() {
-    try {
-      this.isSubmitted = true;
+    async salvarUsuario() {
+      try {
+        let response = await UsuariosServices.storeUsuario(this.formRegister);
 
-      this.$v.$touch();
-      if (this.$v.$invalid) {
+        if (response.status != 201) {
+          if(response.data.type == 'email'){
+          return this.errosEmail.push(response.data.message)
+          }
+         
+        }
         
-        return;
+        return this.setMessage("Salvo com sucesso!", true, "success");
+        
+      } catch (error) {
+        return this.setMessage(error.data.message, true, "error");
       }
+    },
 
-    //  await RegisterService.registerNewUser(this.registerForm);
-      this.$router.push("/");
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-},
+    setMessage(message, snack, color) {
+      this.snackbarText = message;
+      this.snackbar = snack;
+      this.color = color;
+    },
+  },
 };

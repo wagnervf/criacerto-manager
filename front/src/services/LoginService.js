@@ -1,14 +1,14 @@
 import swal from 'sweetalert';
-import Api from './Api';
+import ApiAxios from './ApiAxios';
 
 export default {
   /**
    * Método responsável por realizar um novo login 'User'
-   * (POST): localhost:3000/api/v1/login
+   * (POST): localhost:3000/ApiAxios/v1/login
    */
   async loginUser(user) {
     try {
-      const response = await Api().post('/login', user);
+      const response = await ApiAxios().post('/login', user);
 
 
       const { token } = response.data;

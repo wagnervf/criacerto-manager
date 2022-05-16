@@ -7,53 +7,74 @@
             <v-toolbar-title> Meu Perfil </v-toolbar-title>
           </v-toolbar>
 
-          <v-card-text>
-            <v-text-field
-              v-model="dtext"
-              label="Nome"
-              filled
-              background-color="transparent"
-            ></v-text-field>
-            <v-text-field
-              type="email"
-              v-model="emailtext"
-              label="E-mail"
-              filled
-              background-color="transparent"
-            ></v-text-field>
-            <v-text-field
-              v-model="password"
-              filled
-              background-color="transparent"
-              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-              :rules="[rules.required, rules.min]"
-              :type="show1 ? 'text' : 'password'"
-              name="input-10-1"
-              label="Senha"
-              hint="No mínimo 8 caracteres"
-              counter
-              @click:append="show1 = !show1"
-            ></v-text-field>
-            <v-textarea
-              filled
-              name="input-7-4"
-              rows="3"
-              label="Informações"
-              value
-              background-color="transparent"
-            ></v-textarea>
-            <div class="mt-4">
-              <v-select
-                :items="items"
-                filled
-                label="Selecione o País"
-                background-color="transparent"
-              ></v-select>
-            </div>
-            <v-btn class="text-capitalize mt-5 element-0" color="success"
-              >Salvar</v-btn
-            >
-          </v-card-text>
+          <v-form ref="form" v-model="valid" lazy-validation>
+            <v-row>
+              <v-card-text>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="formPerfil.nome"
+                    label="Nome"
+                    :rules="nameRules"
+                    required
+                    prepend-icon="mdi-account"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="formPerfil.email"
+                    label="E-mail"
+                    :rules="emailRules"
+                    required
+                    type="email"
+                    prepend-icon="mdi-email"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="formPerfil.senha"
+                    label="Senha"
+                    :rules="passwordRules"
+                    required
+                    :counter="6"
+                    type="password"
+                    prepend-icon="mdi-lock"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="formPerfil.local"
+                    label="Local"
+                    prepend-icon="mdi-map-marker"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-select
+                    :items="perfis"
+                    v-model="formPerfil.perfil"
+                    :rules="[(v) => !!v || 'Selecione um perfil']"
+                    required
+                    label="Perfil"
+                    prepend-icon="mdi-badge-account-alert"
+                  ></v-select>
+                </v-col>
+              </v-card-text>
+
+              <v-card-actions class="col-12 pr-6">
+                <v-spacer></v-spacer>
+                <v-btn color="error" depressed @click="cancelar"> Cancelar </v-btn>
+                <v-btn
+                  color="success"
+                  depressed
+                  :disabled="!valid"
+                  @click="validate"
+                >
+                  Salvar
+                </v-btn>
+              </v-card-actions>
+            </v-row>
+            <pre>valid : {{ this.valid }}</pre>
+            <pre>{{ this.formPerfil }}</pre>
+          </v-form>
         </v-card>
       </v-col>
     </v-row>
@@ -65,21 +86,59 @@ export default {
   name: "Profile",
 
   data: () => ({
-    dtext: "George deo",
-    emailtext: "",
-    password: "",
-    disableinput: "",
-    checkbox1: "",
-    checkbox2: "",
-    checkbox3: "",
-    show1: false,
-    rules: {
-      required: (value) => !!value || "Required.",
-      min: (v) => v.length >= 8 || "Min 8 characters",
-      emailMatch: () => "The email and password you entered don't match",
-    },
-    items: ["Brasil", "EUA", "Canada"],
+     ativo: true,
+      perfis: ["Técnico", "Administrador"],
+      desserts: [],
+      editedIndex: -1,
+   
+      formPerfil: {
+        nome: "",
+        email: "",
+        senha: "",
+        local: "",
+        perfil: "",
+      },
+      valid: false,
+
+      nameRules: [
+        (v) => !!v || "Nome é obrigatório",
+        (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+      ],
+      emailRules: [
+        (v) => !!v || "E-mail é obrigatório",
+        (v) => /.+@.+\..+/.test(v) || "E-mail não é válido",
+      ],
+
+      passwordRules: [
+        (v) => !!v || "A senha é obrigatória",
+        (v) =>
+          (v && v.length <= 6) || "A senha deve conter no mínimo 6 caracteres",
+      ],
+
+      snackbar: false,
+      snackbarText: '',
+      timeout: 2000,
   }),
   components: {},
+
+  methods: {
+     validate() {
+      this.$refs.form.validate();
+      console.log(this.$refs.form)
+      this.snackbarText = 'Salvo com sucesso!';
+      this.snackbar= true;
+    },
+    reset() {
+      this.$refs.form.reset();
+    },
+    cancelar() {
+   
+
+      this.formPerfil = {};
+      
+      
+      this.$refs.form.resetValidation();
+    },
+  }
 };
 </script>

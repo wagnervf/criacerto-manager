@@ -1,10 +1,10 @@
 import swal from "sweetalert";
-import Api from "./Api";
+import ApiAxios from "./ApiAxios";
 
 export default {
   async getTiposSimulacoes() {
     try {
-      const response = await Api().get("/simulacao/find");
+      const response = await ApiAxios().get("/simulacao/find");
 
       if (response) {
       //  console.log(response.data);
@@ -23,7 +23,7 @@ export default {
 
   async getContractsMontaNatural() {
     try {
-      const response = await Api().get("/contracts/find");
+      const response = await ApiAxios().get("/contracts/find");
 
       if (response) {
         console.log(response.data);
@@ -57,7 +57,7 @@ export default {
 
    async saveTiposSimulacoes(dados) {
     try {
-      const response = await Api().post("/simulacao/save", dados);
+      const response = await ApiAxios().post("/simulacao/save", dados);
       if (response) {
         console.log(response.data);
       }
@@ -76,7 +76,7 @@ export default {
   //TODO: fAZERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
 
   updateTiposSimulacoes: (id, dados) => {
-    return Api().patch("/simulacao/update/".concat(id), dados)
+    return ApiAxios().patch("/simulacao/update/".concat(id), dados)
       .then(function(response) {
         return response;
       })

@@ -9,86 +9,105 @@
 
           <v-spacer></v-spacer>
 
-          <v-btn color="teal" dark class="mb-2" @click="dialog = !dialog">
+          <v-btn color="teal" dark class="mb-2" @click="openModel">
             <span>Novo Usuário</span>
             <v-icon>mdi-plus</v-icon>
           </v-btn>
 
-          <FormAdd :dialog.sync="dialog" />
-
-
+          <FormAdd :dialog="dialog" @update="dialog = $event" />
         </v-row>
       </v-toolbar>
+      <v-row class="pa-4 text-left" tag="v-card-text">
+        <v-toolbar color="teal" dark>
+          <v-toolbar-title>Lista dos Usuários</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
+        </v-toolbar>
+      </v-row>
 
-      <v-row class="pa-4" justify="space-between">
-        <v-treeview
-          :active.sync="active"
-          :items="items"
-          :load-children="fetchUsers"
-          :open.sync="open"
-          activatable
-          color="warning"
-          open-on-click
-          transition
-          class="pa-4 mx-4"
-        >
-          <template v-slot:prepend="{ item }">
-            <v-icon v-if="!item.children"> mdi-account </v-icon>
-          </template>
-        </v-treeview>
+      <v-row class="pa-4 text-left" tag="v-card-text">
+        <v-col class="text-left">
+          <v-list two-line width="100%">
+            <v-subheader>REPORTS</v-subheader>
+            <v-list-item-group color="primary">
+              <v-list-item
+                v-for="(item, i) in usuarios"
+                :key="i"
+                @click="userSelecionado(item)"
+                selectable
+                exact-active-class="primary"
+                link
+              >
+                <v-list-item-avatar>
+                  <v-icon>mdi-account</v-icon>
+                </v-list-item-avatar>
+
+                <v-list-item-content>
+                  <v-list-item-title v-html="item.nome"></v-list-item-title>
+                  <v-list-item-subtitle
+                    v-html="item.perfil"
+                  ></v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-col>
 
         <v-divider vertical></v-divider>
 
-        <v-col class="d-flex text-center">
+        <v-col class="d-flex text-center" v-if="foiSelecionado">
           <v-scroll-y-transition mode="out-in">
-            <div
-              v-if="!selected"
-              class="text-h6 grey--text text--lighten-1 font-weight-light"
-              style="align-self: center"
-            >
-              Usuário selecionado
-            </div>
-            <v-card
-              v-else
-              :key="selected.id"
-              class="pt-6 mx-auto"
-              flat
-              max-width="400"
-            >
+            <v-card class="pt-6 mx-auto" flat max-width="600">
               <v-card-text>
                 <h3 class="text-h5 mb-2">
-                  {{ selected.name }}
+                  {{ selecionado.nome }}
                 </h3>
                 <div class="blue--text mb-2">
-                  {{ selected.email }}
+                  {{ selecionado.email }}
                 </div>
                 <div class="blue--text subheading font-weight-bold">
-                  {{ selected.username }}
+                  {{ selecionado.perfil }}
                 </div>
               </v-card-text>
+
               <v-divider></v-divider>
-              <v-row class="text-left" tag="v-card-text">
-                <pre>{{ selected }}</pre>
-                <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
-                  Perfil:
-                </v-col>
-                <!-- <v-col>{{ selected.company.name }}</v-col> -->
-                <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
-                  Setor:
-                </v-col>
-                <v-col>
-                  <!-- <a
-                  :href="`//${selected.website}`"
-                  target="_blank"
-                >{{ selected.website }}</a> -->
-                </v-col>
-                <v-col class="text-right mr-4 mb-2" tag="strong" cols="5">
-                  _ID:
-                </v-col>
-                <v-col>{{ selected._id }}</v-col>
+
+              <v-row class="text-center my-4">
+                <v-list-item two-line>
+                  <v-list-item-content>
+                    <v-list-item-title>Perfil</v-list-item-title>
+                    <v-list-item-subtitle>
+                      {{ selecionado.perfil }}</v-list-item-subtitle
+                    >
+                  </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item two-line>
+                  <v-list-item-content>
+                    <v-list-item-title>Local</v-list-item-title>
+                    <v-list-item-subtitle>
+                      {{ selecionado.local }}</v-list-item-subtitle
+                    >
+                  </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item two-line>
+                  <v-list-item-content>
+                    <v-list-item-title>ID</v-list-item-title>
+                    <v-list-item-subtitle>
+                      {{ selecionado._id }}</v-list-item-subtitle
+                    >
+                  </v-list-item-content>
+                </v-list-item>
               </v-row>
 
-              <v-card-footer>
+              <v-row class="text-left">
+                <pre>{{ selecionado }}</pre>
+              </v-row>
+
+              <v-card-text>
                 <v-row align="center" justify="space-around">
                   <v-btn outlined class="ma-2" color="primary">
                     <v-icon left> mdi-pencil </v-icon> Editar
@@ -97,7 +116,7 @@
                     <v-icon left> mdi-delete </v-icon> Excluir
                   </v-btn>
                 </v-row>
-              </v-card-footer>
+              </v-card-text>
             </v-card>
           </v-scroll-y-transition>
         </v-col>
@@ -122,42 +141,47 @@ export default {
     open: [],
     users: [],
     usuarios: [],
-    selecionado: [],
+    selecionado: {},
     perfis: ["Técnico", "Administrador"],
     dialog: false,
   }),
 
-  created() {},
+  created() {
+    this.getUsuarios();
+  },
 
   computed: {
-    items() {
-      return [
-        {
-          name: "Carregar Usuários",
-          children: this.users,
-        },
-      ];
-    },
+    foiSelecionado() {
+      console.log(Object.keys(this.selecionado).length === 0);
 
-    selected() {
-      if (!this.active.length) return undefined;
-
-      const id = this.active[0];
-      console.log(this.active);
-
-      return this.users.find((user) => user.id === id);
+      return Object.keys(this.selecionado).length > 0;
     },
   },
 
   watch: {},
 
   methods: {
+    userSelecionado(value) {
+      this.selecionado = Object.assign({}, value);
+      console.log(value);
+    },
+
+    getUsuarios() {
+      return UsuariosServices.getListaUsuarios()
+        .then((resposta) => (this.usuarios = resposta.dados))
+        .catch((err) => console.warn(err));
+    },
+
     async fetchUsers(item) {
       await pause(1500);
 
       return UsuariosServices.getListaUsuarios()
         .then((resposta) => item.children.push(...resposta.dados))
         .catch((err) => console.warn(err));
+    },
+
+    openModel() {
+      this.dialog = true;
     },
   },
 };

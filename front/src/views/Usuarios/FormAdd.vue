@@ -5,15 +5,22 @@
         <v-card-title class="col-12 teal">
           <v-icon dark>mdi-account-plus</v-icon>
           <span class="ml-4 text-h5 white--text">Novo usuário</span>
+           <v-spacer></v-spacer>
+
+          <v-btn dark text @click="close">
+            <v-icon dark>mdi-close</v-icon>
+          </v-btn>
         </v-card-title>
 
-        <v-container class="col-8 pa-4 mx-auto">
+        
+
+        <v-container class="col-6 pa-4 mx-auto">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-card-text>
                 <v-col cols="12">
                   <v-text-field
-                    v-model="editedItem.nome"
+                    v-model="formRegister.nome"
                     label="Nome"
                     :rules="nameRules"
                     required
@@ -22,28 +29,32 @@
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
-                    v-model="editedItem.email"
+                    v-model="formRegister.email"
                     label="E-mail"
                     :rules="emailRules"
                     required
                     type="email"
                     prepend-icon="mdi-email"
+                    :error="erros > 0 ? true : false"
+                    :error-messages="errosEmail"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
-                    v-model="editedItem.senha"
+                    v-model="formRegister.senha"
                     label="Senha"
                     :rules="passwordRules"
                     required
                     :counter="6"
-                    type="password"
+                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="show1 ? 'text' : 'password'"
+                    @click:append="show1 = !show1"
                     prepend-icon="mdi-lock"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
-                    v-model="editedItem.local"
+                    v-model="formRegister.local"
                     label="Local"
                     prepend-icon="mdi-map-marker"
                   ></v-text-field>
@@ -51,7 +62,7 @@
                 <v-col cols="12">
                   <v-select
                     :items="perfis"
-                    v-model="editedItem.perfil"
+                    v-model="formRegister.perfil"
                     :rules="[(v) => !!v || 'Selecione um perfil']"
                     required
                     label="Perfil"
@@ -74,28 +85,18 @@
               </v-card-actions>
             </v-row>
             <pre>valid : {{ this.valid }}</pre>
-            <pre>{{ this.editedItem }}</pre>
+            <pre>{{ this.formRegister }}</pre>
           </v-form>
         </v-container>
-     
 
-      <v-snackbar
-        v-model="snackbar"
-        :timeout="timeout"
-        absolute
-        color="success"
-        
-      >
-        {{ snackbarText }}
+        <Snackbar
+          :snackbar="snackbar"
+          :color="color"
+          :snackbarText="snackbarText"
+        />
 
-        <template v-slot:action="{ attrs }">
-          <v-btn color="white" text v-bind="attrs" @click="snackbar = false">
-            Fechar
-          </v-btn>
-        </template>
-      </v-snackbar>
-       </v-card>
-
+      
+      </v-card>
     </v-dialog>
   </v-container>
 </template>
