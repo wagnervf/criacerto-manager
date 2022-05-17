@@ -106,6 +106,7 @@ export default {
       this.formRegister = {};
       this.errosEmail = [];
       this.snackbar = false;
+      this.editar = false;
     },
 
     close() {

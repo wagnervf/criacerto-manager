@@ -38,6 +38,7 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field
+                  v-if="!isEdit"
                   v-model="formRegister.senha"
                   label="Senha"
                   :rules="passwordRules"
@@ -82,9 +83,11 @@
               @click="validate"
             >
               Salvar
-            </v-btn>
-          
+            </v-btn>          
         </v-card-actions>
+
+
+        <pre>{{formRegister}}</pre>
       </v-card>
 
       <Snackbar
