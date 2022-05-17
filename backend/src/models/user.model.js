@@ -59,7 +59,9 @@ userSchema.methods.generateAuthToken = async function () {
   return token;
 };
 
+//
 //pesquisa usando o email do user
+//
 userSchema.statics.findByCredentials = async (email, senha) => {
   const user = await User.findOne({ email });
   console.log("findByCredentials : ".concat(user));

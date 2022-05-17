@@ -1,9 +1,14 @@
 
-import swal from 'sweetalert';
+//import swal from 'sweetalert';
 import LoginService from '@/services/LoginService';
+//import Snackbar from "../../components/Snackbar.vue";
 
 export default {
   name: 'LoginComponent',
+  components: {
+   
+  },
+
   data() {    
     return {
       props: {
@@ -24,6 +29,10 @@ export default {
         password: null,
       },
       isSubmitted: false,
+      snackbar: false,
+      snackbarText: "",
+      color: "",
+      errorColor: "red accent-2"
     };
   },
 
@@ -32,24 +41,33 @@ export default {
     //   return this.$refs.form.validate()
     // },
 
+
+
     loginSubmitUserForm() {},
 
     async submitLoginUser() {
       if(this.$refs.form.validate()){
         try {
-          this.isSubmitted = true; 
-         
-          await LoginService.loginUser(this.loginForm);
+          this.isSubmitted = true;          
+          await LoginService.loginUser(this.loginForm);          
           this.$router.push('/Home/home');
+
         } catch (error) {
-          console.log(error);
-          swal({
-            title: 'O endereço de email ou a senha que você inseriu não é válido',
-            text: 'Por favor, tente novamente.',
-            icon: 'error',
-          });
+        this.setMessage(
+          'O endereço de e-mail ou a senha que você inseriu não é válido!',
+           true, 
+           this.errorColor,
+        );
+      
         }
       }
+    },
+
+
+    setMessage(message, snack, color) {
+      this.snackbarText = message;
+      this.snackbar = snack;
+      this.color = color;      
     },
   },
 };

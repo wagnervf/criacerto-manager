@@ -22,4 +22,10 @@ router.get('/userProfile', auth, userController.returnUserProfile);
 // ==> Lista de usuários
 router.get('/list', userController.listUsers);
 
+
+// ==> Atualizar de usuários
+router.put('/update', userController.updateUser);
+
+
+
 module.exports = router;

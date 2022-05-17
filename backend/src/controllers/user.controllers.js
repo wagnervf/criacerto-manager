@@ -38,7 +38,6 @@ exports.registerNewUser = async (req, res) => {
 
 
 
-
 //
 //
 // Login
@@ -95,6 +94,59 @@ exports.listUsers = async (req, res) => {
       }
     }
 
-
    });
+};
+
+
+//
+//
+// Update Usuário 
+//
+// 
+exports.updateUser = async(req, res) => {
+  try{
+    const dadosUser = req.body;
+    const result = await User.findByIdAndUpdate({_id : dadosUser._id}, {
+      $set : {
+        nome:  dadosUser.nome,
+        email: dadosUser.email,
+        pefil: dadosUser.perfil,
+        local: dadosUser.local
+
+      }
+      }, {
+        new: true,
+        useFindAndModify: false
+      
+    });
+
+    console.log(result);
+    res.status(201).json({ dados: result });
+
+
+  }catch(error){
+    res.status(400).json({ error: error });
+  }
+
+    
+
+   
+
+
+   // const modelId = req.body.model_id;
+   // const newName = req.body.name;
+
+    // MyModel.findById(modelId).then((model) => {
+    //     return Object.assign(model, {name: newName});
+    // }).then((model) => {
+    //     return model.save();
+    // }).then((updatedModel) => {
+    //     res.json({
+    //         msg: 'model updated',
+    //         updatedModel
+    //     });
+    // }).catch((err) => {
+    //     res.send(err);
+    // });
+
 };

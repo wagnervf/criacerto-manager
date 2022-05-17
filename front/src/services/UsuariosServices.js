@@ -7,10 +7,18 @@ export default {
       const response = await ApiAxios().get("/user/list");
 
       if (response) {
-        console.log(response.data);
+       // console.log(response.data);
+        return response.data;
       }
 
-      return response.data;
+      swal({
+        title: "Alerta",
+        text: "Verificarrr!",
+        icon: "error",
+      });
+
+
+      //return response.data;
     } catch (error) {
       swal({
         title: "Alerta",
@@ -23,11 +31,9 @@ export default {
 
 
   async storeUsuario (dados) {
-    try {
+       try {
      
-
     return await ApiAxios().post("user/register", dados)
-
       .then(function(response) {
         console.log(response);
         return response;
@@ -36,10 +42,42 @@ export default {
         console.log(error.response);
         return error.response;
       });
-    } catch (error) {
-      console.log(error)
+    } catch (erro) {
+      console.log(erro);
+      return erro;
     }
   },
+
+  async updateUsuario (id, dados) {
+    try{
+
+      return await ApiAxios().patch("menu/".concat(id), dados)
+      .then(function(response) {
+        return response;
+      })
+      .catch(function(error) {
+        return error.response;
+      });
+
+    }catch(erro){
+      console.log(erro)
+      return erro;
+    }
+  },
+
+  // deleteMenuApi: (id) => {
+  //   return httpAxios
+  //     .delete("menu/".concat(id), {
+  //       headers: { Authorization: AuthStr },
+  //     })
+  //     .then(function(response) {
+  //       return response;
+  //     })
+  //     .catch(function(error) {
+  //       return error.response;
+  //     });
+  // },
+
 
 
   // async getContractsMontaNatural() {

@@ -1,36 +1,29 @@
 <template>
   <v-container>
     <v-card class="mx-auto">
-      <v-toolbar flat class="grey lighten-4 pa-4 my-4">
+      <v-toolbar flat class="teal pa-4">
         <v-row justify="space-between">
-          <v-toolbar-title class="teal--text pa-2">
+          <v-toolbar-title class="white--text pa-2" dark>
             <h4>Gerenciar Usuários</h4>
           </v-toolbar-title>
 
-          <v-spacer></v-spacer>
-
-          <v-btn color="teal" dark class="mb-2" @click="openModel">
-            <span>Novo Usuário</span>
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-
-          <FormAdd :dialog="dialog" @update="dialog = $event" />
+          <FormAdd :dialog="dialog" @update="dialog = $event" :usuarioEditar="usuarioEditado" />
         </v-row>
       </v-toolbar>
-      <v-row class="pa-4 text-left" tag="v-card-text">
-        <v-toolbar color="teal" dark>
-          <v-toolbar-title>Lista dos Usuários</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>mdi-magnify</v-icon>
-          </v-btn>
-        </v-toolbar>
-      </v-row>
 
-      <v-row class="pa-4 text-left" tag="v-card-text">
+      <v-toolbar class="elevation-0 grey lighten-4">
+        <v-toolbar-title>Lista dos Usuários</v-toolbar-title>
+        <v-spacer></v-spacer>
+
+        <v-btn color="teal" dark @click="openModel">
+          <span>Novo Usuário</span>
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </v-toolbar>
+
+      <v-row class="px-4 text-left" tag="v-card-text">
         <v-col class="text-left">
           <v-list two-line width="100%">
-            <v-subheader>REPORTS</v-subheader>
             <v-list-item-group color="primary">
               <v-list-item
                 v-for="(item, i) in usuarios"
@@ -54,9 +47,7 @@
             </v-list-item-group>
           </v-list>
         </v-col>
-
         <v-divider vertical></v-divider>
-
         <v-col class="d-flex text-center" v-if="foiSelecionado">
           <v-scroll-y-transition mode="out-in">
             <v-card class="pt-6 mx-auto" flat max-width="600">
@@ -109,11 +100,19 @@
 
               <v-card-text>
                 <v-row align="center" justify="space-around">
-                  <v-btn outlined class="ma-2" color="primary">
+                  <v-btn
+                    outlined
+                    class="ma-2"
+                    color="primary"
+                    @click="editarUsuario()"
+                  >
                     <v-icon left> mdi-pencil </v-icon> Editar
                   </v-btn>
                   <v-btn outlined class="ma-2" color="error">
                     <v-icon left> mdi-delete </v-icon> Excluir
+                  </v-btn>
+                  <v-btn outlined class="ma-2" color="warning">
+                    <v-icon left> mdi-lock </v-icon> Alterar Senha
                   </v-btn>
                 </v-row>
               </v-card-text>
@@ -129,7 +128,6 @@
 import UsuariosServices from "@/services/UsuariosServices";
 import FormAdd from "./FormAdd.vue";
 
-const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default {
   components: { FormAdd },
@@ -142,18 +140,19 @@ export default {
     users: [],
     usuarios: [],
     selecionado: {},
+    usuarioEditado: {},
     perfis: ["Técnico", "Administrador"],
     dialog: false,
   }),
 
+  // Carrega usuários ao criar a página
+  // TODO: Analisar se ficará assim
   created() {
     this.getUsuarios();
   },
 
   computed: {
     foiSelecionado() {
-      console.log(Object.keys(this.selecionado).length === 0);
-
       return Object.keys(this.selecionado).length > 0;
     },
   },
@@ -163,7 +162,7 @@ export default {
   methods: {
     userSelecionado(value) {
       this.selecionado = Object.assign({}, value);
-      console.log(value);
+    //  console.log(value);
     },
 
     getUsuarios() {
@@ -172,12 +171,9 @@ export default {
         .catch((err) => console.warn(err));
     },
 
-    async fetchUsers(item) {
-      await pause(1500);
-
-      return UsuariosServices.getListaUsuarios()
-        .then((resposta) => item.children.push(...resposta.dados))
-        .catch((err) => console.warn(err));
+    editarUsuario() {
+      this.usuarioEditado = Object.assign({}, this.selecionado);
+      this.openModel();
     },
 
     openModel() {

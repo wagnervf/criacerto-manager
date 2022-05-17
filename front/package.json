@@ -10,6 +10,7 @@
   "dependencies": {
     "@mdi/js": "^5.7.55",
     "axios": "^0.21.1",
+    "bcryptjs": "^2.4.3",
     "chokidar": "^2.1.8",
     "core-js": "^3.6.5",
     "date-fns": "^2.16.1",

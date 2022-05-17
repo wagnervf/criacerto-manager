@@ -9,10 +9,7 @@ export default {
   async loginUser(user) {
     try {
       const response = await ApiAxios().post('/login', user);
-
-
-      const { token } = response.data;
-
+     const { token } = response.data;
       const userLogged = {
         'createdAt': (response.data.user.createdAt),
         'name': (response.data.user.name),
@@ -35,16 +32,11 @@ export default {
           icon: 'success',
         });
       }
-
-
     } catch (error) {
       console.log(error);
-      swal({
-        title: 'Oops!',
-        text: 'Alguma coisa deu errado aqui!',
-        icon: 'error',
-      });
       this.$router.push('/');
+       return error;
+      
     }
   },
 };
