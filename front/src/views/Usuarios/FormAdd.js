@@ -1,10 +1,15 @@
 import UsuariosServices from "@/services/UsuariosServices";
 import Snackbar from "../../components/Snackbar.vue";
+//import bcrypt from 'bcryptjs';
+
 export default {
   props: {
     dialog: {
       default: false,
     },
+    usuarioEditar:{
+      default: {}
+    }
   },
   components: {
     Snackbar,
@@ -15,17 +20,14 @@ export default {
       ativo: true,
       perfis: ["Técnico", "Administrador"],
       desserts: [],
-      editedIndex: -1,
       show1: false,
       formRegister: {
         nome: "wagner",
-        email: "wagner@gmail.com",
-        senha: "12345",
+        email: "wagner@gmail.com",        
         perfil: "Técnico",
         local: "Ufms",
       },
       errosEmail:[],
-
       valid: false,
 
       nameRules: [
@@ -40,12 +42,13 @@ export default {
       passwordRules: [
         (v) => !!v || "A senha é obrigatória",
         (v) =>
-          (v && v.length <= 6) || "A senha deve conter no mínimo 6 caracteres",
+          (v && v.length >= 6) || "A senha deve conter no mínimo 6 caracteres",
       ],
 
       snackbar: false,
       snackbarText: "",
       color: "",
+      editar:false
     };
   },
 
@@ -54,19 +57,47 @@ export default {
    computed: {
      erros(){
       return this.errosEmail.length;
-     }
+     },
 
-     
+     isEdit(){
+       return this.editar;
+     },
+
 
    },
 
-  // watch: {},
+   watch: {
+    'formRegister.email'(){
+      if(!this.valid){
+        this.errosEmail = [];
+      }      
+    },
+
+    usuarioEditar(value){
+     this.editar = true;
+
+      this.formRegister = {
+        nome: value.nome,
+        email: value.email,
+       // senha: value.senha,
+        perfil: value.perfil,
+        local: value.local,
+      };
+      
+    }
+   },
 
   methods: {
+    
     validate() {
       if (this.$refs.form.validate()) {
-        // console.log(this.formRegister)
-        this.salvarUsuario();
+        
+        if(this.isEdit){
+          this.updateUsuario();
+        } else {
+          this.salvarUsuario();
+        }
+        
       }
     },
 
@@ -75,7 +106,6 @@ export default {
       this.formRegister = {};
       this.errosEmail = [];
       this.snackbar = false;
-
     },
 
     close() {
@@ -97,6 +127,7 @@ export default {
 
         if (response.status != 201) {
           if(response.data.type == 'email'){
+            
           return this.errosEmail.push(response.data.message)
           }
          
@@ -109,10 +140,23 @@ export default {
       }
     },
 
+    updateUsuario(){
+      console.log(this.formRegister)
+    },
+
     setMessage(message, snack, color) {
       this.snackbarText = message;
       this.snackbar = snack;
-      this.color = color;
+      this.color = color;      
     },
+
+
+   // decodeSenha(){
+  //    let v = bcrypt.getRounds('$2a$06$q2rKyAa5XvPxvDwftvqodegd7fbhT8JV3NumW80RXm0yNYrST6pti');
+ //     console.log(v);
+ //   },
+
+    
+  
   },
 };

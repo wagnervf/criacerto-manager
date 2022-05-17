@@ -7,10 +7,18 @@ export default {
       const response = await ApiAxios().get("/user/list");
 
       if (response) {
-        console.log(response.data);
+       // console.log(response.data);
+        return response.data;
       }
 
-      return response.data;
+      swal({
+        title: "Alerta",
+        text: "Verificarrr!",
+        icon: "error",
+      });
+
+
+      //return response.data;
     } catch (error) {
       swal({
         title: "Alerta",
@@ -27,7 +35,6 @@ export default {
      
 
     return await ApiAxios().post("user/register", dados)
-
       .then(function(response) {
         console.log(response);
         return response;

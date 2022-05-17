@@ -92,6 +92,25 @@
         </div>
       </v-col>
     </v-row>
+
+     <v-snackbar
+      v-model="snackbar"
+      :vertical="true"
+      :color="color"
+    >
+      {{ snackbarText }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          dark
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Fechar
+        </v-btn>
+      </template>
+    </v-snackbar>
+
   </v-container>
 </template>
 
