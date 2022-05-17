@@ -111,6 +111,9 @@
                   <v-btn outlined class="ma-2" color="error">
                     <v-icon left> mdi-delete </v-icon> Excluir
                   </v-btn>
+                  <v-btn outlined class="ma-2" color="warning">
+                    <v-icon left> mdi-lock </v-icon> Alterar Senha
+                  </v-btn>
                 </v-row>
               </v-card-text>
             </v-card>

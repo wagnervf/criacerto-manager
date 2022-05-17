@@ -7,9 +7,9 @@ export default {
     dialog: {
       default: false,
     },
-    usuarioEditar:{
-      default: {}
-    }
+    usuarioEditar: {
+      default: {},
+    },
   },
   components: {
     Snackbar,
@@ -23,11 +23,11 @@ export default {
       show1: false,
       formRegister: {
         nome: "wagner",
-        email: "wagner@gmail.com",        
+        email: "wagner@gmail.com",
         perfil: "Técnico",
         local: "Ufms",
       },
-      errosEmail:[],
+      errosEmail: [],
       valid: false,
 
       nameRules: [
@@ -48,56 +48,49 @@ export default {
       snackbar: false,
       snackbarText: "",
       color: "",
-      editar:false
+      editar: false,
     };
   },
 
   // created() {},
 
-   computed: {
-     erros(){
+  computed: {
+    erros() {
       return this.errosEmail.length;
-     },
-
-     isEdit(){
-       return this.editar;
-     },
-
-
-   },
-
-   watch: {
-    'formRegister.email'(){
-      if(!this.valid){
-        this.errosEmail = [];
-      }      
     },
 
-    usuarioEditar(value){
-     this.editar = true;
+    isEdit() {
+      return this.editar;
+    },
+  },
 
+  watch: {
+    "formRegister.email"() {
+      if (!this.valid) {
+        this.errosEmail = [];
+      }
+    },
+
+    usuarioEditar(value) {
+      this.editar = true;
       this.formRegister = {
         nome: value.nome,
         email: value.email,
-       // senha: value.senha,
+        // senha: value.senha,
         perfil: value.perfil,
         local: value.local,
       };
-      
-    }
-   },
+    },
+  },
 
   methods: {
-    
     validate() {
       if (this.$refs.form.validate()) {
-        
-        if(this.isEdit){
+        if (this.isEdit) {
           this.updateUsuario();
         } else {
           this.salvarUsuario();
         }
-        
       }
     },
 
@@ -118,8 +111,6 @@ export default {
       // Notificando o componente PAI que deve adicionar um false
       this.$emit("update", false);
       this.reset();
-      
-
     },
 
     async salvarUsuario() {
@@ -127,37 +118,46 @@ export default {
         let response = await UsuariosServices.storeUsuario(this.formRegister);
 
         if (response.status != 201) {
-          if(response.data.type == 'email'){
-            
-          return this.errosEmail.push(response.data.message)
+          if (response.data.type == "email") {
+            return this.errosEmail.push(response.data.message);
           }
-         
         }
-        
+
         return this.setMessage("Salvo com sucesso!", true, "success");
-        
       } catch (error) {
         return this.setMessage(error.data.message, true, "error");
       }
     },
 
-    updateUsuario(){
-      console.log(this.formRegister)
+    async updateUsuario() {
+      try {
+        let response = await UsuariosServices.storeUsuario(this.formRegister);
+
+        if (response.status != 201) {
+          if (response.data.type == "email") {
+            return this.errosEmail.push(response.data.message);
+          }
+        }
+
+        return this.setMessage(
+          "Usuário atualizado com sucesso!",
+          true,
+          "success"
+        );
+      } catch (error) {
+        return this.setMessage(error.data.message, true, "error");
+      }
     },
 
     setMessage(message, snack, color) {
       this.snackbarText = message;
       this.snackbar = snack;
-      this.color = color;      
+      this.color = color;
     },
 
-
-   // decodeSenha(){
-  //    let v = bcrypt.getRounds('$2a$06$q2rKyAa5XvPxvDwftvqodegd7fbhT8JV3NumW80RXm0yNYrST6pti');
- //     console.log(v);
- //   },
-
-    
-  
+    // decodeSenha(){
+    //    let v = bcrypt.getRounds('$2a$06$q2rKyAa5XvPxvDwftvqodegd7fbhT8JV3NumW80RXm0yNYrST6pti');
+    //     console.log(v);
+    //   },
   },
 };
