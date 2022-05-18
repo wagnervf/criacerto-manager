@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 
 //Importando a conexão com o DB
 const databaseConfig = require("./db.config");
-
 mongoose.Promise = global.Promise;
 
 // ==> Conexão com o banco de dados

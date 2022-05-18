@@ -1,66 +1,69 @@
-import swal from "sweetalert";
+//import swal from "sweetalert";
 import ApiAxios from "./ApiAxios";
+//import { AuthStr } from "../Core/tokenConnectServices";
 
 export default {
   async getListaUsuarios() {
     try {
       const response = await ApiAxios().get("/user/list");
+      //console.log(response);
+      if (response.status == '200') {
+        return response;
+      } 
+      return response;
 
-      if (response) {
-       // console.log(response.data);
-        return response.data;
-      }
-
-      swal({
-        title: "Alerta",
-        text: "Verificarrr!",
-        icon: "error",
-      });
-
-
-      //return response.data;
     } catch (error) {
-      swal({
-        title: "Alerta",
-        text: "Nenhum usuário encontrado!",
-        icon: "error",
-      });
-      this.$router.push("/");
+      //  console.log(error);
+      return error.response;
     }
   },
 
-
-  async storeUsuario (dados) {
-       try {
-     
-    return await ApiAxios().post("user/register", dados)
-      .then(function(response) {
-        console.log(response);
-        return response;
-      })
-      .catch(function(error) {
-        console.log(error.response);
-        return error.response;
-      });
+  async storeUsuario(dados) {
+    try {
+      return await ApiAxios()
+        .post("user/register", dados)
+        .then(function (response) {
+          console.log(response);
+          return response;
+        })
+        .catch(function (error) {
+          console.log(error.response);
+          return error.response;
+        });
     } catch (erro) {
       console.log(erro);
       return erro;
     }
   },
 
-  async updateUsuario (id, dados) {
-    try{
+  async updateUsuario(dados) {
+    try {
+      return await ApiAxios()
+        .put("user/update", dados)
+        .then(function (response) {
+          return response;
+        })
+        .catch(function (error) {
+          return error.response;
+        });
+    } catch (erro) {
+      console.log(erro);
+      return erro;
+    }
+  },
 
-      return await ApiAxios().patch("menu/".concat(id), dados)
-      .then(function(response) {
-        return response;
-      })
-      .catch(function(error) {
-        return error.response;
-      });
-
-    }catch(erro){
-      console.log(erro)
+  async removerUsuario(id) {
+    try {
+      return await ApiAxios()
+        .delete("user/delete/", { data: { id: id } })
+        .then(function (response) {
+          return response;
+        })
+        .catch(function (error) {
+          return error.response;
+        });
+    } catch (erro) {
+      console.log(erro);
       return erro;
     }
   },
@@ -77,8 +80,6 @@ export default {
   //       return error.response;
   //     });
   // },
-
-
 
   // async getContractsMontaNatural() {
   //   try {

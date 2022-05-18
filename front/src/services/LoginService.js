@@ -8,11 +8,13 @@ export default {
    */
   async loginUser(user) {
     try {
-      const response = await ApiAxios().post('/login', user);
+     // const response = await ApiAxios().post('/login', user);
+      const response = await ApiAxios().post('/user/authenticate', user);
+      
      const { token } = response.data;
       const userLogged = {
         'createdAt': (response.data.user.createdAt),
-        'name': (response.data.user.name),
+        'name': (response.data.user.nome),
         'email': (response.data.user.email),
       };
 

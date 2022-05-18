@@ -26,7 +26,7 @@ const index = require('./routes/index');
 const userRoutes = require('./routes/user.routes');
 // const eventoRoutes = require('./routes/evento.routes');
 // const contractsRoutes = require('./routes/contracts.routes');
-
+ 
 
 app.use(index);
 // app.use('/api/v1', userRoutes);

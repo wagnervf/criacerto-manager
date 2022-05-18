@@ -8,8 +8,14 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema(
   {
     nome: { type: String, maxlength: 50, required: true },
-    email: { type: String, maxlength: 50, required: true },
-    senha: { type: String, required: true },
+    email: {
+      type: String,
+      maxlength: 50,
+      required: true,
+      unique: true,
+      lowercase: true,
+    },
+    senha: { type: String, required: true, select: false },
     perfil: { type: String, required: true },
     local: { type: String, required: true },
     tokens: [
@@ -17,7 +23,6 @@ const userSchema = new Schema(
         token: { type: String, required: true },
       },
     ],
-     
   },
   {
     timestamps: true,
@@ -50,7 +55,9 @@ userSchema.methods.generateAuthToken = async function () {
       nome: user.nome,
       email: user.email,
     },
-    "secret"
+    "secret" , {
+      expiresIn: 86400,
+    }
   );
 
   user.tokens = user.tokens.concat({ token });

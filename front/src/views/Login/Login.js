@@ -26,7 +26,7 @@ export default {
       ],
       loginForm: {
         email: null,
-        password: null,
+        senha: null,
       },
       isSubmitted: false,
       snackbar: false,
@@ -50,7 +50,8 @@ export default {
         try {
           this.isSubmitted = true;          
           await LoginService.loginUser(this.loginForm);          
-          this.$router.push('/Home/home');
+          this.$router.push('/');
+
 
         } catch (error) {
         this.setMessage(
@@ -61,6 +62,12 @@ export default {
       
         }
       }
+    },
+
+    recuperarSenha(){
+      //https://www.youtube.com/watch?v=Zwdv9RllPqU&list=PL85ITvJ7FLoiXVwHXeOsOuVppGbBzo2dp&index=3
+       console.log('Ver esse vídeo');
+       console.log('https://www.youtube.com/watch?v=Zwdv9RllPqU&list=PL85ITvJ7FLoiXVwHXeOsOuVppGbBzo2dp&index=3');
     },
 
 

@@ -31,7 +31,7 @@
           ></v-text-field>
 
           <v-text-field
-            v-model="loginForm.password"
+            v-model="loginForm.senha"
             :rules="passRules"
             required
             id="password"
@@ -60,7 +60,8 @@
 
         <div class="text-right px-6 mx-6">
           <v-btn
-            to="/dashboard/basic-dashboard"
+           
+            @click="recuperarSenha"
             text
             color="teal "
             class="text-subtitle-2"
