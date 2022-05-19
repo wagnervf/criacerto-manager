@@ -12,19 +12,27 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.replace('Bearer ', '');
-    console.log(token);
-
-    //secret está sendo usado no banco
-    const decoded = jwt.verify(token, 'secret');
-
     
-    console.log('*************');
-    console.log(decoded);
+    if(!token) {
+      return res.status(401).json({ error: 'Verifique o token do usuário!' });
+    }
+
+     
+    //secret está sendo usado no banco
+    jwt.verify(token, 'secret', (error, decoded) => {
+      if(error){
+        return res.status(401).json({ error: 'Token inválido' });
+      }
+
+      // passando o token codificado para o corpo da requisição
+      req.userData = decoded;
+    });
+  
 
     // passando o token codificado para o corpo da requisição
-    req.userData = decoded;
+   // req.userData = decoded;
 
-    //para retornar
+    //Avançar na rota e ir para Controllers
     next();
     //
   } catch (error) {

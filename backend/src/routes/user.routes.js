@@ -12,7 +12,9 @@ const auth = require('../middlewares/auth');
 router.post('/register', userController.registerNewUser)
 
 // ==> Rota de login
-router.post('/login', userController.loginUser);
+//router.post('/login', userController.loginUser);
+
+router.post('/authenticate', userController.authenticate);
 
 // ==> Rota de userProfile
 // Antes de acessar a rota, ele irár ao Auth verificar se o user existe para depois chamar a rota
@@ -20,11 +22,20 @@ router.get('/userProfile', auth, userController.returnUserProfile);
 
 
 // ==> Lista de usuários
+//TODO: COLOCAR auth
 router.get('/list', userController.listUsers);
 
 
 // ==> Atualizar de usuários
 router.put('/update', userController.updateUser);
+
+// ==> Deletear de usuários
+//
+//TODO: COLOCAR auth
+router.delete('/delete',  userController.deleteUser);
+
+
+
 
 
 

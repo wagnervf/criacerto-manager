@@ -87,6 +87,7 @@
         </v-card-actions>
 
 
+        <pre>{{valid}}</pre>
         <pre>{{formRegister}}</pre>
       </v-card>
 

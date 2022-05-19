@@ -8,35 +8,37 @@
     light
   >
     <v-breadcrumbs :items="rotas">
-    <template v-slot:item="{ item }">
+      <template v-slot:item="{ item }">
+        <v-breadcrumbs-item
+          v-if="item.text == 'Início'"
+          :href="item.href"
+          class="teal--text"
+        >
+          <v-icon class="mx-0">mdi-home</v-icon>
+          <!-- {{ item.text }} -->
+        </v-breadcrumbs-item>
 
-      <v-breadcrumbs-item
-         v-if="item.text == 'Início'"
-        :href="item.href"
-        class="teal--text"   
-      >
-      <v-icon class="mx-0" >mdi-home</v-icon>
-        <!-- {{ item.text }} -->
-      </v-breadcrumbs-item>
-
-      <v-breadcrumbs-item
-        v-else
-        :href="item.href"
-        :disabled="item.disabled"
-      >
-        {{ item.text }}
-      </v-breadcrumbs-item>
-
-
-    </template>
-  </v-breadcrumbs>
+        <v-breadcrumbs-item v-else :href="item.href" :disabled="item.disabled">
+          {{ item.text }}
+        </v-breadcrumbs-item>
+      </template>
+    </v-breadcrumbs>
 
     <v-spacer />
 
     <v-list style="background-color: whitesmoke">
+   
+   <v-chip
+      class="ma-2"
+      color="primary"
+      label
+    >
+      <v-icon left>
+        mdi-account-circle-outline
+      </v-icon>
       <v-list-item-subtitle> {{ user.name }} </v-list-item-subtitle>
+    </v-chip>
     </v-list>
-    
 
     <v-menu bottom left transition="scale-transition">
       <template v-slot:activator="{ on }">
@@ -94,7 +96,7 @@ export default {
       email: "",
     },
 
-   breadcrumbs: []
+    breadcrumbs: [],
 
     // href() {
     //   return undefined;
@@ -102,29 +104,24 @@ export default {
   }),
 
   created() {
-  //this.breadcrumbs = this.rotas();
-   console.log(this.$route.meta.breadCrumb);
+    //this.breadcrumbs = this.rotas();
+    console.log(this.$route.meta.breadCrumb);
   },
 
   mounted() {
     this.getUserLocalStorage();
     // var u =  JSON.parse(localStorage.getItem("userLogged"))
 
-  //  console.log(this.$route.name);
-    
+    //  console.log(this.$route.name);
   },
 
   computed: {
     rotas() {
-     
       return this.$route.meta.breadCrumb;
     },
   },
 
   methods: {
-
-    
-
     getUserLocalStorage() {
       let user = JSON.parse(localStorage.getItem("userLogged"));
       console.log(user);
@@ -137,8 +134,6 @@ export default {
   },
 };
 </script>
-
-
 
 <style>
 .v-application a {

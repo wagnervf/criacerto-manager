@@ -1,7 +1,7 @@
 import UsuariosServices from "@/services/UsuariosServices";
 import Snackbar from "../../components/Snackbar.vue";
 //import bcrypt from 'bcryptjs';
-
+const pause = ms => new Promise(resolve => setTimeout(resolve, ms))
 export default {
   props: {
     dialog: {
@@ -22,17 +22,17 @@ export default {
       desserts: [],
       show1: false,
       formRegister: {
-        nome: "wagner",
-        email: "wagner@gmail.com",
+        nome: "",
+        email: "",
         perfil: "Técnico",
         local: "Ufms",
       },
+      idUser:"",
       errosEmail: [],
       valid: false,
 
       nameRules: [
         (v) => !!v || "Nome é obrigatório",
-        (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
       ],
       emailRules: [
         (v) => !!v || "E-mail é obrigatório",
@@ -73,7 +73,9 @@ export default {
 
     usuarioEditar(value) {
       this.editar = true;
+
       this.formRegister = {
+        _id: value._id,
         nome: value.nome,
         email: value.email,
         // senha: value.senha,
@@ -123,7 +125,12 @@ export default {
           }
         }
 
-        return this.setMessage("Salvo com sucesso!", true, "success");
+        this.setMessage("Salvo com sucesso!", true, "success");
+
+        await pause(1000);       
+        //this.close();   
+        this.$router.go(); 
+
       } catch (error) {
         return this.setMessage(error.data.message, true, "error");
       }
@@ -131,23 +138,27 @@ export default {
 
     async updateUsuario() {
       try {
-        let response = await UsuariosServices.storeUsuario(this.formRegister);
+        let response = await UsuariosServices.updateUsuario(this.formRegister);
 
-        if (response.status != 201) {
-          if (response.data.type == "email") {
-            return this.errosEmail.push(response.data.message);
-          }
+        if (response.status != 200) {
+          //Erro na atualização do usuário
+          return this.setMessage(response.data.message, true, "error");
         }
+          this.setMessage(
+            "Usuário atualizado com sucesso!",
+            true,
+            "success"
+          );        
 
-        return this.setMessage(
-          "Usuário atualizado com sucesso!",
-          true,
-          "success"
-        );
+        await pause(1000);
+        this.$router.go(); 
+         
       } catch (error) {
         return this.setMessage(error.data.message, true, "error");
       }
     },
+
+   
 
     setMessage(message, snack, color) {
       this.snackbarText = message;
