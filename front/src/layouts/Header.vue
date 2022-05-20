@@ -26,27 +26,35 @@
 
     <v-spacer />
 
-    <v-list style="background-color: whitesmoke">
-   
-   <v-chip
-      class="ma-2"
-      color="primary"
-      label
+    <v-menu
+      offset-y
+      tabindex="1"
+      transition="scale-transition"
+      title="Menu de ações do usuário"
     >
-      <v-icon left>
-        mdi-account-circle-outline
-      </v-icon>
-      <v-list-item-subtitle> {{ user.name }} </v-list-item-subtitle>
-    </v-chip>
-    </v-list>
-
-    <v-menu bottom left transition="scale-transition">
       <template v-slot:activator="{ on }">
-        <v-btn icon v-on="on" class="mx-4">
-          <v-icon>mdi-account</v-icon>
-          <v-icon>mdi-menu-down</v-icon>
-        </v-btn>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on: tooltip }">
+            <v-list two-line flat color="grey lighten-4" class="ma-0 pa-0">
+              <v-list-item link v-on="{ ...tooltip, ...on }">
+                <v-list-item-avatar>
+                  <v-avatar color="grey">
+                    <v-icon dark> mdi-account-circle </v-icon>
+                  </v-avatar>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title>{{ user.nome}}</v-list-item-title>
+                  <v-list-item-subtitle>{{ user.email }}</v-list-item-subtitle>
+                </v-list-item-content>
+                <v-icon>mdi-menu-down</v-icon>
+              </v-list-item>
+            </v-list>
+          </template>
+          <span>Menu de ações do usuário</span>
+        </v-tooltip>
       </template>
+
+     
 
       <v-list>
         <v-list-item
@@ -72,6 +80,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: "Header",
 
@@ -105,30 +115,39 @@ export default {
 
   created() {
     //this.breadcrumbs = this.rotas();
-    console.log(this.$route.meta.breadCrumb);
+    //console.log(this.$route.meta.breadCrumb);
   },
 
   mounted() {
     this.getUserLocalStorage();
-    // var u =  JSON.parse(localStorage.getItem("userLogged"))
-
-    //  console.log(this.$route.name);
   },
 
   computed: {
+     ...mapGetters([
+      'getUserLogged',
+      // ...
+    ]),
+    
     rotas() {
       return this.$route.meta.breadCrumb;
     },
+
+    nomeUser(){
+      return this.$store.getters.getUserLogged.nome;
+    },
+
+    emailUser(){
+      return this.$store.getters.getUserLogged.email;
+    },
+
   },
 
   methods: {
     getUserLocalStorage() {
       let user = JSON.parse(localStorage.getItem("userLogged"));
-      console.log(user);
-
       if (user) {
-        this.user.name = user.name;
-        this.user.email = user.email;
+        this.user.nome = user.nome.charAt(0).toUpperCase() + user.nome.slice(1);
+        this.user.email = user.email.toLowerCase();
       }
     },
   },

@@ -85,10 +85,6 @@
               Salvar
             </v-btn>          
         </v-card-actions>
-
-
-        <pre>{{valid}}</pre>
-        <pre>{{formRegister}}</pre>
       </v-card>
 
       <Snackbar

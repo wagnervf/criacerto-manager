@@ -27,7 +27,7 @@
       </v-toolbar>
 
       <v-row class="px-4 text-left" tag="v-card-text">
-        <v-col class="text-left">
+        <v-col cols="5" class="text-left">
           <v-list two-line width="100%">
             <v-list-item v-if="usuarios.length < 1">
               <v-btn
@@ -64,12 +64,14 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list-item-group>
-          </v-list>
-        </v-col>
+          </v-list> </v-col
+        ><!-- Lista de usuários -->
+
         <v-divider vertical></v-divider>
-        <v-col class="d-flex text-center" v-if="foiSelecionado">
+
+        <v-col cols="7" class="d-flex text-center" v-if="foiSelecionado">
           <v-scroll-y-transition mode="out-in">
-            <v-card class="pt-6 mx-auto" flat max-width="600">
+            <v-card class="py-6 mx-auto" flat max-width="70%">
               <v-card-text>
                 <h3 class="text-h5 mb-2">
                   {{ selecionado.nome }}
@@ -77,23 +79,19 @@
                 <div class="blue--text mb-2">
                   {{ selecionado.email }}
                 </div>
-                <div class="blue--text subheading font-weight-bold">
-                  {{ selecionado.perfil }}
-                </div>
               </v-card-text>
 
               <v-divider></v-divider>
 
-              <v-row class="text-center my-4">
+              <v-row class="text-center py-4 my-4">
                 <v-list-item two-line>
                   <v-list-item-content>
                     <v-list-item-title>Perfil</v-list-item-title>
                     <v-list-item-subtitle>
-                      {{ selecionado.perfil }}</v-list-item-subtitle
-                    >
+                      <strong>{{ selecionado.perfil }}</strong>
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
-
                 <v-list-item two-line>
                   <v-list-item-content>
                     <v-list-item-title>Local</v-list-item-title>
@@ -102,7 +100,6 @@
                     >
                   </v-list-item-content>
                 </v-list-item>
-
                 <v-list-item two-line>
                   <v-list-item-content>
                     <v-list-item-title>ID</v-list-item-title>
@@ -111,14 +108,28 @@
                     >
                   </v-list-item-content>
                 </v-list-item>
+                <v-list-item two-line>
+                  <v-list-item-content>
+                    <v-list-item-title>Criado</v-list-item-title>
+                    <v-list-item-subtitle>
+                      {{ selecionado.createdAt }}</v-list-item-subtitle
+                    >
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item two-line>
+                  <v-list-item-content>
+                    <v-list-item-title>Atualizado</v-list-item-title>
+                    <v-list-item-subtitle>
+                      {{ selecionado.updatedAt }}</v-list-item-subtitle
+                    >
+                  </v-list-item-content>
+                </v-list-item>
               </v-row>
 
-              <v-row class="text-left">
-                <pre>{{ selecionado }}</pre>
-              </v-row>
+              <v-divider></v-divider>
 
-              <v-card-text>
-                <v-row align="center" justify="space-around">
+              <v-card-text class="my-2">
+                <v-row align="center" class="my-2" justify="space-around">
                   <v-btn
                     outlined
                     class="ma-2"
@@ -141,12 +152,11 @@
                 </v-row>
               </v-card-text>
             </v-card>
-          </v-scroll-y-transition>
-        </v-col>
-
+          </v-scroll-y-transition> </v-col
+        ><!-- Usuário selecionado -->
 
         <v-row justify="center">
-          <v-dialog v-model="dialogDelete" persistent max-width="500px">        
+          <v-dialog v-model="dialogDelete" persistent max-width="500px">
             <v-card>
               <v-card-title class="text-h5">
                 Tem certeza que deseja exlcuir o usuário?
@@ -156,7 +166,11 @@
               >
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="teal darken-1" outlined  @click="dialogDelete = false">
+                <v-btn
+                  color="teal darken-1"
+                  outlined
+                  @click="dialogDelete = false"
+                >
                   Fechar
                 </v-btn>
                 <v-btn color="red darken-2" outlined @click="removerUsuario">
@@ -166,8 +180,8 @@
             </v-card>
           </v-dialog>
         </v-row>
+        <!-- Dialog confirma excluir usuário -->
       </v-row>
-
 
       <Snackbar
         :snackbar="snackbar"
@@ -216,7 +230,7 @@ export default {
   computed: {
     foiSelecionado() {
       return Object.keys(this.selecionado).length > 0;
-    },   
+    },
   },
 
   watch: {},
@@ -262,11 +276,10 @@ export default {
 
         this.dialogDelete = false;
         this.setMessage("Usuário removido com sucesso!", true, "success");
-        await pause(1000);       
+        await pause(1000);
 
         //Reload da página
         this.$router.go();
-      
       } catch (error) {
         return this.setMessage(error.data.message, true, "error");
       }
@@ -280,7 +293,6 @@ export default {
     openModel() {
       this.dialog = true;
     },
- 
 
     atualizaLista() {
       this.selecionado = [];
