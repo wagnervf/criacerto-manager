@@ -35,15 +35,20 @@
       <template v-slot:activator="{ on }">
         <v-tooltip bottom>
           <template v-slot:activator="{ on: tooltip }">
-            <v-list two-line flat color="grey lighten-4" class="ma-0 pa-0">
+            <v-list
+              two-line
+              flat
+              color="grey lighten-4"
+              class="ma-0 pa-0"              
+            >
               <v-list-item link v-on="{ ...tooltip, ...on }">
                 <v-list-item-avatar>
                   <v-avatar color="grey">
                     <v-icon dark> mdi-account-circle </v-icon>
                   </v-avatar>
                 </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title>{{ user.nome}}</v-list-item-title>
+                <v-list-item-content accesskey="u">
+                  <v-list-item-title>{{ user.nome }}</v-list-item-title>
                   <v-list-item-subtitle>{{ user.email }}</v-list-item-subtitle>
                 </v-list-item-content>
                 <v-icon>mdi-menu-down</v-icon>
@@ -53,8 +58,6 @@
           <span>Menu de ações do usuário</span>
         </v-tooltip>
       </template>
-
-     
 
       <v-list>
         <v-list-item
@@ -74,13 +77,28 @@
             >
           </v-list-item-content>
         </v-list-item>
+        <v-divider></v-divider>
+        <v-list-item
+          dense
+          link
+          class="px-2 teal--text"
+          @click="logout"
+          tabindex="2"        
+        >
+          <v-list-item-content>
+            <v-list-item-title>
+              <v-icon class="px-2 teal--text">mdi-logout</v-icon>
+              Sair
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-menu>
   </v-app-bar>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
   name: "Header",
@@ -98,7 +116,6 @@ export default {
       { title: "Perfil", to: "/usuarios/perfil", icon: "mdi-account" },
       { title: "Mensagens", to: "", icon: "mdi-email" },
       { title: "Sobre", to: "/Sobre/sobre", icon: "mdi-information" },
-      { title: "Sair", to: "/login", icon: "mdi-logout" },
     ],
 
     user: {
@@ -123,23 +140,22 @@ export default {
   },
 
   computed: {
-     ...mapGetters([
-      'getUserLogged',
+    ...mapGetters([
+      "getUserLogged",
       // ...
     ]),
-    
+
     rotas() {
       return this.$route.meta.breadCrumb;
     },
 
-    nomeUser(){
+    nomeUser() {
       return this.$store.getters.getUserLogged.nome;
     },
 
-    emailUser(){
+    emailUser() {
       return this.$store.getters.getUserLogged.email;
     },
-
   },
 
   methods: {
@@ -149,6 +165,11 @@ export default {
         this.user.nome = user.nome.charAt(0).toUpperCase() + user.nome.slice(1);
         this.user.email = user.email.toLowerCase();
       }
+    },
+
+    logout() {
+      localStorage.removeItem("userLogged");
+      this.$router.push({ name: "login" });
     },
   },
 };

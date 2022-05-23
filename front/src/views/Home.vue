@@ -39,7 +39,22 @@
               </v-list-item>
             </div>
           </v-list>
+           <pre> 
+          Atalhos:
+          -Firefox:
+            * Menu: Alt + Shift + m
+            * Ações do usuário : Alt + Shift + u
+            * Sair: Alt + Shift + s
+
+          -Chrome:
+            * Menu: Alt + m
+            * Ações do usuário : Alt + u
+            * Sair: Alt + s
+
+          </pre>
         </v-card>
+
+       
 
       <!-- Trasformar estas listas repetidas em Componentes -->
         <div class="my-8"></div>

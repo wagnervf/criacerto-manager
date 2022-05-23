@@ -1,25 +1,29 @@
 <template>
   <v-container>
-    <v-card class="mx-auto">
-      <v-toolbar flat class="teal pa-4">
-        <v-row justify="space-between">
+    <v-card class="mx-auto" tile>
+      <v-toolbar class="teal px-4" >
           <v-toolbar-title class="white--text pa-2" dark>
-            <h4>Gerenciar Usuários</h4>
+            Gerenciar Usuários
           </v-toolbar-title>
 
           <v-spacer></v-spacer>
 
-          <v-btn color="white" outlined dark @click="openModel">
+          <v-btn
+            color="white"
+            outlined
+            dark
+            title="Adicionar um usuário"
+            @click="formAddUser"
+          >
             <span>Novo Usuário</span>
             <v-icon>mdi-plus</v-icon>
           </v-btn>
 
-          <FormAdd
+          <!-- <FormAdd
             :dialog="dialog"
             @update="dialog = $event"
             :usuarioEditar="usuarioEditado"
-          />
-        </v-row>
+          /> -->
       </v-toolbar>
 
       <v-toolbar class="elevation-0 grey lighten-4">
@@ -194,12 +198,15 @@
 
 <script>
 import UsuariosServices from "@/services/UsuariosServices";
-import FormAdd from "./FormAdd.vue";
+//import FormAdd from "./FormAdd.vue";
 import Snackbar from "../../components/Snackbar.vue";
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default {
-  components: { FormAdd, Snackbar },
+  components: {
+    // FormAdd,
+    Snackbar,
+  },
 
   props: {},
 
@@ -211,7 +218,7 @@ export default {
     selecionado: {},
     usuarioEditado: {},
     perfis: ["Técnico", "Administrador"],
-    dialog: false,
+   // dialog: false,
 
     snackbarText: "",
     snackbar: "",
@@ -264,6 +271,10 @@ export default {
       }
     },
 
+    async formAddUser() {
+      this.$router.push({ name: "Novo Usuario" });
+    },
+
     async removerUsuario() {
       try {
         let id = this.selecionado._id;
@@ -290,9 +301,9 @@ export default {
       this.openModel();
     },
 
-    openModel() {
-      this.dialog = true;
-    },
+    // openModel() {
+    //   this.dialog = true;
+    // },
 
     atualizaLista() {
       this.selecionado = [];

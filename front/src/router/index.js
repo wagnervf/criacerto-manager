@@ -1,50 +1,55 @@
-
 import Vue from "vue";
 import VueRouter from "vue-router";
 //import NProgress from "nprogress";
 
 Vue.use(VueRouter);
 
-import routes from './router';
+import routes from "./router";
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
+router.beforeEach((to, from, next) => {
+  console.log(to);
+  console.log(from);
+  console.log(next);
+//  console.log(localStorage.getItem("userLogged"))
 
- // Se caso não for uma página inicial de carregamento
-//router.beforeResolve((to, from, next) => {
- 
+  if (to.name !== "login" && !localStorage.getItem("userLogged")) {
 
- //if (to.name) {
-    // Quando houver carregamento de uma página inicial, então usar o NProgress:
-    
- // }
- // next();
-//});
+   // let storePermissions = store.state.permissions;
+  //  let includesPermissions;
+
+      for (const key in to.meta.permission) {
+
+        console.log(key)
+        // for (const chave in storePermissions) {
+        //     if ((storePermissions[chave]).includes(to.meta.permission[key])) {
+        //     includesPermissions = true;
+        //  }
+       // }
+      }
 
 
-// // Lógica inerente ao realizar o 'Log out' remover o token no local Storage:
-router.beforeEach((to) => {
-  if(to.name == 'login' ){
-    console.log( !localStorage.getItem("jwt") );
+   next({
+      name: "login",
+    });
+  } else {
+   next();
   }
-  // if (to.matched.some(record => record.meta.requireAuth)) { 
-   
-  //   if (localStorage.getItem("jwt") == null) {
-  //     next({
-  //       path: "/"
-  //     });
-  //   } else {
-  //     next();
-  //   }
-  // } else {
-  //   next();
-  // }
 
+  
 });
+
+
+
+//console.log(from);
+// if (to.matched.some(record => record.meta.requireAuth)) {
+
+//});
 
 // router.afterEach((to, from) => {
 //   // Completando a animação da rota no NProgress

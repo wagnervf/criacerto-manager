@@ -19,6 +19,7 @@ export default new Vuex.Store({
       emailVerified: false,
       created: null,
       ultimoLogin: null,
+      isAdmin: false,
       logado: "",
     },
   },
@@ -51,6 +52,7 @@ export default new Vuex.Store({
         state.userLogado.created = payload.user.createdAt;
         state.userLogado.ultimoLogin = payload.user.updatedAt;
         state.userLogado.logado = true;
+        state.userLogado.isAdmin = payload.isAdmin;
 
         state.loggedIn = true;
         localStorage.setItem("loggedIn", true);

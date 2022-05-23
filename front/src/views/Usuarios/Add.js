@@ -4,11 +4,11 @@ import Snackbar from "../../components/Snackbar.vue";
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms))
 export default {
   props: {
-    dialog: {
-      default: false,
-    },
+    // dialog: {
+    //   default: false,
+    // },
     usuarioEditar: {
-      default: {},
+     // default: {},
     },
   },
   components: {
@@ -20,17 +20,19 @@ export default {
       ativo: true,
       perfis: ["Técnico", "Administrador"],
       desserts: [],
-      show1: false,
+
+      showPassword: false,
+
       formRegister: {
         nome: "",
         email: "",
-        perfil: "Técnico",
-        local: "Ufms",
+        perfil: "",
+        local: "",
+        isAdmin: false
       },
       idUser:"",
       errosEmail: [],
       valid: false,
-
       nameRules: [
         (v) => !!v || "Nome é obrigatório",
       ],
@@ -38,21 +40,23 @@ export default {
         (v) => !!v || "E-mail é obrigatório",
         (v) => /.+@.+\..+/.test(v) || "E-mail não é válido",
       ],
-
       passwordRules: [
         (v) => !!v || "A senha é obrigatória",
         (v) =>
           (v && v.length >= 6) || "A senha deve conter no mínimo 6 caracteres",
       ],
-
       snackbar: false,
       snackbarText: "",
       color: "",
       editar: false,
+      switch1: true,
+      switch2: false,
     };
   },
 
-  // created() {},
+  created() { 
+
+  },
 
   computed: {
     erros() {
@@ -104,16 +108,20 @@ export default {
       this.editar = false;
     },
 
-    close() {
-      /// Envia false para compondente Pai fechar o modal.
-      /// No componente Pai colocaria @fecharDialog
-      //this.$emit("fecharDialog", false);
+     close() {
+    //   /// Envia false para compondente Pai fechar o modal.
+    //   /// No componente Pai colocaria @fecharDialog
+    //   //this.$emit("fecharDialog", false);
 
-      // Atualizar o props e fechá-lo
-      // Notificando o componente PAI que deve adicionar um false
-      this.$emit("update", false);
-      this.reset();
-    },
+    //   // Atualizar o props e fechá-lo
+    //   // Notificando o componente PAI que deve adicionar um false
+    //   this.$emit("update", false);
+       this.reset();
+     },
+
+     viewPassword(){
+      this.showPassword = !this.showPassword;
+     },
 
     async salvarUsuario() {
       try {
@@ -157,9 +165,7 @@ export default {
         return this.setMessage(error.data.message, true, "error");
       }
     },
-
    
-
     setMessage(message, snack, color) {
       this.snackbarText = message;
       this.snackbar = snack;
