@@ -106,3 +106,13 @@ dist
 backend/volume
 backend/volumes
 
+backend/volumes/.gitignore
+backend/volumes/mongod.lock
+backend/volumes/storage.bson
+backend/volumes/WiredTiger
+backend/volumes/WiredTiger.lock
+backend/volumes/WiredTigerHS.wt
+backend/volumes/diagnostic.data/.gitignore
+backend/volumes/journal/.gitignore
+backend/volumes/journal/WiredTigerPreplog.0000000001
+backend/volumes/journal/WiredTigerPreplog.0000000002
