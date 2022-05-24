@@ -9,18 +9,6 @@
     elevation-1
     id="main-sidebar"
   >
-    <!-- <v-sheet color="grey lighten-4" class="pa-2  d-flex align-center">
-      <v-app-bar-nav-icon @click.stop="mini = !mini"></v-app-bar-nav-icon>
-
-      <p class="py-0 px-3">
-        Cria Certo
-        <span class="font-weight-bold teal--text">Manager</span>
-        <v-icon class="teal--text px-1"> 
-          mdi-web
-        </v-icon>
-      </p>
-    </v-sheet> -->
-
     <v-list-item class="pl-2 pr-0 mr-1">
       <v-list-item-avatar class="pr-0">
          <v-icon class="teal--text px-1"> mdi-web </v-icon>
@@ -31,7 +19,7 @@
           <span class="font-weight-bold teal--text">Manager</span>         
       </v-list-item-title>
 
-      <v-btn icon @click.stop="mini = !mini">
+      <v-btn icon @click.stop="mini = !mini" accesskey="m">
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
     </v-list-item>

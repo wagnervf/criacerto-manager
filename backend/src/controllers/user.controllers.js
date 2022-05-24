@@ -96,7 +96,7 @@ exports.authenticate = async (req, res) => {
     user.senha = undefined;
 
     return res
-      .status(201)
+      .status(200)
       .json({ message: "Usuário(a) logado com sucesso!", user, token });
     //
   } catch (error) {

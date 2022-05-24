@@ -30,6 +30,7 @@ const routes = [
               icon: "mdi-home",
             },
           ],
+          permission: ["ADMIN", "TEC"],
         },
       },
       {
@@ -49,6 +50,7 @@ const routes = [
               disabled: false,
             },
           ],
+          permission: ["ADMIN", "TEC"],
         },
       },
 
@@ -75,6 +77,7 @@ const routes = [
               disabled: false,
             },
           ],
+          permission: ["ADMIN", "TEC"],
         },
       },
 
@@ -102,6 +105,7 @@ const routes = [
               disabled: false,
             },
           ],
+          permission: ["ADMIN", "TEC"],
         },
       },
 
@@ -128,6 +132,8 @@ const routes = [
               disabled: false,
             },
           ],
+        permission: ["ADMIN", "TEC"],
+
         },
       },
 
@@ -154,6 +160,8 @@ const routes = [
               disabled: false,
             },
           ],
+        permission: ["ADMIN", "TEC"],
+          
         },
       },
 
@@ -176,6 +184,8 @@ const routes = [
             },
             
           ],
+        permission: ["ADMIN"],
+
         },
       },
 
@@ -203,30 +213,59 @@ const routes = [
               disabled: false,
             },
           ],
+        permission: ["ADMIN", "TEC"],
+
         },
       },
 
+   
       {
         name: "Novo Usuario",
         path: "Usuarios/Add",
         component: () => import("@/views/Usuarios/Add.vue"),
+        meta: {
+          breadCrumb: [
+            {
+              text: "Início",
+              disabled: true,
+              href: "/",
+            },
+            {
+              text: "Lista de Usuarios",
+              to: { name: "" },
+              disabled: false,
+              href: "listausuarios",
+            },
+            {
+              text: "Novo Usuario",
+              to: { name: "" },
+              disabled: false,
+            },
+          ],
+        permission: ["ADMIN", "TEC"],
+
+        },
       },
+
 
       {
         name: "TableSimple",
         path: "Parametros/parametros",
         component: () => import("@/views/Parametros/Parametros.vue"),
+       meta: { permission: ["ADMIN", "TEC"] }
       },
       {
         name: "Sobre",
         path: "Sobre/sobre",
         component: () => import("@/views/Sobre/Sobre.vue"),
+        meta: { permission: ["ADMIN", "TEC"] }
       },
 
       {
         name: "Configuracoes",
         path: "Configuracoes/configuracoes",
         component: () => import("@/views/Configuracoes/Configuracoes.vue"),
+        meta: { permission: ["ADMIN", "TEC"] }
       },
     ],
   },

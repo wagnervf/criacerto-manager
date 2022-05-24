@@ -63,6 +63,24 @@
           </v-list-item-content>
         </v-list-item>
       </template>
+
+       <v-divider></v-divider>
+        <v-list-item
+          dense
+          link
+          class="teal--text"
+          @click="logout"
+          tabindex="2"
+          accesskey="s"
+          title="Sair do Sistema"
+        >
+          <v-list-item-content>
+            <v-list-item-title>
+              <v-icon class="teal--text">mdi-logout</v-icon>
+              Sair
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
     </v-list>
 
 
@@ -77,6 +95,13 @@ export default {
   data: () => ({
     items: Menu,
   }),
+
+  methods: {
+    logout() {
+      localStorage.removeItem("userLogged");
+      this.$router.push({ name: "login" });
+    },
+  }
 };
 </script>
 
