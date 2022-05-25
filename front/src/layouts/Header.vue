@@ -47,7 +47,7 @@
                     <v-icon dark> mdi-account-circle </v-icon>
                   </v-avatar>
                 </v-list-item-avatar>
-                <v-list-item-content accesskey="u">
+                <v-list-item-content accesskey="u" class="inline-block">
                   <v-list-item-title>{{ user.nome }}</v-list-item-title>
                   <v-list-item-subtitle>{{ user.email }}</v-list-item-subtitle>
                 </v-list-item-content>
@@ -175,8 +175,11 @@ export default {
 };
 </script>
 
-<style>
-.v-application a {
-  color: rgba(0, 0, 0, 0.54);
-}
+<style lang="sass" scoped>
+.v-application a 
+  color: rgba(0, 0, 0, 0.54)
+
+.v-list-item__content
+  display: inline-block
+  margin-right: 25px
 </style>

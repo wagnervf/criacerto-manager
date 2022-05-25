@@ -149,7 +149,7 @@ exports.updateUser = async (req, res) => {
         $set: {
           nome: dadosUser.nome,
           email: dadosUser.email,
-          perfil: dadosUser.perfil,
+        //  perfil: dadosUser.perfil,
           local: dadosUser.local,
         },
       },

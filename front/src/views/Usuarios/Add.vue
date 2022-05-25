@@ -33,6 +33,7 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field
+                 v-if="!isEdit"
                   v-model="formRegister.senha"
                   label="Senha"
                   :rules="passwordRules"
@@ -51,7 +52,7 @@
                   prepend-icon="mdi-map-marker"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12">
+              <!-- <v-col cols="12">
                 <v-select
                   :items="perfis"
                   v-model="formRegister.perfil"
@@ -60,23 +61,28 @@
                   label="Perfil"
                   prepend-icon="mdi-badge-account-alert"
                 ></v-select>
-              </v-col>
+              </v-col> -->
 
-              <v-col cols="12" fluid>
-                <v-card  elevation="2">
-                 <v-sheet class="pa-5">
-                   <label>Selecione as permissões do usuário</label>
-                  <v-switch
-                    
-                    v-model="switch1"
+              <v-col cols="12">
+                <v-card  elevation="0">
+                 <v-sheet>                   
+                   <label class="text--title"><v-icon left>mdi-badge-account</v-icon> Perfil do Usuário</label>
+                  <div class="mx-4 ">
+
+                  <v-switch                                                         
+                    v-model="formRegister.tecnico"
                     inset
-                    :label="`Switch 1: ${switch1.toString()}`"
+                    label="Técnico"
+                    class="mx-2"
                   ></v-switch>
                   <v-switch
-                    v-model="switch2"
+                    v-model="formRegister.admin"
                     inset
-                    :label="`Switch 2: ${switch2.toString()}`"
+                    label="Administrador"
+                    class="mx-2"
                   ></v-switch>
+                  </div>
+
                 </v-sheet>
                 </v-card>
                 
@@ -101,11 +107,29 @@
         </v-card-actions>
       </v-card>
 
-      <Snackbar
-        :snackbar="snackbar"
-        :color="color"
-        :snackbarText="snackbarText"
-      />
+      <pre>{{this.isEdit}}</pre>
+
+      <pre> {{this.formRegister}} </pre>
+
+       <v-snackbar
+      v-model="snackbar"
+      :vertical="true"
+      :color="color"
+    >
+      {{ snackbarText }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          dark
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Fechar
+        </v-btn>
+      </template>
+    </v-snackbar>
+
+      
   </v-container>
 </template>
 

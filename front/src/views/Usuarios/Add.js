@@ -20,15 +20,15 @@ export default {
       ativo: true,
       perfis: ["Técnico", "Administrador"],
       desserts: [],
-
       showPassword: false,
-
       formRegister: {
         nome: "",
         email: "",
         perfil: "",
         local: "",
-        isAdmin: false
+        isAdmin: false,
+        admin: false,
+        tecnico: true
       },
       idUser:"",
       errosEmail: [],
@@ -54,8 +54,14 @@ export default {
     };
   },
 
-  created() { 
+  created() {},
 
+  mounted() {  
+    if(typeof this.$route.params._id !== 'undefined'){
+      this.editar = true;
+      this.formRegister = Object.assign({}, this.$route.params);
+    }
+    console.log(this.$route);
   },
 
   computed: {
@@ -83,8 +89,10 @@ export default {
         nome: value.nome,
         email: value.email,
         // senha: value.senha,
-        perfil: value.perfil,
+        //perfil: value.perfil,
         local: value.local,
+        tecnico: value.tecnico,
+        admin: value.admin,
       };
     },
   },
@@ -126,18 +134,20 @@ export default {
     async salvarUsuario() {
       try {
         let response = await UsuariosServices.storeUsuario(this.formRegister);
+        console.log(response);
 
         if (response.status != 201) {
           if (response.data.type == "email") {
             return this.errosEmail.push(response.data.message);
           }
+          return this.setMessage(response.data.error, true, "error");
         }
 
         this.setMessage("Salvo com sucesso!", true, "success");
 
         await pause(1000);       
         //this.close();   
-        this.$router.go(); 
+        this.$router.push({name : 'Lista de Usuarios'}) ;
 
       } catch (error) {
         return this.setMessage(error.data.message, true, "error");

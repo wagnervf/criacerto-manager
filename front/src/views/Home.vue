@@ -39,7 +39,8 @@
               </v-list-item>
             </div>
           </v-list>
-           <pre> 
+
+            <pre> 
           Atalhos:
           -Firefox:
             * Menu: Alt + Shift + m
@@ -51,7 +52,8 @@
             * Ações do usuário : Alt + u
             * Sair: Alt + s
 
-          </pre>
+          </pre> 
+
         </v-card>
 
        
