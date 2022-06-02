@@ -16,7 +16,6 @@ const routes = [
 
     children: [
       // Components
-
       {
         name: "Home",
         path: "/",
@@ -28,6 +27,22 @@ const routes = [
               disabled: true,
               href: "/",
               icon: "mdi-home",
+            },
+          ],
+          permission: ["ADMIN", "TEC"],
+        },
+      },
+      {
+        name: "Dashboard",
+        path: "/dashboard",
+        component: () => import("@/views/Dashboard/Dashboard.vue"),
+        meta: {
+          breadCrumb: [
+            {
+              text: "Dashboard",
+              disabled: true,
+              href: "/dashboard",
+              icon: "mdi-chart-box",
             },
           ],
           permission: ["ADMIN", "TEC"],

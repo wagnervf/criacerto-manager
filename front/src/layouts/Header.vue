@@ -162,7 +162,7 @@ export default {
     getUserLocalStorage() {
       let user = JSON.parse(localStorage.getItem("userLogged"));
       if (user) {
-        this.user.nome = user.nome.charAt(0).toUpperCase() + user.nome.slice(1);
+        this.user.nome = user.nome ? user.nome.charAt(0).toUpperCase() + user.nome.slice(1) : '';
         this.user.email = user.email.toLowerCase();
       }
     },

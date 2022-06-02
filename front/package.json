@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@mdi/js": "^5.7.55",
+    "apexcharts": "^3.35.3",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "chokidar": "^2.1.8",
@@ -22,6 +23,7 @@
     "sweetalert": "^2.1.2",
     "vee-validate": "^2.1.4",
     "vue": "^2.6.12",
+    "vue-apexcharts": "^1.6.2",
     "vue-fragment": "^1.5.2",
     "vue-i18n": "^8.22.0",
     "vue-jwt-decode": "^0.1.0",

@@ -7,23 +7,30 @@
   },
   {
     "id": 2,
+    "title": "Dashboard",
+    "icon": "mdi-chart-box",
+    "to": "/dashboard"
+    
+  },
+  {
+    "id": 3,
     "title": "Parâmetros Cria Certo",
     "icon": "mdi-database",
     "children": [
       {
-        "id": 21,
+        "id": 31,
         "title": "Simulações",
         "icon": "mdi-note-text",
         "to": "/Configuracoes/configuracoes"
       },
       {
-        "id": 22,
+        "id": 32,
         "title": "Vários",
         "icon": "mdi-view-module",
         "to": "/Parametros/parametros"
       },
       {
-        "id": 23,
+        "id": 33,
         "title": "Test2",
         "icon": "mdi-chart-bubble",
         "to": "/test2"
@@ -31,18 +38,18 @@
     ]
   },
   {
-    "id": 3,
+    "id": 4,
     "title": "Configurações",
     "icon": "mdi-cog",
     "children": [
       {
-        "id": 31,
+        "id": 41,
         "title": "Gerenciar Usuários",
         "icon": "mdi-account-multiple",
         "to": "/usuarios/listausuarios"
       },
       {
-        "id": 32,
+        "id": 42,
         "title": "Meu Perfil",
         "icon": "mdi-account",
         "to": "/usuarios/perfil"
@@ -50,18 +57,18 @@
     ]
   },
   {
-    "id": 4,
+    "id": 5,
     "title": "Ralatórios",
     "icon": "mdi-note-text",
     "children": [
       {
-        "id": 41,
+        "id": 51,
         "title": "Raltórios Simulações",
         "icon": "mdi-account-multiple",
         "to": "/Usuarios/usuarios"
       },
       {
-        "id": 42,
+        "id": 52,
         "title": "Raltórios Gerais",
         "icon": "mdi-account",
         "to": "/Usuarios/profile"
