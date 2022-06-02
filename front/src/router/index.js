@@ -13,9 +13,9 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to);
-  console.log(from);
-  console.log(next);
+//  console.log(to);
+ // console.log(from);
+//  console.log(next);
 //  console.log(localStorage.getItem("userLogged"))
 
   if (to.name !== "login" && !localStorage.getItem("userLogged")) {

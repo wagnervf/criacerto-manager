@@ -14,7 +14,7 @@ export default new Vuex.Store({
       _id: "",
       nome: "",
       email: "",
-      perfil: "",
+    // perfil: "",
       token: "",
       emailVerified: false,
       created: null,
@@ -46,13 +46,15 @@ export default new Vuex.Store({
         state.userLogado._id = payload.user._id;
         state.userLogado.nome = payload.user.nome;
         state.userLogado.email = payload.user.email;
-        state.userLogado.perfil = payload.user.perfil;
+     //   state.userLogado.perfil = payload.user.perfil;
         state.userLogado.token = payload.token;
         state.userLogado.emailVerified = false;
         state.userLogado.created = payload.user.createdAt;
         state.userLogado.ultimoLogin = payload.user.updatedAt;
         state.userLogado.logado = true;
         state.userLogado.isAdmin = payload.isAdmin;
+        state.userLogado.tecnico = payload.tecnico;
+        state.userLogado.admin = payload.admin;
 
         state.loggedIn = true;
         localStorage.setItem("loggedIn", true);

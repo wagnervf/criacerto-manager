@@ -16,8 +16,11 @@ const userSchema = new Schema(
       lowercase: true,
     },
     senha: { type: String, required: true, select: false },
-    perfil: { type: String, required: true },
+   // perfil: { type: String, required: true },
     local: { type: String, required: true },
+    tecnico: { type: Boolean, required: true },
+    admin: { type: Boolean, required: true },
+
     tokens: [
       {
         token: { type: String, required: true },

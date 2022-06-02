@@ -236,7 +236,7 @@ const routes = [
    
       {
         name: "Novo Usuario",
-        path: "Usuarios/Add",
+        path: "usuarios/Add",
         component: () => import("@/views/Usuarios/Add.vue"),
         meta: {
           breadCrumb: [

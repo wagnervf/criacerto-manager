@@ -92,7 +92,8 @@
                   <v-list-item-content>
                     <v-list-item-title>Perfil</v-list-item-title>
                     <v-list-item-subtitle>
-                      <strong>{{ selecionado.perfil }}</strong>
+                      <strong v-if="selecionado.admin"> Administrador </strong>
+                      <strong v-if="selecionado.tecnico"> Técnico </strong>
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
@@ -129,6 +130,8 @@
                   </v-list-item-content>
                 </v-list-item>
               </v-row>
+
+              <pre>{{selecionado}}</pre>
 
               <v-divider></v-divider>
 
@@ -192,6 +195,7 @@
         :color="color"
         :snackbarText="snackbarText"
       />
+
     </v-card>
   </v-container>
 </template>
@@ -298,12 +302,11 @@ export default {
 
     editarUsuario() {
       this.usuarioEditado = Object.assign({}, this.selecionado);
-      this.openModel();
+      let link =  {name: "Novo Usuario"  , params: this.usuarioEditado};
+      this.$router.push(link);     
     },
 
-    // openModel() {
-    //   this.dialog = true;
-    // },
+  
 
     atualizaLista() {
       this.selecionado = [];
