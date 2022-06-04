@@ -1,20 +1,86 @@
 <template>
   <v-container fluid>
     <div class="dashboard-page">
-      <v-row no-gutters class="d-flex justify-space-between mt-10 mb-6">
-        <h1 class="page-title">Dashboard</h1>
-      </v-row>
       <v-row>
-
         <v-col cols="12">
-          <dashboardCardsVue />
+          <v-card>
+            <p>Total : {{ eCowCount }}</p>
+          </v-card>
         </v-col>
+
+        <v-row>
         
+            <v-col lg="4" sm="6" cols="4">
+              <v-card class="mx-1 mb-1">
+                <v-card-title class="pa-6 pb-3">
+                  <p>Monta Natural</p>
+                  <v-spacer></v-spacer>
+                </v-card-title>
+                <v-card-text class="pa-6 pt-0">
+                  <v-row no-gutters>
+                    <v-col cols="6" class="my-auto">
+                      <span class="caption info--text">total</span>
+                      <span class="" style="font-size: 42px">
+                        {{ montaNaturalLength }}
+                      </span>
+                    </v-col>
+                    <v-col cols="6">
+                      <ApexChart
+                        height="100"
+                        type="bar"
+                        v-if="apexLoading"
+                        :options="mock.apexBar1.options"
+                        :series="mock.apexBar1.series"
+                      ></ApexChart>
+                    </v-col>
+                  </v-row>
+                  <v-row no-gutters class="justify-space-between">
+                    <div>
+                      <div class="subtext">
+                        33 <v-icon color="success"> mdi-arrow-top-right</v-icon>
+                      </div>
+                      <div class="subtext-index">Registrations</div>
+                    </div>
+                    <div>
+                      <div class="subtext">
+                        3.25%<v-icon color="success">
+                          mdi-arrow-top-right</v-icon
+                        >
+                      </div>
+                      <div class="subtext-index">Bounce Rate</div>
+                    </div>
+                    <div>
+                      <div class="subtext">
+                        330<v-icon color="error">
+                          mdi-arrow-bottom-right</v-icon
+                        >
+                      </div>
+                      <div class="subtext-index">Views</div>
+                    </div>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+            </v-col>
+
+            <v-col lg="8" sm="6" cols="8">
+              <dashboardTiposTourosVue />
+            </v-col>
+         
+        </v-row>
+
         <v-col cols="12">
           <dashboardChartBarVue />
         </v-col>
 
-        
+        <v-col cols="12">
+          <dashboardCardsVue />
+        </v-col>
+
+        <v-col cols="12">
+          <dashboardChartColumnVue />
+        </v-col>
+
+        <v-col cols="12"> </v-col>
 
         <v-col lg="3" sm="6" md="5" cols="12">
           <v-card class="mx-1 mb-1">
@@ -140,9 +206,27 @@
           </v-card>
         </v-col>
 
-
         <v-col cols="12">
-        <dashboardTableSimpleVue />
+          <v-data-table
+            :headers="headers"
+            :items="eCowData"
+            item-key="code"
+            sort-by="created"
+            group-by="type"
+            class="elevation-1 col"
+            :items-per-page="itemsPerPage"
+            :sort-desc="[false]"
+            multi-sort
+            show-group-by
+          >
+            <template v-slot:group.summary="props">
+              <td colspan="4">
+                <v-chip class="ma-2" color="primary">
+                  {{ props.group }} - ({{ props.items.length }})
+                </v-chip>
+              </td>
+            </template>
+          </v-data-table>
         </v-col>
       </v-row>
     </div>
@@ -151,39 +235,115 @@
 
 <script>
 import mock from "./mock";
+import eCow from "./e-cow";
 import dashboardCardsVue from "./dashboard-cards.vue";
+import dashboardChartColumnVue from "./dashboard-chart-column.vue";
 import dashboardChartBarVue from "./dashboard-chart-bar.vue";
-import dashboardTableSimpleVue from "./dashboard-table-simple.vue";
-//import ApexChart from "vue-apexcharts";
+//import dashboardTableSimpleVue from "./dashboard-table-simple.vue";
+import dashboardTiposTourosVue from "./dashboard-tipos-touros.vue";
+import ApexChart from "vue-apexcharts";
 
 export default {
   name: "Dashboard",
   components: {
     dashboardCardsVue,
+    dashboardChartColumnVue,
+    // dashboardTableSimpleVue,
+    dashboardTiposTourosVue,
     dashboardChartBarVue,
-    dashboardTableSimpleVue
-  //  ApexChart,
+    ApexChart,
   },
   data() {
     return {
       mock,
+      eCow,
       apexLoading: false,
       value: this.getRandomInt(10, 90),
       value2: this.getRandomInt(10, 90),
       mainApexAreaSelect: "Daily",
-     
+      montaNatural: [],
+      iatf: [],
+      iatf2: [],
+      iatf3: [],
+      headers: [
+        { text: "Tipo", align: "start", value: "type" },
+        { text: "Raça Touro", value: "raca_touro", align: "right" },
+        { text: "Estado", value: "state", align: "right" },
+        { text: "Cidade", value: "city", align: "right" },
+        { text: "Data", value: "created", align: "right" },
+      ],
+      itemsPerPage: 20,
     };
   },
+
   mounted() {
     setTimeout(() => {
       this.apexLoading = true;
-    });
+      this.eCowSimulations();
+    }, 2000);
   },
+
+  beforeDestroy() {
+    clearInterval(this.interval);
+  },
+
+  computed: {
+    eCowCount() {
+      return Object.keys(this.eCow).length;
+    },
+
+    montaNaturalLength() {
+      return this.montaNatural.length;
+    },
+
+    eCowData() {
+      return Object.values(this.eCow);
+    },
+  },
+
   methods: {
     getRandomInt(min, max) {
       let rand = min - 0.5 + Math.random() * (max - min + 1);
       return Math.round(rand);
     },
+
+    eCowSimulations() {
+      var data = this.eCow;
+      Object.values(data).forEach((value) => {
+        switch (value.type) {
+          case "Monta Natural":
+            this.montaNatural.push(value);
+            break;
+          case "IATF + RT":
+            this.iatf.push(value);
+            break;
+
+          case "2 IATF + RT":
+            this.iatf2.push(value);
+            break;
+
+          case "3 IATF":
+            this.iatf3.push(value);
+            break;
+
+          default:
+            break;
+        }
+      });
+
+      return [];
+    },
   },
 };
 </script>
+
+<style>
+.v-row-group__header > td {
+  font-weight: bold;
+  font-size: 18px !important;
+}
+.v-row-group__summary {
+  text-align: end;
+  background: none !important;
+}
+</style>

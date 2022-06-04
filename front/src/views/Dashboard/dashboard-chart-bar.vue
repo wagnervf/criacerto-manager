@@ -1,123 +1,146 @@
 <template>
   <div>
     <v-card class="mx-1 mb-1">
-            <v-card-title class="pa-6 pb-0">
-              <v-row no-gutters>
-                <v-col
-                  cols="7"
-                  sm="4"
-                  md="4"
-                  lg="5"
-                  class="d-flex align-center"
-                >
-                  <p>Quantitativo de Simulações</p>
-                </v-col>
-              </v-row>
-            </v-card-title>
-            <v-card-text class="pa-6">
-              <v-row>
-                <v-col>
-                  <ApexChart
-                    type="bar"
-                    height="350"
-                    :options="chartOptions"
-                    :series="series"
-                  ></ApexChart>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
+      <v-card-title class="pa-6 pb-0">
+        <v-row no-gutters>
+          <v-col cols="12" class="d-flex align-center">
+            <p>Quantitativo de Simulações Estados</p>
+          </v-col>
+        </v-row>
+      </v-card-title>
+      <v-card-text class="pa-6">
+        <v-row>
+          <v-col>
+            <ApexChart
+              type="bar"
+              height="350"
+              :options="chartOptions"
+              :series="series"
+            ></ApexChart>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
 <script>
+import eCow from "./e-cow";
 import ApexChart from "vue-apexcharts";
 
 export default {
-  name: "Dashboard-Chart-Bar",
+  name: "Dashboard-Chart-Column",
   components: {
     ApexChart,
   },
-data() {
-  return {
-     series: [
+  data() {
+    return {
+      eCow,
+      series: [
         {
-          name: "Monta Natural",
-          data: [20, 28, 36, 38, 40, 35, 68, 42, 59, 38, 40, 50],
-        },
-        {
-          name: "IATF+RT",
-          data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43, 25],
-        },
-        {
-          name: "IATF+2RT",
-          data: [30, 25, 36, 30, 45, 35, 60, 52, 55, 36, 39, 69],
-        },
-        {
-          name: "IATF+3RT",
-          data: [30, 25, 36, 38, 45, 35, 68, 52, 59, 38, 45, 58],
+          data: [],
+          //[400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380],
         },
       ],
       chartOptions: {
         chart: {
           type: "bar",
           height: 350,
+        },       
+        dataLabels: {
+          enabled: true,
+          textAnchor: "start",
+          style: {
+            colors: ["#fff"],
+          },
         },
         plotOptions: {
           bar: {
-            horizontal: false,
-            columnWidth: "75%",
-            endingShape: "rounded",
-          },
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        stroke: {
-          show: true,
-          width: 2,
-          colors: ["transparent"],
-        },
-        xaxis: {
-          categories: [
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dez",
-          ],
-          lines: {
-            show: true,
-          },
-        },
-        yaxis: {
-          title: {
-            text: "Quantidade",
+            borderRadius: 4,
+            horizontal: true,
           },
         },
 
-        fill: {
-          opacity: 2,
-        },
-        tooltip: {
-          y: {
-            formatter: function (val) {
-              return "$ " + val + " thousands";
-            },
-          },
+        xaxis: {
+          categories: [],
+          /*[
+            "South Korea",
+            "Canada",
+            "United Kingdom",
+            "Netherlands",
+            "Italy",
+            "France",
+            "Japan",
+            "United States",
+            "China",
+            "Germany",
+          ],*/
         },
       },
-  }
-},
-}
+
+      estados: [],
+      estadosSeparados: [],
+    };
+  },
+
+  mounted() {
+    this.getEstados();
+    this.separaRacasTouros();
+    console.log(this.series["0"]);
+  },
+
+  computed: {},
+
+  methods: {
+    getEstados() {
+      var data = this.eCow;
+      Object.values(data).forEach((value) => {
+        this.estados.push(value.state);
+      });
+    },
+
+    separaRacasTouros() {
+      const counts = {};
+      //this.estados.sort();
+
+      
+
+       
+
+
+      this.estados.forEach(function (x) {
+        counts[x] = (counts[x] || 0) + 1;
+      });
+      Object.assign(this.estadosSeparados, counts);
+
+      console.log(this.estadosSeparados)
+
+      /* ****  Corrigir ordenação ****/
+
+     this.estadosSeparados =  this.estadosSeparados.sort(function (a, b) {
+          if (a.value > b.value) {
+            return 1;
+          }
+          if (a.value < b.value) {
+            return -1;
+          }
+          // a must be equal to b
+          return 0;
+        });
+
+
+        console.log(this.estadosSeparados)
+
+      Object.assign(
+        this.chartOptions.xaxis.categories,
+        Object.keys(this.estadosSeparados)
+      );
+      this.series["0"].data = Object.values(this.estadosSeparados);
+
+      
+    },
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
