@@ -29,7 +29,7 @@ import eCow from "./e-cow";
 import ApexChart from "vue-apexcharts";
 
 export default {
-  name: "Dashboard-Chart-Column",
+  name: "Dashboard-Chart-Bar",
   components: {
     ApexChart,
   },
@@ -46,7 +46,7 @@ export default {
         chart: {
           type: "bar",
           height: 350,
-        },       
+        },
         dataLabels: {
           enabled: true,
           textAnchor: "start",
@@ -85,7 +85,7 @@ export default {
 
   mounted() {
     this.getEstados();
-    this.separaRacasTouros();
+    this.separaEstados();
     console.log(this.series["0"]);
   },
 
@@ -99,45 +99,26 @@ export default {
       });
     },
 
-    separaRacasTouros() {
-      const counts = {};
-      //this.estados.sort();
-
-      
-
-       
-
-
+    separaEstados() {
+      var estados = {};
+      // Separa os estados
       this.estados.forEach(function (x) {
-        counts[x] = (counts[x] || 0) + 1;
+        estados[x] = (estados[x] || 0) + 1;
       });
-      Object.assign(this.estadosSeparados, counts);
 
-      console.log(this.estadosSeparados)
-
-      /* ****  Corrigir ordenação ****/
-
-     this.estadosSeparados =  this.estadosSeparados.sort(function (a, b) {
-          if (a.value > b.value) {
-            return 1;
-          }
-          if (a.value < b.value) {
-            return -1;
-          }
-          // a must be equal to b
-          return 0;
-        });
-
-
-        console.log(this.estadosSeparados)
+      Object.assign(this.estadosSeparados, this.ordenaPorQntdeEstados(estados));
 
       Object.assign(
         this.chartOptions.xaxis.categories,
         Object.keys(this.estadosSeparados)
       );
       this.series["0"].data = Object.values(this.estadosSeparados);
+    },
 
-      
+    ordenaPorQntdeEstados(estados) {
+      return Object.entries(estados)
+        .sort(([, a], [, b]) => b - a)
+        .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
     },
   },
 };

@@ -4,7 +4,7 @@
       <v-card-title class="pa-6 pb-0">
         <v-row no-gutters>
           <v-col cols="12" class="d-flex align-center">
-            <p>Tipos de Touros</p>
+            <p>Tipos de Touros Simulados</p>
           </v-col>
         </v-row>
       </v-card-title>
@@ -14,7 +14,7 @@
           <v-col>
             <ApexChart
               type="donut"
-              height="250"
+              height="200"
               :options="chartOptions"
               :series="chartOptions.series"
             ></ApexChart>
