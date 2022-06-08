@@ -9,11 +9,11 @@
         </v-col>
 
         <v-row>
-          <v-col lg="3" sm="6" cols="3">
+          <v-col lg="3" sm="6" md="5" cols="12">
             <dashboardCardTotalSimulacoesVue />
           </v-col>
 
-          <v-col lg="3" sm="6" cols="3">
+          <v-col lg="3" sm="6" md="5" cols="12">
             <dashboardTiposTourosVue />
           </v-col>
         </v-row>

@@ -51,20 +51,20 @@ services:
 
 
   
-  # node:
-  #   build:
-  #     dockerfile: node.dockerfile
-  #     context: .
-  #   image: node:16.13-slim
-  #   container_name: cont_node
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./backend:/home/node/app
-  #   links: 
-  #     - mongo
-  #   networks:
-  #     - rede-criacerto
+  node:
+    build:
+      dockerfile: node.dockerfile
+      context: .
+    image: node:16.13-slim
+    container_name: cont_node
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/home/node/app
+    links: 
+      - mongo
+    networks:
+      - rede-criacerto
 
 networks: 
     rede-criacerto:

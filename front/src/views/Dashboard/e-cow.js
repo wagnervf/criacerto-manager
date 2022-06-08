@@ -201,7 +201,7 @@ export default {
     raca_touro: "Braford",
     racoes: 264.57,
     sal_mineral: 35.4,
-    state: "Mato Grosso do Sul",
+    state: "Paraná",
     taxa_mortalidade: 3,
     taxa_prenhez: 80,
     type: "Monta Natural",

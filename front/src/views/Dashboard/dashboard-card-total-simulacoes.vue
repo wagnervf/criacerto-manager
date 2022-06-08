@@ -1,14 +1,15 @@
 <template>
-  <div>
-    <v-card class="mx-1 mb-1">
+<v-container fluid>      
+    <v-card class="mx-1 mb-1" >
       <v-card-title class="pa-6 pb-3">
         <p>Total Simulações Realizadas</p>
         <v-spacer></v-spacer>
       </v-card-title>
-      <v-card-text class="pa-6 pt-0">
-        <v-row no-gutters>
+      
+      <v-card-text class="pa-6 pt-0" >
+        <v-row no-gutters >
           <v-col cols="6" class="my-auto">
-            <span class="" style="font-size: 52px">
+            <span style="font-size: 52px">
               {{ eCowCount }}
             </span>
             <v-spacer></v-spacer>
@@ -23,31 +24,35 @@
             ></ApexChart>
           </v-col>
         </v-row>
-        <v-row no-gutters class="justify-space-between">
+
+        <v-row no-gutters class="py-2 justify-space-between">
           <div>
-            <div class="subtext">
+            <div class="subtext font-weight-bold">
               {{ aluguelPastoFormatado }}
               <v-icon color="success"> mdi-arrow-top-right</v-icon>
             </div>
-            <div class="subtext-index">Aluguel Pasto</div>
+            <div class="subtext-index flex-wrap">Aluguel 
+               <p>Pasto</p></div>
           </div>
+            
           <div>
-            <div class="subtext">
+            <div class="subtext font-weight-bold">
               {{ valorVendaFormatado
               }}<v-icon color="success"> mdi-arrow-top-right</v-icon>
             </div>
-            <div class="subtext-index">Valor da Venda</div>
+            <div class="subtext-index">Valor <p> da Venda</p></div>
           </div>
+            
           <div>
-            <div class="subtext">
+            <div class="subtext font-weight-bold">
               {{taxaMortalidadeFormatado}}<v-icon color="error"> mdi-arrow-bottom-right</v-icon>
             </div>
-            <div class="subtext-index">Taxa Mortalidade</div>
+            <div class="subtext-index">Taxa <p>Mortalidade</p></div>
           </div>
         </v-row>
       </v-card-text>
     </v-card>
-  </div>
+  </v-container>
 </template>
 
 <script>
