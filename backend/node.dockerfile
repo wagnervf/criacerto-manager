@@ -12,7 +12,7 @@ RUN npm install
 
 EXPOSE 3000
 
-CMD [ "nodemon", "npm", "run", "dev" ]
+CMD [ "npm", "npm", "run" ]
 
 #docker build -f node.dockerfile -t wagnerfreiria/node .
 #https://www.youtube.com/watch?v=AVNADGzXrrQ&ab_channel=Rocketseat

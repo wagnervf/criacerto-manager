@@ -5,8 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    
     "dev": "nodemon",
-    "start": "nodemon"
+    "start": "nodemon",
+    "start.dev": "nodemon"
   },
   "author": "Wagner Freiria",
   "license": "MIT",
