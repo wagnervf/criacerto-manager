@@ -2,12 +2,6 @@
   <v-container fluid>
     <div class="dashboard-page">
       <v-row>
-        <v-col cols="12">
-          <v-card>
-            <p>Total : {{ eCowCount }}</p>
-          </v-card>
-        </v-col>
-
         <v-row>
           <v-col lg="4" sm="6" md="5" cols="12">
             <dashboardCardTotalSimulacoesVue />

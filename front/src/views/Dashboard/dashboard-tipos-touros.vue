@@ -1,12 +1,12 @@
 <template>
-  <v-container fluid>      
+  <v-container fluid>
     <v-card class="mx-1 mb-1">
       <v-card-title class="pa-6 pb-3">
         <p>Tipos de Touros Simulados</p>
         <v-spacer></v-spacer>
       </v-card-title>
 
-<v-card-text class="pa-6 pt-0" >
+      <v-card-text class="pa-6 pt-0">
         <v-row cols="12" class="align-center justify-center">
           <v-col v-if="this.visivel">
             <ApexChart
@@ -16,6 +16,16 @@
               :series="chartOptions.series"
             ></ApexChart>
           </v-col>
+          <v-col v-else class="pa-6">
+            <div class="text-center">
+            <v-progress-circular
+            :size="160"
+            :width="7"
+            color="teal lighten-4"
+            indeterminate
+          ></v-progress-circular>
+          </div>
+                </v-col>
         </v-row>
       </v-card-text>
     </v-card>
@@ -32,9 +42,10 @@ export default {
   components: {
     ApexChart,
   },
+ 
   data() {
     return {
-    //  eCow,
+      //  eCow,
       apexLoading: false,
       visivel: false,
 
