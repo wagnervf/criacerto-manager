@@ -22,6 +22,7 @@ export default new Vuex.Store({
       isAdmin: false,
       logado: "",
     },
+    ecow:{}
   },
   mutations: {
     SET_SIDEBAR_DRAWER(state, payload) {
@@ -60,6 +61,12 @@ export default new Vuex.Store({
         localStorage.setItem("loggedIn", true);
       }
     },
+
+    SET_DATA_ECOW(state, value) {
+      state.ecow = Object.assign({}, value);
+     // window.dispatchEvent(new Event('resize'))
+    },
+
     
     CLEAR_USER(state) {
       state.userLogado = {};
@@ -73,6 +80,10 @@ export default new Vuex.Store({
   getters: {
     getUserLogged: (state) => {
       return state.userLogado;
+    },
+
+    getDataEcow: (state) => {
+      return state.ecow;
     },
   },
 });

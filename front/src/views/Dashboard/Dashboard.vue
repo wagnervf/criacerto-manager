@@ -9,12 +9,77 @@
         </v-col>
 
         <v-row>
-          <v-col lg="3" sm="6" md="5" cols="12">
+          <v-col lg="4" sm="6" md="5" cols="12">
             <dashboardCardTotalSimulacoesVue />
           </v-col>
 
-          <v-col lg="3" sm="6" md="5" cols="12">
+          <v-col lg="4" sm="6" md="5" cols="12">
             <dashboardTiposTourosVue />
+          </v-col>
+
+          <v-col lg="4" sm="6" md="7" cols="12">
+            <v-container fluid>
+              <v-card class="mx-1 mb-1" style="height: 294px;">
+                <v-card-title class="pa-6 pb-3">
+                  <p>App Performance</p>
+                  <v-spacer></v-spacer>
+                  <v-menu>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-btn icon v-bind="attrs" v-on="on">
+                        <v-icon color="textColor">mdi-dots-vertical</v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list>
+                      <v-list-item
+                        v-for="(item, i) in mock.menu"
+                        :key="i"
+                        @click="() => {}"
+                      >
+                        <v-list-item-title>{{ item }}</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </v-card-title>
+                <v-card-text class="pa-6 pt-0">
+                  <v-row no-gutters class="pb-5">
+                    <div class="mr-4">
+                      <v-icon color="primary" class="ml-n2">
+                        mdi-circle-medium
+                      </v-icon>
+                      <span class="card-light-grey">Integration</span>
+                    </div>
+                    <div>
+                      <v-icon color="warning"> mdi-circle-medium </v-icon>
+                      <span class="card-light-grey">SDK</span>
+                    </div>
+                  </v-row>
+                  <v-row no-gutters class="pb-3">
+                    <v-col>
+                      <div class="text-h6 card-light-grey font-weight-regular">
+                        Integration
+                      </div>
+                      <v-progress-linear
+                        :value="value"
+                        background-color="#ececec"
+                        color="primary"
+                      ></v-progress-linear>
+                    </v-col>
+                  </v-row>
+                  <v-row no-gutters class="pb-1">
+                    <v-col>
+                      <div class="text-h6 card-light-grey font-weight-regular">
+                        SDK
+                      </div>
+                      <v-progress-linear
+                        :value="value2"
+                        background-color="#ececec"
+                        color="warning"
+                      ></v-progress-linear>
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+            </v-container>
           </v-col>
         </v-row>
 
@@ -29,8 +94,6 @@
         <v-col cols="12">
           <dashboardChartColumnVue />
         </v-col>
-
-        <v-col cols="12"> </v-col>
 
         <v-col lg="3" sm="6" md="5" cols="12">
           <v-card class="mx-1 mb-1">
@@ -93,68 +156,6 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col lg="3" sm="6" md="7" cols="12">
-          <v-card class="mx-1 mb-1">
-            <v-card-title class="pa-6 pb-3">
-              <p>App Performance</p>
-              <v-spacer></v-spacer>
-              <v-menu>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon v-bind="attrs" v-on="on">
-                    <v-icon color="textColor">mdi-dots-vertical</v-icon>
-                  </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item
-                    v-for="(item, i) in mock.menu"
-                    :key="i"
-                    @click="() => {}"
-                  >
-                    <v-list-item-title>{{ item }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </v-card-title>
-            <v-card-text class="pa-6 pt-0">
-              <v-row no-gutters class="pb-5">
-                <div class="mr-4">
-                  <v-icon color="primary" class="ml-n2">
-                    mdi-circle-medium
-                  </v-icon>
-                  <span class="card-light-grey">Integration</span>
-                </div>
-                <div>
-                  <v-icon color="warning"> mdi-circle-medium </v-icon>
-                  <span class="card-light-grey">SDK</span>
-                </div>
-              </v-row>
-              <v-row no-gutters class="pb-3">
-                <v-col>
-                  <div class="text-h6 card-light-grey font-weight-regular">
-                    Integration
-                  </div>
-                  <v-progress-linear
-                    :value="value"
-                    background-color="#ececec"
-                    color="primary"
-                  ></v-progress-linear>
-                </v-col>
-              </v-row>
-              <v-row no-gutters class="pb-1">
-                <v-col>
-                  <div class="text-h6 card-light-grey font-weight-regular">
-                    SDK
-                  </div>
-                  <v-progress-linear
-                    :value="value2"
-                    background-color="#ececec"
-                    color="warning"
-                  ></v-progress-linear>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
-        </v-col>
 
         <v-col cols="12">
           <v-data-table
@@ -185,7 +186,7 @@
 
 <script>
 import mock from "./mock";
-import eCow from "./e-cow";
+//import eCow from "./e-cow";
 import dashboardCardsVue from "./dashboard-cards.vue";
 import dashboardChartColumnVue from "./dashboard-chart-column.vue";
 import dashboardChartBarVue from "./dashboard-chart-bar.vue";
@@ -193,6 +194,8 @@ import dashboardCardTotalSimulacoesVue from "./dashboard-card-total-simulacoes.v
 //import dashboardTableSimpleVue from "./dashboard-table-simple.vue";
 import dashboardTiposTourosVue from "./dashboard-tipos-touros.vue";
 //import ApexChart from "vue-apexcharts";
+import { mapState } from "vuex";
+import DashboardService from "@/services/DashboardServices";
 
 export default {
   name: "Dashboard",
@@ -203,12 +206,12 @@ export default {
     dashboardTiposTourosVue,
     dashboardChartBarVue,
     dashboardCardTotalSimulacoesVue,
-   // ApexChart,
+    // ApexChart,
   },
   data() {
     return {
       mock,
-      eCow,
+      eCow: [],
       apexLoading: false,
       value: this.getRandomInt(10, 90),
       value2: this.getRandomInt(10, 90),
@@ -232,6 +235,7 @@ export default {
     setTimeout(() => {
       this.apexLoading = true;
       this.eCowSimulations();
+      this.getDataEcowApi();
     }, 2000);
   },
 
@@ -284,6 +288,28 @@ export default {
       });
 
       return [];
+    },
+
+    ...mapState(["SetDataCow"]),
+
+    async getDataEcowApi() {
+      try {
+        const response = await DashboardService.getDadosEcow();
+        if (response.status == 200) {
+          if (response.data[0]["_id"]) {
+            delete response.data[0]["_id"];
+          }
+          var result = response.data[0];
+
+          this.$store.commit("SET_DATA_ECOW", result);
+
+          this.eCow = this.$store.getters.getDataEcow;
+        } else {
+          console.log("Erro ao carregar dados");
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

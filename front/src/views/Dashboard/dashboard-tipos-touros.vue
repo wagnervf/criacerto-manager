@@ -1,17 +1,14 @@
 <template>
-  <div>
+  <v-container fluid>      
     <v-card class="mx-1 mb-1">
-      <v-card-title class="pa-6 pb-0">
-        <v-row no-gutters>
-          <v-col cols="12" class="d-flex align-center">
-            <p>Tipos de Touros Simulados</p>
-          </v-col>
-        </v-row>
+      <v-card-title class="pa-6 pb-3">
+        <p>Tipos de Touros Simulados</p>
+        <v-spacer></v-spacer>
       </v-card-title>
 
-      <v-card-text class="pa-3 d-flex">
+<v-card-text class="pa-6 pt-0" >
         <v-row cols="12" class="align-center justify-center">
-          <v-col>
+          <v-col v-if="this.visivel">
             <ApexChart
               type="donut"
               height="200"
@@ -22,11 +19,11 @@
         </v-row>
       </v-card-text>
     </v-card>
-  </div>
+  </v-container>
 </template>
 
 <script>
-import eCow from "./e-cow";
+//import eCow from "./e-cow";
 
 import ApexChart from "vue-apexcharts";
 
@@ -37,8 +34,9 @@ export default {
   },
   data() {
     return {
-      eCow,
+    //  eCow,
       apexLoading: false,
+      visivel: false,
 
       headers: [
         { text: "Tipo", align: "start", value: "type" },
@@ -79,7 +77,7 @@ export default {
       chartOptions: {
         chart: {
           type: "donut",
-          height: 350,
+          height: 450,
         },
         plotOptions: {
           pie: {
@@ -115,15 +113,23 @@ export default {
   },
 
   mounted() {
-    this.racaTouros();
-    this.separaRacasTouros();
+    setTimeout(() => {
+      this.racaTouros();
+      this.separaRacasTouros();
+      this.visivel = true;
+    }, 4000);
   },
 
-  computed: {},
+  computed: {
+    eCowData() {
+      return this.$store.getters.getDataEcow;
+    },
+  },
 
   methods: {
     racaTouros() {
-      var data = this.eCow;
+      //var data = this.eCow;
+      var data = this.eCowData;
       Object.values(data).forEach((value) => {
         let rar =
           typeof value.raca_touro === "undefined"

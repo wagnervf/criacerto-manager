@@ -66,7 +66,7 @@ data() {
         plotOptions: {
           bar: {
             horizontal: false,
-            columnWidth: "75%",
+            columnWidth: "65%",
             endingShape: "rounded",
           },
         },
