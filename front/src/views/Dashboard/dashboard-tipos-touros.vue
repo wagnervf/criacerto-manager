@@ -1,31 +1,37 @@
 <template>
   <v-container fluid>
-    <v-card class="mx-1 mb-1">
+    <v-card
+      class="mx-1 mb-1"
+      style="min-height: 150px"
+    >
       <v-card-title class="pa-6 pb-3">
-        <p>Tipos de Touros Simulados</p>
-        <v-spacer></v-spacer>
+        <p class="teal--text">
+          Tipos de Touros Simulados
+        </p>
+        <v-spacer />
       </v-card-title>
 
       <v-card-text class="pa-6 pt-0">
-        <v-row cols="12" class="align-center justify-center">
-          <v-col v-if="this.visivel">
+        <v-row class="align-center justify-center">
+          <v-col
+            v-if="visivel"
+            class="my-auto"
+          >
             <ApexChart
-              type="donut"
-              height="200"
+              type="pie"
+              height="380"
               :options="chartOptions"
               :series="chartOptions.series"
-            ></ApexChart>
+            />
           </v-col>
-          <v-col v-else class="pa-6">
+          <v-col
+            v-else
+            class="pa-6"
+          >
             <div class="text-center">
-            <v-progress-circular
-            :size="160"
-            :width="7"
-            color="teal lighten-4"
-            indeterminate
-          ></v-progress-circular>
-          </div>
-                </v-col>
+              <ComponentProgress />
+            </div>
+          </v-col>
         </v-row>
       </v-card-text>
     </v-card>
@@ -33,29 +39,19 @@
 </template>
 
 <script>
-//import eCow from "./e-cow";
-
 import ApexChart from "vue-apexcharts";
-
+import ComponentProgress from "../../components/Progress.vue";
 export default {
-  name: "Dashboard-Tipos-Touros",
+  name: "DashboardTiposTouros",
   components: {
     ApexChart,
+    ComponentProgress,
   },
- 
+
   data() {
     return {
-      //  eCow,
       apexLoading: false,
       visivel: false,
-
-      headers: [
-        { text: "Tipo", align: "start", value: "type" },
-        { text: "Raça Touro", value: "raca_touro", align: "right" },
-        { text: "Estado", value: "state", align: "right" },
-        { text: "Cidade", value: "city", align: "right" },
-        { text: "Data", value: "created", align: "right" },
-      ],
       racasTouro: [
         "Aberdeen Angus",
         "Bonsmara",
@@ -87,22 +83,16 @@ export default {
 
       chartOptions: {
         chart: {
-          type: "donut",
-          height: 450,
+          width: '100%',
+          type: "pie",
         },
         plotOptions: {
-          pie: {
-            donut: {
-              labels: {
-                show: true,
-                total: {
-                  showAlways: true,
-                  show: true,
-                },
-              },
+              pie: {
+                dataLabels: {
+                  offset: -5
+                }
+              }
             },
-          },
-        },
 
         labels: [],
         series: [],
@@ -111,7 +101,7 @@ export default {
             breakpoint: 480,
             options: {
               chart: {
-                width: 200,
+                width: 300,
               },
               legend: {
                 position: "bottom",
@@ -123,26 +113,26 @@ export default {
     };
   },
 
-  mounted() {
-    setTimeout(() => {
-      this.racaTouros();
-      this.separaRacasTouros();
-      this.visivel = true;
-    }, 4000);
-  },
-
   computed: {
     eCowData() {
       return this.$store.getters.getDataEcow;
     },
   },
 
+  mounted() {
+    setTimeout(() => {
+      this.racaTouros();
+      this.separaRacasTouros();
+      this.visivel = true;
+    }, 3000);
+  },
+
   methods: {
     racaTouros() {
-      //var data = this.eCow;
-      var data = this.eCowData;
+      // var data = this.eCow;
+      const data = this.eCowData;
       Object.values(data).forEach((value) => {
-        let rar =
+        const rar =
           typeof value.raca_touro === "undefined"
             ? value.raca_touro_iatf
             : value.raca_touro;
@@ -153,7 +143,7 @@ export default {
 
     separaRacasTouros() {
       const counts = {};
-      this.racas.forEach(function (x) {
+      this.racas.forEach((x) => {
         counts[x] = (counts[x] || 0) + 1;
       });
       Object.assign(this.racasSeparadas, counts);

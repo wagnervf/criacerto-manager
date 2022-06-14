@@ -15,23 +15,24 @@ const routes = [
     component: () => import("@/layouts/Layout"),
 
     children: [
-      // Components
       {
-        name: "Home",
-        path: "/",
-        component: () => import("@/views/Home.vue"),
+        name: "Parametros",
+        path: "/parametros",
+        component: () => import("@/views/Parametros/Parametros.vue"),
         meta: {
           breadCrumb: [
             {
-              text: "Início",
+              text: "Simulações",
               disabled: true,
-              href: "/",
-              icon: "mdi-home",
+              href: "/parametros",
+              icon: "mdi-database",
             },
           ],
           permission: ["ADMIN", "TEC"],
         },
       },
+   
+
       {
         name: "Dashboard",
         path: "/dashboard",
@@ -99,8 +100,7 @@ const routes = [
       {
         name: "Monta Natural Dados Tecnicos Rebanho",
         path: "montanatural/dadostecnicosrebanho",
-        component: () =>
-          import("@/views/MontaNatural/DadosTecnicosRebanho.vue"),
+        component: () => import("@/views/MontaNatural/DadosTecnicosRebanho.vue"),
         meta: {
           breadCrumb: [
             {
@@ -147,8 +147,7 @@ const routes = [
               disabled: false,
             },
           ],
-        permission: ["ADMIN", "TEC"],
-
+          permission: ["ADMIN", "TEC"],
         },
       },
 
@@ -175,8 +174,7 @@ const routes = [
               disabled: false,
             },
           ],
-        permission: ["ADMIN", "TEC"],
-          
+          permission: ["ADMIN", "TEC"],
         },
       },
 
@@ -197,14 +195,11 @@ const routes = [
               disabled: false,
               href: "index",
             },
-            
           ],
-        permission: ["ADMIN"],
-
+          permission: ["ADMIN"],
         },
       },
 
-  
       {
         name: "Usuarios Meu Perfil",
         path: "usuarios/perfil",
@@ -228,12 +223,10 @@ const routes = [
               disabled: false,
             },
           ],
-        permission: ["ADMIN", "TEC"],
-
+          permission: ["ADMIN", "TEC"],
         },
       },
 
-   
       {
         name: "Novo Usuario",
         path: "usuarios/Add",
@@ -257,30 +250,41 @@ const routes = [
               disabled: false,
             },
           ],
-        permission: ["ADMIN", "TEC"],
-
+          permission: ["ADMIN", "TEC"],
         },
       },
 
-
-      {
-        name: "TableSimple",
-        path: "Parametros/parametros",
-        component: () => import("@/views/Parametros/Parametros.vue"),
-       meta: { permission: ["ADMIN", "TEC"] }
-      },
+     
       {
         name: "Sobre",
         path: "Sobre/sobre",
         component: () => import("@/views/Sobre/Sobre.vue"),
-        meta: { permission: ["ADMIN", "TEC"] }
+        meta: { permission: ["ADMIN", "TEC"] },
       },
+
+      {
+        name: "Ajuda",
+        path: "Ajuda/ajuda",
+        component: () => import("@/views/Ajuda/Ajuda.vue"),
+        meta: {
+          breadCrumb: [
+            {
+              text: "Ajuda",
+              disabled: true,
+              href: "/ajuda",
+              icon: "mdi-help",
+            },
+          ],
+          permission: ["ADMIN", "TEC"],
+        },
+      },
+   
 
       {
         name: "Configuracoes",
         path: "Configuracoes/configuracoes",
         component: () => import("@/views/Configuracoes/Configuracoes.vue"),
-        meta: { permission: ["ADMIN", "TEC"] }
+        meta: { permission: ["ADMIN", "TEC"] },
       },
     ],
   },

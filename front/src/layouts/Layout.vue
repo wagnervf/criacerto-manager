@@ -1,25 +1,24 @@
 <template>
   <v-app id="inspire">
-    <Header></Header>
-    <Sidebar></Sidebar>
-    <v-main class="grey lighten-4 pa-4">   
-
+    <HeaderComponent />
+    <SidebarComponent />
+    <v-main class="grey lighten-4 pa-4">
       <router-view />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Header from "./Header";
-import Sidebar from "./Sidebar";
-
 import { mapState, mapMutations } from "vuex";
+import HeaderComponent from "./Header";
+import SidebarComponent from "./Sidebar";
+
 export default {
-  name: "Layout",
+  name: "LayoutDefault",
 
   components: {
-    Header,
-    Sidebar,
+    HeaderComponent,
+    SidebarComponent,
   },
 
   props: {

@@ -1,24 +1,23 @@
 <template>
   <div>
-    <v-row class=" justify-space-between ma-6">
+    <v-row class="justify-space-between ma-6">
       <v-text-field
         label="Estados"
         single-line
         filled
         required
-        @input="setEstado"
         class="mx-1"
-      >
-      </v-text-field>
+        @input="setEstado"
+      />
 
       <v-text-field
         label="Cidades"
         single-line
         filled
         required
-        @input="setEstado"
         class="mx-1"
-      ></v-text-field>
+        @input="setEstado"
+      />
     </v-row>
 
     <!-- <v-row class="d-flex justify-space-between ma-6">

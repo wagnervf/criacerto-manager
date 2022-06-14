@@ -7,7 +7,7 @@ export default {
       const response = await ApiAxios().get("/simulacao/find");
 
       if (response) {
-      //  console.log(response.data);
+        //  console.log(response.data);
       }
 
       return response.data;
@@ -55,7 +55,7 @@ export default {
   //     });
   // },
 
-   async saveTiposSimulacoes(dados) {
+  async saveTiposSimulacoes(dados) {
     try {
       const response = await ApiAxios().post("/simulacao/save", dados);
       if (response) {
@@ -69,24 +69,22 @@ export default {
         text: "Alguma coisa deu errado aqui!",
         icon: "error",
       });
-     // this.$router.push("/");
+      // this.$router.push("/");
     }
   },
 
-  //TODO: fAZERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+  // TODO: fAZERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
 
-  updateTiposSimulacoes: (id, dados) => {
-    return ApiAxios().patch("/simulacao/update/".concat(id), dados)
-      .then(function(response) {
-        return response;
-      })
-      .catch(function(error) {
+  updateTiposSimulacoes: (id, dados) =>
+    ApiAxios()
+      .patch("/simulacao/update/".concat(id), dados)
+      .then((response) => response)
+      .catch((error) => {
         swal({
           title: "Erro!",
           text: "A simulação não foi atualizada!",
           icon: "error",
         });
         return error.response;
-      });
-  },
+      }),
 };

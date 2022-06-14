@@ -1,32 +1,32 @@
 <template>
   <div>
     <v-card class="mx-1 mb-1">
-            <v-card-title class="pa-6 pb-0">
-              <v-row no-gutters>
-                <v-col
-                  cols="7"
-                  sm="4"
-                  md="4"
-                  lg="5"
-                  class="d-flex align-center"
-                >
-                  <p>Quantitativo de Simulações ano 2021</p>
-                </v-col>
-              </v-row>
-            </v-card-title>
-            <v-card-text class="pa-6">
-              <v-row>
-                <v-col>
-                  <ApexChart
-                    type="bar"
-                    height="350"
-                    :options="chartOptions"
-                    :series="series"
-                  ></ApexChart>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
+      <v-card-title class="pa-6 pb-0">
+        <v-row no-gutters>
+          <v-col
+            cols="7"
+            sm="4"
+            md="4"
+            lg="5"
+            class="d-flex align-center"
+          >
+            <p>Quantitativo de Simulações ano 2021</p>
+          </v-col>
+        </v-row>
+      </v-card-title>
+      <v-card-text class="pa-6">
+        <v-row>
+          <v-col>
+            <ApexChart
+              type="bar"
+              height="350"
+              :options="chartOptions"
+              :series="series"
+            />
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
@@ -34,13 +34,13 @@
 import ApexChart from "vue-apexcharts";
 
 export default {
-  name: "Dashboard-Chart-Column",
-  components: { 
+  name: "DashboardChartColumn",
+  components: {
     ApexChart,
   },
-data() {
-  return {
-     series: [
+  data() {
+    return {
+      series: [
         {
           name: "Monta Natural",
           data: [20, 28, 36, 38, 40, 35, 68, 42, 59, 38, 40, 50],
@@ -108,17 +108,15 @@ data() {
         },
         tooltip: {
           y: {
-            formatter: function (val) {
-              return "$ " + val + " thousands";
+            formatter(val) {
+              return `$ ${val} thousands`;
             },
           },
         },
       },
-  }
-},
-}
+    };
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

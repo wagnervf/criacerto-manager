@@ -1,20 +1,30 @@
 <template>
-  <v-container fluid class="">
+  <v-container
+    fluid
+    class=""
+  >
     <v-row justify="center">
-      <v-col cols="12" lg="12" justify-center flex>
+      <v-col
+        cols="12"
+        lg="12"
+        justify-center
+        flex
+      >
         <v-card class="mx-auto">
-          <v-toolbar color="grey lighten-3" elevation="0">
+          <v-toolbar
+            color="grey lighten-3"
+            elevation="0"
+          >
             <v-toolbar-title>Dados Técnicos do Rebanho</v-toolbar-title>
-            <v-spacer></v-spacer>
+            <v-spacer />
           </v-toolbar>
           <v-form
-            class="pa-6 white ma-1"
             ref="form"
             v-model="valid"
+            class="pa-6 white ma-1"
             lazy-validation
           >
-            <v-alert class="pa-6" outlined color="grey lighten-3">
-              <v-row>
+            <v-row>
               <v-col justify="space-between">
                 <v-text-field
                   v-model="form.vacasCobrir"
@@ -22,7 +32,7 @@
                   required
                   class="pa-2"
                   suffix="Cabeças"
-                ></v-text-field>
+                />
 
                 <v-text-field
                   v-model="form.numTouro"
@@ -30,8 +40,7 @@
                   required
                   class="pa-2"
                   suffix="Cabeças"
-                ></v-text-field>
-              
+                />
 
                 <v-text-field
                   v-model="form.vidaTouro"
@@ -39,7 +48,7 @@
                   required
                   class="pa-2"
                   suffix="Anos"
-                ></v-text-field>
+                />
 
                 <v-text-field
                   v-model="form.taxaPrenhez"
@@ -47,15 +56,15 @@
                   required
                   class="pa-2"
                   suffix="%"
-                ></v-text-field>
-           
+                />
+
                 <v-text-field
                   v-model="form.mortalidadeDesmama"
                   label="Mortalidade do Nascimento à Desmama"
                   required
                   class="pa-2"
                   suffix="%"
-                ></v-text-field>
+                />
 
                 <v-text-field
                   v-model="form.precoKgBezerro"
@@ -63,68 +72,147 @@
                   required
                   class="pa-2"
                   prefix="R$"
-                ></v-text-field>
-            
-                <v-select
-                  v-model="form.touro"
-                  :items="racasTouro"
-                  label="Raça do Touro"
-                  required
-                  class="pa-2"
-                  outlined
-                ></v-select>
+                />
+
+                <v-card class="my-2">
+                  <v-app-bar
+                    flat
+                    dense
+                  >
+                    <v-toolbar-title class="text-h6 pl-0">
+                      Raças de Touros
+                    </v-toolbar-title>
+
+                    <v-spacer />
+
+                    <v-menu
+                      bottom
+                      left
+                    >
+                      <template #activator="{ on, attrs }">
+                        <v-btn
+                          icon
+                          v-bind="attrs"
+                          v-on="on"
+                        >
+                          <v-icon>mdi-dots-vertical</v-icon>
+                        </v-btn>
+                      </template>
+
+                      <v-list>
+                        <v-list-item
+                          v-for="(item, i) in menu"
+                          :key="i"
+                        >
+                          <v-list-item-title>
+                            {{ item.title }}
+                          </v-list-item-title>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
+                  </v-app-bar>
+
+                  <v-card-text>
+                    <v-row>
+                      <v-select
+                        v-model="form.touro"
+                        :items="racasTouro"
+                        label="Raça do Touro"
+                        required
+                        class="pa-2"
+                        outlined
+                      />
+                    </v-row>
+
+                    <v-row justify="center">
+                      <v-col
+                        cols="12"
+                        sm="10"
+                        md="8"
+                        lg="6"
+                      >
+                        <v-card ref="form">
+                          <v-card-text>
+                            <v-text-field
+                              ref="name"
+                              v-model="name"
+                              :rules="[
+                                () => !!name || 'This field is required',
+                              ]"
+                              :error-messages="errorMessages"
+                              label="Full Name"
+                              placeholder="John Doe"
+                              required
+                            />
+                          </v-card-text>
+                          <v-divider class="mt-12" />
+                          <v-card-actions>
+                            <v-btn text>
+                              Cancel
+                            </v-btn>
+                            <v-spacer />
+                            <v-slide-x-reverse-transition>
+                              <v-tooltip
+                                v-if="formHasErrors"
+                                left
+                              >
+                                <template #activator="{ on, attrs }">
+                                  <v-btn
+                                    icon
+                                    class="my-0"
+                                    v-bind="attrs"
+                                    @click="resetForm"
+                                    v-on="on"
+                                  >
+                                    <v-icon>mdi-refresh</v-icon>
+                                  </v-btn>
+                                </template>
+                                <span>Refresh form</span>
+                              </v-tooltip>
+                            </v-slide-x-reverse-transition>
+                            <v-btn
+                              color="primary"
+                              text
+                              @click="submit"
+                            >
+                              Submit
+                            </v-btn>
+                          </v-card-actions>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </v-card-text>
+                </v-card>
 
                 <v-text-field
                   v-model="form.pesoDesmama"
                   label="Peso à Desmana da Fazenda"
                   required
-                  class="pa-2"
+                  class="pa-2 my-4"
                   suffix="Kg"
-                ></v-text-field>
+                />
               </v-col>
-              </v-row>
+            </v-row>
 
-              <v-row justify="space-between">
-                <v-card class="mx-auto col-12">                  
-                  <v-card-text>
-                    <v-autocomplete
-                      v-model="model"
-                      :hint="
-                        !isEditing
-                          ? 'Click the icon to edit'
-                          : 'Click the icon to save'
-                      "
-                      :items="states"
-                      :readonly="!isEditing"
-                      label="Raças de Touros"
-                      persistent-hint
-                      prepend-icon="mdi-city"
-                    >
-                      <template v-slot:append-outer>
-                        <v-slide-x-reverse-transition mode="out-in">
-                          <v-icon
-                            :key="`icon-${isEditing}`"
-                            :color="isEditing ? 'success' : 'info'"
-                            @click="isEditing = !isEditing"
-                            v-text="
-                              isEditing
-                                ? 'mdi-check-outline'
-                                : 'mdi-circle-edit-outline'
-                            "
-                          ></v-icon>
-                        </v-slide-x-reverse-transition>
-                      </template>
-                    </v-autocomplete>
-                  </v-card-text>
-                </v-card>
-              </v-row>
+            <v-row class="d-flex justify-end mt-6">
+              <v-btn
+                color="error"
+                class="mr-4"
+              >
+                Cancelar
+              </v-btn>
 
-              <v-row class="d-flex justify-end mt-6">
-                <v-btn outlined color="error" class="mr-4"> Cancelar </v-btn>
+              <v-btn
+                color="success"
+                class="mr-4"
+              >
+                Salvar
+              </v-btn>
+            </v-row>
 
-                <v-btn outlined color="success" class="mr-4"> Salvar </v-btn>
-              </v-row>
-            </v-alert>
+            <pre>
+              {{ this.form }}
+            </pre>
           </v-form>
         </v-card>
       </v-col>
@@ -134,9 +222,8 @@
 
 <script>
 export default {
-  name: "Basico Index",
+  name: "ViewDadosTecnicosRebanho",
   data: () => ({
-   
     isEditing: false,
     model: null,
     states: [
@@ -153,13 +240,16 @@ export default {
     form: {
       touro: "",
       vacasCobrir: 1000,
-numTouro:25,
-vidaTouro:6,
-taxaPrenhez:80,
-mortalidadeDesmama:3,
-precoKgBezerro:6,
-pesoDesmama:180
+      numTouro: 25,
+      vidaTouro: 6,
+      taxaPrenhez: 80,
+      mortalidadeDesmama: 3,
+      precoKgBezerro: 6,
+      pesoDesmama: 180,
     },
+    errorMessages: "",
+    name: null,
+    formHasErrors: false,
     racasTouro: [
       "Aberdeen Angus",
       "Bonsmara",
@@ -185,10 +275,14 @@ pesoDesmama:180
       "Outras",
     ],
     valid: true,
-    name: "",
 
     select: null,
     items: ["Item 1", "Item 2", "Item 3", "Item 4"],
+    menu: [
+      { title: "Incluir Item" },
+      { title: "Editar Item" },
+      { title: "Remover Item" },
+    ],
   }),
 
   methods: {

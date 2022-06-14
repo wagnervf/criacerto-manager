@@ -8,17 +8,23 @@
     light
   >
     <v-breadcrumbs :items="rotas">
-      <template v-slot:item="{ item }">
+      <template #item="{ item }">
         <v-breadcrumbs-item
           v-if="item.text == 'Início'"
           :href="item.href"
           class="teal--text"
         >
-          <v-icon class="mx-0">mdi-home</v-icon>
+          <v-icon class="mx-0">
+            mdi-home
+          </v-icon>
           <!-- {{ item.text }} -->
         </v-breadcrumbs-item>
 
-        <v-breadcrumbs-item v-else :href="item.href" :disabled="item.disabled">
+        <v-breadcrumbs-item
+          v-else
+          :href="item.href"
+          :disabled="item.disabled"
+        >
           {{ item.text }}
         </v-breadcrumbs-item>
       </template>
@@ -32,22 +38,30 @@
       transition="scale-transition"
       title="Menu de ações do usuário"
     >
-      <template v-slot:activator="{ on }">
+      <template #activator="{ on }">
         <v-tooltip bottom>
-          <template v-slot:activator="{ on: tooltip }">
+          <template #activator="{ on: tooltip }">
             <v-list
               two-line
               flat
               color="grey lighten-4"
-              class="ma-0 pa-0"              
+              class="ma-0 pa-0"
             >
-              <v-list-item link v-on="{ ...tooltip, ...on }">
+              <v-list-item
+                link
+                v-on="{ ...tooltip, ...on }"
+              >
                 <v-list-item-avatar>
                   <v-avatar color="grey">
-                    <v-icon dark> mdi-account-circle </v-icon>
+                    <v-icon dark>
+                      mdi-account-circle
+                    </v-icon>
                   </v-avatar>
                 </v-list-item-avatar>
-                <v-list-item-content accesskey="u" class="inline-block">
+                <v-list-item-content
+                  accesskey="u"
+                  class="inline-block"
+                >
                   <v-list-item-title>{{ user.nome }}</v-list-item-title>
                   <v-list-item-subtitle>{{ user.email }}</v-list-item-subtitle>
                 </v-list-item-content>
@@ -72,22 +86,26 @@
         >
           <v-list-item-content>
             <v-list-item-title>
-              <v-icon class="px-2">{{ item.icon }}</v-icon>
-              {{ item.title }}</v-list-item-title
-            >
+              <v-icon class="px-2">
+                {{ item.icon }}
+              </v-icon>
+              {{ item.title }}
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-divider></v-divider>
+        <v-divider />
         <v-list-item
           dense
           link
           class="px-2 teal--text"
+          tabindex="2"
           @click="logout"
-          tabindex="2"        
         >
           <v-list-item-content>
             <v-list-item-title>
-              <v-icon class="px-2 teal--text">mdi-logout</v-icon>
+              <v-icon class="px-2 teal--text">
+                mdi-logout
+              </v-icon>
               Sair
             </v-list-item-title>
           </v-list-item-content>
@@ -101,7 +119,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "Header",
+  name: "LayoutHeader",
 
   components: {},
 
@@ -131,8 +149,8 @@ export default {
   }),
 
   created() {
-    //this.breadcrumbs = this.rotas();
-    //console.log(this.$route.meta.breadCrumb);
+    // this.breadcrumbs = this.rotas();
+    // console.log(this.$route.meta.breadCrumb);
   },
 
   mounted() {
@@ -160,9 +178,11 @@ export default {
 
   methods: {
     getUserLocalStorage() {
-      let user = JSON.parse(localStorage.getItem("userLogged"));
+      const user = JSON.parse(localStorage.getItem("userLogged"));
       if (user) {
-        this.user.nome = user.nome ? user.nome.charAt(0).toUpperCase() + user.nome.slice(1) : '';
+        this.user.nome = user.nome
+          ? user.nome.charAt(0).toUpperCase() + user.nome.slice(1)
+          : "";
         this.user.email = user.email.toLowerCase();
       }
     },
@@ -176,7 +196,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.v-application a 
+.v-application a
   color: rgba(0, 0, 0, 0.54)
 
 .v-list-item__content

@@ -1,5 +1,6 @@
 <template>
   <v-navigation-drawer
+    id="main-sidebar"
     v-model="Sidebar_drawer"
     mobile-breakpoint="960"
     :mini-variant.sync="mini"
@@ -7,35 +8,49 @@
     app
     permanent
     elevation-1
-    id="main-sidebar"
   >
     <v-list-item class="pl-2 pr-0 mr-1">
-      <v-list-item-avatar class="pr-0">
-         <v-icon class="teal--text px-1"> mdi-web </v-icon>
+      <v-list-item-avatar
+        class="pr-0"
+        style="cursor: pointer"
+      >
+        <v-icon class="teal--text px-1">
+          mdi-web
+        </v-icon>
       </v-list-item-avatar>
 
       <v-list-item-title>
-          Cria Certo
-          <span class="font-weight-bold teal--text">Manager</span>         
+        Cria Certo
+        <span class="font-weight-bold teal--text">Manager</span>
       </v-list-item-title>
 
-      <v-btn icon @click.stop="mini = !mini" accesskey="m">
+      <v-btn
+        icon
+        accesskey="m"
+        @click.stop="mini = !mini"
+      >
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
     </v-list-item>
+    <v-divider />
 
-    <v-divider></v-divider>
-
-    <v-divider class="pb-2"></v-divider>
+    <v-divider class="pb-2" />
 
     <ListSidebar />
 
-    <v-footer justify-end absolute end>
+    <v-footer
+      justify-end
+      absolute
+      end
+    >
       <v-list-item class="px-0">
-        <v-spacer></v-spacer>
-        <v-divider></v-divider>
+        <v-spacer />
+        <v-divider />
         <v-list-item-title>
-          <span style="font-size: 10px" class="text-center wrap">
+          <span
+            style="font-size: 10px"
+            class="text-center wrap"
+          >
             Cria Certo Manager&copy; {{ new Date().getFullYear() }}
           </span>
         </v-list-item-title>
@@ -44,22 +59,14 @@
   </v-navigation-drawer>
 </template>
 
-
-
-<style>
-.v-application p {
-  margin-bottom: 0px;
-}
-</style>
 <script>
-
 import { mapState } from "vuex";
 import ListSidebar from "../components/ListSidebar";
 
 export default {
-  name: "Sidebar",
+  name: "LayoutSidebar",
   components: {
-    ListSidebar
+    ListSidebar,
   },
 
   props: {
@@ -71,10 +78,7 @@ export default {
   data: () => ({
     drawer: true,
     mini: true,
-    
   }),
-
-  
 
   computed: {
     ...mapState(["SidebarColor", "SidebarBg"]),
@@ -86,18 +90,18 @@ export default {
         this.$store.commit("SET_SIDEBAR_DRAWER", val);
       },
     },
-    
   },
   watch: {
-    "$vuetify.breakpoint.smAndDown"(val) {
+    "$vuetify.breakpoint.smAndDown": function (val) {
       this.$emit("update:expandOnHover", !val);
     },
   },
 
-  methods: {
-
-   
-  },
+  methods: {},
 };
-
 </script>
+<style>
+.v-application p {
+  margin-bottom: 0px;
+}
+</style>
