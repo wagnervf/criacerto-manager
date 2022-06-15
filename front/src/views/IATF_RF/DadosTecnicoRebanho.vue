@@ -4,7 +4,7 @@
       <v-col cols="12" lg="12" justify-center flex>
         <v-card class="mx-auto">
           <v-toolbar color="grey lighten-3" elevation="0">
-            <v-toolbar-title>Aquisição de Touros</v-toolbar-title>
+            <v-toolbar-title>Dados Técnicos do Rebanho</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
           <v-form
@@ -16,22 +16,22 @@
             <v-alert class="pa-6" outlined color="grey lighten-3">
               <v-col justify="space-between">
                 <v-text-field
-                  v-model="form.precoAquisao"
+                  v-model="form.numero_de_vacas"
                   label="Preço de Aquisição de Touro"
                   required
                   class="mt-4 pa-2"
                    type="number"
                   prefix="R$"
-                  :rules="precoAquisaoRules"
+                  :rules="numero_de_vacasRules"
                 ></v-text-field>
 
                 <v-text-field
-                  v-model="form.despesaCompra"
+                  v-model="form.vacas_inseminadas"
                   label="Despesas da Compra"
                   required
                    type="number"
                   class="mt-4 pa-2 h6"
-                  :rules="despesaCompraRules"
+                  :rules="vacas_inseminadasRules"
                   suffix="%"
                 ></v-text-field>
 
@@ -70,12 +70,12 @@ export default {
   data: () => ({
     valid: true,
     form: {
-      precoAquisao: 4200,
-      despesaCompra: 10,
+      numero_de_vacas: 4200,
+      vacas_inseminadas: 10,
       DepPeso: 5,
     },
-    precoAquisaoRules: [(v) => !!v || "Campo Obrigatório!"],
-    despesaCompraRules: [(v) => !!v || "Campo Obrigatório!"],
+    numero_de_vacasRules: [(v) => !!v || "Campo Obrigatório!"],
+    vacas_inseminadasRules: [(v) => !!v || "Campo Obrigatório!"],
     DepPesoRules: [(v) => !!v || "Campo Obrigatório!"],
   }),
 
