@@ -35,7 +35,7 @@ const routes = [
 
       {
         name: "Dashboard",
-        path: "/dashboard",
+        path: "/",
         component: () => import("@/views/Dashboard/Dashboard.vue"),
         meta: {
           breadCrumb: [
