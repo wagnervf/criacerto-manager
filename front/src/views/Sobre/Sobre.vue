@@ -1,13 +1,27 @@
 <template>
-  <v-container fluid class="down-top-padding white elevation-2">
+  <v-container
+    fluid
+    class="down-top-padding white elevation-2"
+  >
     <v-row>
-      <v-col cols="12" lg="12">
-       <v-card flat tile class=" text-center">
-          <v-card-text >
-            <p class="text-h4">Seja bem-vindo!</p>
-            <v-divider></v-divider>
+      <v-col
+        cols="12"
+        lg="12"
+      >
+        <v-card
+          flat
+          tile
+          class="text-center"
+        >
+          <v-card-text>
+            <p class="text-h4">
+              Seja bem-vindo!
+            </p>
+            <v-divider />
 
-            <p class="text-h6 my-3">Cria Certo Manager</p>
+            <p class="text-h6 my-3">
+              Cria Certo Manager
+            </p>
             <p class="ma-6">
               Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit
               amet. Mauris cursus commodo interdum. Praesent ut risus eget metus
@@ -22,8 +36,7 @@
               style="margin: auto"
               alt="Logo Cria Certo"
               src="@/assets/img/criacerto.png"
-            >
-            </v-img>
+            />
           </v-card-text>
         </v-card>
       </v-col>
@@ -32,12 +45,8 @@
 </template>
 
 <script>
-
 export default {
-  name: "Sobre",
-  data: () => ({})
-  
-    
-  
+  name: "ViewSobre",
+  data: () => ({}),
 };
 </script>

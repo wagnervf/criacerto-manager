@@ -1,19 +1,16 @@
-//import swal from "sweetalert";
+// import swal from "sweetalert";
 import ApiAxios from "./ApiAxios";
-//import { AuthStr } from "../Core/tokenConnectServices";
+// import { AuthStr } from "../Core/tokenConnectServices";
 
 export default {
   async getListaUsuarios() {
     try {
       const response = await ApiAxios().get("/user/list");
-      //console.log(response);
-      if (response.status == '200') {
+      if (response.status == "200") {
         return response;
-      } 
+      }
       return response;
-
     } catch (error) {
-      //  console.log(error);
       return error.response;
     }
   },
@@ -22,11 +19,11 @@ export default {
     try {
       return await ApiAxios()
         .post("user/register", dados)
-        .then(function (response) {
+        .then((response) => {
           console.log(response);
           return response;
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error.response);
           return error.response;
         });
@@ -40,12 +37,8 @@ export default {
     try {
       return await ApiAxios()
         .put("user/update", dados)
-        .then(function (response) {
-          return response;
-        })
-        .catch(function (error) {
-          return error.response;
-        });
+        .then((response) => response)
+        .catch((error) => error.response);
     } catch (erro) {
       console.log(erro);
       return erro;
@@ -55,13 +48,9 @@ export default {
   async removerUsuario(id) {
     try {
       return await ApiAxios()
-        .delete("user/delete/", { data: { id: id } })
-        .then(function (response) {
-          return response;
-        })
-        .catch(function (error) {
-          return error.response;
-        });
+        .delete("user/delete/", { data: { id } })
+        .then((response) => response)
+        .catch((error) => error.response);
     } catch (erro) {
       console.log(erro);
       return erro;

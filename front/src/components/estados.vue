@@ -1,42 +1,24 @@
 <template>
-  <!-- <v-row class="ma-1">
-      <v-select
-        label="Estado"
-        :items="estados"
-        v-model="estado"
-        required
-        outlined
-        class="pa-2"
-      ></v-select>
-       <v-select
-        :items="cidades"
-        v-model="cidade"
-        label="Cidades"
-        required
-        outlined
-        class="pa-2"
-      ></v-select> 
-    </v-row> -->
-
-    
-
   <v-row class="ma-0">
     <v-col>
-        <v-card>
-          <v-card-title>Estados</v-card-title>
-          <v-select
+      <v-card>
+        <v-card-title>Estados</v-card-title>
+        <v-select
+          v-model="estado"
           label="Selecione o Estado"
           :items="estados"
-          v-model="estado"
           hide-details
           filled
           clearable
           class="px-6 pb-4 my-2"
-        ></v-select>
-        </v-card>
-      <v-card class="mx-0" v-if="filteredList.length != 0">
+        />
+      </v-card>
+      <v-card
+        v-if="filteredList.length != 0"
+        class="mx-0"
+      >
         <v-card-title>Cidades</v-card-title>
-         <v-sheet class="pa-2 teal lighten-2">
+        <v-sheet class="pa-2 teal lighten-2">
           <v-card-text>
             <v-text-field
               v-model="search"
@@ -47,24 +29,31 @@
               clearable
               clear-icon="mdi-close-circle-outline"
               class="py-4"
-              dark>
-            </v-text-field>
+              dark
+            />
           </v-card-text>
         </v-sheet>
 
-          <v-list dense class="cidades">
-            <v-list-item-group color="primary">
-              <v-list-item v-for="(item, i) in filteredList" :key="i">
-                <v-list-item-icon>
-                  <v-icon>mdi-map-marker</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title v-text="item"></v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
-        
+        <v-list
+          dense
+          class="cidades"
+        >
+          <v-list-item-group color="primary">
+            <v-list-item
+              v-for="(item, i) in filteredList"
+              :key="i"
+            >
+              <v-list-item-icon>
+                <v-icon>mdi-map-marker</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>
+                  <div v-text="item" />
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
       </v-card>
     </v-col>
   </v-row>
@@ -73,10 +62,10 @@
 <script>
 import brasil from "../assets/json/brasil.json";
 
-//const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+// const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default {
-  name: "Estados",
+  name: "ComponenteEstado",
   data() {
     return {
       active: [],
@@ -131,14 +120,14 @@ export default {
     },
 
     filteredList() {
-      return this.cidades.filter((post) => {
-        return post.toLowerCase().includes(this.search.toLowerCase());
-      });
+      return this.cidades.filter((post) =>
+        post.toLowerCase().includes(this.search.toLowerCase())
+      );
     },
   },
 
   watch: {
-    estado: function () {
+    estado() {
       console.log(brasil[this.estado].cidades);
       this.cidades = brasil[this.estado].cidades;
       console.log();

@@ -1,42 +1,19 @@
 [
+ 
   {
     "id": 1,
-    "title": "Início",
-    "icon": "mdi-home",
-    "to": "/"
-  },
-  {
-    "id": 2,
     "title": "Dashboard",
     "icon": "mdi-chart-box",
     "to": "/dashboard"
-    
   },
   {
-    "id": 3,
+    "id": 2,
     "title": "Parâmetros Cria Certo",
     "icon": "mdi-database",
-    "children": [
-      {
-        "id": 31,
-        "title": "Simulações",
-        "icon": "mdi-note-text",
-        "to": "/Configuracoes/configuracoes"
-      },
-      {
-        "id": 32,
-        "title": "Vários",
-        "icon": "mdi-view-module",
-        "to": "/Parametros/parametros"
-      },
-      {
-        "id": 33,
-        "title": "Test2",
-        "icon": "mdi-chart-bubble",
-        "to": "/test2"
-      }
-    ]
+    "to": "/parametros"
   },
+  
+ 
   {
     "id": 4,
     "title": "Configurações",
@@ -74,6 +51,13 @@
         "to": "/Usuarios/profile"
       }
     ]
+  },
+
+  {
+    "id": 30,
+    "title": "Ajuda Cria Certo",
+    "icon": "mdi-help",
+    "to": "/ajuda/ajuda"
   }
   
 ]

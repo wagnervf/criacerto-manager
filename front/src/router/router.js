@@ -21,26 +21,27 @@ const routes = [
     // }),
 
     children: [
-      // Components
       {
-        name: "Home",
-        path: "/",
-        component: () => import("@/views/Home.vue"),
+        name: "Parametros",
+        path: "/parametros",
+        component: () => import("@/views/Parametros/Parametros.vue"),
         meta: {
           breadCrumb: [
             {
-              text: "Início",
+              text: "Simulações",
               disabled: true,
-              href: "/",
-              icon: "mdi-home",
+              href: "/parametros",
+              icon: "mdi-database",
             },
           ],
           permission: ["ADMIN", "TEC"],
         },
       },
+   
+
       {
         name: "Dashboard",
-        path: "/dashboard",
+        path: "/",
         component: () => import("@/views/Dashboard/Dashboard.vue"),
         meta: {
           breadCrumb: [
@@ -143,6 +144,24 @@ const routes = [
         component: () => import("@/views/Sobre/Sobre.vue"),
         meta: { permission: ["ADMIN", "TEC"] },
       },
+
+      {
+        name: "Ajuda",
+        path: "Ajuda/ajuda",
+        component: () => import("@/views/Ajuda/Ajuda.vue"),
+        meta: {
+          breadCrumb: [
+            {
+              text: "Ajuda",
+              disabled: true,
+              href: "/ajuda",
+              icon: "mdi-help",
+            },
+          ],
+          permission: ["ADMIN", "TEC"],
+        },
+      },
+   
 
       {
         name: "Configuracoes",

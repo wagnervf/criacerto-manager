@@ -3,24 +3,48 @@
     <div class="dashboard-page">
       <v-row>
         <v-row>
-          <v-col lg="4" sm="6" md="5" cols="12">
+          <v-col
+            lg="4"
+            sm="6"
+            md="5"
+            cols="12"
+          >
             <dashboardCardTotalSimulacoesVue />
           </v-col>
 
-          <v-col lg="4" sm="6" md="5" cols="12">
+          <v-col
+            lg="4"
+            sm="6"
+            md="5"
+            cols="12"
+          >
             <dashboardTiposTourosVue />
           </v-col>
 
-          <v-col lg="4" sm="6" md="7" cols="12">
+          <v-col
+            lg="4"
+            sm="6"
+            md="7"
+            cols="12"
+          >
             <v-container fluid>
-              <v-card class="mx-1 mb-1" style="height: 294px;">
+              <v-card
+                class="mx-1 mb-1"
+                style="height: 294px"
+              >
                 <v-card-title class="pa-6 pb-3">
                   <p>App Performance</p>
-                  <v-spacer></v-spacer>
+                  <v-spacer />
                   <v-menu>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn icon v-bind="attrs" v-on="on">
-                        <v-icon color="textColor">mdi-dots-vertical</v-icon>
+                    <template #activator="{ on, attrs }">
+                      <v-btn
+                        icon
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        <v-icon color="textColor">
+                          mdi-dots-vertical
+                        </v-icon>
                       </v-btn>
                     </template>
                     <v-list>
@@ -35,19 +59,30 @@
                   </v-menu>
                 </v-card-title>
                 <v-card-text class="pa-6 pt-0">
-                  <v-row no-gutters class="pb-5">
+                  <v-row
+                    no-gutters
+                    class="pb-5"
+                  >
                     <div class="mr-4">
-                      <v-icon color="primary" class="ml-n2">
+                      <v-icon
+                        color="primary"
+                        class="ml-n2"
+                      >
                         mdi-circle-medium
                       </v-icon>
                       <span class="card-light-grey">Integration</span>
                     </div>
                     <div>
-                      <v-icon color="warning"> mdi-circle-medium </v-icon>
+                      <v-icon color="warning">
+                        mdi-circle-medium
+                      </v-icon>
                       <span class="card-light-grey">SDK</span>
                     </div>
                   </v-row>
-                  <v-row no-gutters class="pb-3">
+                  <v-row
+                    no-gutters
+                    class="pb-3"
+                  >
                     <v-col>
                       <div class="text-h6 card-light-grey font-weight-regular">
                         Integration
@@ -56,10 +91,13 @@
                         :value="value"
                         background-color="#ececec"
                         color="primary"
-                      ></v-progress-linear>
+                      />
                     </v-col>
                   </v-row>
-                  <v-row no-gutters class="pb-1">
+                  <v-row
+                    no-gutters
+                    class="pb-1"
+                  >
                     <v-col>
                       <div class="text-h6 card-light-grey font-weight-regular">
                         SDK
@@ -68,7 +106,7 @@
                         :value="value2"
                         background-color="#ececec"
                         color="warning"
-                      ></v-progress-linear>
+                      />
                     </v-col>
                   </v-row>
                 </v-card-text>
@@ -89,15 +127,26 @@
           <dashboardChartColumnVue />
         </v-col>
 
-        <v-col lg="3" sm="6" md="5" cols="12">
+        <v-col
+          lg="3"
+          sm="6"
+          md="5"
+          cols="12"
+        >
           <v-card class="mx-1 mb-1">
             <v-card-title class="pa-6 pb-3">
               <p>Visits Today</p>
-              <v-spacer></v-spacer>
+              <v-spacer />
               <v-menu>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon v-bind="attrs" v-on="on">
-                    <v-icon color="textColor">mdi-dots-vertical</v-icon>
+                <template #activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon color="textColor">
+                      mdi-dots-vertical
+                    </v-icon>
                   </v-btn>
                 </template>
                 <v-list>
@@ -112,34 +161,51 @@
               </v-menu>
             </v-card-title>
             <v-card-text class="pa-6 pt-0">
-              <v-row no-gutters class="pb-5">
-                <v-col cols="5" class="my-auto">
+              <v-row
+                no-gutters
+                class="pb-5"
+              >
+                <v-col
+                  cols="5"
+                  class="my-auto"
+                >
                   <span
                     class="font-weight-medium card-dark-grey"
                     style="font-size: 24px"
-                    >12, 678</span
-                  >
+                  >12, 678</span>
                 </v-col>
                 <v-col cols="6">
-                  <v-card id="chart"> </v-card>
+                  <v-card id="chart" />
                 </v-col>
               </v-row>
 
-              <v-row no-gutters class="justify-space-between pb-3">
+              <v-row
+                no-gutters
+                class="justify-space-between pb-3"
+              >
                 <v-col cols="5">
-                  <div class="card-light-grey">Registrations</div>
+                  <div class="card-light-grey">
+                    Registrations
+                  </div>
                   <div class="text-h6 card-dark-grey font-weight-regular">
                     860
                   </div>
                 </v-col>
                 <v-col cols="3">
-                  <div class="card-light-grey">Sign Out</div>
+                  <div class="card-light-grey">
+                    Sign Out
+                  </div>
                   <div class="text-h6 card-dark-grey font-weight-regular">
                     32
                   </div>
                 </v-col>
-                <v-col cols="4" xl="2">
-                  <div class="text-right card-light-grey">Rate</div>
+                <v-col
+                  cols="4"
+                  xl="2"
+                >
+                  <div class="text-right card-light-grey">
+                    Rate
+                  </div>
                   <div
                     class="text-right text-h6 card-dark-grey font-weight-regular"
                   >
@@ -164,9 +230,13 @@
             multi-sort
             show-group-by
           >
-            <template v-slot:group.summary="props">
+            <!-- eslint-disable-next-line vue/valid-v-slot -->
+            <template #group.summary="props">
               <td colspan="4">
-                <v-chip class="ma-2" color="primary">
+                <v-chip
+                  class="ma-2"
+                  color="primary"
+                >
                   {{ props.group }} - ({{ props.items.length }})
                 </v-chip>
               </td>
@@ -179,20 +249,20 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+import DashboardService from "@/services/DashboardServices";
 import mock from "./mock";
-//import eCow from "./e-cow";
+// import eCow from "./e-cow";
 import dashboardCardsVue from "./dashboard-cards.vue";
 import dashboardChartColumnVue from "./dashboard-chart-column.vue";
 import dashboardChartBarVue from "./dashboard-chart-bar.vue";
 import dashboardCardTotalSimulacoesVue from "./dashboard-card-total-simulacoes.vue";
-//import dashboardTableSimpleVue from "./dashboard-table-simple.vue";
+// import dashboardTableSimpleVue from "./dashboard-table-simple.vue";
 import dashboardTiposTourosVue from "./dashboard-tipos-touros.vue";
-//import ApexChart from "vue-apexcharts";
-import { mapState } from "vuex";
-import DashboardService from "@/services/DashboardServices";
+// import ApexChart from "vue-apexcharts";
 
 export default {
-  name: "Dashboard",
+  name: "DashboardView",
   components: {
     dashboardCardsVue,
     dashboardChartColumnVue,
@@ -225,18 +295,6 @@ export default {
     };
   },
 
-  mounted() {
-    setTimeout(() => {
-      this.apexLoading = true;
-      this.eCowSimulations();
-      this.getDataEcowApi();
-    }, 2000);
-  },
-
-  beforeDestroy() {
-    clearInterval(this.interval);
-  },
-
   computed: {
     eCowCount() {
       return Object.keys(this.eCow).length;
@@ -251,14 +309,28 @@ export default {
     },
   },
 
+  mounted() {
+    this.getDataEcowApi();
+    
+    setTimeout(() => {
+      this.apexLoading = true;
+      this.eCowSimulations();
+      
+    }, 1000);
+  },
+
+  beforeDestroy() {
+    clearInterval(this.interval);
+  },
+
   methods: {
     getRandomInt(min, max) {
-      let rand = min - 0.5 + Math.random() * (max - min + 1);
+      const rand = min - 0.5 + Math.random() * (max - min + 1);
       return Math.round(rand);
     },
 
     eCowSimulations() {
-      var data = this.eCow;
+      const data = this.eCow;
       Object.values(data).forEach((value) => {
         switch (value.type) {
           case "Monta Natural":
@@ -290,10 +362,10 @@ export default {
       try {
         const response = await DashboardService.getDadosEcow();
         if (response.status == 200) {
-          if (response.data[0]["_id"]) {
-            delete response.data[0]["_id"];
+          if (response.data[0]._id) {
+            delete response.data[0]._id;
           }
-          var result = response.data[0];
+          const result = response.data[0];
 
           this.$store.commit("SET_DATA_ECOW", result);
 

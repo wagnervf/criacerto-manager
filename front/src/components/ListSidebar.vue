@@ -1,27 +1,30 @@
 <template>
   <div>
-    <v-list dense nav>
+    <v-list
+      dense
+      nav
+    >
       <template v-for="item in items">
-            
         <v-list-group
-          :key="item.title"
           v-if="item.children !== undefined"
-          :active-class="`teal--text`"
+          :key="item.title"
           v-model="item.active"
+          :active-class="`teal--text`"
           no-action
           link
           dense
           dark
           class="py-1"
         >
-        
-          <template v-slot:activator>
+          <template #activator>
             <v-list-item-icon left>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title v-text="item.title"></v-list-item-title>
+              <v-list-item-title>
+                <div v-text="item.title" />
+              </v-list-item-title>
             </v-list-item-content>
           </template>
 
@@ -39,10 +42,11 @@
               <v-icon>{{ subItem.icon }}</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title v-text="subItem.title"></v-list-item-title>
+              <v-list-item-title>
+                <div v-text="subItem.title" />
+              </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          
         </v-list-group>
 
         <v-list-item
@@ -54,37 +58,37 @@
           :active-class="`teal--text`"
           dense
         >
-        
           <v-list-item-icon left>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title"></v-list-item-title>
+            <v-list-item-title>
+              <div v-text="item.title" />
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </template>
 
-       <v-divider></v-divider>
-        <v-list-item
-          dense
-          link
-          class="teal--text"
-          @click="logout"
-          tabindex="2"
-          accesskey="s"
-          title="Sair do Sistema"
-        >
-          <v-list-item-content>
-            <v-list-item-title>
-              <v-icon class="teal--text">mdi-logout</v-icon>
-              Sair
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+      <v-divider />
+      <v-list-item
+        dense
+        link
+        class="teal--text"
+        tabindex="2"
+        accesskey="s"
+        title="Sair do Sistema"
+        @click="logout"
+      >
+        <v-list-item-content>
+          <v-list-item-title>
+            <v-icon class="teal--text">
+              mdi-logout
+            </v-icon>
+            Sair
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
     </v-list>
-
-
-    
   </div>
 </template>
 
@@ -101,7 +105,7 @@ export default {
       localStorage.removeItem("userLogged");
       this.$router.push({ name: "login" });
     },
-  }
+  },
 };
 </script>
 
@@ -115,7 +119,7 @@ export default {
   .v-list-group__items.v-application--is-ltr {
     padding-left: 10px !important;
   }
-  
+
   .v-list-item {
     &__icon--text,
     &__icon:first-child {

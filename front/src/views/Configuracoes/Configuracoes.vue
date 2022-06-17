@@ -1,31 +1,25 @@
 <template>
-  <v-container >
-        <TiposSimulacoesTable />
+  <v-container>
+    <TiposSimulacoesTable />
   </v-container>
 </template>
 
 <script>
-import TiposSimulacoesTable from './TiposSimulacoes.vue'
+import TiposSimulacoesTable from "./TiposSimulacoes.vue";
 
 export default {
-  name: "Configuracoes",
-  components: {TiposSimulacoesTable},
+  name: "ViewConfiguracoes",
+  components: { TiposSimulacoesTable },
 
-  data: () => ({
-    
-  }),
-  
+  data: () => ({}),
 
   methods: {
-   
-
     // getTipos() {
     //   TiposSimulacoesServices.getTiposSimulacoes().then((resposta) => {
     //     this.desserts = this.mapedMenu(resposta.tipos);
     //     console.log(resposta.tipos);
     //   });
     // },
-
     //  mapedMenu(value) {
     //   return value.map((val) => ({
     //     id: val._id,
@@ -33,8 +27,6 @@ export default {
     //     ativo: val.ativo,
     //   }));
     // },
-
-    
   },
 };
 </script>

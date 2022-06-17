@@ -1,17 +1,22 @@
 <template>
-    <v-footer app  color="white" class="footerpart" inset>
-      <v-col cols="12">
-        <span>© {{ new Date().getFullYear() }} — Cria Certo Manager</span>
-      </v-col>
-    </v-footer>
+  <v-footer
+    app
+    color="white"
+    class="footerpart"
+    inset
+  >
+    <v-col cols="12">
+      <span>© {{ new Date().getFullYear() }} — Cria Certo Manager</span>
+    </v-col>
+  </v-footer>
 </template>
 <script>
 export default {
-    name: "Footer",
-}
+  name: "LayoutFooter",
+};
 </script>
 <style lang="scss">
-  .v-application .footerpart{
-    border-top:1px solid rgba(0,0,0,0.1)!important;
-  }
+.v-application .footerpart {
+  border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
 </style>

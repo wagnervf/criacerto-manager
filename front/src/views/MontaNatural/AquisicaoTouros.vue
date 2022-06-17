@@ -1,19 +1,34 @@
 <template>
-  <v-container fluid class="">
+  <v-container
+    fluid
+    class=""
+  >
     <v-row justify="center">
-      <v-col cols="12" lg="12" justify-center flex>
+      <v-col
+        cols="12"
+        lg="12"
+        justify-center
+        flex
+      >
         <v-card class="mx-auto">
-          <v-toolbar color="grey lighten-3" elevation="0">
+          <v-toolbar
+            color="grey lighten-3"
+            elevation="0"
+          >
             <v-toolbar-title>Aquisição de Touros</v-toolbar-title>
-            <v-spacer></v-spacer>
+            <v-spacer />
           </v-toolbar>
           <v-form
-            class="pa-6 white ma-1"
             ref="form"
             v-model="valid"
+            class="pa-6 white ma-1"
             lazy-validation
           >
-            <v-alert class="pa-6" outlined color="grey lighten-3">
+            <v-alert
+              class="pa-6"
+              outlined
+              color="grey lighten-3"
+            >
               <v-col justify="space-between">
                 <v-text-field
                   v-model="form.precoAquisao"

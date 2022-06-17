@@ -1,32 +1,209 @@
 <template>
-<v-container fluid class="down-top-padding">
-  <v-card class="mx-auto col-12">
-    <v-card-title>
-      Lista de Parâmetros do Cria Certo
-      <v-spacer></v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Buscar"
-        single-line
-        hide-details
-      ></v-text-field>
-    </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="desserts"
-      :search="search"
-      class="elevation-1"
-    >
-      <template v-slot:item.actions="{ item }">
-        <v-btn text color="primary" @click="goToPage(item.link)">
-          Acessar
-          <v-icon right> mdi-arrow-right </v-icon>
+  <v-container class="full-heigth">
+    <v-row justify="center">
+      <v-col
+        class="px-1 py-0"
+        cols="12"
+        lg="12"
+        justify-center
+        flex
+      >
+        <v-card class="mx-auto">
+          <v-toolbar
+            color="grey lighten-3"
+            elevation="0"
+          >
+            <v-toolbar-title>Simulações</v-toolbar-title>
+            <v-spacer />
+          </v-toolbar>
 
-        </v-btn>
-      </template>
-    </v-data-table>
-  </v-card>
-</v-container>
+          <v-list
+            three-line
+            active-class="primary--text"
+          >
+            <div
+              v-for="(item, index) in items"
+              :key="item.title"
+            >
+              <v-divider
+                v-if="item.divider"
+                :key="index"
+                :inset="item.inset"
+              />
+
+              <v-list-item
+                v-else
+                :key="item.title"
+                link
+                :to="item.to"
+              >
+                <v-list-item-avatar
+                  color="teal"
+                  size="65"
+                >
+                  <v-icon
+                    color="white"
+                    style="font-size: 18px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif"
+                  >
+                    {{ item.icon }}
+                  </v-icon>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <div
+                    class="teal--text text-h6"
+                    v-html="item.title"
+                  />
+                  <v-list-item-title />
+
+                  <div v-html="item.subtitle" />
+
+                  <v-list-item-subtitle />
+                </v-list-item-content>
+                <v-list-item-action>
+                  <v-icon color="teal lighten-1">
+                    mdi-menu-right
+                  </v-icon>
+                </v-list-item-action>
+              </v-list-item>
+            </div>
+          </v-list>
+        </v-card>
+
+        <!-- Trasformar estas listas repetidas em Componentes -->
+        <div class="my-8" />
+        <!-- <v-card>
+          <v-list three-line active-class="primary--text">
+            <div v-for="(item, index) in config" :key="item.title">
+              <v-divider
+                v-if="item.divider"
+                :key="index"
+                :inset="item.inset"
+              ></v-divider>
+
+              <v-list-item v-else link :key="item.title" :to="item.to">
+                <v-list-item-avatar size="60">
+                  <v-icon color="teal" style="font-size: 26px">{{
+                    item.icon
+                  }}</v-icon>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title
+                    class="teal--text"
+                    v-html="item.title"
+                  ></v-list-item-title>
+
+                  <v-list-item-subtitle
+                    v-html="item.subtitle"
+                  ></v-list-item-subtitle>
+                </v-list-item-content>
+                <v-list-item-action>
+                  <v-icon color="teal lighten-1">mdi-menu-right</v-icon>
+                </v-list-item-action>
+              </v-list-item>
+            </div>
+          </v-list>
+        </v-card> -->
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
-<script src="./Parametros.js"></script>
+
+<script>
+// import VueJwtDecode from "vue-jwt-decode";
+
+import Menu from "../../assets/json/listSimulacoes.json";
+// import Config from " ../assets/json/listConfiguracao.json";
+
+export default {
+  name: "ViewHome",
+  data: () => ({
+    items: Menu,
+    //   config: Config,
+    outer: [
+      {
+        id: 1,
+        name: "Parâmentro do Cria Certo",
+        children: [
+          {
+            id: 2,
+            name: "Core team",
+            children: [
+              {
+                id: 201,
+                name: "John",
+              },
+              {
+                id: 202,
+                name: "Kael",
+              },
+              {
+                id: 203,
+                name: "Nekosaur",
+              },
+              {
+                id: 204,
+                name: "Jacek",
+              },
+              {
+                id: 205,
+                name: "Andrew",
+              },
+            ],
+          },
+          {
+            id: 3,
+            name: "Administrators",
+            children: [
+              {
+                id: 301,
+                name: "Mike",
+              },
+              {
+                id: 302,
+                name: "Hunt",
+              },
+            ],
+          },
+          {
+            id: 4,
+            name: "Contributors",
+            children: [
+              {
+                id: 401,
+                name: "Phlow",
+              },
+              {
+                id: 402,
+                name: "Brandon",
+              },
+              {
+                id: 403,
+                name: "Sean",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    open: [1, 2],
+    search: null,
+  }),
+  computed: {},
+
+  created() {
+    this.getUser();
+  },
+
+  methods: {
+    getUser() {
+      //  let token = localStorage.getItem("jwt");
+      //  let tokenDecoded = VueJwtDecode.decode(token);
+      // this.user = tokenDecoded;
+    },
+    logOutUser() {
+      localStorage.removeItem("jwt");
+      this.$router.push("/");
+    },
+  },
+};
+</script>

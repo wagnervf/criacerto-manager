@@ -1,6 +1,5 @@
-
-import swal from 'sweetalert';
-import ApiAxios from './ApiAxios';
+import swal from "sweetalert";
+import ApiAxios from "./ApiAxios";
 
 export default {
   /**
@@ -9,22 +8,22 @@ export default {
    */
   async registerNewUser(newUser) {
     try {
-      const response = await ApiAxios().post('/register', newUser);
+      const response = await ApiAxios().post("/register", newUser);
       const { token } = response.data;
 
       if (token) {
-        localStorage.setItem('jwt', token);
+        localStorage.setItem("jwt", token);
         swal({
-          title: 'Excelente!',
-          text: 'Usuário(a) cadastrado com sucesso!',
-          icon: 'success',
+          title: "Excelente!",
+          text: "Usuário(a) cadastrado com sucesso!",
+          icon: "success",
         });
       }
     } catch (error) {
       swal({
-        title: 'Oops!',
-        text: 'Alguma coisa deu errado aqui!',
-        icon: 'error',
+        title: "Oops!",
+        text: "Alguma coisa deu errado aqui!",
+        icon: "error",
       });
     }
   },

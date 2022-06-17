@@ -3,7 +3,10 @@
     <v-card class="mx-1 mb-1">
       <v-card-title class="pa-6 pb-0">
         <v-row no-gutters>
-          <v-col cols="12" class="d-flex align-center">
+          <v-col
+            cols="12"
+            class="d-flex align-center"
+          >
             <p>Quantitativo de Simulações Estados</p>
           </v-col>
         </v-row>
@@ -16,7 +19,7 @@
               height="350"
               :options="chartOptions"
               :series="series"
-            ></ApexChart>
+            />
           </v-col>
         </v-row>
       </v-card-text>
@@ -25,11 +28,11 @@
 </template>
 
 <script>
-import eCow from "./e-cow";
 import ApexChart from "vue-apexcharts";
+import eCow from "./e-cow";
 
 export default {
-  name: "Dashboard-Chart-Bar",
+  name: "DashboardChartBar",
   components: {
     ApexChart,
   },
@@ -39,7 +42,7 @@ export default {
       series: [
         {
           data: [],
-          //[400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380],
+          // [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380],
         },
       ],
       chartOptions: {
@@ -63,7 +66,7 @@ export default {
 
         xaxis: {
           categories: [],
-          /*[
+          /* [
             "South Korea",
             "Canada",
             "United Kingdom",
@@ -74,7 +77,7 @@ export default {
             "United States",
             "China",
             "Germany",
-          ],*/
+          ], */
         },
       },
 
@@ -83,26 +86,26 @@ export default {
     };
   },
 
+  computed: {},
+
   mounted() {
     this.getEstados();
     this.separaEstados();
     console.log(this.series["0"]);
   },
 
-  computed: {},
-
   methods: {
     getEstados() {
-      var data = this.eCow;
+      const data = this.eCow;
       Object.values(data).forEach((value) => {
         this.estados.push(value.state);
       });
     },
 
     separaEstados() {
-      var estados = {};
+      const estados = {};
       // Separa os estados
-      this.estados.forEach(function (x) {
+      this.estados.forEach((x) => {
         estados[x] = (estados[x] || 0) + 1;
       });
 

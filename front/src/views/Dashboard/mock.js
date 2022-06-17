@@ -43,7 +43,7 @@ export default {
     },
   ],
   trend: {
-    gradient: [config.light.success]
+    gradient: [config.light.success],
   },
   table: [
     {
@@ -101,25 +101,25 @@ export default {
     'Edit',
     'Copy',
     'Delete',
-    'Print'
+    'Print',
   ],
   lastReports: [
-    {title: 'Print PDF', icon: 'mdi-printer'},
-    {title: 'Download', icon: 'mdi-download'},
-    {title: 'Sand by mail', icon: 'mdi-email'},
-    {title: 'Share', icon: 'mdi-share-variant'}
+    { title: 'Print PDF', icon: 'mdi-printer' },
+    { title: 'Download', icon: 'mdi-download' },
+    { title: 'Sand by mail', icon: 'mdi-email' },
+    { title: 'Share', icon: 'mdi-share-variant' },
   ],
   select: ['Daily', 'Weekly', 'Monthly'],
   apexPie: {
     options: {
       dataLabels: {
-        enabled: false
+        enabled: false,
       },
       colors: [config.light.primary, config.light.secondary, config.light.success, config.light.warning],
-      labels: ["Group A", "Group B", "Group C", "Group D"],
+      labels: ['Group A', 'Group B', 'Group C', 'Group D'],
       legend: {
 
-      }
+      },
     },
     series: [400, 300, 300, 200],
   },
@@ -128,7 +128,7 @@ export default {
       chart: {
         id: 'apexAreaFirst',
         sparkline: {
-          enabled: true
+          enabled: true,
         },
       },
       colors: [config.light.secondary],
@@ -138,20 +138,20 @@ export default {
       },
       stroke: {
         width: 2,
-        curve: 'smooth'
+        curve: 'smooth',
       },
     },
     series: [
       {
-        data: [50, 56, 52, 51, 52, 55, 53]
-      }
+        data: [50, 56, 52, 51, 52, 55, 53],
+      },
     ],
   },
   apexArea2: {
     options: {
       chart: {
         sparkline: {
-          enabled: true
+          enabled: true,
         },
       },
       colors: [config.light.primary],
@@ -161,20 +161,20 @@ export default {
       },
       stroke: {
         width: 2,
-        curve: 'smooth'
+        curve: 'smooth',
       },
     },
     series: [
       {
-        data: [55, 56, 52, 51, 52, 55, 53]
-      }
+        data: [55, 56, 52, 51, 52, 55, 53],
+      },
     ],
   },
   apexArea3: {
     options: {
       chart: {
         sparkline: {
-          enabled: true
+          enabled: true,
         },
       },
       colors: [config.light.warning],
@@ -184,13 +184,13 @@ export default {
       },
       stroke: {
         width: 2,
-        curve: 'smooth'
+        curve: 'smooth',
       },
     },
     series: [
       {
-        data: [55, 56, 52, 51, 52, 55, 53]
-      }
+        data: [55, 56, 52, 51, 52, 55, 53],
+      },
     ],
   },
   mainApexArea: {
@@ -198,113 +198,113 @@ export default {
       chart: {
         width: '100%',
         toolbar: {
-          show: false
+          show: false,
         },
       },
       dataLabels: {
-        enabled: false
+        enabled: false,
       },
       grid: {
         xaxis: {
           lines: {
             show: false,
-          }
+          },
         },
         yaxis: {
           lines: {
             show: false,
           },
-        }
+        },
       },
       markers: {
-        size: [5, 0, 0]
+        size: [5, 0, 0],
       },
       stroke: {
         width: [3, 3, 0],
-        curve: ['straight', 'smooth', "smooth"]
+        curve: ['straight', 'smooth', 'smooth'],
       },
       fill: {
         type: 'linear',
       },
       legend: {
-        show: false
+        show: false,
 
       },
       colors: [config.light.warning, config.light.primary, '#f3f5ff'],
       yaxis: {
         axisBorder: {
           show: true,
-          color: '#B9B9B980'
+          color: '#B9B9B980',
         },
         labels: {
           style: {
-            colors: ['#B9B9B980','#B9B9B980','#B9B9B980','#B9B9B980','#B9B9B980', '#B9B9B980','#B9B9B980','#B9B9B980'],
+            colors: ['#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980'],
             fontSize: '12px',
           },
         },
-        tickAmount: 5
+        tickAmount: 5,
       },
       xaxis: {
         labels: {
           style: {
             fontSize: '12px',
-            colors: ['#B9B9B980', '#B9B9B980','#B9B9B980','#B9B9B980','#B9B9B980','#B9B9B980', '#B9B9B980','#B9B9B980','#B9B9B980', '#B9B9B980','#B9B9B980', '#B9B9B980','#B9B9B980','#B9B9B980'],
-          }
+            colors: ['#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980', '#B9B9B980'],
+          },
         },
         tickAmount: 10,
-      }
+      },
     },
-    
+
     series: [
       {
         name: 'Tablet',
         type: 'line',
-        data: [3100, 4000, 2800, 5100, 4200, 6090, 5100, 3100, 4000, 2800, 5100, 4200, 6090, 5100]
+        data: [3100, 4000, 2800, 5100, 4200, 6090, 5100, 3100, 4000, 2800, 5100, 4200, 6090, 5100],
       },
       {
         name: 'Mobile',
         type: 'line',
-        data: [1100, 3200, 4500, 3020, 3400, 5200, 4100, 1100, 3200, 4500, 3020, 3400, 5200, 4100]
+        data: [1100, 3200, 4500, 3020, 3400, 5200, 4100, 1100, 3200, 4500, 3020, 3400, 5200, 4100],
       },
       {
         name: 'Desktop',
         type: 'area',
-        data: [2100, 2000, 1800, 4100, 1200, 3600, 6100, 2100, 2000, 1800, 4100, 1200, 3600, 6100]
-      }
+        data: [2100, 2000, 1800, 4100, 1200, 3600, 6100, 2100, 2000, 1800, 4100, 1200, 3600, 6100],
+      },
     ],
     series2: [
       {
         name: 'Tablet',
         type: 'line',
-        data: [2100, 3000, 2800, 6100, 5200, 5090, 4100, 2100, 2000, 3800, 6100, 5200, 7090, 6100]
+        data: [2100, 3000, 2800, 6100, 5200, 5090, 4100, 2100, 2000, 3800, 6100, 5200, 7090, 6100],
       },
       {
         name: 'Mobile',
         type: 'line',
-        data: [1100, 3200, 4500, 3020, 3400, 5200, 4100, 1100, 3200, 4500, 3020, 3400, 5200, 4100]
+        data: [1100, 3200, 4500, 3020, 3400, 5200, 4100, 1100, 3200, 4500, 3020, 3400, 5200, 4100],
       },
       {
         name: 'Desktop',
         type: 'area',
-        data: [2100, 2000, 1800, 4100, 1200, 3600, 6100, 2100, 2000, 1800, 4100, 1200, 3600, 6100]
-      }
+        data: [2100, 2000, 1800, 4100, 1200, 3600, 6100, 2100, 2000, 1800, 4100, 1200, 3600, 6100],
+      },
     ],
     series3: [
       {
         name: 'Tablet',
         type: 'line',
-        data: [4100, 5000, 4800, 8100, 7200, 7090, 6100, 4100, 4000, 5800, 8100, 7200, 9090, 8100]
+        data: [4100, 5000, 4800, 8100, 7200, 7090, 6100, 4100, 4000, 5800, 8100, 7200, 9090, 8100],
       },
       {
         name: 'Mobile',
         type: 'line',
-        data: [4100, 5200, 7500, 6020, 6400, 8200, 7100, 4100, 6200, 7500, 6020, 6400, 8200, 7100]
+        data: [4100, 5200, 7500, 6020, 6400, 8200, 7100, 4100, 6200, 7500, 6020, 6400, 8200, 7100],
       },
       {
         name: 'Desktop',
         type: 'area',
-        data: [5100, 5000, 4800, 7100, 4200, 6600, 9100, 5100, 5000, 4800, 7100, 4200, 4600, 9100]
-      }
+        data: [5100, 5000, 4800, 7100, 4200, 6600, 9100, 5100, 5000, 4800, 7100, 4200, 4600, 9100],
+      },
     ],
   },
   apexBar1: {
@@ -312,41 +312,41 @@ export default {
       chart: {
         id: 'chartFirst',
         toolbar: {
-          show: false
+          show: false,
         },
       },
       fill: {
         colors: [config.light.primary],
-        opacity: 1
+        opacity: 1,
       },
       plotOptions: {
         bar: {
-          columnWidth: "50%",
+          columnWidth: '50%',
           distributed: true,
-          endingShape: "rounded",
-          startingShape: "rounded",
+          endingShape: 'rounded',
+          startingShape: 'rounded',
         },
       },
       grid: {
         xaxis: {
           lines: {
             show: false,
-          }
+          },
         },
         yaxis: {
           lines: {
             show: false,
           },
-        }
+        },
       },
       dataLabels: {
         enabled: false,
         dropShadow: {
-          enable: false
-        }
+          enable: false,
+        },
       },
       legend: {
-        show: false
+        show: false,
       },
       xaxis: {
         axisBorder: {
@@ -357,16 +357,16 @@ export default {
         },
         labels: {
           show: false,
-        }
+        },
       },
       yaxis: {
         labels: {
-          show: false
-        }
-      }
+          show: false,
+        },
+      },
     },
     series: [{
-      data: [70, 63, 84, 79, 70, 65, 80]
+      data: [70, 63, 84, 79, 70, 65, 80],
     }],
   },
   apexBar2: {
@@ -374,19 +374,19 @@ export default {
       chart: {
         id: 'chartFirst',
         toolbar: {
-          show: false
+          show: false,
         },
       },
       fill: {
         colors: [config.light.warning],
-        opacity: 1
+        opacity: 1,
       },
       plotOptions: {
         bar: {
-          columnWidth: "45%",
+          columnWidth: '45%',
           distributed: true,
-          endingShape: "rounded",
-          startingShape: "rounded",
+          endingShape: 'rounded',
+          startingShape: 'rounded',
         },
       },
       grid: {
@@ -395,27 +395,27 @@ export default {
           right: 0,
         },
         margin: {
-          bottom: 0
+          bottom: 0,
         },
         xaxis: {
           lines: {
             show: false,
-          }
+          },
         },
         yaxis: {
           lines: {
             show: false,
           },
-        }
+        },
       },
       dataLabels: {
         enabled: false,
         dropShadow: {
-          enable: false
-        }
+          enable: false,
+        },
       },
       legend: {
-        show: false
+        show: false,
       },
       xaxis: {
         axisBorder: {
@@ -426,16 +426,16 @@ export default {
         },
         labels: {
           show: false,
-        }
+        },
       },
       yaxis: {
         labels: {
-          show: false
-        }
-      }
+          show: false,
+        },
+      },
     },
     series: [{
-      data: [30, 23, 54, 69, 40, 25, 60]
+      data: [30, 23, 54, 69, 40, 25, 60],
     }],
   },
   apexBar3: {
@@ -443,19 +443,19 @@ export default {
       chart: {
         id: 'chartFirst',
         toolbar: {
-          show: false
+          show: false,
         },
       },
       fill: {
         colors: [config.light.secondary],
-        opacity: 1
+        opacity: 1,
       },
       plotOptions: {
         bar: {
-          columnWidth: "45%",
+          columnWidth: '45%',
           distributed: true,
-          endingShape: "rounded",
-          startingShape: "rounded",
+          endingShape: 'rounded',
+          startingShape: 'rounded',
         },
       },
       grid: {
@@ -464,27 +464,27 @@ export default {
           right: 0,
         },
         margin: {
-          bottom: 0
+          bottom: 0,
         },
         xaxis: {
           lines: {
             show: false,
-          }
+          },
         },
         yaxis: {
           lines: {
             show: false,
           },
-        }
+        },
       },
       dataLabels: {
         enabled: false,
         dropShadow: {
-          enable: false
-        }
+          enable: false,
+        },
       },
       legend: {
-        show: false
+        show: false,
       },
       xaxis: {
         axisBorder: {
@@ -495,16 +495,16 @@ export default {
         },
         labels: {
           show: false,
-        }
+        },
       },
       yaxis: {
         labels: {
-          show: false
-        }
-      }
+          show: false,
+        },
+      },
     },
     series: [{
-      data: [60, 43, 24, 19, 30, 45, 60]
+      data: [60, 43, 24, 19, 30, 45, 60],
     }],
-  }
+  },
 };

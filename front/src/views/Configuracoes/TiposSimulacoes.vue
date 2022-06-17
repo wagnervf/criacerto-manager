@@ -1,10 +1,13 @@
 <template>
   <div>
     <div>
-      <v-breadcrumbs :items="items" divider="-"></v-breadcrumbs>
+      <v-breadcrumbs
+        :items="items"
+        divider="-"
+      />
       <div>{{ currentRouteName }}</div>
 
-      {{ this.$router.history.current.path }}
+      {{ $router.history.current.path }}
     </div>
 
     <v-data-table
@@ -14,26 +17,36 @@
       class="elevation-1 col-12"
       :search="search"
     >
-      <template v-slot:top>
+      <template #top>
         <div class="mb-4">
           <v-row class="ma-0">
-            <v-col cols="12" class="grey lighten-3 pa-3">
+            <v-col
+              cols="12"
+              class="grey lighten-3 pa-3"
+            >
               <h2>Tipos de Simulações</h2>
             </v-col>
           </v-row>
           <v-row>
             <v-col class="px-6 py-4">
               <v-text-field
+                v-model="search"
                 hide-details
                 label="Filtrar"
                 single-line
-                v-model="search"
-              ></v-text-field>
+              />
             </v-col>
-            <v-spacer></v-spacer>
-            <v-col class="px-6 py-4" cols="3" justify="end">
-              <v-dialog v-model="dialog" max-width="500px">
-                <template v-slot:activator="{ on, attrs }">
+            <v-spacer />
+            <v-col
+              class="px-6 py-4"
+              cols="3"
+              justify="end"
+            >
+              <v-dialog
+                v-model="dialog"
+                max-width="500px"
+              >
+                <template #activator="{ on, attrs }">
                   <v-btn
                     color="teal"
                     dark
@@ -41,7 +54,9 @@
                     v-bind="attrs"
                     v-on="on"
                   >
-                    <v-icon left>mdi-plus</v-icon>
+                    <v-icon left>
+                      mdi-plus
+                    </v-icon>
                     Adicionar Item
                   </v-btn>
                 </template>
@@ -58,45 +73,64 @@
                             v-model="editedItem.descricao"
                             label="Descricao"
                             outlined
-                          ></v-text-field>
+                          />
                         </v-col>
                         <v-col cols="4">
                           <v-switch
                             v-model="editedItem.ativo"
                             label="Ativo"
-                          ></v-switch>
+                          />
                         </v-col>
                       </v-row>
                     </v-container>
                   </v-card-text>
 
                   <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="close">
+                    <v-spacer />
+                    <v-btn
+                      color="blue darken-1"
+                      text
+                      @click="close"
+                    >
                       Cancelar
                     </v-btn>
-                    <v-btn color="blue darken-1" text @click="save">
+                    <v-btn
+                      color="blue darken-1"
+                      text
+                      @click="save"
+                    >
                       Salvar
                     </v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
 
-              <v-dialog v-model="dialogDelete" max-width="500px">
+              <v-dialog
+                v-model="dialogDelete"
+                max-width="500px"
+              >
                 <v-card>
-                  <v-card-title class="text-h5"
-                    >Você tem certeza que deseja remover esse
-                    item?</v-card-title
-                  >
+                  <v-card-title class="text-h5">
+                    Você tem certeza que deseja remover esse
+                    item?
+                  </v-card-title>
                   <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="closeDelete"
-                      >Cancelar</v-btn
+                    <v-spacer />
+                    <v-btn
+                      color="blue darken-1"
+                      text
+                      @click="closeDelete"
                     >
-                    <v-btn color="blue darken-1" text @click="deleteItemConfirm"
-                      >Salvar</v-btn
+                      Cancelar
+                    </v-btn>
+                    <v-btn
+                      color="blue darken-1"
+                      text
+                      @click="deleteItemConfirm"
                     >
-                    <v-spacer></v-spacer>
+                      Salvar
+                    </v-btn>
+                    <v-spacer />
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -105,39 +139,67 @@
         </div>
       </template>
 
-      <template v-slot:[`item.descricao`]="{ item }">
+      <template #[`item.descricao`]="{ item }">
         <span class="text-subtitle-2"> {{ item.descricao }}</span>
       </template>
-      <template v-slot:[`item.ativo`]="{ item }">
-        <v-switch v-model="item.ativo" disabled></v-switch>
+      <template #[`item.ativo`]="{ item }">
+        <v-switch
+          v-model="item.ativo"
+          disabled
+        />
       </template>
 
-      <template v-slot:[`header.actions`]="{ header }">
+      <template #[`header.actions`]="{ header }">
         <div class="d-flex justify-end mr-8">
           <span class="text-subtitle-2"> {{ header.text }}</span>
         </div>
       </template>
 
-      <template v-slot:[`item.actions`]="{ item }">
+      <template #[`item.actions`]="{ item }">
         <div class="d-flex justify-end mr-3">
-          <v-btn fab text small color="primary mr-1" @click="editItem(item)">
+          <v-btn
+            fab
+            text
+            small
+            color="primary mr-1"
+            @click="editItem(item)"
+          >
             <v-icon> mdi-pencil </v-icon>
           </v-btn>
-          <v-btn fab text small color="red mr-1" @click="deleteItem(item)">
+          <v-btn
+            fab
+            text
+            small
+            color="red mr-1"
+            @click="deleteItem(item)"
+          >
             <v-icon> mdi-delete </v-icon>
           </v-btn>
         </div>
       </template>
-      <template v-slot:no-data>
-        <v-btn color="primary" @click="initialize"> Reset </v-btn>
+      <template #no-data>
+        <v-btn
+          color="primary"
+          @click="initialize"
+        >
+          Reset
+        </v-btn>
       </template>
     </v-data-table>
 
-    <v-snackbar v-model="snackbar" :timeout="timeout">
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+    >
       {{ textSnackbar }}
 
-      <template v-slot:action="{ attrs }">
-        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+      <template #action="{ attrs }">
+        <v-btn
+          color="blue"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
           Close
         </v-btn>
       </template>
@@ -173,7 +235,7 @@ export default {
       descricao: "",
       ativo: true,
     },
-    
+
     items: [
       {
         text: "Dashboard",
@@ -221,7 +283,7 @@ export default {
     },
     getColor(value) {
       if (value) return "teal";
-      else return "red";
+      return "red";
     },
 
     getTipos() {
@@ -270,14 +332,14 @@ export default {
 
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+      this.editedItem = { ...item };
 
       this.dialog = true;
     },
 
     deleteItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+      this.editedItem = { ...item };
       this.dialogDelete = true;
     },
 
@@ -289,7 +351,7 @@ export default {
     close() {
       this.dialog = false;
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedItem = { ...this.defaultItem };
         this.editedIndex = -1;
       });
     },
@@ -297,7 +359,7 @@ export default {
     closeDelete() {
       this.dialogDelete = false;
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedItem = { ...this.defaultItem };
         this.editedIndex = -1;
       });
     },

@@ -1,17 +1,23 @@
 <template>
-  <v-breadcrumbs :items="breadCrumbs" class="pa-0">
-    <template v-slot:item="{ item }">
-        <!-- :class="item.disabled ? 'text-h5 teal--text' : 'text-subtitle-2 crumb-item'" -->
+  <v-breadcrumbs
+    :items="breadCrumbs"
+    class="pa-0"
+  >
+    <template #item="{ item }">
+      <!-- :class="item.disabled ? 'text-h5 teal--text' : 'text-subtitle-2 crumb-item'" -->
       <v-breadcrumbs-item
         :to="item.to"
         class="text-subtitle-2 crumb-item teal--text"
         :disabled="item.disabled"
         exact
       >
-       <v-icon class="text-h5 pr-2 teal--text" >{{ item.icon }}</v-icon> {{ item.text }}
+        <v-icon class="text-h5 pr-2 teal--text">
+          {{ item.icon }}
+        </v-icon>
+        {{ item.text }}
       </v-breadcrumbs-item>
     </template>
-    <template v-slot:divider>
+    <template #divider>
       <v-icon>mdi-chevron-right</v-icon>
     </template>
   </v-breadcrumbs>
@@ -19,10 +25,10 @@
 
 <script>
 export default {
+  props: {},
   data() {
     return {};
   },
-  props: {},
 
   computed: {
     breadCrumbs() {
@@ -36,5 +42,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

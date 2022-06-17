@@ -1,76 +1,100 @@
 <template>
-<v-container fluid>      
-    <v-card class="mx-1 mb-1" >
-      <v-card-title class="pa-6 pb-3">
-        <p>Total Simulações Realizadas</p>
-        <v-spacer></v-spacer>
+  <v-container fluid>
+    <v-card
+      class="mx-1 mb-1"
+      style="min-height: 250px"
+    >
+      <v-card-title class="pa-6 pb-3 teal--text">
+        Total Simulações Realizadas
+        <v-spacer />
       </v-card-title>
-      
-      <v-card-text class="pa-6 pt-0" >
-        <v-row no-gutters >
-          <v-col cols="6" class="my-auto">
+
+      <v-card-text
+        class="pa-6 pt-0"
+        v-if="visivel"
+      >
+        <v-row>
+          <v-col class="my-2 py-6">
             <span style="font-size: 52px">
               {{ eCowCount }}
             </span>
-            <v-spacer></v-spacer>
-          </v-col>
-          <v-col cols="6">
-            <ApexChart
-              height="100"
-              type="bar"
-              v-if="apexLoading"
-              :options="mock.apexBar1.options"
-              :series="mock.apexBar1.series"
-            ></ApexChart>
+            <v-spacer />
           </v-col>
         </v-row>
 
-        <v-row no-gutters class="py-2 justify-space-between">
+        <v-row
+          no-gutters
+          class="py-2 justify-space-between"
+        >
           <div>
             <div class="subtext font-weight-bold">
               {{ aluguelPastoFormatado }}
-              <v-icon color="success"> mdi-arrow-top-right</v-icon>
+              <v-icon color="success">
+                mdi-arrow-top-right
+              </v-icon>
             </div>
-            <div class="subtext-index flex-wrap">Aluguel 
-               <p>Pasto</p></div>
+            <div class="subtext-index flex-wrap">
+              Aluguel
+              <p>Pasto</p>
+            </div>
           </div>
-            
+
           <div>
             <div class="subtext font-weight-bold">
               {{ valorVendaFormatado
-              }}<v-icon color="success"> mdi-arrow-top-right</v-icon>
+              }}<v-icon color="success">
+                mdi-arrow-top-right
+              </v-icon>
             </div>
-            <div class="subtext-index">Valor <p> da Venda</p></div>
+            <div class="subtext-index">
+              Valor
+              <p>da Venda</p>
+            </div>
           </div>
-            
+
           <div>
             <div class="subtext font-weight-bold">
-              {{taxaMortalidadeFormatado}}<v-icon color="error"> mdi-arrow-bottom-right</v-icon>
+              {{ taxaMortalidadeFormatado
+              }}<v-icon color="error">
+                mdi-arrow-bottom-right
+              </v-icon>
             </div>
-            <div class="subtext-index">Taxa <p>Mortalidade</p></div>
+            <div class="subtext-index">
+              Taxa
+              <p>Mortalidade</p>
+            </div>
           </div>
         </v-row>
+      </v-card-text>
+
+      <v-card-text
+        v-else
+        class="pa-6"
+      >
+        <div class="text-center">
+          <ComponentProgress />
+        </div>
       </v-card-text>
     </v-card>
   </v-container>
 </template>
 
 <script>
-import eCow from "./e-cow";
+//import ApexChart from 'vue-apexcharts';
+//import eCow from "./e-cow";
 import mock from "./mock";
-
-import ApexChart from "vue-apexcharts";
+import ComponentProgress from "../../components/Progress.vue";
 
 export default {
-  name: "Dashboard-Card-Total-Simulacoes",
+  name: "DashboardCardTotalSimulacoes",
   components: {
-    ApexChart,
+    ComponentProgress,
   },
   data() {
     return {
-      eCow,
+      //  eCow,
       mock,
-      apexLoading: false,
+      visivel: false,
 
       aluguelPasto: [],
       mediaAluguelPasto: 0,
@@ -85,16 +109,18 @@ export default {
 
   mounted() {
     setTimeout(() => {
-      this.apexLoading = true;
-      this.eCowSimulations();
-    }, 1000);
+      this.visivel = true;
+    }, 3000);
 
     this.getDados();
   },
 
   computed: {
+    eCowData() {
+      return this.$store.getters.getDataEcow;
+    },
     eCowCount() {
-      return Object.keys(this.eCow).length;
+      return Object.keys(this.eCowData).length;
     },
 
     aluguelPastoFormatado() {
@@ -113,65 +139,60 @@ export default {
 
     taxaMortalidadeFormatado() {
       return this.mediaTaxaMortalidade.toLocaleString(2);
-      
     },
   },
 
   methods: {
     getDados() {
-      var data = this.eCow;
+      const data = this.eCowData;
       Object.values(data).forEach((value) => {
-        let resul =
+        const resul =
           typeof value.aluguel_pasto === "undefined" ? 0 : value.aluguel_pasto;
         this.aluguelPasto.push(resul);
       });
 
       Object.values(data).forEach((value) => {
-        let resul =
+        const resul =
           typeof value.valor_venda === "undefined" ? 0 : value.valor_venda;
         this.valorVenda.push(resul);
       });
 
       Object.values(data).forEach((value) => {
-        let resul =
-          typeof value.taxa_mortalidade === "undefined" ? 0 : value.taxa_mortalidade;
+        const resul =
+          typeof value.taxa_mortalidade === "undefined"
+            ? 0
+            : value.taxa_mortalidade;
         this.taxaMortalidade.push(resul);
       });
-
 
       this.getMediaAluguelPasto();
       this.getMediaValorVenda();
       this.getMediaTaxaMortalidade();
     },
 
-
-
-
     getMediaAluguelPasto() {
-      var value = 0;
+      let value = 0;
       for (let index = 0; index < this.aluguelPasto.length; index++) {
-        value = value + this.aluguelPasto[index];
+        value += this.aluguelPasto[index];
       }
       this.mediaAluguelPasto = value / this.aluguelPasto.length;
     },
 
     getMediaValorVenda() {
-      var value = 0;
+      let value = 0;
       for (let index = 0; index < this.valorVenda.length; index++) {
-        value = value + this.valorVenda[index];
+        value += this.valorVenda[index];
       }
       this.mediaValorVenda = value / this.valorVenda.length;
     },
 
     getMediaTaxaMortalidade() {
-      var value = 0;
+      let value = 0;
       for (let index = 0; index < this.taxaMortalidade.length; index++) {
-        value = value + this.taxaMortalidade[index];
+        value += this.taxaMortalidade[index];
       }
       this.mediaTaxaMortalidade = value / this.taxaMortalidade.length;
     },
-
-
 
     // separaRacasTouros() {
     //   const counts = {};

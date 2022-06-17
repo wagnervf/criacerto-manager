@@ -8,13 +8,13 @@ export default new Vuex.Store({
     Sidebar_drawer: null,
     Customizer_drawer: false,
     SidebarColor: "white",
-    SidebarBg: "",   
+    SidebarBg: "",
     loggedIn: false,
     userLogado: {
       _id: "",
       nome: "",
       email: "",
-    // perfil: "",
+      // perfil: "",
       token: "",
       emailVerified: false,
       created: null,
@@ -22,7 +22,8 @@ export default new Vuex.Store({
       isAdmin: false,
       logado: "",
     },
-    ecow:{}
+    ecow: {},
+    
   },
   mutations: {
     SET_SIDEBAR_DRAWER(state, payload) {
@@ -40,14 +41,14 @@ export default new Vuex.Store({
       state.loggedIn = value;
     },
 
-    //Set variáveis do Login
+    // Set variáveis do Login
     SET_USER_LOGADO(state, payload) {
       if (payload) {
         console.log(payload);
         state.userLogado._id = payload.user._id;
         state.userLogado.nome = payload.user.nome;
         state.userLogado.email = payload.user.email;
-     //   state.userLogado.perfil = payload.user.perfil;
+        //   state.userLogado.perfil = payload.user.perfil;
         state.userLogado.token = payload.token;
         state.userLogado.emailVerified = false;
         state.userLogado.created = payload.user.createdAt;
@@ -63,27 +64,25 @@ export default new Vuex.Store({
     },
 
     SET_DATA_ECOW(state, value) {
-      state.ecow = Object.assign({}, value);
-     // window.dispatchEvent(new Event('resize'))
+      state.ecow = { ...value };
+      // window.dispatchEvent(new Event('resize'))
     },
 
-    
     CLEAR_USER(state) {
       state.userLogado = {};
       state.loggedIn = false;
       localStorage.setItem("loggedIn", false);
     },
+
   },
-  actions: {},
+  actions: {
+    
+  },
   modules: {},
 
   getters: {
-    getUserLogged: (state) => {
-      return state.userLogado;
-    },
+    getUserLogged: (state) => state.userLogado,
 
-    getDataEcow: (state) => {
-      return state.ecow;
-    },
+    getDataEcow: (state) => state.ecow,
   },
 });
