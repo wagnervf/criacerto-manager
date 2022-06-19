@@ -1,4 +1,4 @@
-module.exports  = [
+export default [
   {
     name: "Monta Natural",
     path: "montanatural/index",
@@ -9,6 +9,12 @@ module.exports  = [
           text: "Início",
           disabled: true,
           href: "/",
+        },
+        {
+          text: "Simulações",
+          disabled: false,
+          href: "/simulacoes",
+          icon: "mdi-database",
         },
         {
           text: "Monta Natural",

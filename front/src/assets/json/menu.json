@@ -4,13 +4,13 @@
     "id": 1,
     "title": "Dashboard",
     "icon": "mdi-chart-box",
-    "to": "/dashboard"
+    "to": "/"
   },
   {
     "id": 2,
-    "title": "Parâmetros Cria Certo",
+    "title": "Simulações do Cria Certo",
     "icon": "mdi-database",
-    "to": "/parametros"
+    "to": "/simulacoes"
   },
   
  

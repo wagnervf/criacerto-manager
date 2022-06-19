@@ -11,9 +11,12 @@
         flex
       >
         <v-card class="mx-auto">
-          <v-toolbar color="grey lighten-3" elevation="0">
+          <v-toolbar
+            color="grey lighten-3"
+            elevation="0"
+          >
             <v-toolbar-title>Dados Manutenção de Touros</v-toolbar-title>
-            <v-spacer></v-spacer>
+            <v-spacer />
           </v-toolbar>
           <v-form
             ref="form"
@@ -21,7 +24,11 @@
             class="pa-6 white ma-1"
             lazy-validation
           >
-            <v-alert class="pa-6" outlined color="grey lighten-3">
+            <v-alert
+              class="pa-6"
+              outlined
+              color="grey lighten-3"
+            >
               <v-row>
                 <v-col justify="space-between">
                   <v-text-field
@@ -30,9 +37,9 @@
                     type="number"
                     label="Exame Andrológico"
                     required
-                    class="pa-2"
+                    class="mt-4 pa-2 teal--text"
                     suffix="R$/cab/ano"
-                  ></v-text-field>
+                  />
 
                   <v-text-field
                     v-model="form.aluguelPasto"
@@ -42,7 +49,7 @@
                     required
                     class="pa-2"
                     suffix="R$/cab/ano"
-                  ></v-text-field>
+                  />
 
                   <v-text-field
                     v-model="form.salMineral"
@@ -52,7 +59,7 @@
                     required
                     class="pa-2"
                     suffix="R$/cab/ano"
-                  ></v-text-field>
+                  />
 
                   <v-text-field
                     v-model="form.racoes"
@@ -62,7 +69,7 @@
                     required
                     class="pa-2"
                     suffix="R$/cab/ano"
-                  ></v-text-field>
+                  />
 
                   <v-text-field
                     v-model="form.produtosVeterinarios"
@@ -72,7 +79,7 @@
                     required
                     class="pa-2"
                     suffix="R$/cab/ano"
-                  ></v-text-field>
+                  />
 
                   <v-text-field
                     v-model="form.jurosAnuais"
@@ -82,7 +89,7 @@
                     required
                     class="pa-2"
                     suffix="%"
-                  ></v-text-field>
+                  />
 
                   <v-text-field
                     v-model="form.valorVendaTouro"
@@ -92,7 +99,7 @@
                     prefix="R$"
                     required
                     class="pa-2"
-                  ></v-text-field>
+                  />
                 </v-col>
               </v-row>
 

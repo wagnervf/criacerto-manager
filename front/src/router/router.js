@@ -1,8 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
 import montaNataural from "./montaNaturalRouter";
-console.log(montaNataural);
-
+import IATF_RT from "./IATFRouter";
+import IATF_2_RT from "./IATF_2Router";
+import IATF_3_RT from "./IATF_3Router";
 Vue.use(Router);
 
 const routes = [
@@ -22,24 +23,6 @@ const routes = [
 
     children: [
       {
-        name: "Parametros",
-        path: "/parametros",
-        component: () => import("@/views/Parametros/Parametros.vue"),
-        meta: {
-          breadCrumb: [
-            {
-              text: "Simulações",
-              disabled: true,
-              href: "/parametros",
-              icon: "mdi-database",
-            },
-          ],
-          permission: ["ADMIN", "TEC"],
-        },
-      },
-   
-
-      {
         name: "Dashboard",
         path: "/",
         component: () => import("@/views/Dashboard/Dashboard.vue"),
@@ -50,6 +33,28 @@ const routes = [
               disabled: true,
               href: "/dashboard",
               icon: "mdi-chart-box",
+            },
+          ],
+          permission: ["ADMIN", "TEC"],
+        },
+      },
+
+      {
+        name: "Simulações",
+        path: "/simulacoes",
+        component: () => import("@/views/Simulacoes/Simulacoes.vue"),
+        meta: {
+          breadCrumb: [
+            {
+              text: "Início",
+              disabled: true,
+              href: "/",
+            },
+            {
+              text: "Simulações",
+              disabled: true,
+              href: "/simulacoes",
+              icon: "mdi-database",
             },
           ],
           permission: ["ADMIN", "TEC"],
@@ -132,12 +137,7 @@ const routes = [
         },
       },
 
-      {
-        name: "TableSimple",
-        path: "Parametros/parametros",
-        component: () => import("@/views/Parametros/Parametros.vue"),
-        meta: { permission: ["ADMIN", "TEC"] },
-      },
+     
       {
         name: "Sobre",
         path: "Sobre/sobre",
@@ -177,5 +177,23 @@ const routes = [
 montaNataural.forEach((element) => {
   routes[1].children.push(element);
 });
+
+//Rotas da IATF + RT
+IATF_RT.forEach((element) => {
+  routes[1].children.push(element);
+});
+
+//Rotas da 2 IATF + RT
+IATF_2_RT.forEach((element) => {
+  routes[1].children.push(element);
+});
+
+//Rotas da 3 IATF + RT
+IATF_3_RT.forEach((element) => {
+  routes[1].children.push(element);
+});
+
+
+console.log(routes)
 
 export default routes;

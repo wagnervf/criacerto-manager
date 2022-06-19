@@ -1,0 +1,109 @@
+<template>
+  <v-container
+    fluid
+    class="py-0"
+  >
+    <v-row justify="center">
+      <v-col
+        cols="12"
+        lg="12"
+        class="pa-0"
+        justify-center
+        flex
+      >
+        <v-form
+          ref="form"
+          v-model="valid"
+          class="pa-0 white ma-1"
+          lazy-validation
+        >
+          <v-col justify="space-between">
+            <v-text-field
+              v-model="form.precoAquisicaoTouro"
+              :rules="precoAquisicaoTouroRules"
+              type="number"
+              label="Preço de Aquisição do Touro"
+              required
+              class="mt-4 pa-2 teal--text"
+              prefix="R$"
+              outlined
+            />
+
+            <v-text-field
+              v-model="form.despesasCompra"
+              :rules="despesasCompraRules"
+              type="number"
+              label="Despesas da Compra"
+              required
+              class="pa-2 teal--text"
+              suffix="%"
+              outlined
+            />
+
+            <v-text-field
+              v-model="form.depPesoDesmama"
+              :rules="depPesoDesmamaRules"
+              type="number"
+              label="DEP no Peso à Desmama"
+              required
+              class="pa-2 teal--text"
+              suffix="Kg"
+              outlined
+            />
+          </v-col>
+
+          <div class="d-flex justify-end mt-6">
+            <v-btn
+              outlined
+              color="error"
+              class="mr-4"
+              @click="resetValidation"
+            >
+              Cancelar
+            </v-btn>
+
+            <v-btn
+              outlined
+              color="success"
+              class="mr-4"
+              :disabled="!valid"
+              @click="validate"
+            >
+              Salvar
+            </v-btn>
+          </div>
+        </v-form>
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
+
+<script>
+export default {
+  name: "ManutencaoTouros",
+  data: () => ({
+    valid: true,
+    form: {
+      precoAquisicaoTouro: 4200,
+      despesasCompra: 10,
+      depPesoDesmama: 2,
+    },
+    precoAquisicaoTouroRules: [(v) => !!v || "Campo Obrigatório!"],
+    despesasCompraRules: [(v) => !!v || "Campo Obrigatório!"],
+    depPesoDesmamaRules: [(v) => !!v || "Campo Obrigatório!"],
+  }),
+
+  methods: {
+    validate() {
+      this.$refs.form.validate();
+      console.log(this.$refs.form.validate());
+    },
+    reset() {
+      this.$refs.form.reset();
+    },
+    resetValidation() {
+      this.$refs.form.resetValidation();
+    },
+  },
+};
+</script>

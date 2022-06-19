@@ -13,12 +13,7 @@
             color="grey lighten-3"
             elevation="0"
           >
-            <v-toolbar-title>
-              Monta Natural
-              <p class="grey--text caption">
-                Subtítulo da Monta Natural
-              </p>
-            </v-toolbar-title>
+            <v-toolbar-title> IATF RT </v-toolbar-title>
           </v-toolbar>
 
           <v-list
@@ -55,7 +50,9 @@
                   </div>
 
                   <v-list-item-subtitle>
-                    {{ item.subtitle }}
+                    {{
+                      item.subtitle
+                    }}
                   </v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-action>
@@ -75,7 +72,7 @@
 <script>
 // import VueJwtDecode from "vue-jwt-decode";
 
-import Menu from "../../assets/json/listItensMontaNatural.json";
+import Menu from "../../assets/json/listItens3_IATF.json";
 
 export default {
   name: "ViewMOntaNatural",

@@ -19,70 +19,89 @@
             <v-toolbar-title>Dados Técnicos do Rebanho</v-toolbar-title>
             <v-spacer />
           </v-toolbar>
-          <form
+          <v-form
             ref="form"
+            v-model="valid"
             class="pa-6 white ma-1"
+            lazy-validation
           >
             <v-row>
               <v-col justify="space-between">
                 <v-text-field
-                  v-model="name"
+                  v-model="form.vacasCobrir"
                   label="Nº de Vacas a Cobrir"
                   required
-                  class="pa-2"
+                  class="mt-4 pa-2 teal--text"
                   suffix="Cabeças"
-                  :error-messages="formVacasCobrir"
-
-                  @input="$v.name.$touch()"
-                  @blur="$v.name.$touch()"
+                  :rules="vacasCobrirRules"
+                  type="number"
+                  outlined
                 />
 
                 <v-text-field
                   v-model="form.numTouro"
                   label="Nº de Touros"
                   required
-                  class="pa-2"
+                  class="mt-4 pa-2 teal--text"
+                  outlined
                   suffix="Cabeças"
+                  :rules="numTouroRules"
+                  type="number"
                 />
 
                 <v-text-field
                   v-model="form.vidaTouro"
                   label="Vida Últil do Touro"
                   required
-                  class="pa-2"
+                  class="mt-4 pa-2 teal--text"
+                  outlined
                   suffix="Anos"
+                  :rules="vidaTouroRules"
+                  type="number"
                 />
 
                 <v-text-field
                   v-model="form.taxaPrenhez"
                   label="Taxa de Prenhez"
                   required
-                  class="pa-2"
+                  class="mt-4 pa-2 teal--text"
+                  outlined
                   suffix="%"
+                  :rules="taxaPrenhezRules"
+                  type="number"
                 />
 
                 <v-text-field
                   v-model="form.mortalidadeDesmama"
                   label="Mortalidade do Nascimento à Desmama"
                   required
-                  class="pa-2"
+                  class="mt-4 pa-2 teal--text"
+                  outlined
                   suffix="%"
+                  :rules="mortalidadeDesmamaRules"
+                  type="number"
                 />
 
                 <v-text-field
                   v-model="form.precoKgBezerro"
                   label="Preço kg do Bezerro"
                   required
-                  class="pa-2"
+                  class="mt-4 pa-2 teal--text"
+                  outlined
                   prefix="R$"
+                  :rules="precoKgBezerroRules"
+                  type="number"
                 />
 
                 <v-text-field
                   v-model="form.pesoDesmama"
                   label="Peso à Desmana da Fazenda"
                   required
-                  class="pa-2 my-4"
+                  class="mt-4 pa-2 teal--text"
+                  outlined
                   suffix="Kg"
+                  :rules="pesoDesmamaRules"
+                  type="number"
                 />
 
                 <v-card class="my-2">
@@ -95,7 +114,7 @@
                           :items="racasTouro"
                           label="Raça do Touro"
                           required
-                          class="pa-2"
+                          class="mt-4 pa-2 teal--text"
                           outlined
                         />
                       </v-col>
@@ -162,7 +181,8 @@
                               :error-messages="errorMessages"
                               placeholder="Inserir raça do touro"
                               required
-                              class="mx-4"
+                              class="mt-4 pa-2 teal--text"
+                              outlined
                             />
                             <v-divider class="mx-4 my-0 pa-0" />
                             <v-card-actions>
@@ -239,7 +259,8 @@
                 <v-btn
                   color="success"
                   class="mr-4"
-                  @click="submit"
+                  :disabled="!valid"
+                  @click="validate"
                 >
                   Salvar
                 </v-btn>
@@ -249,7 +270,7 @@
             <pre>
               {{ this.form }}
             </pre>
-          </form>
+          </v-form>
         </v-card>
       </v-col>
     </v-row>
@@ -257,12 +278,10 @@
 </template>
 
 <script>
-
 export default {
-
   name: "ViewDadosTecnicosRebanho",
   data: () => ({
-    model: null,
+    valid: true,
     isEditing: false,
     tourosEdit: false,
     dialog: false,
@@ -279,7 +298,7 @@ export default {
     ],
     form: {
       touro: "",
-      vacasCobrir: '',
+      vacasCobrir: "",
       numTouro: 25,
       vidaTouro: 6,
       taxaPrenhez: 80,
@@ -287,6 +306,15 @@ export default {
       precoKgBezerro: 6,
       pesoDesmama: 180,
     },
+    touroRules: [(v) => !!v || "Campo Obrigatório!"],
+    vacasCobrirRules: [(v) => !!v || "Campo Obrigatório!"],
+    numTouroRules: [(v) => !!v || "Campo Obrigatório!"],
+    vidaTouroRules: [(v) => !!v || "Campo Obrigatório!"],
+    taxaPrenhezRules: [(v) => !!v || "Campo Obrigatório!"],
+    mortalidadeDesmamaRules: [(v) => !!v || "Campo Obrigatório!"],
+    precoKgBezerroRules: [(v) => !!v || "Campo Obrigatório!"],
+    pesoDesmamaRules: [(v) => !!v || "Campo Obrigatório!"],
+
     errorMessages: "",
     formHasErrors: false,
     racasTouro: [
@@ -313,39 +341,25 @@ export default {
       "Wagyu",
       "Outras",
     ],
-    valid: true,
     submitStatus: null,
     select: null,
     items: ["Item 1", "Item 2", "Item 3", "Item 4"],
-    name:''
-   
+    name: "",
   }),
-
-
 
   computed: {
     formVacasCobrir() {
       const errors = [];
-    //  if (!this.$v.form.$dirty) return errors;
+      //  if (!this.$v.form.$dirty) return errors;
       !this.$v.form.required && errors.push("Name is required.");
       return errors;
     },
   },
 
   methods: {
-    submit() {
-      console.log("submit!");
-      this.$v.$touch();
-
-      // if (this.$v.$invalid) {
-      //   this.submitStatus = "ERROR";
-      // } else {
-      //   // do your submit logic here
-      //   this.submitStatus = "PENDING";
-      //   setTimeout(() => {
-      //     this.submitStatus = "OK";
-      //   }, 500);
-      // }
+    validate() {
+      this.$refs.form.validate();
+      console.log(this.$refs.form.validate());
     },
     reset() {
       this.$refs.form.reset();

@@ -1,8 +1,8 @@
-module.exports  = [
+export default [
   {
-    name: "Monta Natural",
-    path: "montanatural/index",
-    component: () => import("@/views/MontaNatural/Index.vue"),
+    name: "IATF + RT",
+    path: "iatf/index",
+    component: () => import("@/views/Iatf/Index.vue"),
     meta: {
       breadCrumb: [
         {
@@ -11,18 +11,25 @@ module.exports  = [
           href: "/",
         },
         {
-          text: "Monta Natural",
+          text: "Simulações",
+          disabled: false,
+          href: "/simulacoes",
+          icon: "mdi-database",
+        },
+        {
+          text: "IATF + RT",
           to: { name: "" },
           disabled: false,
         },
       ],
       permission: ["ADMIN", "TEC"],
     },
-  },
-  {
-    name: "Monta Natural Dados Basicos",
-    path: "montanatural/dadosbasicos",
-    component: () => import("@/views/MontaNatural/DadosBasicos.vue"),
+  }, 
+
+   {
+    name: "IATF Dados Tecnicos Rebanho",
+    path: "iatf/dadostecnicosrebanho",
+    component: () => import("@/views/Iatf/DadosTecnicosRebanho.vue"),
     meta: {
       breadCrumb: [
         {
@@ -31,33 +38,7 @@ module.exports  = [
           href: "/",
         },
         {
-          text: "Monta Natural",
-          to: { name: "" },
-          disabled: false,
-          href: "index",
-        },
-        {
-          text: "Dados Básicos",
-          to: { name: "" },
-          disabled: false,
-        },
-      ],
-      permission: ["ADMIN", "TEC"],
-    },
-  },
-  {
-    name: "Monta Natural Dados Tecnicos Rebanho",
-    path: "montanatural/dadostecnicosrebanho",
-    component: () => import("@/views/MontaNatural/DadosTecnicosRebanho.vue"),
-    meta: {
-      breadCrumb: [
-        {
-          text: "Início",
-          disabled: true,
-          href: "/",
-        },
-        {
-          text: "Monta Natural",
+          text: "IATF + RT",
           to: { name: "" },
           disabled: false,
           href: "index",
@@ -71,10 +52,11 @@ module.exports  = [
       permission: ["ADMIN", "TEC"],
     },
   },
+
   {
-    name: "Monta Natural Aquisicao de Touros",
-    path: "montanatural/aquisicaotouros",
-    component: () => import("@/views/MontaNatural/AquisicaoTouros.vue"),
+    name: "IATF Aquisição de Sêmen e Protocolo",
+    path: "/iatf/aquisicaosemenprotocolo",
+    component: () => import("@/views/Iatf/AquisicaoSemenProtocolo.vue"),
     meta: {
       breadCrumb: [
         {
@@ -83,13 +65,13 @@ module.exports  = [
           href: "/",
         },
         {
-          text: "Monta Natural",
+          text: "IATF + RT",
           to: { name: "" },
           disabled: false,
           href: "index",
         },
         {
-          text: "Dados Aquisicao de Touros",
+          text: "Aquisição de Sêmen e Protocolo",
           to: { name: "" },
           disabled: false,
         },
@@ -97,10 +79,12 @@ module.exports  = [
       permission: ["ADMIN", "TEC"],
     },
   },
+
+
   {
-    name: "Monta Natural Manutecao de Touros",
-    path: "montanatural/manutencaotouros",
-    component: () => import("@/views/MontaNatural/ManutencaoTouros.vue"),
+    name: "IATF Repasse com Touro",
+    path: "/iatf/repassetouro",
+    component: () => import("@/views/Iatf/RepasseTouro.vue"),
     meta: {
       breadCrumb: [
         {
@@ -109,13 +93,13 @@ module.exports  = [
           href: "/",
         },
         {
-          text: "Monta Natural",
+          text: "IATF + RT",
           to: { name: "" },
           disabled: false,
           href: "index",
         },
         {
-          text: "Dados Manutecao de Touros",
+          text: "Repasse com Touro",
           to: { name: "" },
           disabled: false,
         },
@@ -123,4 +107,64 @@ module.exports  = [
       permission: ["ADMIN", "TEC"],
     },
   },
+
+
+  {
+    name: "IATF Aquisição do Touro",
+    path: "/iatf/aquisicaotouro",
+    component: () => import("@/views/Iatf/AquisicaoTouro.vue"),
+    meta: {
+      breadCrumb: [
+        {
+          text: "Início",
+          disabled: true,
+          href: "/",
+        },
+        {
+          text: "IATF + RT",
+          to: { name: "" },
+          disabled: false,
+          href: "index",
+        },
+        {
+          text: "Aquisição do Touro",
+          to: { name: "" },
+          disabled: false,
+        },
+      ],
+      permission: ["ADMIN", "TEC"],
+    },
+  },
+
+  {
+    name: "IATF Manutenção Anual do Touro",
+    path: "/iatf/manutencaotouro",
+    component: () => import("@/views/Iatf/ManutencaoTouro.vue"),
+    meta: {
+      breadCrumb: [
+        {
+          text: "Início",
+          disabled: true,
+          href: "/",
+        },
+        {
+          text: "IATF + RT",
+          to: { name: "" },
+          disabled: false,
+          href: "index",
+        },
+        {
+          text: "Manutenção Anual do Touro",
+          to: { name: "" },
+          disabled: false,
+        },
+      ],
+      permission: ["ADMIN", "TEC"],
+    },
+  },
+
+
+
+ 
+  
 ];
