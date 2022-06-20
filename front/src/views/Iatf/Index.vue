@@ -55,7 +55,7 @@ import AquisicaoTourosVue from "./AquisicaoTouro";
 import ManutencaoTouroVue from "./ManutencaoTouro.vue";
 
 export default {
-  name: "ViewIATFRT",
+  name: "ViewIATF",
   components: {
     DadosTecnicosRebanhoVue,
     AquisicaoSemenProtocoloVue,

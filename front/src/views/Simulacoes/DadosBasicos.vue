@@ -11,6 +11,9 @@
     >
       <ListEstados />
 
+      <RacasTouro />
+      
+
       <v-row class="d-flex justify-end ma-6 pb-6">
         <v-btn
           outlined
@@ -35,12 +38,13 @@
 <script>
 // import FormCustom from "../../components/FormCustom.vue";
 import ListEstados from "../../components/estados.vue";
-
+import RacasTouro from "../../components/racasTouro.vue"
 export default {
   name: "ViewDadosBasicos",
   components: {
     // FormCustom ,
     ListEstados,
+    RacasTouro
   },
 
   data: () => ({
