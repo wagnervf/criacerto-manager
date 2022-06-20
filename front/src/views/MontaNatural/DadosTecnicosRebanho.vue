@@ -1,28 +1,45 @@
 /* eslint-disable vue/no-v-text-v-html-on-component */
 <template>
-  <v-container
-    fluid
-    class=""
-  >
-    <v-row justify="center">
-      <v-col
-        cols="12"
-        lg="12"
-        justify-center
-        flex
+  <v-expansion-panel>
+    <v-expansion-panel-header class="pl-3">
+      <v-list-item>
+        <v-list-item-avatar
+          color="teal"
+          size="56"
+        >
+          <v-icon color="white">
+            {{ icon }}
+          </v-icon>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title class="teal--text">
+            {{ title }}
+          </v-list-item-title>
+          <v-list-item-subtitle class="text-wrap">
+            Monta Natural
+          </v-list-item-subtitle>
+
+          <v-list-item-subtitle class="text-wrap">
+            {{ subtitle }}
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+    </v-expansion-panel-header>
+    <v-expansion-panel-content>
+      <v-container
+        fluid
+        class="py-0"
       >
-        <v-card class="mx-auto">
-          <v-toolbar
-            color="grey lighten-3"
-            elevation="0"
-          >
-            <v-toolbar-title>Dados Técnicos do Rebanho</v-toolbar-title>
-            <v-spacer />
-          </v-toolbar>
+        <v-col
+          cols="12"
+          lg="12"
+          justify-center
+          flex
+        >
           <v-form
             ref="form"
             v-model="valid"
-            class="pa-6 white ma-1"
+            class="pa-0 white ma-1"
             lazy-validation
           >
             <v-row>
@@ -190,6 +207,7 @@
                               <v-btn
                                 color="error"
                                 text
+                                @click="inserirTouro"
                               >
                                 Cancelar
                               </v-btn>
@@ -252,6 +270,7 @@
                 <v-btn
                   color="error"
                   class="mr-4"
+                  
                 >
                   Cancelar
                 </v-btn>
@@ -271,10 +290,10 @@
               {{ this.form }}
             </pre>
           </v-form>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+        </v-col>
+      </v-container>
+    </v-expansion-panel-content>
+  </v-expansion-panel>
 </template>
 
 <script>
@@ -306,6 +325,11 @@ export default {
       precoKgBezerro: 6,
       pesoDesmama: 180,
     },
+    title: "Dados Técnicos do Rebanho",
+    icon: "mdi-file-cog",
+    subtitle:
+      "Nº de vacas a cobrir, Nº de Touros, Vida ùtil touro, Taxa de Prenhez, Preço Bezerro, Raças de Touro...",
+
     touroRules: [(v) => !!v || "Campo Obrigatório!"],
     vacasCobrirRules: [(v) => !!v || "Campo Obrigatório!"],
     numTouroRules: [(v) => !!v || "Campo Obrigatório!"],

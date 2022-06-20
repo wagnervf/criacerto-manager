@@ -1,84 +1,111 @@
 <template>
-  <v-container
-    fluid
-    class="pb-0"
+  <v-expansion-panel
+    elevation="1"
+    class="pa-0"
   >
-    <v-row justify="center">
-      <v-col
-        cols="12"
-        lg="12"
-        class="pa-0"
-        justify-center
-        flex
-      >
-        <v-form
-          class="white ma-1 pa-0"
-          ref="form"
-          v-model="valid"
-          lazy-validation
+    <v-expansion-panel-header class="pl-3">
+      <v-list-item>
+        <v-list-item-avatar
+          color="teal"
+          size="56"
         >
-          <v-col justify="space-between">
-            <v-text-field
-              v-model="form.numero_de_vacas"
-              label="Preço de Aquisição de Touro"
-              required
-              class="mt-4 pa-2"
-              type="number"
-              prefix="R$"
-              :rules="numero_de_vacasRules"
-              outlined
-            />
+          <v-icon color="white">
+            {{ icon }}
+          </v-icon>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title class="teal--text">
+            {{ title }}
+          </v-list-item-title>
 
-            <v-text-field
-              v-model="form.vacas_inseminadas"
-              label="Despesas da Compra"
-              required
-              type="number"
-              class="pa-2 h6"
-              :rules="vacas_inseminadasRules"
-              outlined
-              suffix="%"
-            />
+          <v-list-item-subtitle class="text-wrap">
+            {{ subtitle }}
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+    </v-expansion-panel-header>
 
-            <v-text-field
-              v-model="form.DepPeso"
-              label="DEP no Peso à Desmana (240 dias)"
-              required
-              type="number"
-              class="pa-2"
-              suffix="Kg"
-              :rules="DepPesoRules"
-              outlined
-            />
-          </v-col>
+    <v-expansion-panel-content>
+      <v-container
+        fluid
+        class="pb-0"
+      >
+        <v-col
+          cols="12"
+          lg="12"
+          class="pa-0"
+          justify-center
+          flex
+        >
+          <v-form
+            class="white ma-1 pa-0"
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
+            <v-col justify="space-between">
+              <v-text-field
+                v-model="form.numero_de_vacas"
+                label="Preço de Aquisição de Touro"
+                required
+                class="mt-4 pa-2"
+                type="number"
+                prefix="R$"
+                :rules="numero_de_vacasRules"
+                outlined
+              />
 
-          <div class="d-flex justify-end mt-6">
-            <v-btn
-              outlined
-              color="error"
-              class="mr-4"
-              @click="resetValidation"
-            >
-              Cancelar
-            </v-btn>
+              <v-text-field
+                v-model="form.vacas_inseminadas"
+                label="Despesas da Compra"
+                required
+                type="number"
+                class="pa-2 h6"
+                :rules="vacas_inseminadasRules"
+                outlined
+                suffix="%"
+              />
 
-            <v-btn
-              outlined
-              color="success"
-              class="mr-4"
-              :disabled="!valid"
-              @click="validate"
-            >
-              Salvar
-            </v-btn>
-          </div>
-          <pre>
+              <v-text-field
+                v-model="form.DepPeso"
+                label="DEP no Peso à Desmana (240 dias)"
+                required
+                type="number"
+                class="pa-2"
+                suffix="Kg"
+                :rules="DepPesoRules"
+                outlined
+              />
+            </v-col>
+
+            <div class="d-flex justify-end mt-6">
+              <v-btn
+                outlined
+                color="error"
+                class="mr-4"
+                @click="resetValidation"
+              >
+                Cancelar
+              </v-btn>
+
+              <v-btn
+                outlined
+                color="success"
+                class="mr-4"
+                :disabled="!valid"
+                @click="validate"
+              >
+                Salvar
+              </v-btn>
+            </div>
+            <pre>
               {{ this.form }}
            </pre>
-        </v-form>
-      </v-col>
-    </v-row>
-  </v-container>
+          </v-form>
+        </v-col>
+      </v-container>
+    </v-expansion-panel-content>
+  </v-expansion-panel><!-- Dados Técnicos -->
 </template>
 
 <script>
@@ -91,7 +118,6 @@ export default {
       vacas_inseminadas: 10,
       DepPeso: 5,
     },
-
     title: "Dados Técnicos do Rebanho",
     icon: "mdi-file-cog",
     subtitle:

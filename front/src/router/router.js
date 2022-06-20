@@ -60,6 +60,32 @@ const routes = [
           permission: ["ADMIN", "TEC"],
         },
       },
+       {
+    name: "Monta Natural Dados Basicos",
+    path: "simulacoes/dadosbasicos",
+    component: () => import("@/views/Simulacoes/DadosBasicos.vue"),
+    meta: {
+      breadCrumb: [
+        {
+          text: "Início",
+          disabled: true,
+          href: "/",
+        },
+        {
+          text: "Simulações",
+          to: { name: "" },
+          disabled: false,
+          href: "/simulacoes",
+        },
+        {
+          text: "Dados Básicos das Simulações",
+          to: { name: "" },
+          disabled: false,
+        },
+      ],
+      permission: ["ADMIN", "TEC"],
+    },
+  },
 
       {
         name: "Lista de Usuarios",

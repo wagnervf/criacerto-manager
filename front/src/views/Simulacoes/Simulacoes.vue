@@ -10,99 +10,122 @@
       >
         <v-card class="mx-auto">
           <v-toolbar
-            color="grey lighten-3"
+            class="pl-6 my-1"
+            color="teal"
             elevation="0"
+            prominent
+            shrink-on-scroll
+            dark
           >
-            <v-toolbar-title>Simulações</v-toolbar-title>
+            <v-app-bar-title class="ma-6 text-h4 font-weight-black">
+              Simulações
+              <p class="white--text caption">
+                Listagem de todas as Simulações do Cria Certo
+              </p>
+            </v-app-bar-title>
+
             <v-spacer />
+
+            <v-btn icon>
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
           </v-toolbar>
-
-          <v-list
-            three-line
-            active-class="primary--text"
-          >
-            <div
-              v-for="(item, index) in items"
-              :key="item.title"
-            >
-              <v-divider
-                v-if="item.divider"
-                :key="index"
-                :inset="item.inset"
-              />
-
-              <v-list-item
-                v-else
-                :key="item.title"
-                link
-                :to="item.to"
-              >
-                <v-list-item-avatar
-                  color="teal"
-                  size="65"
-                >
-                  <v-icon
-                    color="white"
-                    style="font-size: 18px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif"
-                  >
-                    {{ item.icon }}
-                  </v-icon>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <div
-                    class="teal--text text-h6"
-                    v-html="item.title"
-                  />
-                  <v-list-item-title />
-
-                  <div v-html="item.subtitle" />
-
-                  <v-list-item-subtitle />
-                </v-list-item-content>
-                <v-list-item-action>
-                  <v-icon color="teal lighten-1">
-                    mdi-menu-right
-                  </v-icon>
-                </v-list-item-action>
-              </v-list-item>
-            </div>
-          </v-list>
         </v-card>
 
-        <!-- Trasformar estas listas repetidas em Componentes -->
-        <div class="my-8" />
-        <!-- <v-card>
-          <v-list three-line active-class="primary--text">
-            <div v-for="(item, index) in config" :key="item.title">
-              <v-divider
-                v-if="item.divider"
-                :key="index"
-                :inset="item.inset"
-              ></v-divider>
+        <v-list
+          v-for="item in items"
+          :key="item.title"
+          class="py-0 transparent"
+          three-line
+          active-class="primary--text"
+        >
+          <v-card
+            class="mx-auto my-1 py-2"
+            v-if="item.id != 100"
+          >
+            <v-list-item
+              :key="item.title"
+              link
+              :to="item.to"
+            >
+              <v-list-item-avatar
+                color="teal"
+                size="65"
+              >
+                <v-icon
+                  color="white"
+                  style="
+                    font-size: 18px;
+                    font-family: 'Gill Sans', 'Gill Sans MT', Calibri,
+                      'Trebuchet MS', sans-serif;
+                  "
+                >
+                  {{ item.icon }}
+                </v-icon>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <div
+                  class="teal--text text-h6"
+                  v-html="item.title"
+                />
+                <v-list-item-title />
 
-              <v-list-item v-else link :key="item.title" :to="item.to">
-                <v-list-item-avatar size="60">
-                  <v-icon color="teal" style="font-size: 26px">{{
-                    item.icon
-                  }}</v-icon>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title
-                    class="teal--text"
-                    v-html="item.title"
-                  ></v-list-item-title>
+                <div v-html="item.subtitle" />
 
-                  <v-list-item-subtitle
-                    v-html="item.subtitle"
-                  ></v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-action>
-                  <v-icon color="teal lighten-1">mdi-menu-right</v-icon>
-                </v-list-item-action>
-              </v-list-item>
-            </div>
-          </v-list>
-        </v-card> -->
+                <v-list-item-subtitle />
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-icon color="teal lighten-1">
+                  mdi-menu-right
+                </v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </v-card>
+
+          <v-card
+            v-else
+            class="mx-auto mt-6"
+            elevation="1"
+          >
+            <v-list-item
+              :key="item.title"
+              link
+              :to="item.to"
+            >
+              <v-list-item-avatar
+                color="blue-grey"
+                size="65"
+              >
+                <v-icon
+                  color="white"
+                  style="
+                    font-size: 18px;
+                    font-family: 'Gill Sans', 'Gill Sans MT', Calibri,
+                      'Trebuchet MS', sans-serif;
+                  "
+                >
+                  {{ item.icon }}
+                </v-icon>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <div
+                  class="blue-grey--text text-h6"
+                  v-html="item.title"
+                />
+                <v-list-item-title />
+
+                <div v-html="item.subtitle" />
+
+                <v-list-item-subtitle />
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-icon color="teal lighten-1">
+                  mdi-menu-right
+                </v-icon>
+              </v-list-item-action>
+            </v-list-item>
+          </v-card>
+        </v-list>
       </v-col>
     </v-row>
   </v-container>
@@ -112,79 +135,12 @@
 // import VueJwtDecode from "vue-jwt-decode";
 
 import Menu from "../../assets/json/listSimulacoes.json";
-// import Config from " ../assets/json/listConfiguracao.json";
 
 export default {
-  name: "ViewHome",
+  name: "ViewSimulacoes",
+  components: {},
   data: () => ({
     items: Menu,
-    //   config: Config,
-    outer: [
-      {
-        id: 1,
-        name: "Parâmentro do Cria Certo",
-        children: [
-          {
-            id: 2,
-            name: "Core team",
-            children: [
-              {
-                id: 201,
-                name: "John",
-              },
-              {
-                id: 202,
-                name: "Kael",
-              },
-              {
-                id: 203,
-                name: "Nekosaur",
-              },
-              {
-                id: 204,
-                name: "Jacek",
-              },
-              {
-                id: 205,
-                name: "Andrew",
-              },
-            ],
-          },
-          {
-            id: 3,
-            name: "Administrators",
-            children: [
-              {
-                id: 301,
-                name: "Mike",
-              },
-              {
-                id: 302,
-                name: "Hunt",
-              },
-            ],
-          },
-          {
-            id: 4,
-            name: "Contributors",
-            children: [
-              {
-                id: 401,
-                name: "Phlow",
-              },
-              {
-                id: 402,
-                name: "Brandon",
-              },
-              {
-                id: 403,
-                name: "Sean",
-              },
-            ],
-          },
-        ],
-      },
-    ],
     open: [1, 2],
     search: null,
   }),

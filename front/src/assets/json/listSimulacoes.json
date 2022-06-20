@@ -7,7 +7,6 @@
     "subtitle": "Nomes das Simulações, Dados da Propriedade, Estado e Município",
     "to": "montanatural/index"
   },
-  { "divider": true, "inset": true },
      
   {
     "id": 3,
@@ -17,7 +16,6 @@
     "to": "iatf/index"
   
   },
-  { "divider": true, "inset": true },
   {
     "id": 4,
     "title": "2 IATF + RT",
@@ -25,14 +23,22 @@
     "subtitle": "Preço aquisisção de Touro, Despesas da Compra, DEP no Peso à Demanda (240 dias)",
     "to": "iatf_2/index"
   },
-  { "divider": true, "inset": true },
   {
     "id": 5,
     "title": "3 IATF + RT",
     "icon": "3IATF",
     "subtitle": "Exame Andrológico, Aluguel de Pasto, Sal Mineral, Rações, Produtos Veterinários, Juros Anuais, Valor de Venda do Touro de Descarte",
     "to": "iatf_3/index"
-  } 
+  },
+
+
+  {
+    "id": 100,
+    "title": "Dados Básicos das Simulações",
+    "icon": "mdi-database-edit",   
+    "subtitle": "Raça de Touro, Estados, Municípios",
+    "to": "/simulacoes/dadosbasicos"
+  }
   
 ]
 

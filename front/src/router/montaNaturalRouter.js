@@ -25,32 +25,7 @@ export default [
       permission: ["ADMIN", "TEC"],
     },
   },
-  {
-    name: "Monta Natural Dados Basicos",
-    path: "montanatural/dadosbasicos",
-    component: () => import("@/views/MontaNatural/DadosBasicos.vue"),
-    meta: {
-      breadCrumb: [
-        {
-          text: "Início",
-          disabled: true,
-          href: "/",
-        },
-        {
-          text: "Monta Natural",
-          to: { name: "" },
-          disabled: false,
-          href: "index",
-        },
-        {
-          text: "Dados Básicos",
-          to: { name: "" },
-          disabled: false,
-        },
-      ],
-      permission: ["ADMIN", "TEC"],
-    },
-  },
+ 
   {
     name: "Monta Natural Dados Tecnicos Rebanho",
     path: "montanatural/dadostecnicosrebanho",

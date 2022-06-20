@@ -1,12 +1,6 @@
 [
  
-  {
-    "id": 2,
-    "title": "Dados Básico",
-    "icon": "mdi-database-edit",   
-    "subtitle": "Nomes das Simulações, Dados da Propriedade, Estado e Município",
-    "to": "/montanatural/dadosbasicos"
-  },
+  
   { "divider": true, "inset": true },
      
   {
