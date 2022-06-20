@@ -46,7 +46,7 @@
                   type="number"
                   label="Número de Touros"
                   required
-                  class="mt-4 pa-2 teal--text"
+                  class="mt-2 pa-2 teal--text"
                   suffix="Cabeças"
                   outlined
                 />
@@ -57,7 +57,7 @@
                   type="number"
                   label="Vida Útil do Touro"
                   required
-                  class="mt-4 pa-2 teal--text"
+                  class="mt-2 pa-2 teal--text"
                   suffix="Anos"
                   outlined
                 />
@@ -68,7 +68,7 @@
                   type="number"
                   label="Prenhez Repasse"
                   required
-                  class="mt-4 pa-2 teal--text"
+                  class="mt-2 pa-2 teal--text"
                   suffix="%"
                   outlined
                 />
@@ -79,7 +79,7 @@
                   type="number"
                   label="Peso à Desmama da Fazenda"
                   required
-                  class="mt-4 pa-2 teal--text"
+                  class="mt-2 pa-2 teal--text"
                   suffix="Kg"
                   outlined
                 />

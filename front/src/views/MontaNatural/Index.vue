@@ -33,6 +33,8 @@
         </v-card>
         <v-expansion-panels focusable >
           <DadosTecnicosRebanhoVue />
+          <AquisicaoTourosVue />
+          <ManutecaoTourosVue />
         </v-expansion-panels>
       </v-col>
     </v-row>
@@ -42,10 +44,12 @@
 <script>
 // import VueJwtDecode from "vue-jwt-decode";
 import DadosTecnicosRebanhoVue from "./DadosTecnicosRebanho";
+import AquisicaoTourosVue from "./AquisicaoTouros"
+import ManutecaoTourosVue from "./ManutencaoTouros"
 
 export default {
   name: "ViewMontaNatural",
-  components: {DadosTecnicosRebanhoVue},
+  components: {DadosTecnicosRebanhoVue,AquisicaoTourosVue,ManutecaoTourosVue,},
   data: () => ({
     open: [1, 2],
     search: null,
