@@ -42,8 +42,8 @@
           >
             <v-col justify="space-between">
               <v-text-field
-                v-model="form.precoAquisicaoTouro"
-                :rules="precoAquisicaoTouroRules"
+                v-model="form.preco_touro_iatf_2"
+                :rules="preco_touro_iatf_2Rules"
                 type="number"
                 label="Preço de Aquisição do Touro"
                 required
@@ -53,8 +53,8 @@
               />
 
               <v-text-field
-                v-model="form.despesasCompra"
-                :rules="despesasCompraRules"
+                v-model="form.despesas_compra_iatf_2"
+                :rules="despesas_compra_iatf_2Rules"
                 type="number"
                 label="Despesas da Compra"
                 required
@@ -64,8 +64,8 @@
               />
 
               <v-text-field
-                v-model="form.depPesoDesmama"
-                :rules="depPesoDesmamaRules"
+                v-model="form.dep_iatf_2"
+                :rules="dep_iatf_2Rules"
                 type="number"
                 label="DEP no Peso à Desmama"
                 required
@@ -108,17 +108,17 @@ export default {
   data: () => ({
     valid: true,
     form: {
-      precoAquisicaoTouro: 4200,
-      despesasCompra: 10,
-      depPesoDesmama: 2,
+      preco_touro_iatf_2: 4200,
+      despesas_compra_iatf_2: 10,
+      dep_iatf_2: 2,
     },
     title: "Aquisição do Touro",
     icon: "mdi-cow",
     subtitle:
       "Preço de Aquisição do Touro, Despensas da Compra, DEP no Peso à Desmama",
-    precoAquisicaoTouroRules: [(v) => !!v || "Campo Obrigatório!"],
-    despesasCompraRules: [(v) => !!v || "Campo Obrigatório!"],
-    depPesoDesmamaRules: [(v) => !!v || "Campo Obrigatório!"],
+    preco_touro_iatf_2Rules: [(v) => !!v || "Campo Obrigatório!"],
+    despesas_compra_iatf_2Rules: [(v) => !!v || "Campo Obrigatório!"],
+    dep_iatf_2Rules: [(v) => !!v || "Campo Obrigatório!"],
   }),
 
   methods: {

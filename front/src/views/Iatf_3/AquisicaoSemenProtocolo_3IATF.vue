@@ -29,6 +29,7 @@
         <v-col
           cols="12"
           lg="12"
+          class="pa-0"
           justify-center
           flex
         >
@@ -40,36 +41,58 @@
           >
             <v-col justify="space-between">
               <v-text-field
-                v-model="form.precoAquisao"
-                label="Preço de Aquisição de Touro"
+                v-model="form.preco_semen_3"
+                label="Preço Dose Sêmen"
                 required
-                class="mt-2 pa-2 teal--text"
-                outlined
+                class="mt-4 pa-2 teal--text"
                 type="number"
                 prefix="R$"
-                :rules="precoAquisaoRules"
+                :rules="preco_semen_3Rules"
+                outlined
               />
 
               <v-text-field
-                v-model="form.despesaCompra"
-                label="Despesas da Compra"
+                v-model="form.dep_iatf_3"
+                label="DEP IATF"
                 required
                 type="number"
-                class="mt-2 pa-2 teal--text"
-                outlined
-                :rules="despesaCompraRules"
-                suffix="%"
-              />
-
-              <v-text-field
-                v-model="form.DepPeso"
-                label="DEP no Peso à Desmana (240 dias)"
-                required
-                type="number"
-                class="mt-2 pa-2 teal--text"
-                outlined
+                class="mt-4 pa-2 teal--text"
                 suffix="Kg"
-                :rules="DepPesoRules"
+                :rules="dep_iatf_3Rules"
+                outlined
+              />
+
+              <v-text-field
+                v-model="form.protocolo_3"
+                label="Custo do Protocolo"
+                required
+                type="number"
+                class="mt-4 pa-2 teal--text"
+                :rules="protocolo_3Rules"
+                outlined
+                prefix="R$"
+              />
+
+              <v-text-field
+                v-model="form.mao_de_obra_3"
+                label="Custo Mão de Obra"
+                required
+                type="number"
+                class="mt-4 pa-2 teal--text"
+                prefix="R$"
+                :rules="mao_de_obra_3Rules"
+                outlined
+              />
+
+              <v-text-field
+                v-model="form.material_consumo_3"
+                label="Custo Material Consumo"
+                required
+                type="number"
+                class="mt-4 pa-2 teal--text"
+                prefix="R$"
+                :rules="material_consumo_3Rules"
+                outlined
               />
             </v-col>
 
@@ -93,7 +116,6 @@
                 Salvar
               </v-btn>
             </div>
-
             <pre>
               {{ this.form }}
            </pre>
@@ -101,26 +123,31 @@
         </v-col>
       </v-container>
     </v-expansion-panel-content>
-  </v-expansion-panel>
+  </v-expansion-panel><!-- Aquisição Sêmen -->
 </template>
 
 <script>
 export default {
-  name: "AquisicaoTouros",
+  name: "AquisicaoSemenProtocolo1IATF",
   data: () => ({
     valid: true,
     form: {
-      precoAquisao: 4200,
-      despesaCompra: 10,
-      DepPeso: 5,
+      preco_semen_3: 50,
+      dep_iatf_3: 7,
+      protocolo_3: 17,
+      mao_de_obra_3: 15,
+      material_consumo_3: "",
     },
-    title: "Aquisição do Touro",
-    icon: "mdi-cow",
+    title: "Aquisição de Sêmen e Protocolo 1ª IATF",
+    icon: "mdi-reproduction",
     subtitle:
-      "Preço aquisisção de Touro, Despesas da Compra, DEP no Peso à Demanda (240 dias)",
-    precoAquisaoRules: [(v) => !!v || "Campo Obrigatório!"],
-    despesaCompraRules: [(v) => !!v || "Campo Obrigatório!"],
-    DepPesoRules: [(v) => !!v || "Campo Obrigatório!"],
+      "Preço Dose Sêmen, DEP IATF, Custo do Protocolo, Custo Mão de Obra, Custo Material Consumo",
+
+    preco_semen_3Rules: [(v) => !!v || "Campo Obrigatório!"],
+    dep_iatf_3Rules: [(v) => !!v || "Campo Obrigatório!"],
+    protocolo_3Rules: [(v) => !!v || "Campo Obrigatório!"],
+    mao_de_obra_3Rules: [(v) => !!v || "Campo Obrigatório!"],
+    material_consumo_3Rules: [(v) => !!v || "Campo Obrigatório!"],
   }),
 
   methods: {
@@ -132,8 +159,6 @@ export default {
       this.$refs.form.reset();
     },
     resetValidation() {
-      //Envia para componente Pai fechar Expand
-      this.$emit("fechar");
       this.$refs.form.resetValidation();
     },
   },

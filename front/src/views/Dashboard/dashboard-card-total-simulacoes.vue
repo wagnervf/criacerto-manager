@@ -4,10 +4,20 @@
       class="mx-1 mb-1"
       style="min-height: 250px"
     >
-      <v-card-title class="pa-6 pb-3 teal--text">
-        Total Simulações Realizadas
+      <v-toolbar
+        class="pa-0 my-1"
+        color="teal"
+        elevation="0"
+        dense
+        shrink-on-scroll
+        dark
+      >
+        <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
+          Total Simulações Realizadas
+        </v-app-bar-title>
+
         <v-spacer />
-      </v-card-title>
+      </v-toolbar>
 
       <v-card-text
         class="pa-6 pt-0"

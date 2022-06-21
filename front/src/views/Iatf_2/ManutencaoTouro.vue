@@ -41,8 +41,8 @@
           >
             <v-col justify="space-between">
               <v-text-field
-                v-model="form.exameAdrologico"
-                :rules="exameAdrologicoRules"
+                v-model="form.exame_andrologico_2"
+                :rules="exame_andrologico_2Rules"
                 type="number"
                 label="Exame Andrológico"
                 required
@@ -52,8 +52,8 @@
               />
 
               <v-text-field
-                v-model="form.aluguelPasto"
-                :rules="aluguelPastoRules"
+                v-model="form.aluguel_pasto_2"
+                :rules="aluguel_pasto_2Rules"
                 type="number"
                 label="Aluguel Pasto"
                 required
@@ -63,8 +63,8 @@
               />
 
               <v-text-field
-                v-model="form.salMineral"
-                :rules="salMineralRules"
+                v-model="form.sal_mineral_2"
+                :rules="sal_mineral_2Rules"
                 type="number"
                 label="Sal Mineral"
                 required
@@ -74,8 +74,8 @@
               />
 
               <v-text-field
-                v-model="form.racoes"
-                :rules="racoesRules"
+                v-model="form.racoes_2"
+                :rules="racoes_2Rules"
                 type="number"
                 label="Rações"
                 required
@@ -85,8 +85,8 @@
               />
 
               <v-text-field
-                v-model="form.produtosVeterinarios"
-                :rules="produtosVeterinariosRules"
+                v-model="form.vacinas_vermifugos_2"
+                :rules="vacinas_vermifugos_2Rules"
                 type="number"
                 label="Produtos Veterinarios"
                 required
@@ -96,8 +96,8 @@
               />
 
               <v-text-field
-                v-model="form.jurosAnuais"
-                :rules="jurosAnuaisRules"
+                v-model="form.juros_anuais_2"
+                :rules="juros_anuais_2Rules"
                 type="number"
                 label="Juros Anuais"
                 required
@@ -107,8 +107,8 @@
               />
 
               <v-text-field
-                v-model="form.valorVendaTouro"
-                :rules="valorVendaTouroRules"
+                v-model="form.valor_venda_touro_2"
+                :rules="valor_venda_touro_2Rules"
                 type="number"
                 label="Valor Venda Touros"
                 prefix="R$"
@@ -151,13 +151,13 @@ export default {
   data: () => ({
     valid: true,
     form: {
-      exameAdrologico: 100,
-      aluguelPasto: 336,
-      salMineral: 35.4,
-      racoes: 264.57,
-      produtosVeterinarios: 9.66,
-      jurosAnuais: 6,
-      valorVendaTouro: 3000,
+      exame_andrologico_2: 100,
+      aluguel_pasto_2: 336,
+      sal_mineral_2: 35.4,
+      racoes_2: 264.57,
+      vacinas_vermifugos_2: 9.66,
+      juros_anuais_2: 6,
+      valor_venda_touro_2: 3000,
     },
     manutencaoTouro: {
       title: "Manutenção Anual do Touro",
@@ -165,13 +165,13 @@ export default {
       subtitle:
         "Exame Andrológico, Aluguel de Pasto, Sal Mineral, Rações, Produtos Veterinários, Juros Anuais, Valor de Venda do Touro de Descarte",
     },
-    exameAdrologicoRules: [(v) => !!v || "Campo Obrigatório!"],
-    aluguelPastoRules: [(v) => !!v || "Campo Obrigatório!"],
-    salMineralRules: [(v) => !!v || "Campo Obrigatório!"],
-    racoesRules: [(v) => !!v || "Campo Obrigatório!"],
-    produtosVeterinariosRules: [(v) => !!v || "Campo Obrigatório!"],
-    jurosAnuaisRules: [(v) => !!v || "Campo Obrigatório!"],
-    valorVendaTouroRules: [(v) => !!v || "Campo Obrigatório!"],
+    exame_andrologico_2Rules: [(v) => !!v || "Campo Obrigatório!"],
+    aluguel_pasto_2Rules: [(v) => !!v || "Campo Obrigatório!"],
+    sal_mineral_2Rules: [(v) => !!v || "Campo Obrigatório!"],
+    racoes_2Rules: [(v) => !!v || "Campo Obrigatório!"],
+    vacinas_vermifugos_2Rules: [(v) => !!v || "Campo Obrigatório!"],
+    juros_anuais_2Rules: [(v) => !!v || "Campo Obrigatório!"],
+    valor_venda_touro_2Rules: [(v) => !!v || "Campo Obrigatório!"],
   }),
 
   methods: {

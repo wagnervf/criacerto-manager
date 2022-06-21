@@ -46,7 +46,7 @@
               <v-col justify="space-between">
                 <v-text-field
                   v-model="form.vacasCobrir"
-                  label="Nº de Vacas a Cobrir"
+                  label="Número de Vacas a Cobrir"
                   required
                   class="mt-4 pa-2 teal--text"
                   suffix="Cabeças"
@@ -57,9 +57,9 @@
 
                 <v-text-field
                   v-model="form.numTouro"
-                  label="Nº de Touros"
+                  label="Número de Touros"
                   required
-                  class="mt-4 pa-2 teal--text"
+                  class="mt-2 pa-2 teal--text"
                   outlined
                   suffix="Cabeças"
                   :rules="numTouroRules"
@@ -70,7 +70,7 @@
                   v-model="form.vidaTouro"
                   label="Vida Últil do Touro"
                   required
-                  class="mt-4 pa-2 teal--text"
+                  class="mt-2 pa-2 teal--text"
                   outlined
                   suffix="Anos"
                   :rules="vidaTouroRules"
@@ -81,7 +81,7 @@
                   v-model="form.taxaPrenhez"
                   label="Taxa de Prenhez"
                   required
-                  class="mt-4 pa-2 teal--text"
+                  class="mt-2 pa-2 teal--text"
                   outlined
                   suffix="%"
                   :rules="taxaPrenhezRules"
@@ -92,7 +92,7 @@
                   v-model="form.mortalidadeDesmama"
                   label="Mortalidade do Nascimento à Desmama"
                   required
-                  class="mt-4 pa-2 teal--text"
+                  class="mt-2 pa-2 teal--text"
                   outlined
                   suffix="%"
                   :rules="mortalidadeDesmamaRules"
@@ -103,7 +103,7 @@
                   v-model="form.precoKgBezerro"
                   label="Preço kg do Bezerro"
                   required
-                  class="mt-4 pa-2 teal--text"
+                  class="mt-2 pa-2 teal--text"
                   outlined
                   prefix="R$"
                   :rules="precoKgBezerroRules"
@@ -114,7 +114,7 @@
                   v-model="form.pesoDesmama"
                   label="Peso à Desmana da Fazenda"
                   required
-                  class="mt-4 pa-2 teal--text"
+                  class="mt-2 pa-2 teal--text"
                   outlined
                   suffix="Kg"
                   :rules="pesoDesmamaRules"
@@ -126,13 +126,16 @@
             <v-row class="d-flex justify-end mt-6">
               <div class="form-group">
                 <v-btn
+                  outlined
                   color="error"
                   class="mr-4"
+                  @click="resetValidation"
                 >
                   Cancelar
                 </v-btn>
 
                 <v-btn
+                  outlined
                   color="success"
                   class="mr-4"
                   :disabled="!valid"
@@ -160,11 +163,10 @@ export default {
     valid: true,
 
     form: {
-      touro: "",
-      vacasCobrir: "",
+      vacasCobrir: 1,
       numTouro: 25,
       vidaTouro: 6,
-      taxaPrenhez: 80,
+      taxaPrenhez: "0",
       mortalidadeDesmama: 3,
       precoKgBezerro: 6,
       pesoDesmama: 180,
@@ -174,7 +176,6 @@ export default {
     subtitle:
       "Nº de vacas a cobrir, Nº de Touros, Vida ùtil touro, Taxa de Prenhez, Preço Bezerro, Raças de Touro...",
 
-    touroRules: [(v) => !!v || "Campo Obrigatório!"],
     vacasCobrirRules: [(v) => !!v || "Campo Obrigatório!"],
     numTouroRules: [(v) => !!v || "Campo Obrigatório!"],
     vidaTouroRules: [(v) => !!v || "Campo Obrigatório!"],
@@ -195,13 +196,18 @@ export default {
 
   methods: {
     validate() {
-      this.$refs.form.validate();
+      if(this.$refs.form.validate()){
       console.log(this.$refs.form.validate());
+      console.log(this.form)
+
+      }
     },
     reset() {
       this.$refs.form.reset();
     },
     resetValidation() {
+      //Envia para componente Pai fechar Expand
+      this.$emit("fechar");
       this.$refs.form.resetValidation();
     },
   },

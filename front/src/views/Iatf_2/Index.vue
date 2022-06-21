@@ -32,9 +32,13 @@
           </v-toolbar>
         </v-card>
         <v-expansion-panels focusable>
-          <DadosTecnicosRebanho_1ATFVue />
+          <DadosTecnicosRebanho_1IATFVue />
 
-          <AquisicaoSemenProtocoloVue />
+          <AquisicaoSemenProtocolo_1IATFVue />
+
+          <DadosTecnicosRebanho_2IATFVue />
+
+          <AquisicaoSemenProtocolo_2IATFVue />
 
           <RepasseTouroVue />
 
@@ -48,8 +52,11 @@
 </template>
 
 <script>
-import DadosTecnicosRebanho_1ATFVue from "./DadosTecnicosRebanho_1ATF";
-import AquisicaoSemenProtocoloVue from "./AquisicaoSemenProtocolo";
+import DadosTecnicosRebanho_1IATFVue from "./DadosTecnicosRebanho_1IATF";
+import DadosTecnicosRebanho_2IATFVue from "./DadosTecnicosRebanho_2IATF";
+import AquisicaoSemenProtocolo_1IATFVue from "./AquisicaoSemenProtocolo_1IATF";
+import AquisicaoSemenProtocolo_2IATFVue from "./AquisicaoSemenProtocolo_2IATF";
+
 import RepasseTouroVue from "./RepasseTouro";
 import AquisicaoTourosVue from "./AquisicaoTouro";
 import ManutencaoTouroVue from "./ManutencaoTouro.vue";
@@ -57,8 +64,10 @@ import ManutencaoTouroVue from "./ManutencaoTouro.vue";
 export default {
   name: "ViewIATF2",
   components: {
-    DadosTecnicosRebanho_1ATFVue,
-    AquisicaoSemenProtocoloVue,
+    DadosTecnicosRebanho_1IATFVue,
+    DadosTecnicosRebanho_2IATFVue,
+    AquisicaoSemenProtocolo_1IATFVue,
+    AquisicaoSemenProtocolo_2IATFVue,
     RepasseTouroVue,
     AquisicaoTourosVue,
     ManutencaoTouroVue,

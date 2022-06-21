@@ -31,12 +31,19 @@
             </v-btn>
           </v-toolbar>
         </v-card>
-        <v-expansion-panels focusable >
-          <DadosTecnicosRebanhoVue />
-          <AquisicaoTourosVue />
-          <ManutecaoTourosVue />
+
+        <v-expansion-panels
+          focusable
+          v-model="panel"
+        >
+          <DadosTecnicosRebanhoVue @fechar="resetExpand" />
+
+          <AquisicaoTourosVue @fechar="resetExpand" />
+
+          <ManutecaoTourosVue @fechar="resetExpand" />
         </v-expansion-panels>
       </v-col>
+      <pre>{{ panel }}</pre>
     </v-row>
   </v-container>
 </template>
@@ -44,14 +51,18 @@
 <script>
 // import VueJwtDecode from "vue-jwt-decode";
 import DadosTecnicosRebanhoVue from "./DadosTecnicosRebanho";
-import AquisicaoTourosVue from "./AquisicaoTouros"
-import ManutecaoTourosVue from "./ManutencaoTouros"
+import AquisicaoTourosVue from "./AquisicaoTouros";
+import ManutecaoTourosVue from "./ManutencaoTouros";
 
 export default {
   name: "ViewMontaNatural",
-  components: {DadosTecnicosRebanhoVue,AquisicaoTourosVue,ManutecaoTourosVue,},
+  components: {
+    DadosTecnicosRebanhoVue,
+    AquisicaoTourosVue,
+    ManutecaoTourosVue,
+  },
   data: () => ({
-    open: [1, 2],
+    panel: [0],
     search: null,
     meta: null,
   }),
@@ -84,6 +95,9 @@ export default {
     logOutUser() {
       localStorage.removeItem("jwt");
       this.$router.push("/");
+    },
+    resetExpand() {
+      this.panel = [];
     },
   },
 };

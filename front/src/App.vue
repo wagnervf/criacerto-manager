@@ -22,7 +22,8 @@ export default {
 };
 </script>
 
-<!-- Style do SnackBar -->
+<!-- Styles -->
 <style>
   @import './assets/css/style_snackBar.css';
+  @import './assets/css/variables.css';
 </style>

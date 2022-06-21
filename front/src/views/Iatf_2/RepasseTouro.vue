@@ -41,8 +41,8 @@
             <v-row>
               <v-col justify="space-between">
                 <v-text-field
-                  v-model="form.numeroTouros"
-                  :rules="numeroTourosRules"
+                  v-model="form.numero_de_touros"
+                  :rules="numero_de_tourosRules"
                   type="number"
                   label="Número de Touros"
                   required
@@ -52,8 +52,8 @@
                 />
 
                 <v-text-field
-                  v-model="form.vidaUtilTouro"
-                  :rules="vidaUtilTouroRules"
+                  v-model="form.vida_util_touro"
+                  :rules="vida_util_touroRules"
                   type="number"
                   label="Vida Útil do Touro"
                   required
@@ -63,8 +63,8 @@
                 />
 
                 <v-text-field
-                  v-model="form.prenhezRepasse"
-                  :rules="prenhezRepasseRules"
+                  v-model="form.taxa_prenhez"
+                  :rules="taxa_prenhezRules"
                   type="number"
                   label="Prenhez Repasse"
                   required
@@ -74,8 +74,8 @@
                 />
 
                 <v-text-field
-                  v-model="form.pesoDesmamaFazenda"
-                  :rules="pesoDesmamaFazendaRules"
+                  v-model="form.peso_comercial_iatf_2"
+                  :rules="peso_comercial_iatf_2Rules"
                   type="number"
                   label="Peso à Desmama da Fazenda"
                   required
@@ -119,19 +119,19 @@ export default {
   data: () => ({
     valid: true,
     form: {
-      numeroTouros: 50,
-      vidaUtilTouro: 6,
-      prenhezRepasse: 70,
-      pesoDesmamaFazenda: 180,
+      numero_de_touros: 50,
+      vida_util_touro: 6,
+      taxa_prenhez: 70,
+      peso_comercial_iatf_2: 180,
     },
     title: "Repasse com Touro",
     icon: "mdi-cow-off",
     subtitle:
       "Nº de Touro, Vida Útil do Touro, Prenhez Repasse, Raça do Touro, Raça Touro Peso à Desmana da Fazenda",
-    numeroTourosRules: [(v) => !!v || "Campo Obrigatório!"],
-    vidaUtilTouroRules: [(v) => !!v || "Campo Obrigatório!"],
-    prenhezRepasseRules: [(v) => !!v || "Campo Obrigatório!"],
-    pesoDesmamaFazendaRules: [(v) => !!v || "Campo Obrigatório!"],
+    numero_de_tourosRules: [(v) => !!v || "Campo Obrigatório!"],
+    vida_util_touroRules: [(v) => !!v || "Campo Obrigatório!"],
+    taxa_prenhezRules: [(v) => !!v || "Campo Obrigatório!"],
+    peso_comercial_iatf_2Rules: [(v) => !!v || "Campo Obrigatório!"],
   }),
 
   methods: {

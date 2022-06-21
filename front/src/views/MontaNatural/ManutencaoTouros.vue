@@ -162,7 +162,8 @@ export default {
     },
     title: "Manutenção Anual do Touro",
     icon: "mdi-currency-brl",
-    subtitle: "Exame Andrológico, Aluguel de Pasto, Sal Mineral, Rações, Produtos Veterinários, Juros Anuais, Valor de Venda do Touro de Descarte",
+    subtitle:
+      "Exame Andrológico, Aluguel de Pasto, Sal Mineral, Rações, Produtos Veterinários, Juros Anuais, Valor de Venda do Touro de Descarte",
 
     exameAdrologicoRules: [(v) => !!v || "Campo Obrigatório!"],
     aluguelPastoRules: [(v) => !!v || "Campo Obrigatório!"],
@@ -182,6 +183,8 @@ export default {
       this.$refs.form.reset();
     },
     resetValidation() {
+      //Envia para componente Pai fechar Expand
+      this.$emit("fechar");
       this.$refs.form.resetValidation();
     },
   },

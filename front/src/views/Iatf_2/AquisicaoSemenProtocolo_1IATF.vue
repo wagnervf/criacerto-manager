@@ -41,57 +41,57 @@
           >
             <v-col justify="space-between">
               <v-text-field
-                v-model="form.precoDoseSemen"
-                label="Preço Do Sêmen e Protocolo"
+                v-model="form.preco_semen_1"
+                label="Preço Dose Sêmen"
                 required
                 class="mt-4 pa-2 teal--text"
                 type="number"
                 prefix="R$"
-                :rules="precoDoseSemenRules"
+                :rules="preco_semen_1Rules"
                 outlined
               />
 
               <v-text-field
-                v-model="form.depIATF"
+                v-model="form.dep_iatf_1"
                 label="DEP IATF"
                 required
                 type="number"
                 class="mt-4 pa-2 teal--text"
                 suffix="Kg"
-                :rules="depIATFRules"
+                :rules="dep_iatf_1Rules"
                 outlined
               />
 
               <v-text-field
-                v-model="form.custoProtocolo"
+                v-model="form.protocolo_1"
                 label="Custo do Protocolo"
                 required
                 type="number"
                 class="mt-4 pa-2 teal--text"
-                :rules="custoProtocoloRules"
+                :rules="protocolo_1Rules"
                 outlined
                 prefix="R$"
               />
 
               <v-text-field
-                v-model="form.custoMaoObra"
+                v-model="form.mao_de_obra_1"
                 label="Custo Mão de Obra"
                 required
                 type="number"
                 class="mt-4 pa-2 teal--text"
                 prefix="R$"
-                :rules="custoMaoObraRules"
+                :rules="mao_de_obra_1Rules"
                 outlined
               />
 
               <v-text-field
-                v-model="form.custoMaterialConsumo"
+                v-model="form.material_consumo_1"
                 label="Custo Material Consumo"
                 required
                 type="number"
                 class="mt-4 pa-2 teal--text"
                 prefix="R$"
-                :rules="custoMaterialConsumoRules"
+                :rules="material_consumo_1Rules"
                 outlined
               />
             </v-col>
@@ -128,26 +128,26 @@
 
 <script>
 export default {
-  name: "AquisicaoSemenProtocolo",
+  name: "AquisicaoSemenProtocolo1IATF",
   data: () => ({
     valid: true,
     form: {
-      precoDoseSemen: 50,
-      depIATF: 7,
-      custoProtocolo: 17,
-      custoMaoObra: 15,
-      custoMaterialConsumo: "",
+      preco_semen_1: 50,
+      dep_iatf_1: 7,
+      protocolo_1: 17,
+      mao_de_obra_1: 15,
+      material_consumo_1: "",
     },
-    title: "Aquisição de Sêmen e Protocolo",
+    title: "Aquisição de Sêmen e Protocolo 1ª IATF",
     icon: "mdi-reproduction",
     subtitle:
       "Preço Dose Sêmen, DEP IATF, Custo do Protocolo, Custo Mão de Obra, Custo Material Consumo",
 
-    precoDoseSemenRules: [(v) => !!v || "Campo Obrigatório!"],
-    depIATFRules: [(v) => !!v || "Campo Obrigatório!"],
-    custoProtocoloRules: [(v) => !!v || "Campo Obrigatório!"],
-    custoMaoObraRules: [(v) => !!v || "Campo Obrigatório!"],
-    custoMaterialConsumoRules: [(v) => !!v || "Campo Obrigatório!"],
+    preco_semen_1Rules: [(v) => !!v || "Campo Obrigatório!"],
+    dep_iatf_1Rules: [(v) => !!v || "Campo Obrigatório!"],
+    protocolo_1Rules: [(v) => !!v || "Campo Obrigatório!"],
+    mao_de_obra_1Rules: [(v) => !!v || "Campo Obrigatório!"],
+    material_consumo_1Rules: [(v) => !!v || "Campo Obrigatório!"],
   }),
 
   methods: {

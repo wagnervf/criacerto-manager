@@ -46,6 +46,7 @@
               flat
               color="grey lighten-4"
               class="ma-0 pa-0"
+              style="height:60px"
             >
               <v-list-item
                 link

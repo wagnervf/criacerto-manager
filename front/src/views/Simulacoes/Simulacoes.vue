@@ -35,18 +35,18 @@
         <v-list
           v-for="item in items"
           :key="item.title"
-          class="py-0 transparent"
+          class="pa-0 my-2"
           three-line
+          nav
           active-class="primary--text"
+          elevation="1"
         >
-          <v-card
-            class="mx-auto my-1 py-2"
-            v-if="item.id != 100"
-          >
+          <div v-if="item.id != 100">
             <v-list-item
               :key="item.title"
               link
               :to="item.to"
+              class="pa-2 px-4"
             >
               <v-list-item-avatar
                 color="teal"
@@ -80,9 +80,9 @@
                 </v-icon>
               </v-list-item-action>
             </v-list-item>
-          </v-card>
+          </div>
 
-          <v-card
+          <div
             v-else
             class="mx-auto mt-6"
             elevation="1"
@@ -91,6 +91,7 @@
               :key="item.title"
               link
               :to="item.to"
+              class="pa-2 px-4"
             >
               <v-list-item-avatar
                 color="blue-grey"
@@ -107,16 +108,16 @@
                   {{ item.icon }}
                 </v-icon>
               </v-list-item-avatar>
-              <v-list-item-content>
-                <div
-                  class="blue-grey--text text-h6"
-                  v-html="item.title"
-                />
+              <v-list-item-content class="blue-grey--text text-h6">
+                {{ item.title }}
                 <v-list-item-title />
+                <v-list-item-subtitle>
+                  Parâmetros comum à todas as Simulações
+                </v-list-item-subtitle>
 
-                <div v-html="item.subtitle" />
-
-                <v-list-item-subtitle />
+                <v-list-item-subtitle>
+                  <span class="text-caption">{{ item.subtitle }}</span>
+                </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
                 <v-icon color="teal lighten-1">
@@ -124,7 +125,7 @@
                 </v-icon>
               </v-list-item-action>
             </v-list-item>
-          </v-card>
+          </div>
         </v-list>
       </v-col>
     </v-row>
