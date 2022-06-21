@@ -4,9 +4,9 @@
       <v-row>
         <v-row>
           <v-col
-            lg="4"
+            lg="6"
             sm="6"
-            md="5"
+            md="6"
             cols="12"
           >
             <dashboardCardTotalSimulacoesVue />

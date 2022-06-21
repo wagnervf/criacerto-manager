@@ -6,7 +6,7 @@
         <v-list-item-avatar
           color="teal"
           size="56"
-        >
+        > 
           <v-icon color="white">
             {{ icon }}
           </v-icon>

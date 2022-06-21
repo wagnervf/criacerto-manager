@@ -20,60 +20,80 @@
       </v-toolbar>
 
       <v-card-text
-        class="pa-6 pt-0"
+        class="pa-2 pt-0"
         v-if="visivel"
       >
-        <v-row>
-          <v-col class="my-2 py-6">
-            <span style="font-size: 52px">
-              {{ eCowCount }}
-            </span>
-            <v-spacer />
-          </v-col>
-        </v-row>
-
         <v-row
           no-gutters
-          class="py-2 justify-space-between"
+          class="py-2 mx-2 justify-space-between"
         >
-          <div>
-            <div class="subtext font-weight-bold">
-              {{ aluguelPastoFormatado }}
-              <v-icon color="success">
-                mdi-arrow-top-right
-              </v-icon>
-            </div>
-            <div class="subtext-index flex-wrap">
-              Aluguel
-              <p>Pasto</p>
-            </div>
-          </div>
+          <v-col
+            cols="3"
+            class="pa-6 d-flex justify-center"
+          >
+            <span class="text-h2 font-weight-black ma-auto">
+              {{ eCowCount }}
+            </span>
+          </v-col>
 
-          <div>
-            <div class="subtext font-weight-bold">
-              {{ valorVendaFormatado
-              }}<v-icon color="success">
-                mdi-arrow-top-right
-              </v-icon>
-            </div>
-            <div class="subtext-index">
-              Valor
-              <p>da Venda</p>
-            </div>
-          </div>
+          <v-col class="pa-6 ma-auto">
+            <v-col class="d-flex justify-end align-end">
+              <div class="text-caption flex-wrap">
+                Aluguel Pasto
+              </div>
+              <v-chip
+                label
+                small
+                dark
+                color="teal"
+                flex-wrap
+                class="font-weight-bold pa-2"
+              >
+                {{ aluguelPastoFormatado }}
+                <v-icon dark>
+                  mdi-arrow-top-right
+                </v-icon>
+              </v-chip>
+            </v-col>
 
-          <div>
-            <div class="subtext font-weight-bold">
-              {{ taxaMortalidadeFormatado
-              }}<v-icon color="error">
-                mdi-arrow-bottom-right
-              </v-icon>
-            </div>
-            <div class="subtext-index">
-              Taxa
-              <p>Mortalidade</p>
-            </div>
-          </div>
+            <v-col>
+              <div class="text-caption flex-wrap">
+                Valor da Venda
+              </div>
+              <v-chip
+                label
+                small
+                dark
+                color="teal"
+                flex-wrap
+                class="font-weight-bold pa-2"
+              >
+                {{ valorVendaFormatado
+                }}<v-icon dark>
+                  mdi-arrow-top-right
+                </v-icon>
+              </v-chip>
+            </v-col>
+
+            <v-col>
+              <div class="text-caption flex-wrap">
+                Taxa Mortalidade
+              </div>
+              <v-chip
+                label
+                small
+                dark
+                color="red lighten-2"
+                flex-wrap
+                class="font-weight-bold pa-2"
+              >
+                {{ taxaMortalidadeFormatado
+                }}<v-icon dark>
+                  mdi-arrow-bottom-right
+                </v-icon>
+              </v-chip>
+            </v-col>
+          </v-col>
         </v-row>
       </v-card-text>
 

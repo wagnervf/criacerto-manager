@@ -1,10 +1,10 @@
 //Fuções de  CRUD do tipos_simulacoes
 
-const TiposSimulacoesModel = require('../models/simulacao.model');
+const TiposSimulacoesModel = require('../models/simulacoes.model').default;
 
 
 
-exports.saveTipoSimulacao= async (req, res) => {
+exports.saveTiposimulacoes= async (req, res) => {
   try {
 
     const newTipoSimulacao = new TiposSimulacoesModel(req.body);
@@ -18,6 +18,9 @@ exports.saveTipoSimulacao= async (req, res) => {
     res.status(400).json({ error: 'Erro ao criar Simulação'.error });
   }
 };
+
+
+
 
 
 
