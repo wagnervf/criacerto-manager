@@ -1,88 +1,88 @@
-//Fuções de  CRUD Monta Natural 
+//Fuções de  CRUD Monta Natural
 
 const MontaNaturalModel = require("../models/montaNatural.model");
 
-
-
+//
+//
+// Save Dados
+//
+//
 exports.saveMontaNatural = async (req, res) => {
   try {
-    const dados = req.body;
-
-
-   // res.status(201).json( req.body );
+    const dados = {};
 
     const newMontaNatural = new MontaNaturalModel(req.body);
 
-    const MontaNatural = await newMontaNatural.save();
-
-    res.status(201).json({ message: 'Dados da Monta Natural com sucesso!', MontaNatural });
-
-
+    try {
+      const MontaNatural = await newMontaNatural.save();
+      return res.status(201).json({
+        messagem: "Dados da Monta Natural Salvos com sucesso!",
+        MontaNatural,
+      });
+    } catch (error) {
+      return res.status(400).json({
+        error: error,
+        mensagem: "Erro ao salvar os dados da Monta Natural",
+      });
+    }
   } catch (error) {
-    console.log(error);
-    res.status(400).json({ error: 'Erro ao salvar os dados da Monta Natural'.error });
+    res.status(404).json({ error: error, mensagem: "Erro ao salvar os dados" });
   }
 };
 
-
-
-
-
-// exports.getTiposSimulacoes = async (req, res) => {
-//   TiposSimulacoesModel.find(function (err, tipos) {
-//     if (err) return handleError(err);
-
-//     res.status(201).json({ tipos });
-
-  
-//   });
-// };
-
-// exports.getTiposSimulacoes = async (req, res) => {
-//   TiposSimulacoesModel.find({
-//     field: query,
-//   }, (err, docs) => {
-//     console.log(docs);
-//    // res.status(201).json({ message: 'Evento!', err });
-
-//     if (err) {
-//       console.log(`Error: ` + err)
-//     } else {
-//       if (docs.length === 0) {
-//         console.log("message")
-//         res.status(404).json({ message: 'Nada foi encontrado' });
-//       } else {
-//         res.status(201).json({ message: 'Evento!', docs });
-//       }
-//     }
-
-
-//   });
-// };
-
-/*
-exports.findEvento = async (req, res) => {
-  eventoModel.find({
-    field: query,
-  }, (err, docs) => {
-    console.log(docs);
-    res.status(201).json({ message: 'Evento!', err });
-
-    if (err) {
-      console.log(`Error: ` + err)
-    } else {
-      if (docs.length === 0) {
-        console.log("message")
-        res.status(404).json({ message: 'Nada foi encontrado' });
-      } else {
-        res.status(201).json({ message: 'Evento!', docs });
+//
+//
+// Get Dados
+//
+//
+exports.getMontaNatural = async (req, res) => {
+  try {
+    MontaNaturalModel.find({}, (err, docs) => {
+      if (err) {
+        return res.status(401).json({ Erro: err });
       }
-    }
 
+      if (docs.length === 0) {
+        return res.status(404).json({ message: "Nada foi encontrado" });
+      }
 
-  });
+      return res.status(200).json(docs);
+    });
+  } catch (error) {
+    return res.status(404).json({
+      error: error,
+      mensagem: "Erro ao buscar os dados da Monta Natural",
+    });
+  }
 };
-*/
 
+//
+// Update
+//
+//
+exports.updateMontaNatural = async (req, res) => {
+  try {
+    const dados = req.body;
+    const filter = { _id: dados._id };
 
-
+    try {
+      const result = await MontaNaturalModel.findByIdAndUpdate(filter, dados, {
+        new: true,
+        useFindAndModify: false,
+      });
+      return res.status(200).json({
+        messagem: "Dados da Monta Natural Atualizados com sucesso!",
+        result,
+      });
+    } catch (error) {
+      return res.status(400).json({
+        error: error,
+        mensagem: "Erro ao atualizar os dados da Monta Natural",
+      });
+    }
+  } catch (error) {
+    return res
+      .status(404)
+      .json({ error: error, mensagem: "Erro ao atualizar os dados" });
+  }
+};

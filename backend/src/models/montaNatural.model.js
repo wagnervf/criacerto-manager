@@ -12,11 +12,7 @@ const montaNaturalSchema = new Schema({
   aluguel_pasto: {
     type: Number,
     required: false,
-  },
-  changed: {
-    type: Date,
-    required: false,
-  },
+  },  
   city: {
     type: String,
     required: false,
@@ -24,11 +20,7 @@ const montaNaturalSchema = new Schema({
   code: {
     type: String,
     required: false,
-  },
-  created: {
-    type: Date,
-    required: false,
-  },
+  },  
   dep: {
     type: Number,
     required: false,
@@ -49,10 +41,7 @@ const montaNaturalSchema = new Schema({
     type: Number,
     required: false,
   },
-  name: {
-    type: String,
-    required: false,
-  },
+ 
   numero_de_touros: {
     type: Number,
     required: false,
@@ -89,10 +78,7 @@ const montaNaturalSchema = new Schema({
     type: Number,
     required: false,
   },
-  state: {
-    type: String,
-    required: false,
-  },
+ 
   taxa_mortalidade: {
     type: Number,
     required: false,
@@ -119,12 +105,12 @@ const montaNaturalSchema = new Schema({
   }
 
 }, {
-  collection: 'simulacoes'
+  timestamps: true,
+  collection: 'montaNatural'
 });
 
 
-
-const MontaNaturalModel = mongoose.model('simulacoes', montaNaturalSchema);
+const MontaNaturalModel = mongoose.model('montaNatural', montaNaturalSchema);
 module.exports = MontaNaturalModel;
 
 
