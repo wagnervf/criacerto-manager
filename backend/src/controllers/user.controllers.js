@@ -1,15 +1,15 @@
 // Funções para o CRUD
 
 // const { resource } = require("../app");
-const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
+const User = require("../models/user.model");
 // Método de registro do usuário
 // Método POST criado em user.routes userController.registerNewUser
 exports.registerNewUser = async (req, res) => {
   try {
-    let isUser = await User.find({ email: req.body.email });
+    const isUser = await User.find({ email: req.body.email });
 
-    //User já existe
+    // User já existe
     if (isUser.length > 1) {
       return res.status(409).json({
         message: "Erro! Esse e-mail já encontra-se em uso!",
@@ -17,15 +17,15 @@ exports.registerNewUser = async (req, res) => {
       });
     }
 
-    //Corpo da requisição
+    // Corpo da requisição
     const newUser = new User(req.body);
 
-    //Método do moogose para salvar os dados
-    //Salvará os dados do user auth
-    //Save vem do mongosse
+    // Método do moogose para salvar os dados
+    // Salvará os dados do user auth
+    // Save vem do mongosse
     const user = await newUser.save();
 
-    //Método que gerará um token
+    // Método que gerará um token
     // Método vindo de User.model
     const token = await newUser.generateAuthToken();
 
@@ -34,7 +34,7 @@ exports.registerNewUser = async (req, res) => {
       .json({ message: "Usuário criado com sucesso!", user, token });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ error: "Erro! O usuário não foi criado!" });
+    return res.status(400).json({ error: "Erro! O usuário não foi criado!" });
   }
 };
 
@@ -45,8 +45,8 @@ exports.registerNewUser = async (req, res) => {
 //
 exports.loginUser = async (req, res) => {
   try {
-    const email = req.body.email;
-    const senha = req.body.senha;
+    const { email } = req.body;
+    const { senha } = req.body;
     const user = await User.findByCredentials(email, senha);
 
     if (!user || user == null) {
@@ -55,7 +55,7 @@ exports.loginUser = async (req, res) => {
         .send({ error: "Erro ao realizar o Login! Verifque a sua conta" });
     }
 
-    //Buscando o token do usuário
+    // Buscando o token do usuário
     const token = await user.generateAuthToken();
     return res
       .status(201)
@@ -75,8 +75,8 @@ exports.loginUser = async (req, res) => {
 //
 exports.authenticate = async (req, res) => {
   try {
-    const email = req.body.email;
-    const senha = req.body.senha;
+    const { email } = req.body;
+    const { senha } = req.body;
 
     // Recuperando o usuário pelo email e trazendo a senha.
     const user = await User.findOne({ email }).select("+senha");
@@ -89,7 +89,7 @@ exports.authenticate = async (req, res) => {
       return res.status(400).send({ error: "Senha inválida!" });
     }
 
-    //Buscando o token do usuário
+    // Buscando o token do usuário
     const token = await user.generateAuthToken();
 
     // Não mostrar a senha ao recuperar o usuário
@@ -108,7 +108,7 @@ exports.authenticate = async (req, res) => {
 //
 
 exports.returnUserProfile = async (req, res) => {
-  //Esperando o token decodificado do auth.js
+  // Esperando o token decodificado do auth.js
   await res.json(req.userData);
 };
 
@@ -130,8 +130,9 @@ exports.listUsers = async (req, res) => {
 
       return res.status(200).json({ dados: docs });
     });
+    return false;
   } catch (error) {
-    return res.status(404).json({ error: error });
+    return res.status(404).json({ error });
   }
 };
 
@@ -144,12 +145,13 @@ exports.updateUser = async (req, res) => {
   try {
     const dadosUser = req.body;
     const result = await User.findByIdAndUpdate(
+      // eslint-disable-next-line no-underscore-dangle
       { _id: dadosUser._id },
       {
         $set: {
           nome: dadosUser.nome,
           email: dadosUser.email,
-        //  perfil: dadosUser.perfil,
+          //  perfil: dadosUser.perfil,
           local: dadosUser.local,
         },
       },
@@ -162,14 +164,14 @@ exports.updateUser = async (req, res) => {
     console.log(result);
     return res.status(200).json({ dados: result });
   } catch (error) {
-    return res.status(404).json({ error: error });
+    return res.status(404).json({ error });
   }
 };
 
 exports.deleteUser = async (req, res) => {
   try {
     const dados = req.body.id;
-    console.log(req.body)
+    console.log(req.body);
     const result = await User.findByIdAndRemove({ _id: dados });
 
     console.log(result);

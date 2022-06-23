@@ -1,22 +1,16 @@
-//Rota de simulacaoController
+// Rota de simulacaoController
 
+const express = require("express");
 
-const express = require('express');
-const routerSimulacoes= express.Router();
-const simulacoesController = require('../controllers/simulacoes.controllers');
+const routerSimulacoes = express.Router();
+const simulacoesController = require("../controllers/simulacoes.controllers");
 
 // Salvar Envento
-routerSimulacoes.post('/save', simulacoesController.saveTiposimulacoes);
+routerSimulacoes.post("/save", simulacoesController.saveTiposimulacoes);
 
+// Excluir Evento
 
-
-//Excluir Evento
-
-
-//Buscar Evento
+// Buscar Evento
 // routerSimulacoes.get('/find', simulacoesController.getTiposSimulacoes);
-
-
-
 
 module.exports = routerSimulacoes;

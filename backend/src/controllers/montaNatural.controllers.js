@@ -1,4 +1,5 @@
-//Fuções de  CRUD Monta Natural
+/* eslint-disable no-underscore-dangle */
+// Fuções de  CRUD Monta Natural
 
 const MontaNaturalModel = require("../models/montaNatural.model");
 
@@ -9,8 +10,6 @@ const MontaNaturalModel = require("../models/montaNatural.model");
 //
 exports.saveMontaNatural = async (req, res) => {
   try {
-    const dados = {};
-
     const newMontaNatural = new MontaNaturalModel(req.body);
 
     try {
@@ -21,12 +20,12 @@ exports.saveMontaNatural = async (req, res) => {
       });
     } catch (error) {
       return res.status(400).json({
-        error: error,
+        error,
         mensagem: "Erro ao salvar os dados da Monta Natural",
       });
     }
   } catch (error) {
-    res.status(404).json({ error: error, mensagem: "Erro ao salvar os dados" });
+    return res.status(404).json({ error, mensagem: "Erro ao salvar os dados" });
   }
 };
 
@@ -48,9 +47,10 @@ exports.getMontaNatural = async (req, res) => {
 
       return res.status(200).json(docs);
     });
+    return false;
   } catch (error) {
     return res.status(404).json({
-      error: error,
+      error,
       mensagem: "Erro ao buscar os dados da Monta Natural",
     });
   }
@@ -76,13 +76,13 @@ exports.updateMontaNatural = async (req, res) => {
       });
     } catch (error) {
       return res.status(400).json({
-        error: error,
+        error,
         mensagem: "Erro ao atualizar os dados da Monta Natural",
       });
     }
   } catch (error) {
     return res
       .status(404)
-      .json({ error: error, mensagem: "Erro ao atualizar os dados" });
+      .json({ error, mensagem: "Erro ao atualizar os dados" });
   }
 };

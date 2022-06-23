@@ -1,29 +1,20 @@
-//Fuções de  CRUD do tipos_simulacoes
+// Fuções de  CRUD do tipos_simulacoes
 
-const TiposSimulacoesModel = require('../models/simulacoes.model').default;
+const TiposSimulacoesModel = require("../models/simulacoes.model").default;
 
-
-
-exports.saveTiposimulacoes= async (req, res) => {
+exports.saveTiposimulacoes = async (req, res) => {
   try {
-
     const newTipoSimulacao = new TiposSimulacoesModel(req.body);
 
     const TipoSimulacao = await newTipoSimulacao.save();
-    res.status(201).json({ message: 'Simulação criado com sucesso!', TipoSimulacao });
-
-
+    res
+      .status(201)
+      .json({ message: "Simulação criado com sucesso!", TipoSimulacao });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ error: 'Erro ao criar Simulação'.error });
+    res.status(400).json({ error: "Erro ao criar Simulação".error });
   }
 };
-
-
-
-
-
-
 
 // exports.getTiposSimulacoes = async (req, res) => {
 //   TiposSimulacoesModel.find(function (err, tipos) {
@@ -31,7 +22,6 @@ exports.saveTiposimulacoes= async (req, res) => {
 
 //     res.status(201).json({ tipos });
 
-  
 //   });
 // };
 
@@ -52,7 +42,6 @@ exports.saveTiposimulacoes= async (req, res) => {
 //         res.status(201).json({ message: 'Evento!', docs });
 //       }
 //     }
-
 
 //   });
 // };
@@ -80,6 +69,3 @@ exports.findEvento = async (req, res) => {
   });
 };
 */
-
-
-

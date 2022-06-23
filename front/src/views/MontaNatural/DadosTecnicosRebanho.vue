@@ -6,7 +6,7 @@
         <v-list-item-avatar
           color="teal"
           size="56"
-        > 
+        >
           <v-icon color="white">
             {{ icon }}
           </v-icon>
@@ -45,79 +45,79 @@
             <v-row>
               <v-col justify="space-between">
                 <v-text-field
-                  v-model="form.vacasCobrir"
+                  v-model="form.numero_de_vacas"
                   label="Número de Vacas a Cobrir"
                   required
                   class="mt-4 pa-2 teal--text"
                   suffix="Cabeças"
-                  :rules="vacasCobrirRules"
+                  :rules="numero_de_vacasRules"
                   type="number"
                   outlined
                 />
 
                 <v-text-field
-                  v-model="form.numTouro"
+                  v-model="form.numero_de_touros"
                   label="Número de Touros"
                   required
                   class="mt-2 pa-2 teal--text"
                   outlined
                   suffix="Cabeças"
-                  :rules="numTouroRules"
+                  :rules="numero_de_tourosRules"
                   type="number"
                 />
 
                 <v-text-field
-                  v-model="form.vidaTouro"
+                  v-model="form.vida_util_touro"
                   label="Vida Últil do Touro"
                   required
                   class="mt-2 pa-2 teal--text"
                   outlined
                   suffix="Anos"
-                  :rules="vidaTouroRules"
+                  :rules="vida_util_touroRules"
                   type="number"
                 />
 
                 <v-text-field
-                  v-model="form.taxaPrenhez"
+                  v-model="form.taxa_prenhez"
                   label="Taxa de Prenhez"
                   required
                   class="mt-2 pa-2 teal--text"
                   outlined
                   suffix="%"
-                  :rules="taxaPrenhezRules"
+                  :rules="taxa_prenhezRules"
                   type="number"
                 />
 
                 <v-text-field
-                  v-model="form.mortalidadeDesmama"
+                  v-model="form.taxa_mortalidade"
                   label="Mortalidade do Nascimento à Desmama"
                   required
                   class="mt-2 pa-2 teal--text"
                   outlined
                   suffix="%"
-                  :rules="mortalidadeDesmamaRules"
+                  :rules="taxa_mortalidadeRules"
                   type="number"
                 />
 
                 <v-text-field
-                  v-model="form.precoKgBezerro"
+                  v-model="form.preco_bezerro"
                   label="Preço kg do Bezerro"
                   required
                   class="mt-2 pa-2 teal--text"
                   outlined
                   prefix="R$"
-                  :rules="precoKgBezerroRules"
+                  :rules="preco_bezerroRules"
                   type="number"
                 />
 
                 <v-text-field
-                  v-model="form.pesoDesmama"
+                  v-model="form.peso_comercial"
                   label="Peso à Desmana da Fazenda"
                   required
                   class="mt-2 pa-2 teal--text"
                   outlined
                   suffix="Kg"
-                  :rules="pesoDesmamaRules"
+                  :rules="peso_comercialRules"
                   type="number"
                 />
               </v-col>
@@ -149,6 +149,9 @@
             <pre>
               {{ this.form }}
             </pre>
+            <pre>
+              {{ this.monta }}
+            </pre>
           </v-form>
         </v-col>
       </v-container>
@@ -157,38 +160,48 @@
 </template>
 
 <script>
+import MontaNaturaServices from "@/services/MontaNaturaServices";
 export default {
   name: "ViewDadosTecnicosRebanho",
   data: () => ({
     valid: true,
 
     form: {
-      vacasCobrir: 1,
-      numTouro: 25,
-      vidaTouro: 6,
-      taxaPrenhez: "0",
-      mortalidadeDesmama: 3,
-      precoKgBezerro: 6,
-      pesoDesmama: 180,
+      _id: "",
+      numero_de_vacas: "",
+      numero_de_touros: "",
+      vida_util_touro: "",
+      taxa_prenhez: "",
+      taxa_mortalidade: "",
+      preco_bezerro: "",
+      peso_comercial: "",
     },
     title: "Dados Técnicos do Rebanho",
     icon: "mdi-file-cog",
     subtitle:
       "Nº de vacas a cobrir, Nº de Touros, Vida ùtil touro, Taxa de Prenhez, Preço Bezerro, Raças de Touro...",
 
-    vacasCobrirRules: [(v) => !!v || "Campo Obrigatório!"],
-    numTouroRules: [(v) => !!v || "Campo Obrigatório!"],
-    vidaTouroRules: [(v) => !!v || "Campo Obrigatório!"],
-    taxaPrenhezRules: [(v) => !!v || "Campo Obrigatório!"],
-    mortalidadeDesmamaRules: [(v) => !!v || "Campo Obrigatório!"],
-    precoKgBezerroRules: [(v) => !!v || "Campo Obrigatório!"],
-    pesoDesmamaRules: [(v) => !!v || "Campo Obrigatório!"],
+    numero_de_vacasRules: [(v) => !!v || "Campo Obrigatório!"],
+    numero_de_tourosRules: [(v) => !!v || "Campo Obrigatório!"],
+    vida_util_touroRules: [(v) => !!v || "Campo Obrigatório!"],
+    taxa_prenhezRules: [(v) => !!v || "Campo Obrigatório!"],
+    taxa_mortalidadeRules: [(v) => !!v || "Campo Obrigatório!"],
+    preco_bezerroRules: [(v) => !!v || "Campo Obrigatório!"],
+    peso_comercialRules: [(v) => !!v || "Campo Obrigatório!"],
+
+    monta: {},
   }),
+
+  //this.eCow = this.$store.getters.getDataMontaNatural;
+  mounted() {
+    setTimeout(() => {
+      this.parserDataStore();
+    }, 1000);
+  },
 
   computed: {
     formVacasCobrir() {
       const errors = [];
-      //  if (!this.$v.form.$dirty) return errors;
       !this.$v.form.required && errors.push("Name is required.");
       return errors;
     },
@@ -196,10 +209,10 @@ export default {
 
   methods: {
     validate() {
-      if(this.$refs.form.validate()){
-      console.log(this.$refs.form.validate());
-      console.log(this.form)
-
+      if (this.$refs.form.validate()) {
+        console.log(this.$refs.form.validate());
+        console.log(this.form);
+        this.updateMontaNatural();
       }
     },
     reset() {
@@ -209,6 +222,49 @@ export default {
       //Envia para componente Pai fechar Expand
       this.$emit("fechar");
       this.$refs.form.resetValidation();
+    },
+
+    parserDataStore() {
+      const value = this.$store.getters.getDataMontaNatural;
+
+      this.form = {
+        _id: value._id,
+        numero_de_vacas: value.numero_de_vacas,
+        numero_de_touros: value.numero_de_touros,
+        vida_util_touro: value.vida_util_touro,
+        taxa_prenhez: value.taxa_prenhez,
+        taxa_mortalidade: value.taxa_mortalidade,
+        preco_bezerro: value.preco_bezerro,
+        peso_comercial: value.peso_comercial,
+      };
+    },
+
+    async updateMontaNatural() {
+      try {
+        const response = await MontaNaturaServices.updateMontaNaturalApi(
+          this.form
+        );
+
+        if (response.status != 200) {
+          // Erro na atualização do usuário
+          return this.setMessage(response.data.message, true, "error");
+        }
+        //const result = response.data[0];
+        this.$store.commit("SET_DATA_MONTANATURAL", this.form);
+        this.setMessage("success", "Atualizado!", "Dados atualizados sucesso!");
+        this.parserDataStore();
+      } catch (error) {
+        return this.setMessage("error", "Erro", error.message);
+      }
+    },
+
+    setMessage(type, title, message) {
+      return this.$notify({
+        group: "foo",
+        type: type,
+        title: title,
+        text: message,
+      });
     },
   },
 };

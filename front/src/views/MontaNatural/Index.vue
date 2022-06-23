@@ -43,16 +43,23 @@
           <ManutecaoTourosVue @fechar="resetExpand" />
         </v-expansion-panels>
       </v-col>
-      <pre>{{ panel }}</pre>
+      <v-col
+        class="px-1 py-0"
+        cols="12"
+        lg="12"
+        justify-center
+        flex
+      />
     </v-row>
   </v-container>
 </template>
 
 <script>
-// import VueJwtDecode from "vue-jwt-decode";
+import { mapState } from "vuex";
 import DadosTecnicosRebanhoVue from "./DadosTecnicosRebanho";
 import AquisicaoTourosVue from "./AquisicaoTouros";
 import ManutecaoTourosVue from "./ManutencaoTouros";
+import MontaNaturaServices from "@/services/MontaNaturaServices";
 
 export default {
   name: "ViewMontaNatural",
@@ -81,16 +88,35 @@ export default {
     },
   },
 
-  created() {
-    this.getUser();
-    console.log(this.$route.name);
+  mounted() {
+    this.getDadosMontaNatural();
   },
 
   methods: {
-    getUser() {
-      //  let token = localStorage.getItem("jwt");
-      //  let tokenDecoded = VueJwtDecode.decode(token);
-      // this.user = tokenDecoded;
+    ...mapState(["SetDataMontaNatural"]),
+
+    async getDadosMontaNatural() {
+      try {
+        const response = await MontaNaturaServices.getMontaNaturalApi();
+        if (response.status == 200) {
+          const result = response.data[0];
+          this.$store.commit("SET_DATA_MONTANATURAL", result);
+        } else {
+          return this.$notify({
+            group: "foo",
+            type: "error",
+            title: "Carregar Dados",
+            text: "Erro ao carregar o parâmetros do Banco de Dados.",
+          });
+        }
+      } catch (error) {
+        return this.$notify({
+          group: "foo",
+          type: "error",
+          title: "Carregar Dados",
+          text: error,
+        });
+      }
     },
     logOutUser() {
       localStorage.removeItem("jwt");

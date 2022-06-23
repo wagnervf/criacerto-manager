@@ -1,20 +1,18 @@
-//Rota de simulacaoController
+// Rota de simulacaoController
 
+const express = require("express");
 
-const express = require('express');
 const routerEcow = express.Router();
-const ecowController = require('../controllers/ecow.controllers');
+const ecowController = require("../controllers/ecow.controllers");
 
 // Salvar Envento
-//routerSimulacao.post('/save', ecowController.saveTipoSimulacao);
+// routerSimulacao.post('/save', ecowController.saveTipoSimulacao);
 
-//Editar Evento
+// Editar Evento
 
+// Excluir Evento
 
-//Excluir Evento
-
-
-//Buscar Evento
-routerEcow.get('/find', ecowController.getDados);
+// Buscar Evento
+routerEcow.get("/find", ecowController.getDados);
 
 module.exports = routerEcow;

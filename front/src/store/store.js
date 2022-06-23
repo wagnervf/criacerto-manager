@@ -23,7 +23,33 @@ export default new Vuex.Store({
       logado: "",
     },
     ecow: {},
-    
+    montaNatural: {
+      // _id:"",
+      // active: "",
+      // aluguel_pasto: "",
+      // code: "",
+      // createdAt: "",
+      // dep: "",
+      // despesas_compra: "",
+      // exame_andrologico: "",
+      // juros_anuais: "",
+      // numero_de_touros: "",
+      // numero_de_vacas: "",
+      // peso_comercial: "",
+      // peso_elite: "",
+      // preco_bezerro:"",
+      // preco_touro:"",
+      // raca_touro:"",
+      // racoes:"",
+      // sal_mineral:"",
+      // taxa_mortalidade:"",
+      // taxa_prenhez:"",
+      // type:"",
+      // updatedAt:"",
+      // vacinas_vermifugos:"",
+      // valor_venda:"",
+      // vida_util_touro:"",
+    },
   },
   mutations: {
     SET_SIDEBAR_DRAWER(state, payload) {
@@ -64,8 +90,11 @@ export default new Vuex.Store({
     },
 
     SET_DATA_ECOW(state, value) {
-      state.ecow = { ...value };
-      // window.dispatchEvent(new Event('resize'))
+      Object.assign(state.ecow, value);
+    },
+
+    SET_DATA_MONTANATURAL(state, value) {
+      Object.assign(state.montaNatural, value);
     },
 
     CLEAR_USER(state) {
@@ -73,16 +102,15 @@ export default new Vuex.Store({
       state.loggedIn = false;
       localStorage.setItem("loggedIn", false);
     },
-
   },
-  actions: {
-    
-  },
+  actions: {},
   modules: {},
 
   getters: {
     getUserLogged: (state) => state.userLogado,
 
     getDataEcow: (state) => state.ecow,
+
+    getDataMontaNatural: (state) => state.montaNatural,
   },
 });

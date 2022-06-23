@@ -29,10 +29,7 @@ const montaNaturalRoutes = require('./routes/montaNatural.routes');
  
 
 app.use(index);
-app.use('/api/v1', userRoutes);
 app.use('/api/v1/user', userRoutes);
-// app.use('/api/v1/evento', eventoRoutes);
-// app.use('/api/v1/contracts', contractsRoutes);
 app.use('/api/v1/ecow', ecowRoutes);
 app.use('/api/v1/montanatural', montaNaturalRoutes);
  
