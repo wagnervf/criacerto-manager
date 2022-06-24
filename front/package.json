@@ -23,6 +23,7 @@
     "sweetalert": "^2.1.2",
     "vue": "^2.6.12",
     "vue-apexcharts": "^1.6.2",
+    "vue-blob-json-csv": "^0.1.7",
     "vue-fragment": "^1.5.2",
     "vue-i18n": "^8.27.2",
     "vue-jwt-decode": "^0.1.0",

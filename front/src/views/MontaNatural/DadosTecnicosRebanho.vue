@@ -1,4 +1,3 @@
-/* eslint-disable vue/no-v-text-v-html-on-component */
 <template>
   <v-expansion-panel>
     <v-expansion-panel-header class="pl-3">
@@ -192,7 +191,6 @@ export default {
     monta: {},
   }),
 
-  //this.eCow = this.$store.getters.getDataMontaNatural;
   mounted() {
     setTimeout(() => {
       this.parserDataStore();
@@ -229,7 +227,7 @@ export default {
 
       this.form = {
         _id: value._id,
-        numero_de_vacas: value.numero_de_vacas,
+        numero_de_vacas: Number(value.numero_de_vacas),
         numero_de_touros: value.numero_de_touros,
         vida_util_touro: value.vida_util_touro,
         taxa_prenhez: value.taxa_prenhez,
@@ -246,16 +244,19 @@ export default {
         );
 
         if (response.status != 200) {
-          // Erro na atualização do usuário
           return this.setMessage(response.data.message, true, "error");
         }
-        //const result = response.data[0];
-        this.$store.commit("SET_DATA_MONTANATURAL", this.form);
-        this.setMessage("success", "Atualizado!", "Dados atualizados sucesso!");
-        this.parserDataStore();
+
+        return this.updateSuccess();
       } catch (error) {
         return this.setMessage("error", "Erro", error.message);
       }
+    },
+
+    updateSuccess() {
+      this.$store.commit("SET_DATA_MONTANATURAL", this.form);
+      this.setMessage("success", "Atualizado!", "Dados atualizados sucesso!");
+      this.parserDataStore();
     },
 
     setMessage(type, title, message) {

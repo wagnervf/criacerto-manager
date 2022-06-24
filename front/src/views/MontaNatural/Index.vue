@@ -43,13 +43,16 @@
           <ManutecaoTourosVue @fechar="resetExpand" />
         </v-expansion-panels>
       </v-col>
+
       <v-col
-        class="px-1 py-0"
+        class="px-1 py-4 mt-4"
         cols="12"
         lg="12"
         justify-center
         flex
-      />
+      >
+        <ListaDadosVue />
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -60,6 +63,7 @@ import DadosTecnicosRebanhoVue from "./DadosTecnicosRebanho";
 import AquisicaoTourosVue from "./AquisicaoTouros";
 import ManutecaoTourosVue from "./ManutencaoTouros";
 import MontaNaturaServices from "@/services/MontaNaturaServices";
+import ListaDadosVue from "./ListaDados.vue";
 
 export default {
   name: "ViewMontaNatural",
@@ -67,6 +71,7 @@ export default {
     DadosTecnicosRebanhoVue,
     AquisicaoTourosVue,
     ManutecaoTourosVue,
+    ListaDadosVue,
   },
   data: () => ({
     panel: [0],
