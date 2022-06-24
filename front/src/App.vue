@@ -24,6 +24,6 @@ export default {
 
 <!-- Styles -->
 <style>
-  @import './assets/css/style_snackBar.css';
-  @import './assets/css/variables.css';
+@import "./assets/css/style_snackBar.css";
+@import "./assets/css/variables.css";
 </style>
