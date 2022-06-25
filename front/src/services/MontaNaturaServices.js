@@ -13,19 +13,21 @@ export default {
     } catch (error) {
       //  console.log(error);
       console.error(error);
-      return error.response;
+      return error.response.data;
     }
   },
 
   async updateMontaNaturalApi(dados) {
     try {
-      return await ApiAxios()
+      const result = await ApiAxios()
         .put(apiMonta.concat("update"), dados)
         .then((response) => response)
-        .catch((error) => error.response);
+        .catch((error) => error);
+
+      return result;
     } catch (erro) {
       console.log(erro);
-      return erro.response;
+      return erro;
     }
   },
 };

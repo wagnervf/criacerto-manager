@@ -40,36 +40,36 @@
           >
             <v-col justify="space-between">
               <v-text-field
-                v-model="form.precoAquisao"
+                v-model="form.preco_touro"
                 label="Preço de Aquisição de Touro"
                 required
                 class="mt-2 pa-2 teal--text"
                 outlined
                 type="number"
                 prefix="R$"
-                :rules="precoAquisaoRules"
+                :rules="preco_touroRules"
               />
 
               <v-text-field
-                v-model="form.despesaCompra"
+                v-model="form.vacinas_vermifugos"
                 label="Despesas da Compra"
                 required
                 type="number"
                 class="mt-2 pa-2 teal--text"
                 outlined
-                :rules="despesaCompraRules"
+                :rules="vacinas_vermifugosRules"
                 suffix="%"
               />
 
               <v-text-field
-                v-model="form.DepPeso"
+                v-model="form.dep"
                 label="DEP no Peso à Desmana (240 dias)"
                 required
                 type="number"
                 class="mt-2 pa-2 teal--text"
                 outlined
                 suffix="Kg"
-                :rules="DepPesoRules"
+                :rules="depRules"
               />
             </v-col>
 
@@ -93,10 +93,6 @@
                 Salvar
               </v-btn>
             </div>
-
-            <pre>
-              {{ this.form }}
-           </pre>
           </v-form>
         </v-col>
       </v-container>
@@ -105,28 +101,38 @@
 </template>
 
 <script>
+import MontaNaturaServices from "@/services/MontaNaturaServices";
+
 export default {
   name: "AquisicaoTouros",
   data: () => ({
     valid: true,
     form: {
-      precoAquisao: 4200,
-      despesaCompra: 10,
-      DepPeso: 5,
+      _id: "",
+      preco_touro: 4200,
+      vacinas_vermifugos: 10,
+      dep: 5,
     },
     title: "Aquisição do Touro",
     icon: "mdi-cow",
     subtitle:
       "Preço aquisisção de Touro, Despesas da Compra, DEP no Peso à Demanda (240 dias)",
-    precoAquisaoRules: [(v) => !!v || "Campo Obrigatório!"],
-    despesaCompraRules: [(v) => !!v || "Campo Obrigatório!"],
-    DepPesoRules: [(v) => !!v || "Campo Obrigatório!"],
+    preco_touroRules: [(v) => !!v || "Campo Obrigatório!"],
+    vacinas_vermifugosRules: [(v) => !!v || "Campo Obrigatório!"],
+    depRules: [(v) => !!v || "Campo Obrigatório!"],
   }),
+
+  mounted() {
+    setTimeout(() => {
+      this.parserDataStore();
+    }, 1000);
+  },
 
   methods: {
     validate() {
-      this.$refs.form.validate();
-      console.log(this.$refs.form.validate());
+      if (this.$refs.form.validate()) {
+        this.updateMontaNatural();
+      }
     },
     reset() {
       this.$refs.form.reset();
@@ -135,6 +141,55 @@ export default {
       //Envia para componente Pai fechar Expand
       this.$emit("fechar");
       this.$refs.form.resetValidation();
+    },
+    parserDataStore() {
+      const value = this.$store.getters.getDataMontaNatural;
+
+      this.form = {
+        _id: value._id,
+        preco_touro: value.preco_touro,
+        vacinas_vermifugos: value.vacinas_vermifugos,
+        dep: value.dep,
+      };
+    },
+
+    async updateMontaNatural() {
+      try {
+        const response = await MontaNaturaServices.updateMontaNaturalApi(
+          this.form
+        );
+
+        if (response.status != 200) {
+          return this.updateError(response.response.data);
+        }
+
+        return this.updateSuccess();
+      } catch (error) {
+        return this.updateError(error.response.data);
+      }
+    },
+
+    updateSuccess() {
+      this.$store.commit("SET_DATA_MONTANATURAL", this.form);
+      this.setMessage("success", "Atualizado!", "Dados atualizados sucesso!");
+      this.parserDataStore();
+    },
+
+    updateError(response) {
+      let path = response.error.path;
+      let message = response.error.message;
+      let title = response.mensagem;
+      console.log(path);
+      return this.setMessage("error", title, message + path);
+    },
+
+    setMessage(type, title, message) {
+      return this.$notify({
+        group: "foo",
+        type: type,
+        title: title,
+        text: message,
+      });
     },
   },
 };

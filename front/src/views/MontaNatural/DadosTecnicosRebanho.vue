@@ -144,13 +144,6 @@
                 </v-btn>
               </div>
             </v-row>
-
-            <pre>
-              {{ this.form }}
-            </pre>
-            <pre>
-              {{ this.monta }}
-            </pre>
           </v-form>
         </v-col>
       </v-container>
@@ -197,19 +190,11 @@ export default {
     }, 1000);
   },
 
-  computed: {
-    formVacasCobrir() {
-      const errors = [];
-      !this.$v.form.required && errors.push("Name is required.");
-      return errors;
-    },
-  },
+  computed: {},
 
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
-        console.log(this.$refs.form.validate());
-        console.log(this.form);
         this.updateMontaNatural();
       }
     },
@@ -244,12 +229,12 @@ export default {
         );
 
         if (response.status != 200) {
-          return this.setMessage(response.data.message, true, "error");
+          return this.updateError(response.response.data);
         }
 
         return this.updateSuccess();
       } catch (error) {
-        return this.setMessage("error", "Erro", error.message);
+        return this.updateError(error.response.data);
       }
     },
 
@@ -257,6 +242,14 @@ export default {
       this.$store.commit("SET_DATA_MONTANATURAL", this.form);
       this.setMessage("success", "Atualizado!", "Dados atualizados sucesso!");
       this.parserDataStore();
+    },
+
+    updateError(response) {
+      let path = response.error.path;
+      let message = response.error.message;
+      let title = response.mensagem;
+      console.log(path);
+      return this.setMessage("error", title, message + path);
     },
 
     setMessage(type, title, message) {

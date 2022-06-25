@@ -51,76 +51,18 @@
             >
               <v-toolbar-title>Parâmetros</v-toolbar-title>
               <v-spacer />
-              <!-- <v-btn
-                icon
-                color="teal"
-                dark
-                large
-                title="Download do arquivo em .csv"
-                @click="download"
-              >
-                <v-icon> mdi-download-box </v-icon>
-              </v-btn> -->
 
               <vue-blob-json-csv
                 tag-name="div"
                 file-type="csv"
                 file-name="sample"
-                title="Download JSON"
+                title="Download .csv"
                 :data="downloadItems"
                 class="btnDownload"
               />
             </v-toolbar>
 
             <v-divider />
-
-            <!-- <v-container class="py-0">
-              <v-row
-                align="center"
-                justify="start"
-              >
-                <v-col cols="12">
-                  <v-text-field
-                    ref="search"
-                    v-model="search"
-                    full-width
-                    hide-details
-                    label="Filtrar"
-                    single-line
-                  />
-                </v-col>
-              </v-row>
-            </v-container> -->
-
-            <!-- <v-list
-              v-for="(item, index) in items"
-              :key="index"
-            >
-              <v-list-item>
-                <v-list-item-icon>
-                  {{ index }}
-                </v-list-item-icon>
-                <v-list-item-content>
-                  {{ item }}
-                </v-list-item-content>
-              </v-list-item>
-            </v-list> -->
-
-            <!-- <v-spacer />
-                <v-text-field
-                  v-model="search"
-                  append-icon="mdi-magnify"
-                  label="Search"
-                  single-line
-                  hide-details
-                /> -->
-
-            <!-- <v-data-table
-                :headers="headers"
-                :items="records"
-                :search="search"
-              />
-            </v-card> -->
 
             <v-simple-table
               dense
@@ -129,17 +71,17 @@
               <template #default>
                 <thead>
                   <tr>
-                    <th class="text-left">
+                    <th class="text-left text-subtitle-1 font-weight-medium">
                       Nome
                     </th>
-                    <th class="text-left">
+                    <th class="text-left text-subtitle-1 font-weight-medium">
                       Valor
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
-                    v-for="(item, index) in items"
+                    v-for="(item, index) in parametros"
                     :key="index"
                   >
                     <td>{{ index }}</td>
@@ -158,9 +100,7 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-undef
-
-//Vue.component("DownloadCsv", JsonCSV);
+//import { mapState } from "vuex";
 
 export default {
   components: {},
@@ -183,37 +123,7 @@ export default {
     items: [],
     loading: false,
     search: "",
-    search2: "",
 
-    headers: [
-      { text: "", value: "_id" },
-      { text: "", value: "active" },
-      { text: "", value: "aluguel_pasto" },
-      { text: "", value: "code" },
-      { text: "", value: "dep" },
-      { text: "", value: "despesas_compra" },
-      { text: "", value: "exame_andrologico" },
-      { text: "", value: "juros_anuais" },
-      // { text: "", value: "numero_de_touros" },
-      // { text: "", value: "numero_de_vacas" },
-      // { text: "", value: "peso_comercial" },
-      // { text: "", value: "peso_elite" },
-      // { text: "", value: "preco_bezerro" },
-      // { text: "", value: "preco_touro" },
-      // { text: "", value: "raca_touro" },
-      // { text: "", value: "racoes" },
-      // { text: "", value: "sal_mineral" },
-      // { text: "", value: "taxa_mortalidade" },
-      // { text: "", value: "taxa_prenhez" },
-      // { text: "", value: "type" },
-      // { text: "", value: "vacinas_vermifugos" },
-      // { text: "", value: "valor_venda" },
-      // { text: "", value: "vida_util_touro" },
-      // { text: "", value: "createdAt" },
-      // { text: "", value: "updatedAt" },
-      { text: "Dessert", value: "name" },
-      { text: "Calories", value: "calories" },
-    ],
     downloadItems: [],
   }),
 
@@ -221,14 +131,16 @@ export default {
     this.getDadosStore();
   },
 
-  computed: {},
-
-  watch: {},
+  computed: {
+    parametros() {
+      return this.$store.getters.getDataMontaNatural;
+    },
+  },
 
   methods: {
     getDadosStore() {
-      const value = this.$store.getters.getDataMontaNatural;
-      this.items = value;
+      const value = this.parametros;
+      //   this.items = value;
       this.downloadItems.push(value);
     },
 
@@ -242,7 +154,6 @@ export default {
     },
 
     download() {
-      // credit: https://www.bitdegree.org/learn/javascript-download
       let filename = "cats.csv";
       let text = [];
 
@@ -264,6 +175,8 @@ export default {
       document.body.removeChild(element);
     },
   },
+
+  watch: {},
 };
 </script>
 

@@ -74,7 +74,7 @@ export default {
     ListaDadosVue,
   },
   data: () => ({
-    panel: [0],
+    panel: 2,
     search: null,
     meta: null,
   }),
