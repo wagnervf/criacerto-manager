@@ -44,5 +44,16 @@ export default {
         title: message,
       });
     },
+
+    messageErrorRequestApi() {
+      return this.messageSwalToast(
+        "error",
+        "Erro ao carregar os parâmetros do Banco de Dados."
+      );
+    },
+
+    messageSucessUpdateApi() {
+      return this.messageSwalToast("success", "Dados atualizados sucesso!");
+    },
   },
 };

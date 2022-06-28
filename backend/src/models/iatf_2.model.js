@@ -1,10 +1,10 @@
-// Model de IATF + RT
+// Model de 2 IATF + RT
 
 const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-const iatfRTSchema = new Schema(
+const iatf_2RTSchema = new Schema(
   {
     active: {
       type: Boolean,
@@ -21,6 +21,9 @@ const iatfRTSchema = new Schema(
     dep_iatf: {
       type: Number,
     },
+    dep_iatf_2: {
+      type: Number,
+    },
     despesas_compra: {
       type: Number,
     },
@@ -33,7 +36,13 @@ const iatfRTSchema = new Schema(
     mao_de_obra: {
       type: Number,
     },
+    mao_de_obra_2: {
+      type: Number,
+    },
     material_consumo: {
+      type: Number,
+    },
+    material_consumo_2: {
       type: Number,
     },
     numero_de_touros: {
@@ -60,13 +69,22 @@ const iatfRTSchema = new Schema(
     preco_semen: {
       type: Number,
     },
+    preco_semen_2: {
+      type: Number,
+    },
     preco_touro: {
       type: Number,
     },
     prenhez_iatf: {
       type: Number,
     },
+    prenhez_iatf_2: {
+      type: Number
+    },
     protocolo: {
+      type: Number,
+    },
+    protocolo_2: {
       type: Number,
     },
     raca_touro: {
@@ -93,6 +111,9 @@ const iatfRTSchema = new Schema(
     vacas_inseminadas: {
       type: Number,
     },
+    vacas_inseminadas_2: {
+      type: Number,
+    },
     vacinas_vermifugos: {
       type: Number,
     },
@@ -105,9 +126,9 @@ const iatfRTSchema = new Schema(
   },
   {
     timestamps: true,
-    collection: "iatfRT",
+    collection: "iatf_2RT",
   }
 );
 
-const iatfRTModel = mongoose.model("iatfRT", iatfRTSchema);
-module.exports = iatfRTModel;
+const iatf_2RTModel = mongoose.model("iatf_2RT", iatf_2RTSchema);
+module.exports = iatf_2RTModel;

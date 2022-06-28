@@ -1,10 +1,10 @@
 import ApiAxios from "./ApiAxios";
 // import { AuthStr } from "../Core/tokenConnectServices";
 
-const apiIATF = "/iatf/";
+const apiIATF = "/iatf2/";
 
 export default {
-  async getIatfApi() {
+  async getIatf_2Api() {
     try {
       const response = await ApiAxios().get(apiIATF.concat("find"));
 
@@ -14,7 +14,7 @@ export default {
     }
   },
 
-  async updateIatfApi(dados) {
+  async updateIatf_2Api(dados) {
     try {
       const result = await ApiAxios()
         .put(apiIATF.concat("update"), dados)

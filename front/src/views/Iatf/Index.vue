@@ -92,10 +92,7 @@ export default {
     },
   },
 
-  created() {
-    //this.getUser();
-    // console.log(this.$route.name);
-  },
+  created() {},
 
   methods: {
     getUser() {

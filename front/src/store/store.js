@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import MontaNaturaServices from "@/services/MontaNaturaServices";
 import IatfServices from "@/services/IatfServices";
+import Iatf_2Services from "@/services/Iatf_2Services";
 import mixinUtils from "../mixins/mixin-utils";
 
 Vue.use(Vuex);
@@ -28,6 +29,7 @@ export default new Vuex.Store({
     ecow: {},
     montaNaturalState: {},
     IATFState: {},
+    IATF_2State: {},
   },
   mutations: {
     SET_SIDEBAR_DRAWER(state, payload) {
@@ -78,6 +80,9 @@ export default new Vuex.Store({
     SET_DATA_IATF(state, value) {
       Object.assign(state.IATFState, value);
     },
+    SET_DATA_IATF_2(state, value) {
+      Object.assign(state.IATF_2State, value);
+    },
 
     CLEAR_USER(state) {
       state.userLogado = {};
@@ -94,16 +99,10 @@ export default new Vuex.Store({
 
           return commit("SET_DATA_MONTANATURAL", result);
         }
-        return mixinUtils.methods.messageSwalToast(
-          "error",
-          "Erro ao carregar os parâmetros do Banco de Dados."
-        );
+        return mixinUtils.methods.messageErrorRequestApi();
       } catch (error) {
         console.log(error);
-        return mixinUtils.methods.messageSwalToast(
-          "error",
-          "Erro ao carregar os parâmetros do Banco de Dados."
-        );
+        return mixinUtils.methods.messageErrorRequestApi();
       }
     },
 
@@ -116,16 +115,13 @@ export default new Vuex.Store({
           let message = response.error.message;
           let title = response.mensagem;
           //Função de Mixins
-          return this.messageSwalToast("error", title + message + path);
+          return mixinUtils.methods.messageSwalToast("error", title + message + path);
         }
 
         commit("SET_DATA_MONTANATURAL", value);
-        return mixinUtils.methods.messageSwalToast(
-          "success",
-          "Dados atualizados sucesso!"
-        );
+        return mixinUtils.methods.messageSucessUpdateApi();
       } catch (error) {
-        return this.updateError(error.response.data);
+        return mixinUtils.methods.updateError(error.response.data);
       }
     },
 
@@ -137,16 +133,63 @@ export default new Vuex.Store({
 
           return commit("SET_DATA_IATF", result);
         }
-        return mixinUtils.methods.messageSwalToast(
-          "error",
-          "Erro ao carregar os parâmetros do Banco de Dados."
-        );
+        return mixinUtils.methods.messageErrorRequestApi();
       } catch (error) {
         console.log(error);
-        return mixinUtils.methods.messageSwalToast(
-          "error",
-          "Erro ao carregar os parâmetros do Banco de Dados."
-        );
+        return mixinUtils.methods.messageErrorRequestApi();
+      }
+    },
+
+    async updateDadosIATF({ commit }, value) {
+      try {
+        const response = await IatfServices.updateIatfApi(value);
+
+        if (response.status != 200) {
+          let path = response.error.path;
+          let message = response.error.message;
+          let title = response.mensagem;
+          //Função de Mixins
+          return mixinUtils.methods.messageSwalToast("error", title + message + path);
+        }
+
+        commit("SET_DATA_IATF", value);
+        return mixinUtils.methods.messageSucessUpdateApi();
+      } catch (error) {
+        return mixinUtils.methods.updateError(error.response.data);
+      }
+    },
+
+    async getDados_2IATF({ commit }) {
+      try {
+        const response = await IatfServices.getIatf_2Api();
+        if (response.status == 200) {
+          const result = response.data[0];
+
+          return commit("SET_DATA_IATF_2", result);
+        }
+        return mixinUtils.methods.messageErrorRequestApi();
+      } catch (error) {
+        console.log(error);
+        return mixinUtils.methods.messageErrorRequestApi();
+      }
+    },
+
+    async updateDados_2IATF({ commit }, value) {
+      try {
+        const response = await Iatf_2Services.updateIatf_2Api(value);
+
+        if (response.status != 200) {
+          let path = response.error.path;
+          let message = response.error.message;
+          let title = response.mensagem;
+          //Função de Mixins
+          return mixinUtils.methods.messageSwalToast("error", title + message + path);
+        }
+
+        commit("SET_DATA_IATF_2", value);
+        return mixinUtils.methods.messageSucessUpdateApi();
+      } catch (error) {
+        return mixinUtils.methods.updateError(error.response.data);
       }
     },
   },

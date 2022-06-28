@@ -1,4 +1,3 @@
-// import swal from "sweetalert";
 import ApiAxios from "./ApiAxios";
 // import { AuthStr } from "../Core/tokenConnectServices";
 
@@ -11,9 +10,6 @@ export default {
 
       return response;
     } catch (error) {
-      //  console.log(error);
-
-      console.error(error);
       return error.response.data;
     }
   },
