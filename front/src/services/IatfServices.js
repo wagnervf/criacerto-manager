@@ -2,12 +2,12 @@
 import ApiAxios from "./ApiAxios";
 // import { AuthStr } from "../Core/tokenConnectServices";
 
-const apiMonta = "/montanatural/";
+const apiIATF = "/iatf/";
 
 export default {
-  async getMontaNaturalApi() {
+  async getIatfApi() {
     try {
-      const response = await ApiAxios().get(apiMonta.concat("find"));
+      const response = await ApiAxios().get(apiIATF.concat("find"));
 
       return response;
     } catch (error) {
@@ -18,10 +18,10 @@ export default {
     }
   },
 
-  async updateMontaNaturalApi(dados) {
+  async updateIatfApi(dados) {
     try {
       const result = await ApiAxios()
-        .put(apiMonta.concat("update"), dados)
+        .put(apiIATF.concat("update"), dados)
         .then((response) => response)
         .catch((error) => error);
 

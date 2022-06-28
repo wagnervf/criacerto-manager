@@ -147,8 +147,6 @@
 </template>
 
 <script>
-import MontaNaturaServices from "@/services/MontaNaturaServices";
-
 export default {
   name: "ManutencaoTouros",
   data: () => ({
@@ -185,7 +183,8 @@ export default {
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
-        this.updateMontaNatural();
+        //this.updateMontaNatural();
+        this.$store.dispatch("updateMontaNatural", this.form);
       }
     },
     reset() {
@@ -211,43 +210,43 @@ export default {
       };
     },
 
-    async updateMontaNatural() {
-      try {
-        const response = await MontaNaturaServices.updateMontaNaturalApi(
-          this.form
-        );
+    // async updateMontaNatural() {
+    //   try {
+    //     const response = await MontaNaturaServices.updateMontaNaturalApi(
+    //       this.form
+    //     );
 
-        if (response.status != 200) {
-          return this.updateError(response.response.data);
-        }
-        return this.updateSuccess();
-      } catch (error) {
-        return this.updateError(error.response.data);
-      }
-    },
+    //     if (response.status != 200) {
+    //       return this.updateError(response.response.data);
+    //     }
+    //     return this.updateSuccess();
+    //   } catch (error) {
+    //     return this.updateError(error.response.data);
+    //   }
+    // },
 
-    updateSuccess() {
-      this.$store.commit("SET_DATA_MONTANATURAL", this.form);
-      this.setMessage("success", "Atualizado!", "Dados atualizados sucesso!");
-      this.parserDataStore();
-    },
+    // updateSuccess() {
+    //   this.$store.commit("SET_DATA_MONTANATURAL", this.form);
+    //   this.setMessage("success", "Atualizado!", "Dados atualizados sucesso!");
+    //   this.parserDataStore();
+    // },
 
-    updateError(response) {
-      let path = response.error.path;
-      let message = response.error.message;
-      let title = response.mensagem;
-      console.log(path);
-      return this.setMessage("error", title, message + path);
-    },
+    // updateError(response) {
+    //   let path = response.error.path;
+    //   let message = response.error.message;
+    //   let title = response.mensagem;
+    //   console.log(path);
+    //   return this.setMessage("error", title, message + path);
+    // },
 
-    setMessage(type, title, message) {
-      return this.$notify({
-        group: "foo",
-        type: type,
-        title: title,
-        text: message,
-      });
-    },
+    // setMessage(type, title, message) {
+    //   return this.$notify({
+    //     group: "foo",
+    //     type: type,
+    //     title: title,
+    //     text: message,
+    //   });
+    // },
   },
 };
 </script>

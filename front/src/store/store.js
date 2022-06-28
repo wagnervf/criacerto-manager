@@ -1,5 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import MontaNaturaServices from "@/services/MontaNaturaServices";
+import IatfServices from "@/services/IatfServices";
+import mixinUtils from "../mixins/mixin-utils";
 
 Vue.use(Vuex);
 
@@ -23,7 +26,8 @@ export default new Vuex.Store({
       logado: "",
     },
     ecow: {},
-    montaNatural: {},
+    montaNaturalState: {},
+    IATFState: {},
   },
   mutations: {
     SET_SIDEBAR_DRAWER(state, payload) {
@@ -68,7 +72,11 @@ export default new Vuex.Store({
     },
 
     SET_DATA_MONTANATURAL(state, value) {
-      Object.assign(state.montaNatural, value);
+      Object.assign(state.montaNaturalState, value);
+    },
+
+    SET_DATA_IATF(state, value) {
+      Object.assign(state.IATFState, value);
     },
 
     CLEAR_USER(state) {
@@ -77,14 +85,79 @@ export default new Vuex.Store({
       localStorage.setItem("loggedIn", false);
     },
   },
-  actions: {},
-  modules: {},
+  actions: {
+    async getDadosMontaNatural({ commit }) {
+      try {
+        const response = await MontaNaturaServices.getMontaNaturalApi();
+        if (response.status == 200) {
+          const result = response.data[0];
+
+          return commit("SET_DATA_MONTANATURAL", result);
+        }
+        return mixinUtils.methods.messageSwalToast(
+          "error",
+          "Erro ao carregar os parâmetros do Banco de Dados."
+        );
+      } catch (error) {
+        console.log(error);
+        return mixinUtils.methods.messageSwalToast(
+          "error",
+          "Erro ao carregar os parâmetros do Banco de Dados."
+        );
+      }
+    },
+
+    async updateMontaNatural({ commit }, value) {
+      try {
+        const response = await MontaNaturaServices.updateMontaNaturalApi(value);
+
+        if (response.status != 200) {
+          let path = response.error.path;
+          let message = response.error.message;
+          let title = response.mensagem;
+          //Função de Mixins
+          return this.messageSwalToast("error", title + message + path);
+        }
+
+        commit("SET_DATA_MONTANATURAL", value);
+        return mixinUtils.methods.messageSwalToast(
+          "success",
+          "Dados atualizados sucesso!"
+        );
+      } catch (error) {
+        return this.updateError(error.response.data);
+      }
+    },
+
+    async getDadosIATF({ commit }) {
+      try {
+        const response = await IatfServices.getIatfApi();
+        if (response.status == 200) {
+          const result = response.data[0];
+
+          return commit("SET_DATA_IATF", result);
+        }
+        return mixinUtils.methods.messageSwalToast(
+          "error",
+          "Erro ao carregar os parâmetros do Banco de Dados."
+        );
+      } catch (error) {
+        console.log(error);
+        return mixinUtils.methods.messageSwalToast(
+          "error",
+          "Erro ao carregar os parâmetros do Banco de Dados."
+        );
+      }
+    },
+  },
 
   getters: {
     getUserLogged: (state) => state.userLogado,
 
     getDataEcow: (state) => state.ecow,
 
-    getDataMontaNatural: (state) => state.montaNatural,
+    getDataMontaNatural: (state) => state.montaNaturalState,
+
+    getDataIatfRT: (state) => state.IATFState,
   },
 });

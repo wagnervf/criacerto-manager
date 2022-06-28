@@ -1,38 +1,39 @@
 // Responsável por fazer a chamada da rotas da aplicação
 
-//Importações
-const cors = require('cors');
-const morgan = require('morgan');
+// Importações
+const cors = require("cors");
+const morgan = require("morgan");
 
-//Principal
-const express = require('express');
+// Principal
+const express = require("express");
+
 const app = express();
 
-//Habilitando formatos para utilizar nas chamdas
+// Habilitando formatos para utilizar nas chamdas
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.json({ type: 'application/vnd.api+json' }));
+app.use(express.json({ type: "application/vnd.api+json" }));
 app.use(cors());
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
-//Conexão com Banco de Dados
-const mongooseConnection = require ('./config/mongooseConnection.config');
+// Conexão com Banco de Dados
+const mongooseConnection = require("./config/mongooseConnection.config");
 
-//Habilitando a conexão com o Banco de Dados
-app.set('mongosse connection', mongooseConnection);
+// Habilitando a conexão com o Banco de Dados
+app.set("mongosse connection", mongooseConnection);
 
 // Rotas da API:
-const index = require('./routes/index');
-const userRoutes = require('./routes/user.routes');
-const ecowRoutes = require('./routes/ecow.routes');
-const montaNaturalRoutes = require('./routes/montaNatural.routes');
- 
+const index = require("./routes/index");
+const userRoutes = require("./routes/user.routes");
+const ecowRoutes = require("./routes/ecow.routes");
+const montaNaturalRoutes = require("./routes/montaNatural.routes");
+const iatfRoutes = require("./routes/iatf.routes");
 
 app.use(index);
-app.use('/api/v1/user', userRoutes);
-app.use('/api/v1/ecow', ecowRoutes);
-app.use('/api/v1/montanatural', montaNaturalRoutes);
- 
+app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/ecow", ecowRoutes);
+app.use("/api/v1/montanatural", montaNaturalRoutes);
+app.use("/api/v1/iatf", iatfRoutes);
 
-//Exportando o app
+// Exportando o app
 module.exports = app;

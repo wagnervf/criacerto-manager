@@ -43,6 +43,15 @@
           <ManutencaoTouroVue />
         </v-expansion-panels>
       </v-col>
+      <v-col
+        class="px-1 py-4 mt-4"
+        cols="12"
+        lg="12"
+        justify-center
+        flex
+      >
+        <ListaDadosVue />
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -53,6 +62,7 @@ import AquisicaoSemenProtocoloVue from "./AquisicaoSemenProtocolo";
 import RepasseTouroVue from "./RepasseTouro";
 import AquisicaoTourosVue from "./AquisicaoTouro";
 import ManutencaoTouroVue from "./ManutencaoTouro.vue";
+import ListaDadosVue from "./ListaDados.vue";
 
 export default {
   name: "ViewIATF",
@@ -62,6 +72,7 @@ export default {
     RepasseTouroVue,
     AquisicaoTourosVue,
     ManutencaoTouroVue,
+    ListaDadosVue,
   },
   data: () => ({
     search: null,
@@ -70,7 +81,6 @@ export default {
 
   computed: {
     currentRouteName() {
-      console.log(this.$router);
       return this.$route.name;
     },
 
@@ -83,8 +93,8 @@ export default {
   },
 
   created() {
-    this.getUser();
-    console.log(this.$route.name);
+    //this.getUser();
+    // console.log(this.$route.name);
   },
 
   methods: {
@@ -96,6 +106,10 @@ export default {
     logOutUser() {
       localStorage.removeItem("jwt");
       this.$router.push("/");
+    },
+
+    resetExpand() {
+      this.panel = [];
     },
   },
 };

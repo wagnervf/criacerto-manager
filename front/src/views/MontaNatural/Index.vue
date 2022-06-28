@@ -58,11 +58,9 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import DadosTecnicosRebanhoVue from "./DadosTecnicosRebanho";
 import AquisicaoTourosVue from "./AquisicaoTouros";
 import ManutecaoTourosVue from "./ManutencaoTouros";
-import MontaNaturaServices from "@/services/MontaNaturaServices";
 import ListaDadosVue from "./ListaDados.vue";
 
 export default {
@@ -74,14 +72,13 @@ export default {
     ListaDadosVue,
   },
   data: () => ({
-    panel: 2,
+    panel: [],
     search: null,
     meta: null,
   }),
 
   computed: {
     currentRouteName() {
-      console.log(this.$router);
       return this.$route.name;
     },
 
@@ -93,36 +90,7 @@ export default {
     },
   },
 
-  mounted() {
-    this.getDadosMontaNatural();
-  },
-
   methods: {
-    ...mapState(["SetDataMontaNatural"]),
-
-    async getDadosMontaNatural() {
-      try {
-        const response = await MontaNaturaServices.getMontaNaturalApi();
-        if (response.status == 200) {
-          const result = response.data[0];
-          this.$store.commit("SET_DATA_MONTANATURAL", result);
-        } else {
-          return this.$notify({
-            group: "foo",
-            type: "error",
-            title: "Carregar Dados",
-            text: "Erro ao carregar o parâmetros do Banco de Dados.",
-          });
-        }
-      } catch (error) {
-        return this.$notify({
-          group: "foo",
-          type: "error",
-          title: "Carregar Dados",
-          text: error,
-        });
-      }
-    },
     logOutUser() {
       localStorage.removeItem("jwt");
       this.$router.push("/");

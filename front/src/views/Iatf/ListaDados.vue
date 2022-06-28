@@ -127,7 +127,7 @@ export default {
     loading: false,
     title: "Lista dos Parâmentros",
     icon: "mdi-view-list",
-    subtitle: "Todos os Parâmentros utilizados nas Simulações da Monta Natural",
+    subtitle: "Todos os Parâmentros utilizados nas Simulações da IATF + RT",
     parametros: [],
     downloadItems: [],
     icone: "mdi-cached",
@@ -136,7 +136,7 @@ export default {
 
   mounted() {
     // Solicita ao Vuex para buscar os dados e salvar no State
-    this.$store.dispatch("getDadosMontaNatural");
+    this.$store.dispatch("getDadosIATF");
     //
     setTimeout(() => {
       this.getDataStore();
@@ -149,7 +149,7 @@ export default {
     getDataStore() {
       this.parametros = [];
       this.loader = "loading";
-      let result = this.$store.getters.getDataMontaNatural;
+      let result = this.$store.getters.getDataIatfRT;
 
       if (Object.values(result).length > 0) {
         this.parametros = result;

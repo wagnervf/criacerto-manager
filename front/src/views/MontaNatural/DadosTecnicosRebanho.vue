@@ -152,8 +152,10 @@
 </template>
 
 <script>
-import MontaNaturaServices from "@/services/MontaNaturaServices";
+import mixinUtils from "../../mixins/mixin-utils";
+
 export default {
+  mixins: [mixinUtils],
   name: "ViewDadosTecnicosRebanho",
   data: () => ({
     valid: true,
@@ -167,6 +169,7 @@ export default {
       taxa_mortalidade: "",
       preco_bezerro: "",
       peso_comercial: "",
+      user: "",
     },
     title: "Dados Técnicos do Rebanho",
     icon: "mdi-file-cog",
@@ -190,12 +193,16 @@ export default {
     }, 1000);
   },
 
-  computed: {},
+  computed: {
+    parametros() {
+      return this.$store.getters.getDataMontaNatural;
+    },
+  },
 
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
-        this.updateMontaNatural();
+        this.$store.dispatch("updateMontaNatural", this.form);
       }
     },
     reset() {
@@ -208,57 +215,20 @@ export default {
     },
 
     parserDataStore() {
-      const value = this.$store.getters.getDataMontaNatural;
+      const value = this.parametros;
 
       this.form = {
         _id: value._id,
-        numero_de_vacas: Number(value.numero_de_vacas),
+        numero_de_vacas: value.numero_de_vacas,
         numero_de_touros: value.numero_de_touros,
         vida_util_touro: value.vida_util_touro,
         taxa_prenhez: value.taxa_prenhez,
         taxa_mortalidade: value.taxa_mortalidade,
         preco_bezerro: value.preco_bezerro,
         peso_comercial: value.peso_comercial,
+        //Mixins
+        user: this.userLogado,
       };
-    },
-
-    async updateMontaNatural() {
-      try {
-        const response = await MontaNaturaServices.updateMontaNaturalApi(
-          this.form
-        );
-
-        if (response.status != 200) {
-          return this.updateError(response.response.data);
-        }
-
-        return this.updateSuccess();
-      } catch (error) {
-        return this.updateError(error.response.data);
-      }
-    },
-
-    updateSuccess() {
-      this.$store.commit("SET_DATA_MONTANATURAL", this.form);
-      this.setMessage("success", "Atualizado!", "Dados atualizados sucesso!");
-      this.parserDataStore();
-    },
-
-    updateError(response) {
-      let path = response.error.path;
-      let message = response.error.message;
-      let title = response.mensagem;
-      console.log(path);
-      return this.setMessage("error", title, message + path);
-    },
-
-    setMessage(type, title, message) {
-      return this.$notify({
-        group: "foo",
-        type: type,
-        title: title,
-        text: message,
-      });
     },
   },
 };

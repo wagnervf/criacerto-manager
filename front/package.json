@@ -21,6 +21,7 @@
     "moment": "^2.29.1",
     "roboto-fontface": "*",
     "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.4.19",
     "vue": "^2.6.12",
     "vue-apexcharts": "^1.6.2",
     "vue-blob-json-csv": "^0.1.7",

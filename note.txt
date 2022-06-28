@@ -142,31 +142,61 @@ vida_util_touro:
 
 -------MONTA NATURAL------
 
-active: 1
-aluguel_pasto: 336
-changed: Mon Jun 20 2022 13:10:40 GMT-0400 (Horário Padrão do Amazonas) {}
-city: "Acrelândia"
-code: "6f2be000-0bf2-423b-bb71-6dc8e479ba85"
-created: Fri May 06 2022 12:32:12 GMT-0400 (Horário Padrão do Amazonas) {}
-dep: 5
-despesas_compra: 10
-exame_andrologico: 100
-farm: "kjl"
-juros_anuais: 6
-name: "uioui"
-numero_de_touros: 25
-numero_de_vacas: 1000
-peso_comercial: 180
-peso_elite: 218
-preco_bezerro: 6
-preco_touro: 4200
-raca_touro: "Nelore"
-racoes: 264.57
-sal_mineral: 35.4
-state: "Acre"
-taxa_mortalidade: 3
-taxa_prenhez: 80
-type: "Monta Natural"
-vacinas_vermifugos: 9.66
-valor_venda: 3000
-vida_util_touro: 6
+  "_id": "62b278bb70c581d787006cdf",
+    "active": 1,
+    "aluguel_pasto": 2500,
+    "code": "3a53d06c-782a-4a7c-996b-6da6f12449e5",
+    "dep": 5,
+    "despesas_compra": 10, 
+    "exame_andrologico": 100,
+    "juros_anuais": 6,
+    "numero_de_touros": 25,
+    "numero_de_vacas": 1000,
+    "peso_comercial": 180,
+    "peso_elite": 218,
+    "preco_bezerro": 6,
+    "preco_touro": 4200,
+    "raca_touro": "Nelore",
+    "racoes": 264.57,
+    "sal_mineral": 35.4,
+    "taxa_mortalidade": 3,
+    "taxa_prenhez": 80,
+    "type": "Monta Natural",
+    "vacinas_vermifugos": 9.66,
+    "valor_venda": 3200,
+    "vida_util_touro": 6
+
+
+------------ IATF -------------
+"_id": "62ba664cf587219e3f3a7824",
+    "active": 0,
+    "aluguel_pasto": 2500,
+    "code": "ef176d19-3524-4bb5-8440-dc3b9ea535de",
+    "dep": 5,
+    "dep_iatf": 7,
+    "despesas_compra": 10,
+    "exame_andrologico": 100,
+    "material_consumo": 2,
+    "juros_anuais": 6,
+    "mao_de_obra": 15,
+    "numero_de_touros": 25,
+    "numero_de_vacas": 1000,
+    "peso_comercial": 180,
+    "peso_comercial_iatf": 180,
+    "peso_elite": 218,
+    "peso_elite_iatf": 218,
+    "preco_bezerro": 6,
+    "preco_semen": 50,
+    "prenhez_iatf": 50,
+    "preco_touro": 4200,
+    "raca_touro": "Nelore",
+    "raca_touro_iatf": "Nelore",
+    "racoes": 264.57,
+    "sal_mineral": 35.4,
+    "taxa_mortalidade": 3,
+    "taxa_prenhez": 80,
+    "type": "IATF + RT",
+    "vacas_inseminadas": 95,
+    "vacinas_vermifugos": 9.66,
+    "valor_venda": 3200,
+    "vida_util_touro": 6
