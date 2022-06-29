@@ -101,19 +101,19 @@
 </template>
 
 <script>
-//import MontaNaturaServices from "@/services/MontaNaturaServices";
 import mixinUtils from "../../mixins/mixin-utils";
 
 export default {
   mixins: [mixinUtils],
-  name: "AquisicaoTouros",
+  name: "AquisicaoTourosMontaNatural",
   data: () => ({
     valid: true,
     form: {
       _id: "",
-      preco_touro: 4200,
-      vacinas_vermifugos: 10,
-      dep: 5,
+      preco_touro: "",
+      vacinas_vermifugos: "",
+      dep: "",
+      user: "",
     },
     title: "Aquisição do Touro",
     icon: "mdi-cow",
@@ -151,7 +151,7 @@ export default {
       this.$refs.form.resetValidation();
     },
     parserDataStore() {
-      const value = this.$store.getters.getDataMontaNatural;
+      const value = this.parametros;
 
       this.form = {
         _id: value._id,

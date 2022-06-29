@@ -1,26 +1,26 @@
 // Fuções de CRUD 2 IATF + RT
 
-const Iatf2RTModel = require("../models/iatf_2.model");
+const Iatf3Model = require("../models/iatf_3.model");
 
 //
 //
 // Save Dados
 //
 //
-exports.saveIatf_2RT = async (req, res) => {
+exports.saveIatf3 = async (req, res) => {
   try {
-    const new2Iatf = new Iatf2RTModel(req.body);
+    const newIatf3 = new Iatf3Model(req.body);
 
     try {
-      const iatf = await new2Iatf.save();
+      const iatf = await newIatf3.save();
       return res.status(201).json({
-        messagem: "Dados da 2 IATF + RT Salvos com sucesso!",
+        messagem: "Dados da 3 IATF + RT Salvos com sucesso!",
         iatf,
       });
     } catch (error) {
       return res.status(400).json({
         error,
-        mensagem: "Erro ao salvar os dados da 2 IATF + RT",
+        mensagem: "Erro ao salvar os dados da 3 IATF + RT",
       });
     }
   } catch (error) {
@@ -33,9 +33,9 @@ exports.saveIatf_2RT = async (req, res) => {
 // Get Dados
 //
 //
-exports.getIatf_2RT = async (req, res) => {
+exports.getIatf3 = async (req, res) => {
   try {
-    Iatf2RTModel.find({}, (err, docs) => {
+    Iatf3Model.find({}, (err, docs) => {
       if (err) {
         return res.status(401).json({ Erro: err });
       }
@@ -50,7 +50,7 @@ exports.getIatf_2RT = async (req, res) => {
   } catch (error) {
     return res.status(404).json({
       error,
-      mensagem: "Erro ao buscar os dados da 2 IATF + RT",
+      mensagem: "Erro ao buscar os dados da 3 IATF + RT",
     });
   }
 };
@@ -59,25 +59,25 @@ exports.getIatf_2RT = async (req, res) => {
 // Update
 //
 //
-exports.updateIatf_2RT = async (req, res) => {
+exports.updateIatf3 = async (req, res) => {
   try {
     const dados = req.body;
     // eslint-disable-next-line no-underscore-dangle
     const filter = { _id: dados._id };
 
     try {
-      const result = await Iatf2RTModel.findByIdAndUpdate(filter, dados, {
+      const result = await Iatf3Model.findByIdAndUpdate(filter, dados, {
         new: true,
         useFindAndModify: false,
       });
       return res.status(200).json({
-        messagem: "Dados da 2 IATF + RT Atualizados com sucesso!",
+        messagem: "Dados da 3 IATF + RT Atualizados com sucesso!",
         result,
       });
     } catch (error) {
       return res.status(400).json({
         error,
-        mensagem: "Erro ao atualizar os dados da 2 IATF + RT",
+        mensagem: "Erro ao atualizar os dados da 3 IATF + RT",
       });
     }
   } catch (error) {

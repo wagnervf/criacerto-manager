@@ -42,8 +42,8 @@
           >
             <v-col justify="space-between">
               <v-text-field
-                v-model="form.precoAquisicaoTouro"
-                :rules="precoAquisicaoTouroRules"
+                v-model="form.preco_touro"
+                :rules="preco_touroRules"
                 type="number"
                 label="Preço de Aquisição do Touro"
                 required
@@ -53,8 +53,8 @@
               />
 
               <v-text-field
-                v-model="form.despesasCompra"
-                :rules="despesasCompraRules"
+                v-model="form.despesas_compra"
+                :rules="despesas_compraRules"
                 type="number"
                 label="Despesas da Compra"
                 required
@@ -64,8 +64,8 @@
               />
 
               <v-text-field
-                v-model="form.depPesoDesmama"
-                :rules="depPesoDesmamaRules"
+                v-model="form.dep"
+                :rules="depRules"
                 type="number"
                 label="DEP no Peso à Desmama"
                 required
@@ -103,34 +103,66 @@
 </template>
 
 <script>
+import mixinUtils from "../../mixins/mixin-utils";
+
 export default {
-  name: "ManutencaoTouros",
+  mixins: [mixinUtils],
+  name: "AquisicaoTourosIATF",
   data: () => ({
     valid: true,
     form: {
-      precoAquisicaoTouro: 4200,
-      despesasCompra: 10,
-      depPesoDesmama: 2,
+      _id: "",
+      preco_touro: "",
+      despesas_compra: "",
+      dep: "",
+      user: "",
     },
     title: "Aquisição do Touro",
     icon: "mdi-cow",
     subtitle:
-      "Preço de Aquisição do Touro, Despensas da Compra, DEP no Peso à Desmama",
-    precoAquisicaoTouroRules: [(v) => !!v || "Campo Obrigatório!"],
-    despesasCompraRules: [(v) => !!v || "Campo Obrigatório!"],
-    depPesoDesmamaRules: [(v) => !!v || "Campo Obrigatório!"],
+      "Preço aquisisção de Touro, Despesas da Compra, DEP no Peso à Demanda (240 dias)",
+    preco_touroRules: [(v) => !!v || "Campo Obrigatório!"],
+    despesas_compraRules: [(v) => !!v || "Campo Obrigatório!"],
+    depRules: [(v) => !!v || "Campo Obrigatório!"],
   }),
+
+  mounted() {
+    setTimeout(() => {
+      this.parserDataStore();
+    }, 1000);
+  },
+
+  computed: {
+    parametros() {
+      return this.$store.getters.getDataIatfRT;
+    },
+  },
 
   methods: {
     validate() {
-      this.$refs.form.validate();
-      console.log(this.$refs.form.validate());
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch("updateDadosIATF", this.form);
+      }
     },
     reset() {
       this.$refs.form.reset();
     },
     resetValidation() {
+      //Envia para componente Pai fechar Expand
+      this.$emit("fechar");
       this.$refs.form.resetValidation();
+    },
+    parserDataStore() {
+      const value = this.parametros;
+
+      this.form = {
+        _id: value._id,
+        preco_touro: value.preco_touro,
+        despesas_compra: value.despesas_compra,
+        dep: value.dep,
+        //Mixins
+        user: this.userLogado,
+      };
     },
   },
 };

@@ -4,19 +4,13 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-const iatf2RTSchema = new Schema(
+const iatf3Schema = new Schema(
   {
     active: {
       type: Boolean,
     },
-    aluguel_pasto: {
-      type: Number,
-    },
     code: {
       type: String,
-    },
-    dep: {
-      type: Number,
     },
     dep_iatf: {
       type: Number,
@@ -24,13 +18,7 @@ const iatf2RTSchema = new Schema(
     dep_iatf_2: {
       type: Number,
     },
-    despesas_compra: {
-      type: Number,
-    },
-    exame_andrologico: {
-      type: Number,
-    },
-    juros_anuais: {
+    dep_iatf_3: {
       type: Number,
     },
     mao_de_obra: {
@@ -39,19 +27,19 @@ const iatf2RTSchema = new Schema(
     mao_de_obra_2: {
       type: Number,
     },
+    mao_de_obra_3: {
+      type: Number,
+    },
     material_consumo: {
       type: Number,
     },
     material_consumo_2: {
       type: Number,
     },
-    numero_de_touros: {
+    material_consumo_3: {
       type: Number,
     },
     numero_de_vacas: {
-      type: Number,
-    },
-    peso_comercial: {
       type: Number,
     },
     peso_comercial_iatf: {
@@ -72,7 +60,7 @@ const iatf2RTSchema = new Schema(
     preco_semen_2: {
       type: Number,
     },
-    preco_touro: {
+    preco_semen_3: {
       type: Number,
     },
     prenhez_iatf: {
@@ -81,28 +69,22 @@ const iatf2RTSchema = new Schema(
     prenhez_iatf_2: {
       type: Number,
     },
+    prenhez_iatf_3: {
+      type: Number,
+    },
     protocolo: {
       type: Number,
     },
     protocolo_2: {
       type: Number,
     },
-    raca_touro: {
-      type: String,
+    protocolo_3: {
+      type: Number,
     },
     raca_touro_iatf: {
       type: String,
     },
-    racoes: {
-      type: Number,
-    },
-    sal_mineral: {
-      type: Number,
-    },
     taxa_mortalidade: {
-      type: Number,
-    },
-    taxa_prenhez: {
       type: Number,
     },
     type: {
@@ -114,21 +96,15 @@ const iatf2RTSchema = new Schema(
     vacas_inseminadas_2: {
       type: Number,
     },
-    vacinas_vermifugos: {
-      type: Number,
-    },
-    valor_venda: {
-      type: Number,
-    },
-    vida_util_touro: {
+    vacas_inseminadas_3: {
       type: Number,
     },
   },
   {
     timestamps: true,
-    collection: "iatf_2RT",
+    collection: "iatf3",
   }
 );
 
-const iatf2RTModel = mongoose.model("iatf_2RT", iatf2RTSchema);
-module.exports = iatf2RTModel;
+const iatf3Model = mongoose.model("iatf3", iatf3Schema);
+module.exports = iatf3Model;

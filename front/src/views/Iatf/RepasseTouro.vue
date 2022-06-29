@@ -41,8 +41,8 @@
             <v-row>
               <v-col justify="space-between">
                 <v-text-field
-                  v-model="form.numeroTouros"
-                  :rules="numeroTourosRules"
+                  v-model="form.numero_de_touros"
+                  :rules="numero_de_tourosRules"
                   type="number"
                   label="Número de Touros"
                   required
@@ -52,8 +52,8 @@
                 />
 
                 <v-text-field
-                  v-model="form.vidaUtilTouro"
-                  :rules="vidaUtilTouroRules"
+                  v-model="form.vida_util_touro"
+                  :rules="vida_util_touroRules"
                   type="number"
                   label="Vida Útil do Touro"
                   required
@@ -63,8 +63,8 @@
                 />
 
                 <v-text-field
-                  v-model="form.prenhezRepasse"
-                  :rules="prenhezRepasseRules"
+                  v-model="form.taxa_prenhez"
+                  :rules="taxa_prenhezRules"
                   type="number"
                   label="Prenhez Repasse"
                   required
@@ -74,8 +74,8 @@
                 />
 
                 <v-text-field
-                  v-model="form.pesoDesmamaFazenda"
-                  :rules="pesoDesmamaFazendaRules"
+                  v-model="form.peso_comercial_iatf"
+                  :rules="peso_comercial_iatfRules"
                   type="number"
                   label="Peso à Desmama da Fazenda"
                   required
@@ -114,36 +114,69 @@
 </template>
 
 <script>
+import mixinUtils from "../../mixins/mixin-utils";
+
 export default {
-  name: "ManutencaoTouros",
+  mixins: [mixinUtils],
+  name: "RepasseComTouroIATF",
   data: () => ({
     valid: true,
     form: {
-      numeroTouros: 50,
-      vidaUtilTouro: 6,
-      prenhezRepasse: 70,
-      pesoDesmamaFazenda: 180,
+      numero_de_touros: "",
+      vida_util_touro: "",
+      taxa_prenhez: "",
+      peso_comercial_iatf: "",
     },
     title: "Repasse com Touro",
     icon: "mdi-cow-off",
     subtitle:
       "Nº de Touro, Vida Útil do Touro, Prenhez Repasse, Raça do Touro, Raça Touro Peso à Desmana da Fazenda",
-    numeroTourosRules: [(v) => !!v || "Campo Obrigatório!"],
-    vidaUtilTouroRules: [(v) => !!v || "Campo Obrigatório!"],
-    prenhezRepasseRules: [(v) => !!v || "Campo Obrigatório!"],
-    pesoDesmamaFazendaRules: [(v) => !!v || "Campo Obrigatório!"],
+    numero_de_tourosRules: [(v) => !!v || "Campo Obrigatório!"],
+    vida_util_touroRules: [(v) => !!v || "Campo Obrigatório!"],
+    taxa_prenhezRules: [(v) => !!v || "Campo Obrigatório!"],
+    peso_comercial_iatfRules: [(v) => !!v || "Campo Obrigatório!"],
   }),
+
+  mounted() {
+    setTimeout(() => {
+      this.parserDataStore();
+    }, 1000);
+  },
+
+  computed: {
+    parametros() {
+      return this.$store.getters.getDataIatfRT;
+    },
+  },
 
   methods: {
     validate() {
-      this.$refs.form.validate();
-      console.log(this.$refs.form.validate());
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch("updateDadosIATF", this.form);
+      }
     },
     reset() {
       this.$refs.form.reset();
     },
     resetValidation() {
+      //Envia para componente Pai fechar Expand
+      this.$emit("fechar");
       this.$refs.form.resetValidation();
+    },
+
+    parserDataStore() {
+      const value = this.parametros;
+
+      this.form = {
+        _id: value._id,
+        numero_de_touros: value.numero_de_touros,
+        vida_util_touro: value.vida_util_touro,
+        taxa_prenhez: value.taxa_prenhez,
+        peso_comercial_iatf: value.peso_comercial_iatf,
+
+        //Mixins
+        user: this.userLogado,
+      };
     },
   },
 };

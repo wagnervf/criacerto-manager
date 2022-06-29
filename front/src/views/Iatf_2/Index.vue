@@ -31,20 +31,23 @@
             </v-btn>
           </v-toolbar>
         </v-card>
-        <v-expansion-panels focusable>
-          <DadosTecnicosRebanho_1IATFVue />
+        <v-expansion-panels
+          focusable
+          v-model="panel"
+        >
+          <DadosTecnicosRebanho_1IATFVue @fechar="resetExpand" />
 
-          <AquisicaoSemenProtocolo_1IATFVue />
+          <AquisicaoSemenProtocolo_1IATFVue @fechar="resetExpand" />
 
-          <DadosTecnicosRebanho_2IATFVue />
+          <DadosTecnicosRebanho_2IATFVue @fechar="resetExpand" />
 
-          <AquisicaoSemenProtocolo_2IATFVue />
+          <AquisicaoSemenProtocolo_2IATFVue @fechar="resetExpand" />
 
-          <RepasseTouroVue />
+          <RepasseTouroVue @fechar="resetExpand" />
 
-          <AquisicaoTourosVue />
+          <AquisicaoTourosVue @fechar="resetExpand" />
 
-          <ManutencaoTouroVue />
+          <ManutencaoTouroVue @fechar="resetExpand" />
         </v-expansion-panels>
       </v-col>
       <v-col
@@ -72,7 +75,7 @@ import ManutencaoTouroVue from "./ManutencaoTouro.vue";
 import ListaDadosVue from "./ListaDados.vue";
 
 export default {
-  name: "ViewIATF2",
+  name: "View2IATFRT",
   components: {
     DadosTecnicosRebanho_1IATFVue,
     DadosTecnicosRebanho_2IATFVue,
@@ -84,13 +87,13 @@ export default {
     ListaDadosVue,
   },
   data: () => ({
+    panel: [],
     search: null,
     meta: null,
   }),
 
   computed: {
     currentRouteName() {
-      console.log(this.$router);
       return this.$route.name;
     },
 
@@ -105,15 +108,6 @@ export default {
   created() {},
 
   methods: {
-    getUser() {
-      //  let token = localStorage.getItem("jwt");
-      //  let tokenDecoded = VueJwtDecode.decode(token);
-      // this.user = tokenDecoded;
-    },
-    logOutUser() {
-      localStorage.removeItem("jwt");
-      this.$router.push("/");
-    },
     resetExpand() {
       this.panel = [];
     },

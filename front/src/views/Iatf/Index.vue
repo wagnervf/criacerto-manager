@@ -31,16 +31,19 @@
             </v-btn>
           </v-toolbar>
         </v-card>
-        <v-expansion-panels focusable>
-          <DadosTecnicosRebanhoVue />
+        <v-expansion-panels
+          focusable
+          v-model="panel"
+        >
+          <DadosTecnicosRebanhoVue @fechar="resetExpand" />
 
-          <AquisicaoSemenProtocoloVue />
+          <AquisicaoSemenProtocoloVue @fechar="resetExpand" />
 
-          <RepasseTouroVue />
+          <RepasseTouroVue @fechar="resetExpand" />
 
-          <AquisicaoTourosVue />
+          <AquisicaoTourosVue @fechar="resetExpand" />
 
-          <ManutencaoTouroVue />
+          <ManutencaoTouroVue @fechar="resetExpand" />
         </v-expansion-panels>
       </v-col>
       <v-col
@@ -65,7 +68,7 @@ import ManutencaoTouroVue from "./ManutencaoTouro.vue";
 import ListaDadosVue from "./ListaDados.vue";
 
 export default {
-  name: "ViewIATF",
+  name: "ViewIATFRT",
   components: {
     DadosTecnicosRebanhoVue,
     AquisicaoSemenProtocoloVue,
@@ -75,6 +78,7 @@ export default {
     ListaDadosVue,
   },
   data: () => ({
+    panel: [],
     search: null,
     meta: null,
   }),
@@ -95,16 +99,6 @@ export default {
   created() {},
 
   methods: {
-    getUser() {
-      //  let token = localStorage.getItem("jwt");
-      //  let tokenDecoded = VueJwtDecode.decode(token);
-      // this.user = tokenDecoded;
-    },
-    logOutUser() {
-      localStorage.removeItem("jwt");
-      this.$router.push("/");
-    },
-
     resetExpand() {
       this.panel = [];
     },

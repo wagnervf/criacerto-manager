@@ -115,7 +115,10 @@ export default new Vuex.Store({
           let message = response.error.message;
           let title = response.mensagem;
           //Função de Mixins
-          return mixinUtils.methods.messageSwalToast("error", title + message + path);
+          return mixinUtils.methods.messageSwalToast(
+            "error",
+            title + message + path
+          );
         }
 
         commit("SET_DATA_MONTANATURAL", value);
@@ -149,8 +152,13 @@ export default new Vuex.Store({
           let message = response.error.message;
           let title = response.mensagem;
           //Função de Mixins
-          return mixinUtils.methods.messageSwalToast("error", title + message + path);
+          return mixinUtils.methods.messageSwalToast(
+            "error",
+            title + message + path
+          );
         }
+
+        console.log("updateDadosIATF");
 
         commit("SET_DATA_IATF", value);
         return mixinUtils.methods.messageSucessUpdateApi();
@@ -161,9 +169,10 @@ export default new Vuex.Store({
 
     async getDados_2IATF({ commit }) {
       try {
-        const response = await IatfServices.getIatf_2Api();
+        const response = await Iatf_2Services.getIatf_2Api();
         if (response.status == 200) {
           const result = response.data[0];
+          console.log(result);
 
           return commit("SET_DATA_IATF_2", result);
         }
@@ -183,7 +192,10 @@ export default new Vuex.Store({
           let message = response.error.message;
           let title = response.mensagem;
           //Função de Mixins
-          return mixinUtils.methods.messageSwalToast("error", title + message + path);
+          return mixinUtils.methods.messageSwalToast(
+            "error",
+            title + message + path
+          );
         }
 
         commit("SET_DATA_IATF_2", value);
@@ -202,5 +214,7 @@ export default new Vuex.Store({
     getDataMontaNatural: (state) => state.montaNaturalState,
 
     getDataIatfRT: (state) => state.IATFState,
+
+    getDataIatf_2RT: (state) => state.IATF_2State,
   },
 });

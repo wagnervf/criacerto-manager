@@ -147,11 +147,15 @@
 </template>
 
 <script>
+import mixinUtils from "../../mixins/mixin-utils";
+
 export default {
-  name: "ManutencaoTouros",
+  mixins: [mixinUtils],
+  name: "ManutencaoTourosMontaNatural",
   data: () => ({
     valid: true,
     form: {
+      _id: "",
       exame_andrologico: "",
       aluguel_pasto: "",
       sal_mineral: "",
@@ -159,6 +163,7 @@ export default {
       vacinas_vermifugos: "",
       juros_anuais: "",
       valor_venda: "",
+      user: "",
     },
     title: "Manutenção Anual do Touro",
     icon: "mdi-currency-brl",
@@ -179,7 +184,11 @@ export default {
       this.parserDataStore();
     }, 1000);
   },
-
+  computed: {
+    parametros() {
+      return this.$store.getters.getDataIatfRT;
+    },
+  },
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
@@ -196,7 +205,7 @@ export default {
       this.$refs.form.resetValidation();
     },
     parserDataStore() {
-      const value = this.$store.getters.getDataMontaNatural;
+      const value = this.parametros;
 
       this.form = {
         _id: value._id,
@@ -207,46 +216,10 @@ export default {
         vacinas_vermifugos: value.vacinas_vermifugos,
         juros_anuais: value.juros_anuais,
         valor_venda: value.valor_venda,
+        //Mixins
+        user: this.userLogado,
       };
     },
-
-    // async updateMontaNatural() {
-    //   try {
-    //     const response = await MontaNaturaServices.updateMontaNaturalApi(
-    //       this.form
-    //     );
-
-    //     if (response.status != 200) {
-    //       return this.updateError(response.response.data);
-    //     }
-    //     return this.updateSuccess();
-    //   } catch (error) {
-    //     return this.updateError(error.response.data);
-    //   }
-    // },
-
-    // updateSuccess() {
-    //   this.$store.commit("SET_DATA_MONTANATURAL", this.form);
-    //   this.setMessage("success", "Atualizado!", "Dados atualizados sucesso!");
-    //   this.parserDataStore();
-    // },
-
-    // updateError(response) {
-    //   let path = response.error.path;
-    //   let message = response.error.message;
-    //   let title = response.mensagem;
-    //   console.log(path);
-    //   return this.setMessage("error", title, message + path);
-    // },
-
-    // setMessage(type, title, message) {
-    //   return this.$notify({
-    //     group: "foo",
-    //     type: type,
-    //     title: title,
-    //     text: message,
-    //   });
-    // },
   },
 };
 </script>

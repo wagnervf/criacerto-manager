@@ -46,39 +46,72 @@
             <v-col justify="space-between">
               <v-text-field
                 v-model="form.numero_de_vacas"
-                label="Preço de Aquisição de Touro"
+                label="Nº de Vacas à Inseminar"
                 required
-                class="mt-4 pa-2"
+                class="mt-2 pa-2 teal--text"
                 type="number"
-                prefix="R$"
+                suffix="Cabeças"
                 :rules="numero_de_vacasRules"
                 outlined
               />
 
               <v-text-field
                 v-model="form.vacas_inseminadas"
-                label="Despesas da Compra"
+                label="Propoção de Vacas Inseminadas"
                 required
                 type="number"
-                class="pa-2 h6"
+                class="mt-2 pa-2 teal--text"
                 :rules="vacas_inseminadasRules"
                 outlined
                 suffix="%"
               />
 
               <v-text-field
-                v-model="form.DepPeso"
-                label="DEP no Peso à Desmana (240 dias)"
+                v-model="form.prenhez_iatf"
+                label="Prenhez IATF"
                 required
                 type="number"
-                class="pa-2"
-                suffix="Kg"
-                :rules="DepPesoRules"
+                class="mt-2 pa-2 teal--text"
+                suffix="%"
+                :rules="prenhez_iatfRules"
                 outlined
+              />
+
+              <v-text-field
+                v-model="form.taxa_mortalidade"
+                label="Mortalidade do Nascimento à Desmama"
+                required
+                class="mt-2 pa-2 teal--text"
+                outlined
+                suffix="%"
+                :rules="taxa_mortalidadeRules"
+                type="number"
+              />
+
+              <v-text-field
+                v-model="form.preco_bezerro"
+                label="Preço kg do Bezerro"
+                required
+                class="mt-2 pa-2 teal--text"
+                outlined
+                prefix="R$"
+                :rules="preco_bezerroRules"
+                type="number"
+              />
+
+              <v-text-field
+                v-model="form.peso_comercial"
+                label="Peso à Desmana da Fazenda"
+                required
+                class="mt-2 pa-2 teal--text"
+                outlined
+                suffix="Kg"
+                :rules="peso_comercialRules"
+                type="number"
               />
             </v-col>
 
-            <div class="d-flex justify-end mt-6">
+            <div class="d-flex justify-end mx-4">
               <v-btn
                 outlined
                 color="error"
@@ -98,9 +131,6 @@
                 Salvar
               </v-btn>
             </div>
-            <pre>
-              {{ this.form }}
-           </pre>
           </v-form>
         </v-col>
       </v-container>
@@ -109,35 +139,79 @@
 </template>
 
 <script>
+import mixinUtils from "../../mixins/mixin-utils";
+
 export default {
+  mixins: [mixinUtils],
+
   name: "DadosTecnicosRebanhoIATF",
   data: () => ({
     valid: true,
     form: {
-      numero_de_vacas: 4200,
-      vacas_inseminadas: 10,
-      DepPeso: 5,
+      _id: "",
+      numero_de_vacas: "",
+      vacas_inseminadas: "",
+      prenhez_iatf: "",
+      taxa_mortalidade: "",
+      preco_bezerro: "",
+      peso_comercial: "",
+      user: "",
     },
-    title: "Dados Técnicos do Rebanho",
+
+    title: "Dados Técnicos do Rebanho IATF",
     icon: "mdi-file-cog",
     subtitle:
-      "Nº de vacas a cobrir, Nº de Touros, Vida útil touro, Taxa de Prenhez, Preço Bezerro, Raças de Touro...",
+      "Nº de Vacas à Inseminar, Propoção de Vacas Inseminadas, Prenhez IATF Mortalidade do Nascimento à Desmama, Preço kg do Bezerro, Peso à Desmana da Fazenda",
 
     numero_de_vacasRules: [(v) => !!v || "Campo Obrigatório!"],
     vacas_inseminadasRules: [(v) => !!v || "Campo Obrigatório!"],
-    DepPesoRules: [(v) => !!v || "Campo Obrigatório!"],
+    prenhez_iatfRules: [(v) => !!v || "Campo Obrigatório!"],
+    taxa_mortalidadeRules: [(v) => !!v || "Campo Obrigatório!"],
+    preco_bezerroRules: [(v) => !!v || "Campo Obrigatório!"],
+    peso_comercialRules: [(v) => !!v || "Campo Obrigatório!"],
   }),
+
+  mounted() {
+    setTimeout(() => {
+      this.parserDataStore();
+    }, 1000);
+  },
+
+  computed: {
+    parametros() {
+      return this.$store.getters.getDataIatfRT;
+    },
+  },
 
   methods: {
     validate() {
-      this.$refs.form.validate();
-      console.log(this.$refs.form.validate());
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch("updateDadosIATF", this.form);
+      }
     },
     reset() {
       this.$refs.form.reset();
     },
     resetValidation() {
+      //Envia para componente Pai fechar Expand
+      this.$emit("fechar");
       this.$refs.form.resetValidation();
+    },
+
+    parserDataStore() {
+      const value = this.parametros;
+
+      this.form = {
+        _id: value._id,
+        numero_de_vacas: value.numero_de_vacas,
+        vacas_inseminadas: value.vacas_inseminadas,
+        prenhez_iatf: value.prenhez_iatf,
+        taxa_mortalidade: value.taxa_mortalidade,
+        preco_bezerro: value.preco_bezerro,
+        peso_comercial: value.peso_comercial,
+        //Mixins
+        user: this.userLogado,
+      };
     },
   },
 };

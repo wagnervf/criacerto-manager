@@ -116,9 +116,6 @@
                 Salvar
               </v-btn>
             </div>
-            <pre>
-              {{ this.form }}
-           </pre>
           </v-form>
         </v-col>
       </v-container>
@@ -132,10 +129,10 @@ export default {
   data: () => ({
     valid: true,
     form: {
-      preco_semen_2: 20,
-      dep_iatf_2: 7,
-      protocolo_2: 17,
-      mao_de_obra_2: 15,
+      preco_semen_2: "",
+      dep_iatf_2: "",
+      protocolo_2: "",
+      mao_de_obra_2: "",
       material_consumo_2: "",
     },
     title: "Aquisição de Sêmen e Protocolo 2ª IATF",
@@ -150,16 +147,45 @@ export default {
     material_consumo_2Rules: [(v) => !!v || "Campo Obrigatório!"],
   }),
 
+  mounted() {
+    setTimeout(() => {
+      this.parserDataStore();
+    }, 1000);
+  },
+
+  computed: {
+    parametros() {
+      return this.$store.getters.getDataIatf_2RT;
+    },
+  },
+
   methods: {
     validate() {
-      this.$refs.form.validate();
-      console.log(this.$refs.form.validate());
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch("updateDados_2IATF", this.form);
+      }
     },
     reset() {
       this.$refs.form.reset();
     },
     resetValidation() {
+      //Envia para componente Pai fechar Expand
+      this.$emit("fechar");
       this.$refs.form.resetValidation();
+    },
+
+    parserDataStore() {
+      const value = this.parametros;
+      this.form = {
+        _id: value._id,
+        preco_semen_2: value.preco_semen_2,
+        dep_iatf_2: value.dep_iatf_2,
+        protocolo_2: value.protocolo_2,
+        mao_de_obra_2: value.mao_de_obra_2,
+        material_consumo_2: value.material_consumo_2,
+        //Mixins
+        user: this.userLogado,
+      };
     },
   },
 };

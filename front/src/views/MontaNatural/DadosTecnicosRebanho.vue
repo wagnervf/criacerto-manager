@@ -156,7 +156,7 @@ import mixinUtils from "../../mixins/mixin-utils";
 
 export default {
   mixins: [mixinUtils],
-  name: "ViewDadosTecnicosRebanho",
+  name: "ViewDadosTecnicosRebanhoMonta",
   data: () => ({
     valid: true,
 
@@ -171,7 +171,7 @@ export default {
       peso_comercial: "",
       user: "",
     },
-    title: "Dados Técnicos do Rebanho",
+    title: "Dados Técnicos do Rebanho Monta Natural",
     icon: "mdi-file-cog",
     subtitle:
       "Nº de vacas a cobrir, Nº de Touros, Vida ùtil touro, Taxa de Prenhez, Preço Bezerro, Raças de Touro...",

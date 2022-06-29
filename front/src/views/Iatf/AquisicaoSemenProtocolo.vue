@@ -41,57 +41,57 @@
           >
             <v-col justify="space-between">
               <v-text-field
-                v-model="form.precoDoseSemen"
+                v-model="form.preco_semen"
                 label="Preço Do Sêmen e Protocolo"
                 required
                 class="mt-4 pa-2 teal--text"
                 type="number"
                 prefix="R$"
-                :rules="precoDoseSemenRules"
+                :rules="preco_semenRules"
                 outlined
               />
 
               <v-text-field
-                v-model="form.depIATF"
+                v-model="form.dep_iatf"
                 label="DEP IATF"
                 required
                 type="number"
                 class="mt-4 pa-2 teal--text"
                 suffix="Kg"
-                :rules="depIATFRules"
+                :rules="dep_iatfRules"
                 outlined
               />
 
               <v-text-field
-                v-model="form.custoProtocolo"
+                v-model="form.protocolo"
                 label="Custo do Protocolo"
                 required
                 type="number"
                 class="mt-4 pa-2 teal--text"
-                :rules="custoProtocoloRules"
+                :rules="protocoloRules"
                 outlined
                 prefix="R$"
               />
 
               <v-text-field
-                v-model="form.custoMaoObra"
+                v-model="form.mao_de_obra"
                 label="Custo Mão de Obra"
                 required
                 type="number"
                 class="mt-4 pa-2 teal--text"
                 prefix="R$"
-                :rules="custoMaoObraRules"
+                :rules="mao_de_obraRules"
                 outlined
               />
 
               <v-text-field
-                v-model="form.custoMaterialConsumo"
+                v-model="form.material_consumo"
                 label="Custo Material Consumo"
                 required
                 type="number"
                 class="mt-4 pa-2 teal--text"
                 prefix="R$"
-                :rules="custoMaterialConsumoRules"
+                :rules="material_consumoRules"
                 outlined
               />
             </v-col>
@@ -116,9 +116,6 @@
                 Salvar
               </v-btn>
             </div>
-            <pre>
-              {{ this.form }}
-           </pre>
           </v-form>
         </v-col>
       </v-container>
@@ -127,39 +124,71 @@
 </template>
 
 <script>
+import mixinUtils from "../../mixins/mixin-utils";
+
 export default {
-  name: "AquisicaoSemenProtocolo",
+  mixins: [mixinUtils],
+  name: "AquisicaoSemenProtocoloIATF",
   data: () => ({
     valid: true,
     form: {
-      precoDoseSemen: 50,
-      depIATF: 7,
-      custoProtocolo: 17,
-      custoMaoObra: 15,
-      custoMaterialConsumo: "",
+      preco_semen: "",
+      dep_iatf: "",
+      protocolo: "",
+      mao_de_obra: "",
+      material_consumo: "",
     },
     title: "Aquisição de Sêmen e Protocolo",
     icon: "mdi-reproduction",
     subtitle:
       "Preço Dose Sêmen, DEP IATF, Custo do Protocolo, Custo Mão de Obra, Custo Material Consumo",
 
-    precoDoseSemenRules: [(v) => !!v || "Campo Obrigatório!"],
-    depIATFRules: [(v) => !!v || "Campo Obrigatório!"],
-    custoProtocoloRules: [(v) => !!v || "Campo Obrigatório!"],
-    custoMaoObraRules: [(v) => !!v || "Campo Obrigatório!"],
-    custoMaterialConsumoRules: [(v) => !!v || "Campo Obrigatório!"],
+    preco_semenRules: [(v) => !!v || "Campo Obrigatório!"],
+    dep_iatfRules: [(v) => !!v || "Campo Obrigatório!"],
+    protocoloRules: [(v) => !!v || "Campo Obrigatório!"],
+    mao_de_obraRules: [(v) => !!v || "Campo Obrigatório!"],
+    material_consumoRules: [(v) => !!v || "Campo Obrigatório!"],
   }),
+
+  mounted() {
+    setTimeout(() => {
+      this.parserDataStore();
+    }, 1000);
+  },
+
+  computed: {
+    parametros() {
+      return this.$store.getters.getDataIatfRT;
+    },
+  },
 
   methods: {
     validate() {
-      this.$refs.form.validate();
-      console.log(this.$refs.form.validate());
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch("updateDadosIATF", this.form);
+      }
     },
     reset() {
       this.$refs.form.reset();
     },
     resetValidation() {
+      //Envia para componente Pai fechar Expand
+      this.$emit("fechar");
       this.$refs.form.resetValidation();
+    },
+
+    parserDataStore() {
+      const value = this.parametros;
+      this.form = {
+        _id: value._id,
+        preco_semen: value.preco_semen,
+        dep_iatf: value.dep_iatf,
+        protocolo: value.protocolo,
+        mao_de_obra: value.mao_de_obra,
+        material_consumo: value.material_consumo,
+        //Mixins
+        user: this.userLogado,
+      };
     },
   },
 };

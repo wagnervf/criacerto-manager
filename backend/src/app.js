@@ -28,14 +28,14 @@ const userRoutes = require("./routes/user.routes");
 const ecowRoutes = require("./routes/ecow.routes");
 const montaNaturalRoutes = require("./routes/montaNatural.routes");
 const iatfRoutes = require("./routes/iatf.routes");
-const iatf_2Routes = require("./routes/iatf2.routes");
+const iatf2Routes = require("./routes/iatf_2.routes");
 
 app.use(index);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/ecow", ecowRoutes);
 app.use("/api/v1/montanatural", montaNaturalRoutes);
 app.use("/api/v1/iatf", iatfRoutes);
-app.use("/api/v1/iatf2", iatf_2Routes);
+app.use("/api/v1/iatf2", iatf2Routes);
 
 // Exportando o app
 module.exports = app;

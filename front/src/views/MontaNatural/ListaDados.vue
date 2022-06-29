@@ -194,18 +194,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.btnDownload {
-  background-color: transparent;
-  padding: 8px;
-  border-radius: 5px;
-  color: #009688;
-  font-weight: 500;
-  cursor: pointer;
-  min-width: 64px;
-}
-.btnDownload:hover {
-  background-color: #ebf7f6;
-}
-</style>

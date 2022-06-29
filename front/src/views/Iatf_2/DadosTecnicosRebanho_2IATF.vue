@@ -44,8 +44,6 @@
             lazy-validation
           >
             <v-col justify="space-between">
-              
-
               <v-text-field
                 v-model="form.vacas_inseminadas_2"
                 label="Proporção de Vacas Inseminadas"
@@ -67,8 +65,6 @@
                 :rules="prenhez_iatf_2Rules"
                 outlined
               />
-
-             
             </v-col>
 
             <div class="d-flex justify-end mt-6">
@@ -91,9 +87,6 @@
                 Salvar
               </v-btn>
             </div>
-            <pre>
-              {{ this.form }}
-           </pre>
           </v-form>
         </v-col>
       </v-container>
@@ -103,32 +96,57 @@
 
 <script>
 export default {
-  name: "DadosTecnicosRebanho1IATF",
+  name: "DadosTecnicosRebanho2IATF",
   data: () => ({
     valid: true,
     form: {
-      vacas_inseminadas_2: 100,
-      prenhez_iatf_2: 50,
+      vacas_inseminadas_2: "",
+      prenhez_iatf_2: "",
     },
     title: "Dados Técnicos do Rebanho 2ª IATF",
     icon: "mdi-file-cog",
-    subtitle:
-      "Proporção de Vacas Inseminadas, Prenhez 2ª IATF",
+    subtitle: "Proporção de Vacas Inseminadas, Prenhez 2ª IATF",
 
     prenhez_iatf_2Rules: [(v) => !!v || "Campo Obrigatório!"],
     vacas_inseminadas_2Rules: [(v) => !!v || "Campo Obrigatório!"],
   }),
 
+  mounted() {
+    setTimeout(() => {
+      this.parserDataStore();
+    }, 1000);
+  },
+
+  computed: {
+    parametros() {
+      return this.$store.getters.getDataIatf_2RT;
+    },
+  },
+
   methods: {
     validate() {
-      this.$refs.form.validate();
-      console.log(this.$refs.form.validate());
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch("updateDados_2IATF", this.form);
+      }
     },
     reset() {
       this.$refs.form.reset();
     },
     resetValidation() {
+      //Envia para componente Pai fechar Expand
+      this.$emit("fechar");
       this.$refs.form.resetValidation();
+    },
+
+    parserDataStore() {
+      const value = this.parametros;
+      this.form = {
+        _id: value._id,
+        vacas_inseminadas_2: value.vacas_inseminadas_2,
+        prenhez_iatf_2: value.prenhez_iatf_2,
+        //Mixins
+        user: this.userLogado,
+      };
     },
   },
 };

@@ -127,7 +127,7 @@ export default {
     loading: false,
     title: "Lista dos Parâmentros",
     icon: "mdi-view-list",
-    subtitle: "Todos os Parâmentros utilizados nas Simulações da IATF + RT",
+    subtitle: "Todos os Parâmentros utilizados nas Simulações da 2 IATF + RT",
     parametros: [],
     downloadItems: [],
     icone: "mdi-cached",
@@ -136,7 +136,7 @@ export default {
 
   mounted() {
     // Solicita ao Vuex para buscar os dados e salvar no State
-    this.$store.dispatch("getDadosIATF");
+    this.$store.dispatch("getDados_2IATF");
     //
     setTimeout(() => {
       this.getDataStore();
@@ -149,7 +149,7 @@ export default {
     getDataStore() {
       this.parametros = [];
       this.loader = "loading";
-      let result = this.$store.getters.getDataIatfRT;
+      let result = this.$store.getters.getDataIatf_2RT;
 
       if (Object.values(result).length > 0) {
         this.parametros = result;
@@ -194,18 +194,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.btnDownload {
-  background-color: transparent;
-  padding: 8px;
-  border-radius: 5px;
-  color: #009688;
-  font-weight: 500;
-  cursor: pointer;
-  min-width: 64px;
-}
-.btnDownload:hover {
-  background-color: #ebf7f6;
-}
-</style>

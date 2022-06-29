@@ -21,14 +21,14 @@
     "title": "2 IATF + RT",
     "icon": "2IATF",
     "subtitle": "Preço aquisisção de Touro, Despesas da Compra, DEP no Peso à Demanda (240 dias)",
-    "to": "iatf_2/index"
+    "to": "iatf2/index"
   },
   {
     "id": 5,
     "title": "3 IATF",
     "icon": "3IATF",
     "subtitle": "Exame Andrológico, Aluguel de Pasto, Sal Mineral, Rações, Produtos Veterinários, Juros Anuais, Valor de Venda do Touro de Descarte",
-    "to": "iatf_3/index"
+    "to": "iatf3/index"
   },
 
 

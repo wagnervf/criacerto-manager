@@ -119,7 +119,7 @@ export default [
 
   {
     name: "2 IATF + RT",
-    path: "iatf_2/index",
+    path: "iatf2/index",
     component: () => import("@/views/Iatf_2/Index.vue"),
     meta: {
       breadCrumb: [
@@ -146,7 +146,7 @@ export default [
 
   {
     name: "3 IATF + RT",
-    path: "iatf_3/index",
+    path: "iatf3/index",
     component: () => import("@/views/Iatf_3/Index.vue"),
     meta: {
       breadCrumb: [
