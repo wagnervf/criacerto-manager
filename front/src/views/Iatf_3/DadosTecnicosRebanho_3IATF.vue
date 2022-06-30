@@ -44,7 +44,6 @@
             lazy-validation
           >
             <v-col justify="space-between">
-           
               <v-text-field
                 v-model="form.vacas_inseminadas_3"
                 label="Proporção de Vacas Inseminadas"
@@ -58,16 +57,14 @@
 
               <v-text-field
                 v-model="form.prenhez_iatf_3"
-                label="Prenhez 1ª IATF"
+                label="Prenhez 3ª IATF"
                 required
-                type="number"
                 class="mt-2 pa-2 teal--text"
+                type="number"
                 suffix="%"
                 :rules="prenhez_iatf_3Rules"
                 outlined
               />
-
-           
             </v-col>
 
             <div class="d-flex justify-end mt-6">
@@ -90,9 +87,6 @@
                 Salvar
               </v-btn>
             </div>
-            <pre>
-              {{ this.form }}
-           </pre>
           </v-form>
         </v-col>
       </v-container>
@@ -101,36 +95,63 @@
 </template>
 
 <script>
+import mixinUtils from "../../mixins/mixin-utils";
+
 export default {
-  name: "DadosTecnicosRebanho3IATF",
+  mixins: [mixinUtils],
+  name: "DadosTecnicosRebanho3IATF3",
   data: () => ({
     valid: true,
     form: {
-      numero_de_vacas_3: 4200,
-      vacas_inseminadas_3: 10,
-      prenhez_iatf_3: 50,
-   
+      _id: "",
+      vacas_inseminadas_3: "",
+      prenhez_iatf_3: "",
+      user: "",
     },
     title: "Dados Técnicos do Rebanho 3ª IATF",
     icon: "mdi-file-cog",
-    subtitle:
-      "Proporção de Vacas Inseminadas, Prenhez 1ª IATF",
+    subtitle: "Proporção de Vacas Inseminadas, Prenhez 3ª IATF",
 
-    vacas_inseminadas_3Rules: [(v) => !!v || "Campo Obrigatório!"],
     prenhez_iatf_3Rules: [(v) => !!v || "Campo Obrigatório!"],
-  
+    vacas_inseminadas_3Rules: [(v) => !!v || "Campo Obrigatório!"],
   }),
+
+  mounted() {
+    setTimeout(() => {
+      this.parserDataStore();
+    }, 1000);
+  },
+
+  computed: {
+    parametros() {
+      return this.$store.getters.getDataIatf_3RT;
+    },
+  },
 
   methods: {
     validate() {
-      this.$refs.form.validate();
-      console.log(this.$refs.form.validate());
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch("updateDados_3IATF", this.form);
+      }
     },
     reset() {
       this.$refs.form.reset();
     },
     resetValidation() {
+      //Envia para componente Pai fechar Expand
+      this.$emit("fechar");
       this.$refs.form.resetValidation();
+    },
+
+    parserDataStore() {
+      const value = this.parametros;
+      this.form = {
+        _id: value._id,
+        vacas_inseminadas_3: value.vacas_inseminadas_3,
+        prenhez_iatf_3: value.prenhez_iatf_3,
+        //Mixins
+        user: this.userLogado,
+      };
     },
   },
 };

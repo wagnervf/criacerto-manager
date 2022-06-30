@@ -46,7 +46,7 @@
             <v-col justify="space-between">
               <v-text-field
                 v-model="form.numero_de_vacas"
-                label="Nº de Vacas à Inseminar"
+                label="Número de Vacas à Inseminar"
                 required
                 class="mt-2 pa-2 teal--text"
                 type="number"
@@ -158,10 +158,10 @@ export default {
       user: "",
     },
 
-    title: "Dados Técnicos do Rebanho IATF  1ª IATF",
+    title: "Dados Técnicos do Rebanho 1ª IATF",
     icon: "mdi-file-cog",
     subtitle:
-      "Nº de Vacas à Inseminar, Propoção de Vacas Inseminadas, Prenhez IATF Mortalidade do Nascimento à Desmama, Preço kg do Bezerro, Peso à Desmana da Fazenda",
+      "Número de Vacas à Inseminar, Propoção de Vacas Inseminadas, Prenhez IATF Mortalidade do Nascimento à Desmama, Preço kg do Bezerro, Peso à Desmana da Fazenda",
 
     numero_de_vacasRules: [(v) => !!v || "Campo Obrigatório!"],
     vacas_inseminadasRules: [(v) => !!v || "Campo Obrigatório!"],

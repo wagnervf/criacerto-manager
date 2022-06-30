@@ -1,50 +1,65 @@
 <template>
-  <v-container
-    fluid
-    class="py-0"
-  >
-    <v-col
-      cols="12"
-      lg="12"
-      justify-center
-      flex
-    >
-      <ListEstados />
+  <v-container auto-height>
+    <v-row justify="center">
+      <v-col
+        class="px-1 py-0"
+        cols="12"
+        lg="12"
+        justify-center
+        flex
+      >
+        <v-card class="mx-auto">
+          <v-toolbar
+            class="pl-6 my-1"
+            color="blue-grey"
+            elevation="0"
+            prominent
+            shrink-on-scroll
+            dark
+          >
+            <v-app-bar-title class="ma-6 text-h4 font-weight-black">
+              Monta Natural
+              <p class="white--text caption">
+                Subtítulo da Monta Natural
+              </p>
+            </v-app-bar-title>
 
-      <RacasTouro />
-      
+            <v-spacer />
 
-      <v-row class="d-flex justify-end ma-6 pb-6">
-        <v-btn
-          outlined
-          color="error"
-          class="mr-4"
-        >
-          Cancelar
-        </v-btn>
+            <v-btn icon>
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+          </v-toolbar>
+          <v-col
+            class="pa-4"
+            cols="12"
+            lg="12"
+            justify-center
+            flex
+          >
+            <ListEstados />
 
-        <v-btn
-          outlined
-          color="success"
-          class="mr-4"
-        >
-          Salvar
-        </v-btn>
-      </v-row>
-    </v-col>
+            <div class="my-4" />
+
+            <RacasTouro />
+          </v-col>
+          <v-col />
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 // import FormCustom from "../../components/FormCustom.vue";
 import ListEstados from "../../components/estados.vue";
-import RacasTouro from "../../components/racasTouro.vue"
+import RacasTouro from "../../components/racasTouro.vue";
 export default {
   name: "ViewDadosBasicos",
   components: {
     // FormCustom ,
     ListEstados,
-    RacasTouro
+    RacasTouro,
   },
 
   data: () => ({
@@ -54,7 +69,7 @@ export default {
       estado: "",
       cidade: "",
     },
-    title: "Dados Básico",
+    title: "Dados Básicos das Simulações",
     icon: "mdi-database-edit",
     subtitle: "Nomes das Simulações, Dados da Propriedade, Estado e Município",
   }),

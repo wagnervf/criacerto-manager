@@ -124,16 +124,21 @@
 </template>
 
 <script>
+import mixinUtils from "../../mixins/mixin-utils";
+
 export default {
-  name: "AquisicaoSemenProtocolo2IATF",
+  mixins: [mixinUtils],
+  name: "AquisicaoSemenProtocolo2IATF2",
   data: () => ({
     valid: true,
     form: {
+      _id: "",
       preco_semen_2: "",
       dep_iatf_2: "",
       protocolo_2: "",
       mao_de_obra_2: "",
       material_consumo_2: "",
+      user: "",
     },
     title: "Aquisição de Sêmen e Protocolo 2ª IATF",
     icon: "mdi-reproduction",

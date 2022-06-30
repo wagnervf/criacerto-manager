@@ -33,19 +33,29 @@
         </v-card>
         <v-expansion-panels
           focusable
+          v-model="panel"
         >
-          <DadosTecnicosRebanho_1IATFVue />
+          <DadosTecnicosRebanho_1IATFVue @fechar="resetExpand" />
 
-          <AquisicaoSemenProtocolo_1IATFVue />
+          <AquisicaoSemenProtocolo_1IATFVue @fechar="resetExpand" />
 
-          <DadosTecnicosRebanho_2IATFVue />
+          <DadosTecnicosRebanho_2IATFVue @fechar="resetExpand" />
 
-          <AquisicaoSemenProtocolo_2IATFVue />
+          <AquisicaoSemenProtocolo_2IATFVue @fechar="resetExpand" />
 
-          <DadosTecnicosRebanho_3IATFVue />
+          <DadosTecnicosRebanho_3IATFVue @fechar="resetExpand" />
 
-          <AquisicaoSemenProtocolo_3IATFVue />
+          <AquisicaoSemenProtocolo_3IATFVue @fechar="resetExpand" />
         </v-expansion-panels>
+      </v-col>
+      <v-col
+        class="px-1 py-4 mt-4"
+        cols="12"
+        lg="12"
+        justify-center
+        flex
+      >
+        <ListaDadosVue />
       </v-col>
     </v-row>
   </v-container>
@@ -58,9 +68,9 @@ import DadosTecnicosRebanho_3IATFVue from "./DadosTecnicosRebanho_3IATF";
 import AquisicaoSemenProtocolo_1IATFVue from "./AquisicaoSemenProtocolo_1IATF";
 import AquisicaoSemenProtocolo_2IATFVue from "./AquisicaoSemenProtocolo_2IATF";
 import AquisicaoSemenProtocolo_3IATFVue from "./AquisicaoSemenProtocolo_3IATF";
-
+import ListaDadosVue from "./ListaDados.vue";
 export default {
-  name: "ViewIATF2",
+  name: "View3IATF",
   components: {
     DadosTecnicosRebanho_1IATFVue,
     DadosTecnicosRebanho_2IATFVue,
@@ -68,8 +78,10 @@ export default {
     AquisicaoSemenProtocolo_1IATFVue,
     AquisicaoSemenProtocolo_2IATFVue,
     AquisicaoSemenProtocolo_3IATFVue,
+    ListaDadosVue,
   },
   data: () => ({
+    panel: [],
     search: null,
     meta: null,
   }),
@@ -88,20 +100,11 @@ export default {
     },
   },
 
-  created() {
-    this.getUser();
-    console.log(this.$route.name);
-  },
+  created() {},
 
   methods: {
-    getUser() {
-      //  let token = localStorage.getItem("jwt");
-      //  let tokenDecoded = VueJwtDecode.decode(token);
-      // this.user = tokenDecoded;
-    },
-    logOutUser() {
-      localStorage.removeItem("jwt");
-      this.$router.push("/");
+    resetExpand() {
+      this.panel = [];
     },
   },
 };

@@ -116,9 +116,6 @@
                 Salvar
               </v-btn>
             </div>
-            <pre>
-              {{ this.form }}
-           </pre>
           </v-form>
         </v-col>
       </v-container>
@@ -127,18 +124,23 @@
 </template>
 
 <script>
+import mixinUtils from "../../mixins/mixin-utils";
+
 export default {
-  name: "AquisicaoSemenProtocolo1IATF",
+  mixins: [mixinUtils],
+  name: "AquisicaoSemenProtocolo3IATF3",
   data: () => ({
     valid: true,
     form: {
-      preco_semen_3: 50,
-      dep_iatf_3: 7,
-      protocolo_3: 17,
-      mao_de_obra_3: 15,
+      _id: "",
+      preco_semen_3: "",
+      dep_iatf_3: "",
+      protocolo_3: "",
+      mao_de_obra_3: "",
       material_consumo_3: "",
+      user: "",
     },
-    title: "Aquisição de Sêmen e Protocolo 1ª IATF",
+    title: "Aquisição de Sêmen e Protocolo 3ª IATF",
     icon: "mdi-reproduction",
     subtitle:
       "Preço Dose Sêmen, DEP IATF, Custo do Protocolo, Custo Mão de Obra, Custo Material Consumo",
@@ -150,16 +152,45 @@ export default {
     material_consumo_3Rules: [(v) => !!v || "Campo Obrigatório!"],
   }),
 
+  mounted() {
+    setTimeout(() => {
+      this.parserDataStore();
+    }, 1000);
+  },
+
+  computed: {
+    parametros() {
+      return this.$store.getters.getDataIatf_3RT;
+    },
+  },
+
   methods: {
     validate() {
-      this.$refs.form.validate();
-      console.log(this.$refs.form.validate());
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch("updateDados_3IATF", this.form);
+      }
     },
     reset() {
       this.$refs.form.reset();
     },
     resetValidation() {
+      //Envia para componente Pai fechar Expand
+      this.$emit("fechar");
       this.$refs.form.resetValidation();
+    },
+
+    parserDataStore() {
+      const value = this.parametros;
+      this.form = {
+        _id: value._id,
+        preco_semen_3: value.preco_semen_3,
+        dep_iatf_3: value.dep_iatf_3,
+        protocolo_3: value.protocolo_3,
+        mao_de_obra_3: value.mao_de_obra_3,
+        material_consumo_3: value.material_consumo_3,
+        //Mixins
+        user: this.userLogado,
+      };
     },
   },
 };

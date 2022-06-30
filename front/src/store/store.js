@@ -3,6 +3,8 @@ import Vuex from "vuex";
 import MontaNaturaServices from "@/services/MontaNaturaServices";
 import IatfServices from "@/services/IatfServices";
 import Iatf_2Services from "@/services/Iatf_2Services";
+import Iatf_3Services from "@/services/Iatf_3Services";
+import DadosBasicosServices from "@/services/DadosBasicosServices";
 import mixinUtils from "../mixins/mixin-utils";
 
 Vue.use(Vuex);
@@ -30,6 +32,8 @@ export default new Vuex.Store({
     montaNaturalState: {},
     IATFState: {},
     IATF_2State: {},
+    IATF_3State: {},
+    racasTouros: [],
   },
   mutations: {
     SET_SIDEBAR_DRAWER(state, payload) {
@@ -82,6 +86,13 @@ export default new Vuex.Store({
     },
     SET_DATA_IATF_2(state, value) {
       Object.assign(state.IATF_2State, value);
+    },
+    SET_DATA_IATF_3(state, value) {
+      Object.assign(state.IATF_3State, value);
+    },
+    SET_DATA_RACAS_TOURO(state, value) {
+      Object.assign(state.racasTouros, value);
+      // state.racasTouros.push(value);
     },
 
     CLEAR_USER(state) {
@@ -204,6 +215,144 @@ export default new Vuex.Store({
         return mixinUtils.methods.updateError(error.response.data);
       }
     },
+
+    async getDados_3IATF({ commit }) {
+      try {
+        const response = await Iatf_3Services.getIatf_3Api();
+        if (response.status == 200) {
+          const result = response.data[0];
+          console.log(result);
+
+          return commit("SET_DATA_IATF_3", result);
+        }
+        return mixinUtils.methods.messageErrorRequestApi();
+      } catch (error) {
+        console.log(error);
+        return mixinUtils.methods.messageErrorRequestApi();
+      }
+    },
+
+    async updateDados_3IATF({ commit }, value) {
+      try {
+        const response = await Iatf_3Services.updateIatf_3Api(value);
+
+        if (response.status != 200) {
+          let path = response.error.path;
+          let message = response.error.message;
+          let title = response.mensagem;
+          //Função de Mixins
+          return mixinUtils.methods.messageSwalToast(
+            "error",
+            title + message + path
+          );
+        }
+
+        commit("SET_DATA_IATF_3", value);
+        return mixinUtils.methods.messageSucessUpdateApi();
+      } catch (error) {
+        return mixinUtils.methods.updateError(error.response.data);
+      }
+    },
+
+    async getRacasTouro({ commit }) {
+      try {
+        const response = await DadosBasicosServices.getRacasTourosApi();
+        if (response.status == 200) {
+          const result = response.data;
+
+          result.sort(function (a, b) {
+            if (a.descricao > b.descricao) {
+              return 1;
+            }
+            if (a.descricao < b.descricao) {
+              return -1;
+            }
+            // a must be equal to b
+            return 0;
+          });
+
+          console.log(result);
+
+          const value = result.map((raca) => ({
+            value: raca._id,
+            text: raca.descricao,
+          }));
+
+          return commit("SET_DATA_RACAS_TOURO", value);
+        }
+        return mixinUtils.methods.messageErrorRequestApi();
+      } catch (error) {
+        console.log(error);
+        return mixinUtils.methods.messageErrorRequestApi();
+      }
+    },
+
+    async saveDadosRacasTouro({ commit }, value) {
+      try {
+        const response = await DadosBasicosServices.saveRacasTourosApi(value);
+
+        if (response.status == 201) {
+          commit("SET_DATA_RACAS_TOURO", value);
+          mixinUtils.methods.messageSaveRacaTouroApi(response.data.mensagem);
+          return response;
+        }
+
+        let path = response.error.path;
+        let message = response.error.message;
+        let title = response.mensagem;
+        //Função de Mixins
+        return mixinUtils.methods.messageSwalToast(
+          "error",
+          title + message + path
+        );
+      } catch (error) {
+        return mixinUtils.methods.updateError(error.response.data);
+      }
+    },
+
+    async updateDadosRacasTouro({ commit }, value) {
+      try {
+        const response = await DadosBasicosServices.updateRacasTourosApi(value);
+
+        if (response.status == 200) {
+          commit("SET_DATA_RACAS_TOURO", value);
+          mixinUtils.methods.messageSucessUpdateApi();
+          return response;
+        }
+
+        let path = response.error.path;
+        let message = response.error.message;
+        let title = response.mensagem;
+        //Função de Mixins
+        return mixinUtils.methods.messageSwalToast(
+          "error",
+          title + message + path
+        );
+      } catch (error) {
+        return mixinUtils.methods.updateError(error.response.data);
+      }
+    },
+
+    async deleteDadosRacasTouro({ dispatch }, value) {
+      try {
+        const response = await DadosBasicosServices.deleteRacasTourosApi(value);
+        console.log(response);
+
+        if (response.status == 200) {
+          // commit("SET_DATA_RACAS_TOURO", value);
+          dispatch("getRacasTouro");
+          mixinUtils.methods.messageDeleteRacaTouroApi(response.data.mensagem);
+          return response;
+        }
+        //Função de Mixins
+        return mixinUtils.methods.messageSwalToast(
+          "error",
+          response.error.message
+        );
+      } catch (error) {
+        return mixinUtils.methods.updateError(error.response.data);
+      }
+    },
   },
 
   getters: {
@@ -216,5 +365,9 @@ export default new Vuex.Store({
     getDataIatfRT: (state) => state.IATFState,
 
     getDataIatf_2RT: (state) => state.IATF_2State,
+
+    getDataIatf_3RT: (state) => state.IATF_3State,
+
+    getRacasTouro: (state) => state.racasTouros,
   },
 });

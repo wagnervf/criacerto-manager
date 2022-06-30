@@ -68,7 +68,7 @@
                 <vue-blob-json-csv
                   tag-name="div"
                   file-type="csv"
-                  file-name="monta_natural"
+                  file-name="iatf_rt"
                   title="download"
                   :data="downloadItems"
                   class="btnDownload"

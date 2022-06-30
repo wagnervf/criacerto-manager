@@ -87,9 +87,6 @@
                 Salvar
               </v-btn>
             </div>
-            <pre>
-              {{ this.form }}
-           </pre>
           </v-form>
         </v-col>
       </v-container>
@@ -98,13 +95,18 @@
 </template>
 
 <script>
+import mixinUtils from "../../mixins/mixin-utils";
+
 export default {
-  name: "DadosTecnicosRebanho1IATF",
+  mixins: [mixinUtils],
+  name: "DadosTecnicosRebanho2IATF3",
   data: () => ({
     valid: true,
     form: {
-      vacas_inseminadas_2: 100,
-      prenhez_iatf_2: 50,
+      _id: "",
+      vacas_inseminadas_2: "",
+      prenhez_iatf_2: "",
+      user: "",
     },
     title: "Dados Técnicos do Rebanho 2ª IATF",
     icon: "mdi-file-cog",
@@ -114,16 +116,42 @@ export default {
     vacas_inseminadas_2Rules: [(v) => !!v || "Campo Obrigatório!"],
   }),
 
+  mounted() {
+    setTimeout(() => {
+      this.parserDataStore();
+    }, 1000);
+  },
+
+  computed: {
+    parametros() {
+      return this.$store.getters.getDataIatf_3RT;
+    },
+  },
+
   methods: {
     validate() {
-      this.$refs.form.validate();
-      console.log(this.$refs.form.validate());
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch("updateDados_3IATF", this.form);
+      }
     },
     reset() {
       this.$refs.form.reset();
     },
     resetValidation() {
+      //Envia para componente Pai fechar Expand
+      this.$emit("fechar");
       this.$refs.form.resetValidation();
+    },
+
+    parserDataStore() {
+      const value = this.parametros;
+      this.form = {
+        _id: value._id,
+        vacas_inseminadas_2: value.vacas_inseminadas_2,
+        prenhez_iatf_2: value.prenhez_iatf_2,
+        //Mixins
+        user: this.userLogado,
+      };
     },
   },
 };

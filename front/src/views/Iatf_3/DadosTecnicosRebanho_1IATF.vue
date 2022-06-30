@@ -45,73 +45,73 @@
           >
             <v-col justify="space-between">
               <v-text-field
-                v-model="form.numero_de_vacas_1"
-                label="Número Vacas à Inseminar"
+                v-model="form.numero_de_vacas"
+                label="Número de Vacas à Inseminar"
                 required
                 class="mt-2 pa-2 teal--text"
                 type="number"
                 suffix="Cabeças"
-                :rules="numero_de_vacas_1Rules"
+                :rules="numero_de_vacasRules"
                 outlined
               />
 
               <v-text-field
-                v-model="form.vacas_inseminadas_1"
-                label="Proporção de Vacas Inseminadas"
+                v-model="form.vacas_inseminadas"
+                label="Propoção de Vacas Inseminadas"
                 required
                 type="number"
                 class="mt-2 pa-2 teal--text"
-                :rules="vacas_inseminadas_1Rules"
+                :rules="vacas_inseminadasRules"
                 outlined
                 suffix="%"
               />
 
               <v-text-field
-                v-model="form.prenhez_iatf_1"
+                v-model="form.prenhez_iatf"
                 label="Prenhez 1ª IATF"
                 required
                 type="number"
                 class="mt-2 pa-2 teal--text"
                 suffix="%"
-                :rules="prenhez_iatf_1Rules"
+                :rules="prenhez_iatfRules"
                 outlined
               />
 
               <v-text-field
-                v-model="form.taxa_mortalidade_1"
-                label="Mortalidade do Nascimento à Desmana"
+                v-model="form.taxa_mortalidade"
+                label="Mortalidade do Nascimento à Desmama"
                 required
                 class="mt-2 pa-2 teal--text"
-                type="number"
+                outlined
                 suffix="%"
-                :rules="taxa_mortalidade_1Rules"
-                outlined
-              />
-
-              <v-text-field
-                v-model="form.preco_bezerro_1"
-                label="Preço Kg do Bezerro"
-                required
+                :rules="taxa_mortalidadeRules"
                 type="number"
-                class="mt-2 pa-2 teal--text"
-                :rules="preco_bezerro_1Rules"
-                outlined
-                suffix="R$"
               />
 
               <v-text-field
-                v-model="form.peso_comercial_iatf_1"
+                v-model="form.preco_bezerro"
+                label="Preço kg do Bezerro"
+                required
+                class="mt-2 pa-2 teal--text"
+                outlined
+                prefix="R$"
+                :rules="preco_bezerroRules"
+                type="number"
+              />
+
+              <v-text-field
+                v-model="form.peso_comercial_iatf"
                 label="Peso à Desmana da Fazenda"
                 required
-                type="number"
                 class="mt-2 pa-2 teal--text"
-                suffix="Kg"
-                :rules="peso_comercial_iatf_1Rules"
                 outlined
+                suffix="Kg"
+                :rules="peso_comercial_iatfRules"
+                type="number"
               />
             </v-col>
 
-            <div class="d-flex justify-end mt-6">
+            <div class="d-flex justify-end mx-4">
               <v-btn
                 outlined
                 color="error"
@@ -131,9 +131,6 @@
                 Salvar
               </v-btn>
             </div>
-            <pre>
-              {{ this.form }}
-           </pre>
           </v-form>
         </v-col>
       </v-container>
@@ -142,41 +139,79 @@
 </template>
 
 <script>
+import mixinUtils from "../../mixins/mixin-utils";
+
 export default {
-  name: "DadosTecnicosRebanho1IATF",
+  mixins: [mixinUtils],
+
+  name: "DadosTecnicosRebanho1IATF3",
   data: () => ({
     valid: true,
     form: {
-      numero_de_vacas_1: 4200,
-      vacas_inseminadas_1: 10,
-      prenhez_iatf_1: 50,
-      taxa_mortalidade_1: 3,
-      preco_bezerro_1: 6,
-      peso_comercial_iatf_1: 180,
+      _id: "",
+      numero_de_vacas: "",
+      vacas_inseminadas: "",
+      prenhez_iatf: "",
+      taxa_mortalidade: "",
+      preco_bezerro: "",
+      peso_comercial_iatf: "",
+      user: "",
     },
+
     title: "Dados Técnicos do Rebanho 1ª IATF",
     icon: "mdi-file-cog",
     subtitle:
-      "Número Vacas à Inseminar, Proporção de Vacas Inseminadas, Prenhez 1ª IATF,Mortalidade do Nascimento à Desmana, Preço Kg do Bezerro, Peso à Desmana da Fazenda",
+      "Número de Vacas à Inseminar, Propoção de Vacas Inseminadas, Prenhez IATF Mortalidade do Nascimento à Desmama, Preço kg do Bezerro, Peso à Desmana da Fazenda",
 
-    numero_de_vacas_1Rules: [(v) => !!v || "Campo Obrigatório!"],
-    vacas_inseminadas_1Rules: [(v) => !!v || "Campo Obrigatório!"],
-    prenhez_iatf_1Rules: [(v) => !!v || "Campo Obrigatório!"],
-    taxa_mortalidade_1Rules: [(v) => !!v || "Campo Obrigatório!"],
-    preco_bezerro_1Rules: [(v) => !!v || "Campo Obrigatório!"],
-    peso_comercial_iatf_1Rules: [(v) => !!v || "Campo Obrigatório!"],
+    numero_de_vacasRules: [(v) => !!v || "Campo Obrigatório!"],
+    vacas_inseminadasRules: [(v) => !!v || "Campo Obrigatório!"],
+    prenhez_iatfRules: [(v) => !!v || "Campo Obrigatório!"],
+    taxa_mortalidadeRules: [(v) => !!v || "Campo Obrigatório!"],
+    preco_bezerroRules: [(v) => !!v || "Campo Obrigatório!"],
+    peso_comercial_iatfRules: [(v) => !!v || "Campo Obrigatório!"],
   }),
+
+  mounted() {
+    setTimeout(() => {
+      this.parserDataStore();
+    }, 1000);
+  },
+
+  computed: {
+    parametros() {
+      return this.$store.getters.getDataIatf_3RT;
+    },
+  },
 
   methods: {
     validate() {
-      this.$refs.form.validate();
-      console.log(this.$refs.form.validate());
+      if (this.$refs.form.validate()) {
+        this.$store.dispatch("updateDados_3IATF", this.form);
+      }
     },
     reset() {
       this.$refs.form.reset();
     },
     resetValidation() {
+      //Envia para componente Pai fechar Expand
+      this.$emit("fechar");
       this.$refs.form.resetValidation();
+    },
+
+    parserDataStore() {
+      const value = this.parametros;
+
+      this.form = {
+        _id: value._id,
+        numero_de_vacas: value.numero_de_vacas,
+        vacas_inseminadas: value.vacas_inseminadas,
+        prenhez_iatf: value.prenhez_iatf,
+        taxa_mortalidade: value.taxa_mortalidade,
+        preco_bezerro: value.preco_bezerro,
+        peso_comercial_iatf: value.peso_comercial_iatf,
+        //Mixins
+        user: this.userLogado,
+      };
     },
   },
 };

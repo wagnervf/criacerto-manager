@@ -2,22 +2,20 @@
   <div>
     <v-card
       class="my-2"
-      elevation="2"
+      elevation="1"
     >
       <v-toolbar
-        
         elevation="0"
-        color="blue grey lighten-2"
+        color="blue grey lighten-3"
         light
+        dense
       >
-        <v-toolbar-title>Raças de Touros</v-toolbar-title>
+        <v-toolbar-title> Raças de Touros </v-toolbar-title>
 
         <v-spacer />
-
         <v-btn
           class="mx-1"
           fab
-          dark
           small
           color="success"
           title="Adicionar Raça de Touro"
@@ -27,68 +25,33 @@
             mdi-plus
           </v-icon>
         </v-btn>
-
-        <v-btn
-          class="mx-1"
-          fab
-          dark
-          small
-          color="primary"
-          title="Editar Raça de Touro"
-          :disabled="this.form.touro == ''"
-          @click="editTouro"
-        >
-          <v-icon dark>
-            mdi-pencil
-          </v-icon>
-        </v-btn>
-        <v-btn
-          class="mx-1"
-          fab
-          dark
-          small
-          color="error"
-          title="Remover Raça de Touro"
-          :disabled="this.form.touro == ''"
-          @click="deleteTouro"
-        >
-          <v-icon dark>
-            mdi-delete
-          </v-icon>
-        </v-btn>
       </v-toolbar>
 
-      <v-container
-        fluid
-        class="py-0"
+      <v-col
+        cols="12"
+        lg="12"
+        justify-center
+        flex
       >
-        <v-col
-          cols="12"
-          lg="12"
-          justify-center
-          flex
+        <v-form
+          ref="form"
+          v-model="valid"
+          class="pa-0 white ma-1"
+          lazy-validation
         >
-          <v-form
-            ref="form"
-            v-model="valid"
-            class="pa-0 white ma-1"
-            lazy-validation
-          >
-            <v-autocomplete
-              v-model="form.touro"
-              :items="racasTouro"
-              label="Raça do Touro"
-              required
-              class="mt-4 pa-2 teal--text"
+          <div v-if="openInput">
+            <v-alert
               outlined
-            />
-
-            <div v-if="tourosEdit">
+              text
+              color="grey lighten-2"
+              radio
+              class="px-4"
+            >
               <v-text-field
-                filled
+                outlined
                 ref="form.touro"
-                v-model="form.touro"
-                :rules="touroRules"
+                v-model="form.descricao"
+                :rules="descricaoRules"
                 placeholder="Inserir raça do touro"
                 required
                 class="mt-4 pa-2 teal--text"
@@ -99,7 +62,7 @@
                 <v-btn
                   color="error"
                   text
-                  @click="inserirTouro"
+                  @click="reset()"
                 >
                   Cancelar
                 </v-btn>
@@ -108,15 +71,61 @@
                   color="primary"
                   text
                   :disabled="!valid"
-                  @click="validate"
+                  @click="salvarRaca"
                 >
                   Salvar
                 </v-btn>
               </v-card-actions>
-            </div>
-          </v-form>
-        </v-col>
-      </v-container>
+            </v-alert>
+          </div>
+
+          <v-row>
+            <v-col cols="10">
+              <v-autocomplete
+                v-model="form"
+                :items="racasTouro"
+                @click:clear="limpar()"
+                label="Raça do Touro"
+                required
+                class="mt-4 pa-2 teal--text"
+                clearable
+                outlined
+                hide-details
+                flat
+                return-object
+              />
+            </v-col>
+            <v-col class="d-flex align-center">
+              <v-btn
+                class="mx-1"
+                fab
+                small
+                color="primary"
+                title="Editar Raça de Touro"
+                :disabled="this.form.descricao == ''"
+                @click="editTouro"
+              >
+                <v-icon dark>
+                  mdi-pencil
+                </v-icon>
+              </v-btn>
+              <v-btn
+                class="mx-1"
+                fab
+                small
+                color="error"
+                title="Remover Raça de Touro"
+                :disabled="this.form.descricao == ''"
+                @click="deleteTouro"
+              >
+                <v-icon dark>
+                  mdi-delete
+                </v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-col>
     </v-card>
 
     <v-row justify="center">
@@ -147,6 +156,7 @@
             <v-btn
               color="error"
               text
+              @click="deleteConfirm"
             >
               Deletar
             </v-btn>
@@ -158,58 +168,161 @@
 </template>
 
 <script>
+import mixinUtils from "../mixins/mixin-utils";
+
 export default {
+  mixins: [mixinUtils],
   name: "ComponentRacasTouro",
   data: () => ({
     valid: true,
-    
-    racasTouro: [
-      "Aberdeen Angus",
-      "Bonsmara",
-      "Braford",
-      "Brahman",
-      "Brangus",
-      "Canchim",
-      "Caracu",
-      "Charolês",
-      "Devon",
-      "Guzerá",
-      "Hereford",
-      "Limousin",
-      "Nelore",
-      "Red Angus",
-      "Red Brahman",
-      "Red Brangus",
-      "Senepol",
-      "Shorthorn",
-      "Simental",
-      "Tabapuã",
-      "Wagyu",
-      "Outras",
-    ],
-    isEditing: false,
-    tourosEdit: false,
+
+    racasTouro: [],
+    // "Aberdeen Angus",
+    // "Bonsmara",
+    // "Braford",
+    // "Brahman",
+    // "Brangus",
+    // "Canchim",
+    // "Caracu",
+    // "Charolês",
+    // "Devon",
+    // "Guzerá",
+    // "Hereford",
+    // "Limousin",
+    // "Nelore",
+    // "Red Angus",
+    // "Red Brahman",
+    // "Red Brangus",
+    // "Senepol",
+    // "Shorthorn",
+    // "Simental",
+    // "Tabapuã",
+    // "Wagyu",
+    // "Outras",
+    //  ],
+
+    openInput: false,
     dialog: false,
+
     form: {
-      touro: "",
+      // _id: "",
+      active: true,
+      descricao: "",
     },
+
+    salvar: false,
+    editar: false,
+    // formEditar: {
+    //   _id: "",
+    //   active: true,
+    //   descricao: "",
+    // },
 
     errorMessages: "",
     formHasErrors: false,
-
-    touroRules: [(v) => !!v || "Campo Obrigatório!"],
+    descricaoRules: [(v) => !!v || "Campo Obrigatório!"],
   }),
 
+  mounted() {
+    this.getRacasTouro();
+  },
+
+  computed: {
+    parametros() {
+      return this.$store.getters.getRacasTouro;
+    },
+  },
+
   methods: {
-    validate() {
-      this.$refs.form.validate();
-      console.log(this.$refs.form.validate());
+    async salvarRaca() {
+      if (this.$refs.form.validate()) {
+        if (this.salvar) {
+          const response = await this.$store.dispatch(
+            "saveDadosRacasTouro",
+            this.form
+          );
+          if (response.status == 201) {
+            return this.saveSuccess();
+          }
+        } else {
+          console.log(this.form);
+
+          const response = await this.$store.dispatch(
+            "updateDadosRacasTouro",
+            this.form
+          );
+
+          if (response.status == 200) {
+            return this.updateSuccess();
+          }
+        }
+      }
     },
+
+    getRacasTouro() {
+      this.racasTouro = [];
+      this.$store.dispatch("getRacasTouro");
+
+      setTimeout(() => {
+        this.parserDataStore();
+      }, 1000);
+    },
+
+    saveSuccess() {
+      this.openInput = false;
+      this.salvar = false;
+      // this.reset();
+    },
+
+    updateSuccess() {
+      this.openInput = false;
+      this.editar = false;
+      this.getRacasTouro();
+      this.reset();
+      // this.reset();
+    },
+
+    async deleteConfirm() {
+      //   console.log(this.form);
+      let id = this.form.value;
+      console.log(id);
+      let response = await this.$store.dispatch("deleteDadosRacasTouro", id);
+      if (response.status == 200) {
+        this.dialog = false;
+
+        return this.updateSuccess();
+      }
+    },
+
+    limpar() {
+      this.reset();
+    },
+
+    reset() {
+      this.form.descricao = "";
+      this.openInput = false;
+      this.salvar = false;
+      this.editar = false;
+    },
+
+    parserDataStore() {
+      this.racasTouro = this.parametros;
+    },
+
     inserirTouro() {
-      this.tourosEdit = !this.tourosEdit;
+      this.openInput = true;
+      this.salvar = true;
     },
+
     editTouro() {
-      this.tourosEdit = !this.tourosEdit;
+      this.openInput = true;
+      this.editar = true;
+
+      this.form = {
+        _id: this.form.value,
+        descricao: this.form.text,
+        active: true,
+      };
     },
 
     deleteTouro() {

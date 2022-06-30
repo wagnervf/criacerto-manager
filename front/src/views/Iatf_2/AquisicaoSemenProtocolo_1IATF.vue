@@ -128,7 +128,7 @@ import mixinUtils from "../../mixins/mixin-utils";
 
 export default {
   mixins: [mixinUtils],
-  name: "AquisicaoSemenProtocolo1IATF",
+  name: "AquisicaoSemenProtocolo1IATF2",
   data: () => ({
     valid: true,
     form: {

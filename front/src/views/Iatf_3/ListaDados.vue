@@ -68,7 +68,7 @@
                 <vue-blob-json-csv
                   tag-name="div"
                   file-type="csv"
-                  file-name="2iatf_rt"
+                  file-name="3iatf"
                   title="download"
                   :data="downloadItems"
                   class="btnDownload"
@@ -83,14 +83,20 @@
             <v-simple-table
               dense
               light
+              fixed-header="true"
+              height="600"
             >
               <template #default>
                 <thead>
                   <tr>
-                    <th class="text-left text-subtitle-1 font-weight-medium">
+                    <th
+                      class="teal--text text-left text-subtitle-1 font-weight-medium"
+                    >
                       Nome
                     </th>
-                    <th class="text-left text-subtitle-1 font-weight-medium">
+                    <th
+                      class="teal--text text-left text-subtitle-1 font-weight-medium"
+                    >
                       Valor
                     </th>
                   </tr>
@@ -127,7 +133,7 @@ export default {
     loading: false,
     title: "Lista dos Parâmentros",
     icon: "mdi-view-list",
-    subtitle: "Todos os Parâmentros utilizados nas Simulações da 2 IATF + RT",
+    subtitle: "Todos os Parâmentros utilizados nas Simulações da 3 IATF",
     parametros: [],
     downloadItems: [],
     icone: "mdi-cached",
@@ -136,7 +142,7 @@ export default {
 
   mounted() {
     // Solicita ao Vuex para buscar os dados e salvar no State
-    this.$store.dispatch("getDados_2IATF");
+    this.$store.dispatch("getDados_3IATF");
     //
     setTimeout(() => {
       this.getDataStore();
@@ -149,7 +155,7 @@ export default {
     getDataStore() {
       this.parametros = [];
       this.loader = "loading";
-      let result = this.$store.getters.getDataIatf_2RT;
+      let result = this.$store.getters.getDataIatf_3RT;
 
       if (Object.values(result).length > 0) {
         this.parametros = result;

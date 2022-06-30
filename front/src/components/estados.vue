@@ -1,62 +1,69 @@
 <template>
-  <v-row class="ma-0">
-    <v-col>
-      <v-card>
-        <v-card-title>Estados</v-card-title>
-        <v-select
-          v-model="estado"
-          label="Selecione o Estado"
-          :items="estados"
-          hide-details
-          filled
-          clearable
-          class="px-6 pb-4 my-2"
-        />
-      </v-card>
-      <v-card
-        v-if="filteredList.length != 0"
-        class="mx-0"
+  <div>
+    <v-card
+      class="my-2"
+      elevation="1"
+    >
+      <v-toolbar
+        elevation="0"
+        color="blue grey lighten-3"
+        light
       >
-        <v-card-title>Cidades</v-card-title>
-        <v-sheet class="pa-2 teal lighten-2">
-          <v-card-text>
-            <v-text-field
-              v-model="search"
-              label="Filtrar"
-              flat
-              solo-inverted
-              hide-details
-              clearable
-              clear-icon="mdi-close-circle-outline"
-              class="py-4"
-              dark
-            />
-          </v-card-text>
-        </v-sheet>
+        <v-toolbar-title>Estados / Municípios</v-toolbar-title>
+      </v-toolbar>
+      <v-select
+        v-model="estado"
+        label="Selecione o Estado"
+        :items="estados"
+        hide-details
+        filled
+        clearable
+        class="px-6 pb-4 my-2"
+      />
+    </v-card>
+    <v-card
+      v-if="filteredList.length != 0"
+      class="mx-0"
+    >
+      <v-card-title>Cidades</v-card-title>
+      <v-sheet class="pa-2 teal lighten-2">
+        <v-card-text>
+          <v-text-field
+            v-model="search"
+            label="Filtrar"
+            flat
+            solo-inverted
+            hide-details
+            clearable
+            clear-icon="mdi-close-circle-outline"
+            class="py-4"
+            dark
+          />
+        </v-card-text>
+      </v-sheet>
 
-        <v-list
-          dense
-          class="cidades"
-        >
-          <v-list-item-group color="primary">
-            <v-list-item
-              v-for="(item, i) in filteredList"
-              :key="i"
-            >
-              <v-list-item-icon>
-                <v-icon>mdi-map-marker</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>
-                  <div v-text="item" />
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-card>
-    </v-col>
-  </v-row>
+      <v-list
+        dense
+        class="cidades"
+      >
+        <v-list-item-group color="primary">
+          <v-list-item
+            v-for="(item, i) in filteredList"
+            :key="i"
+          >
+            <v-list-item-icon>
+              <v-icon>mdi-map-marker</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>
+                <div v-text="item" />
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-card>
+  </div>
 </template>
 
 <script>

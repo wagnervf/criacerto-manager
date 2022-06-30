@@ -95,13 +95,18 @@
 </template>
 
 <script>
+import mixinUtils from "../../mixins/mixin-utils";
+
 export default {
-  name: "DadosTecnicosRebanho2IATF",
+  mixins: [mixinUtils],
+  name: "DadosTecnicosRebanho2IATF2",
   data: () => ({
     valid: true,
     form: {
+      _id: "",
       vacas_inseminadas_2: "",
       prenhez_iatf_2: "",
+      user: "",
     },
     title: "Dados Técnicos do Rebanho 2ª IATF",
     icon: "mdi-file-cog",

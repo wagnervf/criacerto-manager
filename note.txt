@@ -249,34 +249,34 @@ vida_util_touro:
 
 
 --------------- 3 IATF  --------------------------
-active: 1
-code: "3f404720-28ca-4880-94f0-fdb1bd39a0bf"
-dep_iatf: 7
-dep_iatf_2: 7
-dep_iatf_3: 7
-mao_de_obra: 15
-mao_de_obra_2: 15
-mao_de_obra_3: 15
-material_consumo: 2
-material_consumo_2: 2
-material_consumo_3: 2
-numero_de_vacas: 1000
-peso_comercial_iatf: 180
-peso_elite: 218
-peso_elite_iatf: 218
-preco_bezerro: 6
-preco_semen: 20
-preco_semen_2: 20
-preco_semen_3: 20
-prenhez_iatf: 50
-prenhez_iatf_2: 50
-prenhez_iatf_3: 50
-protocolo: 17
-protocolo_2: 17
-protocolo_3: 17
-raca_touro_iatf: "Nelore"
-taxa_mortalidade: 3
-type: "3 IATF"
-vacas_inseminadas: 100
-vacas_inseminadas_2: 100
-vacas_inseminadas_3: 100
+"active": 1,
+"code": "3f404720-28ca-4880-94f0-fdb1bd39a0bf",
+"dep_iatf": 7,
+"dep_iatf_2": 7,
+"dep_iatf_3": 7,
+"mao_de_obra": 15,
+"mao_de_obra_2": 15,
+"mao_de_obra_3": 15,
+"material_consumo": 2,
+"material_consumo_2": 2,
+"material_consumo_3": 2,
+"numero_de_vacas": 1000,
+"peso_comercial_iatf": 180,
+"peso_elite": 218,
+"peso_elite_iatf": 218,
+"preco_bezerro": 6,
+"preco_semen": 20,
+"preco_semen_2": 20,
+"preco_semen_3": 20,
+"prenhez_iatf": 50,
+"prenhez_iatf_2": 50,
+"prenhez_iatf_3": 50,
+"protocolo": 17,
+"protocolo_2": 17,
+"protocolo_3": 17,
+"raca_touro_iatf": "Nelore",
+"taxa_mortalidade": 3,
+"type": "3 IATF",
+"vacas_inseminadas": 100,
+"vacas_inseminadas_2": 100,
+"vacas_inseminadas_3": 100,

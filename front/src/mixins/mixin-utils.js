@@ -55,5 +55,13 @@ export default {
     messageSucessUpdateApi() {
       return this.messageSwalToast("success", "Dados atualizados sucesso!");
     },
+
+    messageSaveRacaTouroApi(message) {
+      return this.messageSwalToast("success", message);
+    },
+
+    messageDeleteRacaTouroApi(message) {
+      return this.messageSwalToast("success", message);
+    },
   },
 };
