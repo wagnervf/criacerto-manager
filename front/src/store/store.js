@@ -183,8 +183,6 @@ export default new Vuex.Store({
         const response = await Iatf_2Services.getIatf_2Api();
         if (response.status == 200) {
           const result = response.data[0];
-          console.log(result);
-
           return commit("SET_DATA_IATF_2", result);
         }
         return mixinUtils.methods.messageErrorRequestApi();
@@ -221,8 +219,6 @@ export default new Vuex.Store({
         const response = await Iatf_3Services.getIatf_3Api();
         if (response.status == 200) {
           const result = response.data[0];
-          console.log(result);
-
           return commit("SET_DATA_IATF_3", result);
         }
         return mixinUtils.methods.messageErrorRequestApi();
@@ -237,14 +233,9 @@ export default new Vuex.Store({
         const response = await Iatf_3Services.updateIatf_3Api(value);
 
         if (response.status != 200) {
-          let path = response.error.path;
-          let message = response.error.message;
-          let title = response.mensagem;
+          let message = response.mensagem;
           //Função de Mixins
-          return mixinUtils.methods.messageSwalToast(
-            "error",
-            title + message + path
-          );
+          return mixinUtils.methods.messageSwalToast("error", message);
         }
 
         commit("SET_DATA_IATF_3", value);
@@ -258,20 +249,9 @@ export default new Vuex.Store({
       try {
         const response = await DadosBasicosServices.getRacasTourosApi();
         if (response.status == 200) {
-          const result = response.data;
+          let result = response.data;
 
-          result.sort(function (a, b) {
-            if (a.descricao > b.descricao) {
-              return 1;
-            }
-            if (a.descricao < b.descricao) {
-              return -1;
-            }
-            // a must be equal to b
-            return 0;
-          });
-
-          console.log(result);
+          result = mixinUtils.methods.orderBy(result);
 
           const value = result.map((raca) => ({
             value: raca._id,
@@ -297,14 +277,9 @@ export default new Vuex.Store({
           return response;
         }
 
-        let path = response.error.path;
-        let message = response.error.message;
-        let title = response.mensagem;
+        let message = response.mensagem;
         //Função de Mixins
-        return mixinUtils.methods.messageSwalToast(
-          "error",
-          title + message + path
-        );
+        return mixinUtils.methods.messageSwalToast("error", message);
       } catch (error) {
         return mixinUtils.methods.updateError(error.response.data);
       }
@@ -316,18 +291,13 @@ export default new Vuex.Store({
 
         if (response.status == 200) {
           commit("SET_DATA_RACAS_TOURO", value);
-          mixinUtils.methods.messageSucessUpdateApi();
+          mixinUtils.methods.messageRacaTouroApi(response.data.mensagem);
           return response;
+        } else {
+          let message = response.mensagem;
+          //Função de Mixins
+          return mixinUtils.methods.messageSwalToast("error", message);
         }
-
-        let path = response.error.path;
-        let message = response.error.message;
-        let title = response.mensagem;
-        //Função de Mixins
-        return mixinUtils.methods.messageSwalToast(
-          "error",
-          title + message + path
-        );
       } catch (error) {
         return mixinUtils.methods.updateError(error.response.data);
       }
@@ -336,12 +306,11 @@ export default new Vuex.Store({
     async deleteDadosRacasTouro({ dispatch }, value) {
       try {
         const response = await DadosBasicosServices.deleteRacasTourosApi(value);
-        console.log(response);
 
         if (response.status == 200) {
           // commit("SET_DATA_RACAS_TOURO", value);
           dispatch("getRacasTouro");
-          mixinUtils.methods.messageDeleteRacaTouroApi(response.data.mensagem);
+          mixinUtils.methods.messageRacaTouroApi(response.data.mensagem);
           return response;
         }
         //Função de Mixins
@@ -350,7 +319,7 @@ export default new Vuex.Store({
           response.error.message
         );
       } catch (error) {
-        return mixinUtils.methods.updateError(error.response.data);
+        return mixinUtils.methods.updateError(error.response);
       }
     },
   },

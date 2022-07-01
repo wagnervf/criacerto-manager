@@ -13,8 +13,6 @@ export default {
 
       return response;
     } catch (error) {
-      //  console.log(error);
-
       console.error(error);
       return error.response.data;
     }
@@ -25,7 +23,7 @@ export default {
       const result = await ApiAxios()
         .put(apiDadosBasicos.concat("racastouro/update"), dados)
         .then((response) => response)
-        .catch((error) => error);
+        .catch((error) => error.response.data);
 
       return result;
     } catch (erro) {
@@ -39,7 +37,7 @@ export default {
       const response = await ApiAxios()
         .post(apiDadosBasicos.concat("racastouro/save"), dados)
         .then((response) => response)
-        .catch((error) => error);
+        .catch((error) => error.response.data);
 
       return response;
     } catch (error) {
@@ -53,9 +51,7 @@ export default {
       const result = await ApiAxios()
         .delete(apiDadosBasicos.concat("racastouro/delete"), { params: { id } })
         .then((response) => response)
-        .catch((error) => error.response);
-
-      console.log(result);
+        .catch((error) => error.response.data);
 
       return result;
     } catch (erro) {

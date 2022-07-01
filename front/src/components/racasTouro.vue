@@ -50,7 +50,7 @@
               <v-text-field
                 outlined
                 ref="form.touro"
-                v-model="form.descricao"
+                v-model.trim="form.descricao"
                 :rules="descricaoRules"
                 placeholder="Inserir raça do touro"
                 required
@@ -79,7 +79,7 @@
             </v-alert>
           </div>
 
-          <v-row>
+          <v-row v-if="viewList">
             <v-col cols="10">
               <v-autocomplete
                 v-model="form"
@@ -139,7 +139,7 @@
           </v-card-text>
 
           <v-card-title class="text-h5">
-            {{ this.form.touro }}
+            {{ this.deletarDescricao }}
           </v-card-title>
           <v-divider />
           <v-card-actions>
@@ -175,49 +175,19 @@ export default {
   name: "ComponentRacasTouro",
   data: () => ({
     valid: true,
-
     racasTouro: [],
-    // "Aberdeen Angus",
-    // "Bonsmara",
-    // "Braford",
-    // "Brahman",
-    // "Brangus",
-    // "Canchim",
-    // "Caracu",
-    // "Charolês",
-    // "Devon",
-    // "Guzerá",
-    // "Hereford",
-    // "Limousin",
-    // "Nelore",
-    // "Red Angus",
-    // "Red Brahman",
-    // "Red Brangus",
-    // "Senepol",
-    // "Shorthorn",
-    // "Simental",
-    // "Tabapuã",
-    // "Wagyu",
-    // "Outras",
-    //  ],
-
+    viewList: true,
     openInput: false,
     dialog: false,
+    deletarDescricao: "",
 
     form: {
-      // _id: "",
       active: true,
       descricao: "",
     },
 
     salvar: false,
     editar: false,
-    // formEditar: {
-    //   _id: "",
-    //   active: true,
-    //   descricao: "",
-    // },
-
     errorMessages: "",
     formHasErrors: false,
     descricaoRules: [(v) => !!v || "Campo Obrigatório!"],
@@ -235,6 +205,10 @@ export default {
 
   methods: {
     async salvarRaca() {
+      let pal = this.form.descricao;
+      pal = pal.toLowerCase();
+      this.form.descricao = pal[0].toUpperCase() + pal.substr(1);
+
       if (this.$refs.form.validate()) {
         if (this.salvar) {
           const response = await this.$store.dispatch(
@@ -242,11 +216,9 @@ export default {
             this.form
           );
           if (response.status == 201) {
-            return this.saveSuccess();
+            return this.updateSuccess();
           }
         } else {
-          console.log(this.form);
-
           const response = await this.$store.dispatch(
             "updateDadosRacasTouro",
             this.form
@@ -268,28 +240,19 @@ export default {
       }, 1000);
     },
 
-    saveSuccess() {
-      this.openInput = false;
-      this.salvar = false;
-      // this.reset();
-    },
-
     updateSuccess() {
       this.openInput = false;
       this.editar = false;
       this.getRacasTouro();
       this.reset();
-      // this.reset();
     },
 
     async deleteConfirm() {
-      //   console.log(this.form);
       let id = this.form.value;
-      console.log(id);
+
       let response = await this.$store.dispatch("deleteDadosRacasTouro", id);
       if (response.status == 200) {
         this.dialog = false;
-
         return this.updateSuccess();
       }
     },
@@ -303,6 +266,7 @@ export default {
       this.openInput = false;
       this.salvar = false;
       this.editar = false;
+      this.viewList = true;
     },
 
     parserDataStore() {
@@ -312,11 +276,13 @@ export default {
     inserirTouro() {
       this.openInput = true;
       this.salvar = true;
+      this.viewList = false;
     },
 
     editTouro() {
       this.openInput = true;
       this.editar = true;
+      this.viewList = false;
 
       this.form = {
         _id: this.form.value,
@@ -327,9 +293,8 @@ export default {
 
     deleteTouro() {
       this.dialog = !this.dialog;
+      this.deletarDescricao = this.form.text;
     },
   },
 };
 </script>
-
-<style></style>

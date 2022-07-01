@@ -135,9 +135,9 @@ export default {
 
   watch: {
     estado() {
-      console.log(brasil[this.estado].cidades);
+      //  console.log(brasil[this.estado].cidades);
       this.cidades = brasil[this.estado].cidades;
-      console.log();
+      // console.log();
     },
   },
 

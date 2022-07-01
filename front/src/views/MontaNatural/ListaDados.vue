@@ -80,6 +80,17 @@
 
             <v-divider />
 
+            <!-- <v-text-field
+              v-model="search"
+              label="Filtrar"
+              flat
+              hide-details
+              clearable
+              clear-icon="mdi-close-circle-outline"
+              class="py-4"
+              outlined
+            /> -->
+
             <v-simple-table
               dense
               light
@@ -132,12 +143,12 @@ export default {
     downloadItems: [],
     icone: "mdi-cached",
     color: "teal",
+    search: "",
   }),
 
   mounted() {
     // Solicita ao Vuex para buscar os dados e salvar no State
     this.$store.dispatch("getDadosMontaNatural");
-    //
     setTimeout(() => {
       this.getDataStore();
     }, 500);
@@ -150,6 +161,7 @@ export default {
       this.parametros = [];
       this.loader = "loading";
       let result = this.$store.getters.getDataMontaNatural;
+      //console.log(result);
 
       if (Object.values(result).length > 0) {
         this.parametros = result;
@@ -159,6 +171,25 @@ export default {
         this.errorMessage();
       }
     },
+
+    // paserData(key, inputArray) {
+
+    //   result.push(this.$store.getters.getDataMontaNatural);
+
+    //   const value = result.map((val) => ({
+    //     key: Object.keys(val),
+    //     value: Object.values(val),
+    //   }));
+
+    //   console.log(value[0]);
+    //   for (let i = 0; i < inputArray.length; i++) {
+    //     if (inputArray[i].key === key) {
+    //       console.log(inputArray[i].key);
+    //     }
+    //   }
+
+    //   //console.log(search);
+    // },
 
     mountDataDownload() {
       this.downloadItems.push(this.parametros);

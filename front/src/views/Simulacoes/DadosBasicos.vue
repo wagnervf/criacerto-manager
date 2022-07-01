@@ -37,11 +37,15 @@
             justify-center
             flex
           >
-            <ListEstados />
+            <v-col>
+              <ListEstados />
+            </v-col>
 
             <div class="my-4" />
 
-            <RacasTouro />
+            <v-col>
+              <RacasTouro />
+            </v-col>
           </v-col>
           <v-col />
         </v-card>

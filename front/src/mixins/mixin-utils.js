@@ -60,8 +60,20 @@ export default {
       return this.messageSwalToast("success", message);
     },
 
-    messageDeleteRacaTouroApi(message) {
+    messageRacaTouroApi(message) {
       return this.messageSwalToast("success", message);
+    },
+
+    orderBy(string) {
+      return string.sort(function (a, b) {
+        if (a.descricao > b.descricao) {
+          return 1;
+        }
+        if (a.descricao < b.descricao) {
+          return -1;
+        }
+        return 0;
+      });
     },
   },
 };

@@ -38,15 +38,27 @@ exports.updateRacasTouro = async (req, res) => {
     const dados = req.body;
     // eslint-disable-next-line no-underscore-dangle
     const filter = { _id: dados._id };
+    const query = dados.descricao;
 
     try {
-      const result = await RacasTouroModel.findByIdAndUpdate(filter, dados, {
-        new: true,
-        useFindAndModify: false,
-      });
-      return res.status(200).json({
-        mensagem: "Dados da Raças de Touros Atualizados com sucesso!",
-        result,
+      RacasTouroModel.findOne({ descricao: query }, async (err, value) => {
+        if (err) {
+          return res.status(201).json(err);
+        }
+        if (value) {
+          return res.status(400).json({
+            value,
+            mensagem: "Já existe uma Raça de Touro com essa Descrição!",
+          });
+        }
+        const result = await RacasTouroModel.findByIdAndUpdate(filter, dados, {
+          new: true,
+          useFindAndModify: false,
+        });
+        return res.status(200).json({
+          mensagem: "Dados da Raças de Touros Atualizados com sucesso!",
+          result,
+        });
       });
     } catch (error) {
       return res.status(400).json({
@@ -54,6 +66,8 @@ exports.updateRacasTouro = async (req, res) => {
         mensagem: "Erro ao atualizar os dados da Raças de Touros",
       });
     }
+
+    return false;
   } catch (error) {
     return res
       .status(404)
@@ -69,19 +83,25 @@ exports.updateRacasTouro = async (req, res) => {
 exports.saveRacasTouro = async (req, res) => {
   try {
     const racas = new RacasTouroModel(req.body);
+    const query = req.body.descricao;
 
-    try {
+    RacasTouroModel.findOne({ descricao: query }, async (err, value) => {
+      if (err) {
+        return res.status(201).json(err);
+      }
+      if (value) {
+        return res.status(400).json({
+          value,
+          mensagem: "Já existe uma Raça de Touro com essa Descrição!",
+        });
+      }
       const touros = await racas.save();
       return res.status(201).json({
         mensagem: "Racas de Touros Salvos com sucesso!",
         touros,
       });
-    } catch (error) {
-      return res.status(400).json({
-        error,
-        mensagem: "Erro ao salvar os dados da Racas de Touros",
-      });
-    }
+    });
+    return true;
   } catch (error) {
     return res.status(404).json({ error, mensagem: "Erro ao salvar os dados" });
   }
