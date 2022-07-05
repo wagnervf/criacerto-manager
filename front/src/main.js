@@ -9,7 +9,6 @@ import VueBlobJsonCsv from "vue-blob-json-csv";
 Vue.use(VueBlobJsonCsv);
 
 Vue.use(Notifications);
-
 Vue.config.productionTip = false;
 
 new Vue({

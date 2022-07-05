@@ -6,6 +6,7 @@ import Iatf_2Services from "@/services/Iatf_2Services";
 import Iatf_3Services from "@/services/Iatf_3Services";
 import DadosBasicosServices from "@/services/DadosBasicosServices";
 import mixinUtils from "../mixins/mixin-utils";
+import DashboardService from "@/services/DashboardServices";
 
 Vue.use(Vuex);
 
@@ -74,6 +75,7 @@ export default new Vuex.Store({
     },
 
     SET_DATA_ECOW(state, value) {
+      // state.ecow.push(value);
       Object.assign(state.ecow, value);
     },
 
@@ -92,7 +94,6 @@ export default new Vuex.Store({
     },
     SET_DATA_RACAS_TOURO(state, value) {
       Object.assign(state.racasTouros, value);
-      // state.racasTouros.push(value);
     },
 
     CLEAR_USER(state) {
@@ -102,6 +103,24 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    async getDataEcowApi({ commit }) {
+      try {
+        const response = await DashboardService.getDadosEcow();
+        if (response.status == 200) {
+          if (response.data[0]._id) {
+            delete response.data[0]._id;
+          }
+          const result = response.data[0];
+
+          return commit("SET_DATA_ECOW", result);
+        } else {
+          return mixinUtils.methods.messageErrorRequestApi();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
     async getDadosMontaNatural({ commit }) {
       try {
         const response = await MontaNaturaServices.getMontaNaturalApi();

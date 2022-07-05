@@ -1,6 +1,7 @@
 import Vue from "vue";
 import { mapState, mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
+import moment from "moment";
 
 export default {
   computed: {
@@ -74,6 +75,34 @@ export default {
         }
         return 0;
       });
+    },
+
+    formatDate(date) {
+      return date ? moment(date).format("L") : "";
+    },
+
+    getMediaAluguelPasto() {
+      let value = 0;
+      for (let index = 0; index < this.aluguelPasto.length; index++) {
+        value += this.aluguelPasto[index];
+      }
+      this.mediaAluguelPasto = value / this.aluguelPasto.length;
+    },
+
+    getMediaValorVenda() {
+      let value = 0;
+      for (let index = 0; index < this.valorVenda.length; index++) {
+        value += this.valorVenda[index];
+      }
+      this.mediaValorVenda = value / this.valorVenda.length;
+    },
+
+    getMediaTaxaMortalidade() {
+      let value = 0;
+      for (let index = 0; index < this.taxaMortalidade.length; index++) {
+        value += this.taxaMortalidade[index];
+      }
+      this.mediaTaxaMortalidade = value / this.taxaMortalidade.length;
     },
   },
 };

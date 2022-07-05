@@ -38,13 +38,13 @@
             flex
           >
             <v-col>
-              <ListEstados />
+              <RacasTouro />
             </v-col>
 
             <div class="my-4" />
 
             <v-col>
-              <RacasTouro />
+              <ListEstados />
             </v-col>
           </v-col>
           <v-col />

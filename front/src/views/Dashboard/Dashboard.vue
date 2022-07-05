@@ -3,120 +3,20 @@
     <div class="dashboard-page">
       <v-row>
         <v-row>
-          <v-col
-            lg="6"
-            sm="6"
-            md="6"
-            cols="12"
-          >
+          <v-col cols="12">
             <dashboardCardTotalSimulacoesVue />
           </v-col>
-
-          <v-col
-            lg="4"
-            sm="6"
-            md="5"
-            cols="12"
-          >
-            <dashboardTiposTourosVue />
+          <v-col cols="12">
+            <ComponentRangeData />
           </v-col>
 
-          <v-col
-            lg="4"
-            sm="6"
-            md="7"
-            cols="12"
-          >
-            <v-container fluid>
-              <v-card
-                class="mx-1 mb-1"
-                style="height: 294px"
-              >
-                <v-card-title class="pa-6 pb-3">
-                  <p>App Performance</p>
-                  <v-spacer />
-                  <v-menu>
-                    <template #activator="{ on, attrs }">
-                      <v-btn
-                        icon
-                        v-bind="attrs"
-                        v-on="on"
-                      >
-                        <v-icon color="textColor">
-                          mdi-dots-vertical
-                        </v-icon>
-                      </v-btn>
-                    </template>
-                    <v-list>
-                      <v-list-item
-                        v-for="(item, i) in mock.menu"
-                        :key="i"
-                        @click="() => {}"
-                      >
-                        <v-list-item-title>{{ item }}</v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                </v-card-title>
-                <v-card-text class="pa-6 pt-0">
-                  <v-row
-                    no-gutters
-                    class="pb-5"
-                  >
-                    <div class="mr-4">
-                      <v-icon
-                        color="primary"
-                        class="ml-n2"
-                      >
-                        mdi-circle-medium
-                      </v-icon>
-                      <span class="card-light-grey">Integration</span>
-                    </div>
-                    <div>
-                      <v-icon color="warning">
-                        mdi-circle-medium
-                      </v-icon>
-                      <span class="card-light-grey">SDK</span>
-                    </div>
-                  </v-row>
-                  <v-row
-                    no-gutters
-                    class="pb-3"
-                  >
-                    <v-col>
-                      <div class="text-h6 card-light-grey font-weight-regular">
-                        Integration
-                      </div>
-                      <v-progress-linear
-                        :value="value"
-                        background-color="#ececec"
-                        color="primary"
-                      />
-                    </v-col>
-                  </v-row>
-                  <v-row
-                    no-gutters
-                    class="pb-1"
-                  >
-                    <v-col>
-                      <div class="text-h6 card-light-grey font-weight-regular">
-                        SDK
-                      </div>
-                      <v-progress-linear
-                        :value="value2"
-                        background-color="#ececec"
-                        color="warning"
-                      />
-                    </v-col>
-                  </v-row>
-                </v-card-text>
-              </v-card>
-            </v-container>
+          <v-col cols="12">
+            <dashboardTiposTourosVue />
           </v-col>
         </v-row>
 
         <v-col cols="12">
-          <dashboardChartBarVue />
+          <dashboardQtdeEstadoDataVue />
         </v-col>
 
         <v-col cols="12">
@@ -217,10 +117,105 @@
           </v-card>
         </v-col>
 
+        <v-col>
+          <v-col
+            lg="4"
+            sm="6"
+            md="7"
+            cols="12"
+          >
+            <v-container fluid>
+              <v-card
+                class="mx-1 mb-1"
+                style="height: 294px"
+              >
+                <v-card-title class="pa-6 pb-3">
+                  <p>App Performance</p>
+                  <v-spacer />
+                  <v-menu>
+                    <template #activator="{ on, attrs }">
+                      <v-btn
+                        icon
+                        v-bind="attrs"
+                        v-on="on"
+                      >
+                        <v-icon color="textColor">
+                          mdi-dots-vertical
+                        </v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list>
+                      <v-list-item
+                        v-for="(item, i) in mock.menu"
+                        :key="i"
+                        @click="() => {}"
+                      >
+                        <v-list-item-title>{{ item }}</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </v-card-title>
+                <v-card-text class="pa-6 pt-0">
+                  <v-row
+                    no-gutters
+                    class="pb-5"
+                  >
+                    <div class="mr-4">
+                      <v-icon
+                        color="primary"
+                        class="ml-n2"
+                      >
+                        mdi-circle-medium
+                      </v-icon>
+                      <span class="card-light-grey">Integration</span>
+                    </div>
+                    <div>
+                      <v-icon color="warning">
+                        mdi-circle-medium
+                      </v-icon>
+                      <span class="card-light-grey">SDK</span>
+                    </div>
+                  </v-row>
+                  <v-row
+                    no-gutters
+                    class="pb-3"
+                  >
+                    <v-col>
+                      <div class="text-h6 card-light-grey font-weight-regular">
+                        Integration
+                      </div>
+                      <v-progress-linear
+                        :value="value"
+                        background-color="#ececec"
+                        color="primary"
+                      />
+                    </v-col>
+                  </v-row>
+                  <v-row
+                    no-gutters
+                    class="pb-1"
+                  >
+                    <v-col>
+                      <div class="text-h6 card-light-grey font-weight-regular">
+                        SDK
+                      </div>
+                      <v-progress-linear
+                        :value="value2"
+                        background-color="#ececec"
+                        color="warning"
+                      />
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+            </v-container>
+          </v-col>
+        </v-col>
+
         <v-col cols="12">
           <v-data-table
             :headers="headers"
-            :items="eCowData"
+            :items="eCow"
             item-key="code"
             sort-by="created"
             group-by="type"
@@ -249,28 +244,32 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import DashboardService from "@/services/DashboardServices";
 import mock from "./mock";
+import mixinUtils from "../../mixins/mixin-utils";
+//import ComponentProgress from "../../components/Progress.vue";
 // import eCow from "./e-cow";
 import dashboardCardsVue from "./dashboard-cards.vue";
 import dashboardChartColumnVue from "./dashboard-chart-column.vue";
-import dashboardChartBarVue from "./dashboard-chart-bar.vue";
+import dashboardQtdeEstadoDataVue from "./dashboard-Qtde-Estado-Data.vue";
 import dashboardCardTotalSimulacoesVue from "./dashboard-card-total-simulacoes.vue";
 // import dashboardTableSimpleVue from "./dashboard-table-simple.vue";
 import dashboardTiposTourosVue from "./dashboard-tipos-touros.vue";
 // import ApexChart from "vue-apexcharts";
 
+import ComponentRangeData from "../../components/rangeData.vue";
+
 export default {
+  mixins: [mixinUtils],
   name: "DashboardView",
   components: {
     dashboardCardsVue,
     dashboardChartColumnVue,
     // dashboardTableSimpleVue,
     dashboardTiposTourosVue,
-    dashboardChartBarVue,
+    dashboardQtdeEstadoDataVue,
     dashboardCardTotalSimulacoesVue,
-    // ApexChart,
+    // ComponentProgress,
+    ComponentRangeData,
   },
   data() {
     return {
@@ -292,31 +291,34 @@ export default {
         { text: "Data", value: "created", align: "right" },
       ],
       itemsPerPage: 20,
+      loadingQtde: true,
     };
   },
 
+  mounted() {
+    // Solicita ao Vuex para buscar os dados e salvar no State
+    this.$store.dispatch("getDataEcowApi");
+
+    setTimeout(() => {
+      this.apexLoading = true;
+      this.loadingQtde = false;
+    }, 2000);
+
+    this.getData();
+  },
+
   computed: {
+    eCowData() {
+      return this.$store.getters.getDataEcow;
+    },
+
     eCowCount() {
-      return Object.keys(this.eCow).length;
+      return Object.keys(this.eCowData).length;
     },
 
     montaNaturalLength() {
       return this.montaNatural.length;
     },
-
-    eCowData() {
-      return Object.values(this.eCow);
-    },
-  },
-
-  mounted() {
-    this.getDataEcowApi();
-    
-    setTimeout(() => {
-      this.apexLoading = true;
-      this.eCowSimulations();
-      
-    }, 1000);
   },
 
   beforeDestroy() {
@@ -329,8 +331,14 @@ export default {
       return Math.round(rand);
     },
 
+    getData() {
+      this.eCow.push(this.eCowData);
+    },
+
     eCowSimulations() {
       const data = this.eCow;
+      // console.log(data);
+
       Object.values(data).forEach((value) => {
         switch (value.type) {
           case "Monta Natural":
@@ -354,28 +362,6 @@ export default {
       });
 
       return [];
-    },
-
-    ...mapState(["SetDataCow"]),
-
-    async getDataEcowApi() {
-      try {
-        const response = await DashboardService.getDadosEcow();
-        if (response.status == 200) {
-          if (response.data[0]._id) {
-            delete response.data[0]._id;
-          }
-          const result = response.data[0];
-
-          this.$store.commit("SET_DATA_ECOW", result);
-
-          this.eCow = this.$store.getters.getDataEcow;
-        } else {
-          console.log("Erro ao carregar dados");
-        }
-      } catch (error) {
-        console.log(error);
-      }
     },
   },
 };

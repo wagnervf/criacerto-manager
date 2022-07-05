@@ -83,16 +83,16 @@ export default {
 
       chartOptions: {
         chart: {
-          width: '100%',
+          width: "100%",
           type: "pie",
         },
         plotOptions: {
-              pie: {
-                dataLabels: {
-                  offset: -5
-                }
-              }
+          pie: {
+            dataLabels: {
+              offset: -5,
             },
+          },
+        },
 
         labels: [],
         series: [],
@@ -113,18 +113,18 @@ export default {
     };
   },
 
-  computed: {
-    eCowData() {
-      return this.$store.getters.getDataEcow;
-    },
-  },
-
   mounted() {
     setTimeout(() => {
       this.racaTouros();
       this.separaRacasTouros();
       this.visivel = true;
     }, 3000);
+  },
+
+  computed: {
+    eCowData() {
+      return this.$store.getters.getDataEcow;
+    },
   },
 
   methods: {

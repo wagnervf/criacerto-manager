@@ -1,19 +1,40 @@
 <template>
   <div>
     <v-card class="mx-1 mb-1">
-      <v-card-title class="pa-6 pb-0">
-        <v-row no-gutters>
-          <v-col
-            cols="12"
-            class="d-flex align-center"
-          >
-            <p>Quantitativo de Simulações Estados</p>
-          </v-col>
-        </v-row>
-      </v-card-title>
+      <v-toolbar
+        class="pa-0 my-1"
+        color="teal"
+        elevation="0"
+        dense
+        shrink-on-scroll
+        dark
+      >
+        <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
+          Quantitativo de Simulações Estados
+        </v-app-bar-title>
+
+        <v-spacer />
+        <!-- <v-btn
+          text
+          fab
+          small
+          dark
+          title="Filtrar os Data ou Estados"
+        >
+          <v-icon>mdi-filter</v-icon>
+        </v-btn> -->
+      </v-toolbar>
+
       <v-card-text class="pa-6">
         <v-row>
-          <v-col>
+          <v-col v-if="visivel">
+            <v-progress-linear
+              indeterminate
+              color="cyan"
+              :query="true"
+            />
+          </v-col>
+          <v-col v-else>
             <ApexChart
               type="bar"
               height="350"
@@ -29,7 +50,7 @@
 
 <script>
 import ApexChart from "vue-apexcharts";
-import eCow from "./e-cow";
+//import eCow from "./e-cow";
 
 export default {
   name: "DashboardChartBar",
@@ -38,11 +59,10 @@ export default {
   },
   data() {
     return {
-      eCow,
+      visivel: true,
       series: [
         {
           data: [],
-          // [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380],
         },
       ],
       chartOptions: {
@@ -66,18 +86,6 @@ export default {
 
         xaxis: {
           categories: [],
-          /* [
-            "South Korea",
-            "Canada",
-            "United Kingdom",
-            "Netherlands",
-            "Italy",
-            "France",
-            "Japan",
-            "United States",
-            "China",
-            "Germany",
-          ], */
         },
       },
 
@@ -86,20 +94,28 @@ export default {
     };
   },
 
-  computed: {},
-
   mounted() {
-    this.getEstados();
-    this.separaEstados();
-    console.log(this.series["0"]);
+    setTimeout(() => {
+      this.getEstados();
+
+      this.visivel = false;
+    }, 2000);
+  },
+
+  computed: {
+    eCowData() {
+      return this.$store.getters.getDataEcow;
+    },
   },
 
   methods: {
     getEstados() {
-      const data = this.eCow;
+      const data = this.eCowData;
       Object.values(data).forEach((value) => {
         this.estados.push(value.state);
       });
+
+      this.separaEstados();
     },
 
     separaEstados() {
