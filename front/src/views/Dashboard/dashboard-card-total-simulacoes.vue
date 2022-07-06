@@ -153,7 +153,71 @@ export default {
 };
 </script>
 
-<!-- <v-row>
+<!--
+  series: [
+        {
+          name: "High - 2013",
+          data: [28, 29, 33, 36, 32, 32, 33],
+        },
+      ],
+      chartOptions: {
+        chart: {
+          height: 350,
+          type: "line",
+          toolbar: {
+            show: false,
+          },
+        },
+        colors: ["#77B6EA", "#545454"],
+        dataLabels: {
+          enabled: true,
+        },
+        stroke: {
+          curve: "smooth",
+        },
+        grid: {
+          borderColor: "#e7e7e7",
+          row: {
+            colors: ["#f3f3f3", "transparent"],
+            opacity: 0.5,
+          },
+        },
+        xaxis: {
+          categories: [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Ago",
+            "Set",
+            "Out",
+            "Nov",
+            "Dez",
+          ],
+          title: {
+            text: "Meses",
+          },
+        },
+        yaxis: {
+          title: {
+            text: "Qtde",
+          },
+          min: 0,
+          max: 100,
+        },
+      },
+
+        <div id="chart">
+          <VueApexCharts
+            type="line"
+            :options="chartOptions"
+            :series="series"
+          />
+        </div>
+   <v-row>
           <v-col class="mx-4">
             <v-menu
               v-model="date1"

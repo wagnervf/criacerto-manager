@@ -4,10 +4,10 @@
       <v-row>
         <v-row>
           <v-col cols="12">
-            <dashboardCardTotalSimulacoesVue />
+            <dashboardSimulacoesData />
           </v-col>
           <v-col cols="12">
-            <ComponentRangeData />
+            <dashboardCardTotalSimulacoesVue />
           </v-col>
 
           <v-col cols="12">
@@ -256,7 +256,7 @@ import dashboardCardTotalSimulacoesVue from "./dashboard-card-total-simulacoes.v
 import dashboardTiposTourosVue from "./dashboard-tipos-touros.vue";
 // import ApexChart from "vue-apexcharts";
 
-import ComponentRangeData from "../../components/rangeData.vue";
+import dashboardSimulacoesData from "./dashboard-simulacoes-data.vue";
 
 export default {
   mixins: [mixinUtils],
@@ -269,7 +269,7 @@ export default {
     dashboardQtdeEstadoDataVue,
     dashboardCardTotalSimulacoesVue,
     // ComponentProgress,
-    ComponentRangeData,
+    dashboardSimulacoesData,
   },
   data() {
     return {

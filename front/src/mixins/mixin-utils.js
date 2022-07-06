@@ -89,20 +89,36 @@ export default {
       this.mediaAluguelPasto = value / this.aluguelPasto.length;
     },
 
-    getMediaValorVenda() {
-      let value = 0;
-      for (let index = 0; index < this.valorVenda.length; index++) {
-        value += this.valorVenda[index];
-      }
-      this.mediaValorVenda = value / this.valorVenda.length;
-    },
-
     getMediaTaxaMortalidade() {
       let value = 0;
       for (let index = 0; index < this.taxaMortalidade.length; index++) {
         value += this.taxaMortalidade[index];
       }
       this.mediaTaxaMortalidade = value / this.taxaMortalidade.length;
+    },
+
+    firstDayMonth() {
+      const now = new Date();
+      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1)
+        .toISOString()
+        .slice(0, 10);
+      return firstDay;
+    },
+
+    lastDayMonth() {
+      const now = new Date();
+      const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0)
+        .toISOString()
+        .slice(0, 10);
+      return lastDay;
+    },
+
+    formatarMoedaReal(value) {
+      let val = value.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+      return val != "R$ NaN" ? val : 0;
     },
   },
 };
