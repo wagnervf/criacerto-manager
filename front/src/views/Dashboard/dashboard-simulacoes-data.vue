@@ -1,353 +1,220 @@
 <template>
-  <v-container fluid>
-    <v-card class="mx-1 mb-1">
-      <v-toolbar
-        class="pa-0 my-0"
-        color="teal lighten-2"
-        elevation="0"
-        dense
-        shrink-on-scroll
-        dark
-      >
-        <v-app-bar-title class="ma-2 pb-0 text-subtitle-1 font-weight-black">
-          Total Simulações por Período
-          <span class="caption">(Selecione o período)</span>
-        </v-app-bar-title>
-
-        <v-spacer />
-      </v-toolbar>
-      <!-- v-if="visivel" -->
-      <v-card-title class="pa-0">
-        <v-expansion-panels
-          flat
-          dense
-          v-model="panel"
-          class="pa-0"
-        >
-          <v-expansion-panel>
-            <v-expansion-panel-header
-              v-slot="{ open }"
-              class="grey lighten-4"
-              expand-icon="mdi-filter-menu"
-              disable-icon-rotate
-            >
-              <v-row no-gutters>
-                <v-col class="text--secondary">
-                  <v-fade-transition leave-absolute>
-                    <span v-if="open">Selecione a data do FIltro</span>
-                    <v-row
-                      v-else
-                      no-gutters
-                      style="width: 100%"
-                    >
-                      <v-col cols="6">
-                        <v-icon>mdi-calendar</v-icon> Início:
-                        {{ startFormat }}
-                      </v-col>
-                      <v-col cols="6">
-                        <v-icon>mdi-calendar</v-icon> Fim:
-                        {{ endFormat }}
-                      </v-col>
-                    </v-row>
-                  </v-fade-transition>
-                </v-col>
-              </v-row>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content class="pa-0">
-              <v-form
-                ref="form"
-                v-model="valid"
-                lazy-validation
-              >
-                <v-row
-                  justify="space-around"
-                  class="my-2"
-                >
-                  <v-col>
-                    <v-menu
-                      ref="startMenu"
-                      :close-on-content-click="false"
-                      v-model="date1"
-                      :return-value.sync="date1"
-                      offset-y
-                      min-width="290px"
-                    >
-                      <template #activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="startFormat"
-                          label="Início"
-                          prepend-icon="mdi-calendar"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                        />
-                      </template>
-                      <v-date-picker
-                        v-model="query.start"
-                        scrollable
-                        locale="pt-BR"
-                        @change="date1 = !date1"
-                      />
-                    </v-menu>
-                  </v-col>
-
-                  <v-col>
-                    <v-menu
-                      ref="endMenu"
-                      :close-on-content-click="false"
-                      :return-value.sync="date2"
-                      v-model="date2"
-                      offset-y
-                      min-width="290px"
-                    >
-                      <template #activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="endFormat"
-                          label="Fim"
-                          prepend-icon="mdi-calendar"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                        />
-                      </template>
-                      <v-date-picker
-                        v-model="query.end"
-                        scrollable
-                        @change="date2 = !date2"
-                        locale="pt-BR"
-                      />
-                    </v-menu>
-                  </v-col>
-                  <v-col class="d-flex justify-end">
-                    <v-btn
-                      :disabled="!valid"
-                      class="ma-2"
-                      fab
-                      dark
-                      small
-                      elevation="0"
-                      color="teal lighten-2"
-                      @click="validate"
-                      title="Filtrar"
-                    >
-                      <v-icon dark>
-                        mdi-check
-                      </v-icon>
-                    </v-btn>
-
-                    <v-btn
-                      class="ma-2"
-                      fab
-                      dark
-                      small
-                      elevation="0"
-                      color="error lighten-2"
-                      @click="panel = []"
-                      title="Cancelar Filtro"
-                    >
-                      <v-icon dark>
-                        mdi-close
-                      </v-icon>
-                    </v-btn>
-                  </v-col>
-                </v-row>
-              </v-form>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
+  <v-container class="pa-0">
+    <v-card class="pa-0">
+      <v-card-title class="grey lighten-4 pa-2">
+        <dashboardFilterVue />
       </v-card-title>
       <v-divider />
-      <v-card-text class="pa-4">
+
+      <v-card-text
+        v-if="visivel"
+        class="my-4"
+      >
         <v-row>
-          <v-col
-            cols="5"
-            class="pa-6 my-6 d-flex justify-start align-baseline"
-          >
-            <span class="text-h5 mx-4 font-weight"> Total </span>
-            <span class="text-h1 font-weight-black">
-              {{ totalEcow }}
-            </span>
+          <v-col>
+            <v-card
+              class="pa-6"
+              elevation="1"
+              min-height="200"
+            >
+              <v-row>
+                <v-col class="d-flex justify-center">
+                  <v-icon
+                    style="font-size: 90px"
+                    color="teal lighten-4"
+                  >
+                    mdi-equalizer
+                  </v-icon>
+                </v-col>
+
+                <v-col class="text-center">
+                  <p class="subtitle-1 font-weight-black teal--text">
+                    Todas as Simulações
+                  </p>
+                  <p class="text-h1 font-weight-black teal--text">
+                    {{ totalEcow }}
+                  </p>
+                </v-col>
+              </v-row>
+            </v-card>
           </v-col>
 
-          <v-col cols="7">
-            <v-list dense>
-              <v-subheader>Média de Preços</v-subheader>
-              <v-list-item two-line>
-                <v-list-item-icon class="mr-2 pb-0">
-                  <v-avatar
-                    color="teal"
-                    size="48"
+          <v-col>
+            <v-card
+              class="pa-6"
+              elevation="1"
+              min-height="200"
+            >
+              <v-row>
+                <v-col class="d-flex justify-center">
+                  <v-icon
+                    style="font-size: 90px"
+                    dark
+                    color="cyan lighten-4"
                   >
-                    <v-icon dark>
-                      {{ media.touro.icon }}
-                    </v-icon>
-                  </v-avatar>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-subtitle>
-                    {{ media.touro.title }}
-                  </v-list-item-subtitle>
-                  <v-list-item-title class="my-2 text-h6">
-                    {{ media.touro.value }}
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-icon class="mr-2 pb-0">
-                  <v-avatar
-                    color="teal"
-                    size="48"
+                    mdi-magnify-plus-outline
+                  </v-icon>
+                </v-col>
+
+                <v-col class="text-center">
+                  <p class="subtitle-2 cyan--text">
+                    Todas das Simulações Filtradas
+                  </p>
+                  <p class="text-h1 font-weight-black cyan--text">
+                    {{ totalEcowFiltered }}
+                  </p>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+
+          <v-col class="text-left">
+            <v-card
+              class="py-4"
+              elevation="1"
+              min-height="200"
+            >
+              <v-row>
+                <v-col class="d-flex justify-center">
+                  <v-icon
+                    style="font-size: 90px"
+                    dark
+                    color="indigo lighten-4"
                   >
-                    <v-icon dark>
-                      {{ media.semen.icon }}
-                    </v-icon>
-                  </v-avatar>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-subtitle>
-                    {{ media.semen.title }}
-                  </v-list-item-subtitle>
-                  <v-list-item-title class="my-2 text-h6">
-                    {{ media.semen.value }}
-                  </v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
+                    mdi-currency-usd
+                  </v-icon>
+                </v-col>
+                <v-col class="text-center">
+                  <p class="subtitle-2 font-weight-black indigo--text">
+                    Média de Preços
+                  </p>
+                  <v-list
+                    dense
+                    class="transparent pa-2"
+                    dark
+                  >
+                    <v-list-item
+                      two-line
+                      class="pl-0"
+                    >
+                      <v-list-item-icon class="mx-2 pb-0">
+                        <v-avatar
+                          color="indigo"
+                          size="48"
+                        >
+                          <v-icon dark>
+                            {{ media.touro.icon }}
+                          </v-icon>
+                        </v-avatar>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-subtitle class="indigo--text">
+                          {{ media.touro.title }}
+                        </v-list-item-subtitle>
+                        <v-list-item-title class="indigo--text my-2 text-h6">
+                          {{ media.touro.value }}
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item
+                      two-line
+                      class="pl-0"
+                      dark
+                    >
+                      <v-list-item-icon class="mx-2 pb-0">
+                        <v-avatar
+                          color="indigo"
+                          size="48"
+                        >
+                          <v-icon dark>
+                            {{ media.semen.icon }}
+                          </v-icon>
+                        </v-avatar>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-subtitle class="indigo--text">
+                          {{ media.semen.title }}
+                        </v-list-item-subtitle>
+                        <v-list-item-title class="mx-2 text-h6 indigo--text">
+                          {{ media.semen.value }}
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-list>
+                </v-col>
+              </v-row>
+            </v-card>
           </v-col>
         </v-row>
       </v-card-text>
+      <div
+        v-else
+        class="my-auto"
+      >
+        <v-progress-linear
+          indeterminate
+          color="teal"
+        />
+      </div>
       <v-divider />
       <v-card-actions>
-        <v-col
-          v-if="visivel"
-          class="my-auto"
-        >
-          <apexchart
-            type="bar"
-            height="350"
-            :options="chartOptions"
-            :series="series"
-          />
-        </v-col>
-        <v-col
-          v-else
-          class="my-auto"
-        >
-          <v-progress-linear
-            indeterminate
-            color="teal"
-          />
-        </v-col>
+        <dashboardTiposTourosVue />
       </v-card-actions>
     </v-card>
   </v-container>
 </template>
 <script>
 import mixinUtils from "../../mixins/mixin-utils";
-import apexchart from "vue-apexcharts";
+import dashboardTiposTourosVue from "./dashboard-tipos-touros.vue";
+import dashboardFilterVue from "./dashboard-filter.vue";
+//import apexchart from "vue-apexcharts";
 export default {
-  name: "ComponentRangeData",
+  name: "ViewDashSimulacoesData",
   mixins: [mixinUtils],
   components: {
-    apexchart,
+    dashboardTiposTourosVue,
+    dashboardFilterVue,
   },
   data() {
     return {
-      panel: [],
       valid: true,
-      date1: false,
-      date2: false,
-      query: {
-        start: "",
-        end: "",
-      },
+      visivel: false,
       filtrado: [],
-
-      racas: [],
-      racasSeparadas: {},
-      valuesRacasTouros: [],
 
       media: {
         touro: { title: "Compra Touro", value: 0, icon: "mdi-cow" },
         semen: { title: "Sêmen", value: 0, icon: "mdi-reproduction" },
       },
-
-      series: [
-        {
-          data: [400, 430, 448],
-        },
-      ],
-
-      chartOptions: {
-        chart: {
-          type: "bar",
-          height: 350,
-          width: "100%",
-        },
-
-        plotOptions: {
-          bar: {
-            borderRadius: 2,
-            horizontal: true,
-          },
-        },
-        dataLabels: {
-          enabled: true,
-        },
-        xaxis: {
-          categories: [],
-        },
-      },
-      visivel: false,
     };
   },
   mounted() {
     setTimeout(() => {
-      this.getDados();
-
-      this.racaTouros();
+      this.getData();
       this.visivel = true;
-    }, 2000);
-
-    // Mixins
-    this.query.start = this.firstDayMonth();
-    this.query.end = this.lastDayMonth();
+    }, 1000);
   },
   computed: {
     eCowData() {
       return this.$store.getters.getDataEcow;
     },
-
+    eCowDataFiltered() {
+      return this.$store.getters.geteCowDataFiltered;
+    },
     totalEcow() {
-      return this.filtrado.length;
+      let total = [];
+      Object.assign(total, this.eCowData);
+      return total.length;
     },
-
-    endFormat() {
-      return this.formatDate(this.query.end) || "";
-    },
-    startFormat() {
-      return this.formatDate(this.query.start) || "";
+    totalEcowFiltered() {
+      let total = [];
+      Object.assign(total, this.eCowDataFiltered);
+      return total.length;
     },
   },
   methods: {
-    validate() {
-      if (this.$refs.form.validate()) {
-        this.getDados();
-      }
-    },
-    reset() {
-      this.$refs.form.reset();
-    },
-
-    getDados() {
-      const data = this.eCowData;
-      this.filtrado = Object.values(data).filter((value) => {
-        return (
-          this.formatDate(value.created) >= this.formatDate(this.query.start) &&
-          this.formatDate(value.created) <= this.formatDate(this.query.end)
-        );
-      });
-
+    getData() {
+      Object.assign(this.filtrado, this.eCowDataFiltered);
       this.getMediaValorCompraTouro();
       this.getMediaValorCompraSemen();
     },
@@ -372,6 +239,8 @@ export default {
     getMediaValorCompraSemen() {
       let value = 0;
       let precoSemen = [];
+      //const data = this.eCowDataFiltered;
+
       this.filtrado.forEach((value) => {
         if (value.preco_semen) precoSemen.push(value.preco_semen);
         if (value.preco_semen_2) precoSemen.push(value.preco_semen_2);
@@ -385,49 +254,6 @@ export default {
         value / precoSemen.length
       );
     },
-
-    racaTouros() {
-      const data = this.eCowData;
-      Object.values(data).forEach((value) => {
-        const rar =
-          typeof value.raca_touro === "undefined"
-            ? value.raca_touro_iatf
-            : value.raca_touro;
-
-        this.racas.push(rar);
-      });
-
-      this.separaRacasTouros();
-    },
-
-    separaRacasTouros() {
-      const counts = {};
-      this.racas.forEach((x) => {
-        counts[x] = (counts[x] || 0) + 1;
-      });
-      Object.assign(this.racasSeparadas, this.ordenarPorQtde(counts));
-      Object.assign(
-        this.chartOptions.xaxis.categories,
-        Object.keys(this.racasSeparadas)
-      );
-
-      //this.chartOptions.xaxis.categories = Object.keys(this.racasSeparadas);
-
-      this.series[0].data = Object.values(this.racasSeparadas);
-      // console.log(this.series);
-      console.log(this.chartOptions.xaxis.categories);
-    },
-
-    ordenarPorQtde(estados) {
-      return Object.entries(estados)
-        .sort(([, a], [, b]) => b - a)
-        .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
-    },
   },
 };
 </script>
-<style scoped>
-.v-expansion-panel--active > .v-expansion-panel-header {
-  min-height: 44px;
-}
-</style>

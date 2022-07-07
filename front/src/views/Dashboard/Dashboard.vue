@@ -6,13 +6,10 @@
           <v-col cols="12">
             <dashboardSimulacoesData />
           </v-col>
-          <v-col cols="12">
-            <dashboardCardTotalSimulacoesVue />
-          </v-col>
 
-          <v-col cols="12">
+          <!-- <v-col cols="12">
             <dashboardTiposTourosVue />
-          </v-col>
+          </v-col> -->
         </v-row>
 
         <v-col cols="12">
@@ -251,9 +248,9 @@ import mixinUtils from "../../mixins/mixin-utils";
 import dashboardCardsVue from "./dashboard-cards.vue";
 import dashboardChartColumnVue from "./dashboard-chart-column.vue";
 import dashboardQtdeEstadoDataVue from "./dashboard-Qtde-Estado-Data.vue";
-import dashboardCardTotalSimulacoesVue from "./dashboard-card-total-simulacoes.vue";
+//;
 // import dashboardTableSimpleVue from "./dashboard-table-simple.vue";
-import dashboardTiposTourosVue from "./dashboard-tipos-touros.vue";
+//;
 // import ApexChart from "vue-apexcharts";
 
 import dashboardSimulacoesData from "./dashboard-simulacoes-data.vue";
@@ -265,9 +262,8 @@ export default {
     dashboardCardsVue,
     dashboardChartColumnVue,
     // dashboardTableSimpleVue,
-    dashboardTiposTourosVue,
+    // dashboardTiposTourosVue,
     dashboardQtdeEstadoDataVue,
-    dashboardCardTotalSimulacoesVue,
     // ComponentProgress,
     dashboardSimulacoesData,
   },
@@ -302,7 +298,7 @@ export default {
     setTimeout(() => {
       this.apexLoading = true;
       this.loadingQtde = false;
-    }, 2000);
+    }, 500);
 
     this.getData();
   },

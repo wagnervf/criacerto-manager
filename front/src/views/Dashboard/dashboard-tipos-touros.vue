@@ -1,115 +1,181 @@
 <template>
   <v-container fluid>
-    <v-card
-      class="mx-1 mb-1"
-      style="min-height: 150px"
-    >
-      <v-card-title class="pa-6 pb-3">
-        <p class="teal--text">
-          Tipos de Touros Simulados
-        </p>
-        <v-spacer />
-      </v-card-title>
+    <v-row>
+      <v-expansion-panels
+        flat
+        dense
+        v-model="panel"
+        class="pa-0"
+      >
+        <v-expansion-panel>
+          <v-expansion-panel-header
+            v-slot="{ open }"
+            class="grey lighten-4"
+            expand-icon="mdi-filter-menu"
+            disable-icon-rotate
+          >
+            <v-row no-gutters>
+              <v-col class="text--secondary">
+                <v-fade-transition leave-absolute>
+                  <span v-if="open">Selecione o estado</span>
+                  <v-row
+                    v-else
+                    no-gutters
+                    style="width: 100%"
+                  >
+                    <v-col cols="6">
+                      estados
+                    </v-col>
+                  </v-row>
+                </v-fade-transition>
+              </v-col>
+            </v-row>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content class="pa-0">
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+            >
+              <v-row
+                justify="space-around"
+                class="my-2"
+              >
+                <v-col />
+                <v-col class="d-flex justify-end">
+                  <v-btn
+                    :disabled="!valid"
+                    class="ma-2"
+                    fab
+                    dark
+                    small
+                    elevation="0"
+                    color="teal lighten-2"
+                    @click="validate"
+                    title="Filtrar"
+                  >
+                    <v-icon dark>
+                      mdi-check
+                    </v-icon>
+                  </v-btn>
 
-      <v-card-text class="pa-6 pt-0">
-        <v-row class="align-center justify-center">
-          <v-col
-            v-if="visivel"
-            class="my-auto"
-          >
-            <ApexChart
-              type="pie"
-              height="380"
-              :options="chartOptions"
-              :series="chartOptions.series"
-            />
-          </v-col>
-          <v-col
-            v-else
-            class="pa-6"
-          >
-            <div class="text-center">
-              <ComponentProgress />
-            </div>
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
+                  <v-btn
+                    class="ma-2"
+                    fab
+                    dark
+                    small
+                    elevation="0"
+                    color="error lighten-2"
+                    @click="panel = []"
+                    title="Cancelar Filtro"
+                  >
+                    <v-icon dark>
+                      mdi-close
+                    </v-icon>
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-form>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </v-row>
+    <v-row>
+      <v-col
+        v-if="visivel"
+        class="ma-auto"
+      >
+        <ApexChart
+          type="bar"
+          height="300"
+          :options="chartOptions"
+          :series="series"
+        />
+      </v-col>
+      <v-col
+        v-else
+        class="my-auto"
+      >
+        <v-progress-linear
+          indeterminate
+          color="teal"
+        />
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 import ApexChart from "vue-apexcharts";
-import ComponentProgress from "../../components/Progress.vue";
+//import ComponentProgress from "../../components/Progress.vue";
 export default {
   name: "DashboardTiposTouros",
   components: {
     ApexChart,
-    ComponentProgress,
+    //ComponentProgress,
   },
 
   data() {
     return {
-      apexLoading: false,
-      visivel: false,
-      racasTouro: [
-        "Aberdeen Angus",
-        "Bonsmara",
-        "Braford",
-        "Brahman",
-        "Brangus",
-        "Canchim",
-        "Caracu",
-        "Charolês",
-        "Devon",
-        "Guzerá",
-        "Hereford",
-        "Limousin",
-        "Nelore",
-        "Red Angus",
-        "Red Brahman",
-        "Red Brangus",
-        "Senepol",
-        "Shorthorn",
-        "Simental",
-        "Tabapuã",
-        "Wagyu",
-        "Outras",
-      ],
-
+      panel: [],
+      valid: true,
       racas: [],
       racasSeparadas: {},
       valuesRacasTouros: [],
+      visivel: false,
+      series: [
+        {
+          data: [],
+        },
+      ],
 
       chartOptions: {
-        chart: {
-          width: "100%",
-          type: "pie",
+        title: {
+          text: "Raças de Touros Simuladas",
+          align: "center",
+          offsetX: 30,
         },
-        plotOptions: {
-          pie: {
-            dataLabels: {
-              offset: -5,
-            },
-          },
+        chart: {
+          type: "bar",
         },
 
-        labels: [],
-        series: [],
-        responsive: [
-          {
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 300,
-              },
-              legend: {
-                position: "bottom",
-              },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+            borderRadius: 4,
+          },
+        },
+        //colors: ["#4db6ac"],
+        dataLabels: {
+          enabled: true,
+        },
+        yaxis: {
+          labels: {
+            style: {
+              fontSize: "14px",
+              fontWeight: 600,
+              cssClass: "apexcharts-xaxis-label",
             },
           },
-        ],
+        },
+        xaxis: {
+          categories: [],
+        },
       },
+
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 300,
+            },
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      ],
     };
   },
 
@@ -118,19 +184,26 @@ export default {
       this.racaTouros();
       this.separaRacasTouros();
       this.visivel = true;
-    }, 3000);
+    }, 2000);
   },
 
   computed: {
-    eCowData() {
-      return this.$store.getters.getDataEcow;
+    eCowDataFiltered() {
+      return this.$store.getters.geteCowDataFiltered;
     },
   },
 
   methods: {
+    validate() {
+      if (this.$refs.form.validate()) {
+        this.getDados();
+      }
+    },
+    reset() {
+      this.$refs.form.reset();
+    },
     racaTouros() {
-      // var data = this.eCow;
-      const data = this.eCowData;
+      const data = this.eCowDataFiltered;
       Object.values(data).forEach((value) => {
         const rar =
           typeof value.raca_touro === "undefined"
@@ -139,6 +212,8 @@ export default {
 
         this.racas.push(rar);
       });
+
+      this.separaRacasTouros();
     },
 
     separaRacasTouros() {
@@ -146,9 +221,19 @@ export default {
       this.racas.forEach((x) => {
         counts[x] = (counts[x] || 0) + 1;
       });
-      Object.assign(this.racasSeparadas, counts);
-      Object.assign(this.chartOptions.labels, Object.keys(this.racasSeparadas));
-      this.chartOptions.series = Object.values(this.racasSeparadas);
+      Object.assign(this.racasSeparadas, this.ordenarPorQtde(counts));
+      Object.assign(
+        this.chartOptions.xaxis.categories,
+        Object.keys(this.racasSeparadas)
+      );
+
+      this.series[0].data = Object.values(this.racasSeparadas);
+    },
+
+    ordenarPorQtde(value) {
+      return Object.entries(value)
+        .sort(([, a], [, b]) => b - a)
+        .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
     },
   },
 };

@@ -81,6 +81,10 @@ export default {
       return date ? moment(date).format("L") : "";
     },
 
+    formatDateString(date) {
+      moment.locale("pt-br");
+      return date ? moment(date).format("ll") : "";
+    },
     getMediaAluguelPasto() {
       let value = 0;
       for (let index = 0; index < this.aluguelPasto.length; index++) {
