@@ -98,6 +98,7 @@ export default new Vuex.Store({
     },
 
     SET_DADOS_FILTRADOS_PERIODO(state, value) {
+      state.eCowDataFiltered = {};
       Object.assign(state.eCowDataFiltered, value);
     },
 

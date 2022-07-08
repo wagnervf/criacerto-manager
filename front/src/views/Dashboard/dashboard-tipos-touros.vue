@@ -1,107 +1,44 @@
 <template>
   <v-container fluid>
-    <v-row>
-      <v-expansion-panels
-        flat
+    <v-card>
+      <v-toolbar
+        class="pa-0 my-1"
+        color="grey lighten-"
+        elevation="0"
         dense
-        v-model="panel"
-        class="pa-0"
+        shrink-on-scroll
+        dark
       >
-        <v-expansion-panel>
-          <v-expansion-panel-header
-            v-slot="{ open }"
-            class="grey lighten-4"
-            expand-icon="mdi-filter-menu"
-            disable-icon-rotate
+        <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
+          Raças de Touros Simuladas
+        </v-app-bar-title>
+      </v-toolbar>
+      <v-card-text class="pa-6">
+        <v-row>
+          <v-col
+            v-if="visivel"
+            class="pl-6 ma-auto"
           >
-            <v-row no-gutters>
-              <v-col class="text--secondary">
-                <v-fade-transition leave-absolute>
-                  <span v-if="open">Selecione o estado</span>
-                  <v-row
-                    v-else
-                    no-gutters
-                    style="width: 100%"
-                  >
-                    <v-col cols="6">
-                      estados
-                    </v-col>
-                  </v-row>
-                </v-fade-transition>
-              </v-col>
-            </v-row>
-          </v-expansion-panel-header>
-          <v-expansion-panel-content class="pa-0">
-            <v-form
-              ref="form"
-              v-model="valid"
-              lazy-validation
-            >
-              <v-row
-                justify="space-around"
-                class="my-2"
-              >
-                <v-col />
-                <v-col class="d-flex justify-end">
-                  <v-btn
-                    :disabled="!valid"
-                    class="ma-2"
-                    fab
-                    dark
-                    small
-                    elevation="0"
-                    color="teal lighten-2"
-                    @click="validate"
-                    title="Filtrar"
-                  >
-                    <v-icon dark>
-                      mdi-check
-                    </v-icon>
-                  </v-btn>
-
-                  <v-btn
-                    class="ma-2"
-                    fab
-                    dark
-                    small
-                    elevation="0"
-                    color="error lighten-2"
-                    @click="panel = []"
-                    title="Cancelar Filtro"
-                  >
-                    <v-icon dark>
-                      mdi-close
-                    </v-icon>
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-form>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-    </v-row>
-    <v-row>
-      <v-col
-        v-if="visivel"
-        class="ma-auto"
-      >
-        <ApexChart
-          type="bar"
-          height="300"
-          :options="chartOptions"
-          :series="series"
-        />
-      </v-col>
-      <v-col
-        v-else
-        class="my-auto"
-      >
-        <v-progress-linear
-          indeterminate
-          color="teal"
-        />
-      </v-col>
-    </v-row>
+            <ApexChart
+              type="bar"
+              height="300"
+              width="95%"
+              :options="chartOptions"
+              :series="series"
+            />
+          </v-col>
+          <v-col
+            v-else
+            class="my-auto"
+          >
+            <v-progress-linear
+              indeterminate
+              color="teal"
+            />
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
 
@@ -130,11 +67,6 @@ export default {
       ],
 
       chartOptions: {
-        title: {
-          text: "Raças de Touros Simuladas",
-          align: "center",
-          offsetX: 30,
-        },
         chart: {
           type: "bar",
         },
@@ -152,7 +84,7 @@ export default {
         yaxis: {
           labels: {
             style: {
-              fontSize: "14px",
+              fontSize: "12px",
               fontWeight: 600,
               cssClass: "apexcharts-xaxis-label",
             },

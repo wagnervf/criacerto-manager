@@ -1,151 +1,171 @@
 <template>
   <v-container fluid>
-    <v-expansion-panels
-      flat
-      dense
-      v-model="panel"
-      class="pa-0"
-    >
-      <v-expansion-panel>
-        <v-expansion-panel-header
-          v-slot="{ open }"
-          class="grey lighten-4"
-          expand-icon="mdi-filter-menu"
-          disable-icon-rotate
-        >
-          <v-row no-gutters>
-            <v-col class="text--secondary">
-              <v-fade-transition leave-absolute>
-                <span v-if="open">Selecione a data do Filtro</span>
-                <v-row
-                  v-else
-                  no-gutters
-                  style="width: 100%"
-                >
-                  <v-col
-                    cols="6"
-                    class="d-flex justify-start"
-                  >
-                    <span class="text-subtitle-2 ma-2">
-                      <v-icon>mdi-calendar</v-icon> Período Filtrado:
-                    </span>
-                    <span class="text-subtitle-1 ma-1">
-                      <v-chip :ripple="false">
-                        {{ startFormatString }}
-                      </v-chip>
-                      -
-                      <v-chip :ripple="false">
-                        {{ endFormatString }}
-                      </v-chip>
-                    </span>
-                  </v-col>
-                </v-row>
-              </v-fade-transition>
-            </v-col>
-          </v-row>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content class="pa-0">
-          <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
+    <v-card>
+      <v-expansion-panels
+        v-model="panel"
+        class="ma-0 pa-0 trasnparent"
+      >
+        <v-expansion-panel>
+          <v-expansion-panel-header
+            v-slot="{ open }"
+            expand-icon="mdi-filter-menu"
+            disable-icon-rotate
+            color="grey lighten-3"
           >
-            <v-row
-              justify="space-around"
-              class="my-2"
-            >
-              <v-col>
-                <v-menu
-                  ref="startMenu"
-                  :close-on-content-click="false"
-                  v-model="date1"
-                  :return-value.sync="date1"
-                  offset-y
-                  min-width="290px"
-                >
-                  <template #activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="startFormat"
-                      label="Início"
-                      prepend-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    />
-                  </template>
-                  <v-date-picker
-                    v-model="query.start"
-                    scrollable
-                    locale="pt-BR"
-                    @change="date1 = !date1"
-                  />
-                </v-menu>
-              </v-col>
-
-              <v-col>
-                <v-menu
-                  ref="endMenu"
-                  :close-on-content-click="false"
-                  :return-value.sync="date2"
-                  v-model="date2"
-                  offset-y
-                  min-width="290px"
-                >
-                  <template #activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="endFormat"
-                      label="Fim"
-                      prepend-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    />
-                  </template>
-                  <v-date-picker
-                    v-model="query.end"
-                    scrollable
-                    @change="date2 = !date2"
-                    locale="pt-BR"
-                  />
-                </v-menu>
-              </v-col>
-              <v-col class="d-flex justify-end">
-                <v-btn
-                  :disabled="!valid"
-                  class="ma-2"
-                  fab
-                  dark
-                  small
-                  elevation="0"
-                  color="teal lighten-2"
-                  @click="validate"
-                  title="Filtrar"
-                >
-                  <v-icon dark>
-                    mdi-check
-                  </v-icon>
-                </v-btn>
-
-                <v-btn
-                  class="ma-2"
-                  fab
-                  dark
-                  small
-                  elevation="0"
-                  color="error lighten-2"
-                  @click="panel = []"
-                  title="Cancelar Filtro"
-                >
-                  <v-icon dark>
-                    mdi-close
-                  </v-icon>
-                </v-btn>
+            <v-row no-gutters>
+              <v-col class="text--secondary">
+                <v-fade-transition leave-absolute>
+                  <span v-if="open">Selecione a data do Filtro</span>
+                  <v-row
+                    v-else
+                    no-gutters
+                    style="width: 100%"
+                  >
+                    <v-col
+                      cols="6"
+                      class="d-flex justify-start"
+                    >
+                      <!-- <span class="text-subtitle-2 ma-2">
+                        Período Filtrado:
+                      </span> -->
+                      <span class="text-subtitle-1 ma-1">
+                        <v-icon class="mx-2">mdi-calendar-filter</v-icon>
+                        <v-chip :ripple="false">
+                          {{ query.start | formatDateString }}
+                        </v-chip>
+                        -
+                        <v-chip :ripple="false">
+                          {{ query.end | formatDateString }}
+                        </v-chip>
+                      </span>
+                    </v-col>
+                  </v-row>
+                </v-fade-transition>
               </v-col>
             </v-row>
-          </v-form>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content class="pa-0">
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+            >
+              <v-row
+                justify="space-around"
+                class="my-2"
+              >
+                <v-col cols="7">
+                  <v-row>
+                    <v-col cols="4">
+                      <v-menu
+                        ref="startMenu"
+                        :close-on-content-click="false"
+                        v-model="date1"
+                        :return-value.sync="date1"
+                        offset-y
+                        min-width="290px"
+                      >
+                        <template #activator="{ on, attrs }">
+                          <v-text-field
+                            v-model="startFormat"
+                            label="Início"
+                            prepend-inner-icon="mdi-calendar"
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                            outlined
+                          />
+                        </template>
+                        <v-date-picker
+                          v-model="query.start"
+                          scrollable
+                          locale="pt-BR"
+                          @change="date1 = !date1"
+                        />
+                      </v-menu>
+                    </v-col>
+
+                    <v-col cols="4">
+                      <v-menu
+                        ref="endMenu"
+                        :close-on-content-click="false"
+                        :return-value.sync="date2"
+                        v-model="date2"
+                        offset-y
+                      >
+                        <template #activator="{ on, attrs }">
+                          <v-text-field
+                            v-model="endFormat"
+                            label="Fim"
+                            prepend-inner-icon="mdi-calendar"
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                            outlined
+                          />
+                        </template>
+                        <v-date-picker
+                          v-model="query.end"
+                          scrollable
+                          @change="date2 = !date2"
+                          locale="pt-BR"
+                        />
+                      </v-menu>
+                    </v-col>
+
+                    <v-col class="ma-0 mt-2 pa-0">
+                      <v-btn
+                        :disabled="!valid"
+                        class="mt-4 pa-0"
+                        text
+                        dark
+                        elevation="0"
+                        color="teal lighten-2"
+                        @click="validate"
+                        title="Filtrar"
+                      >
+                        <v-icon dark>
+                          mdi-filter-check
+                        </v-icon>
+                      </v-btn>
+
+                      <!-- <v-btn
+                        class="ma-0 pa-0"
+                        text
+                        elevation="0"
+                        color="error darken-1"
+                        @click="panel = []"
+                        title="Cancelar Filtro"
+                      >
+                        <v-icon class="ma-0 pa-0">
+                          mdi-close-circle
+                        </v-icon>
+                      </v-btn> -->
+                    </v-col>
+                  </v-row>
+                </v-col>
+
+                <v-col
+                  class="d-flex"
+                  cols="5"
+                >
+                  <v-combobox
+                    v-model="query.estado"
+                    :items="items"
+                    :search-input.sync="search"
+                    hide-selected
+                    label="Filtrar por Estados"
+                    persistent-hint
+                    small-chips
+                    hide-details
+                  />
+                </v-col>
+              </v-row>
+            </v-form>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </v-card>
   </v-container>
 </template>
 <script>
@@ -156,15 +176,18 @@ export default {
   components: {},
   data() {
     return {
-      panel: [],
+      panel: 0,
+      search: null,
       valid: true,
       date1: false,
       date2: false,
       query: {
         start: "",
         end: "",
+        estado: "TODOS",
       },
       filtrado: [],
+      items: ["Foo", "Bar", "Fizz", "Buzz"],
     };
   },
   mounted() {
@@ -174,7 +197,8 @@ export default {
 
     // Mixins
     this.query.start = this.firstDayMonth();
-    this.query.end = this.lastDayMonth();
+    //this.query.end = this.lastDayMonth();
+    this.query.end = "2022-07-10";
   },
   computed: {
     eCowData() {
@@ -186,13 +210,6 @@ export default {
     },
     startFormat() {
       return this.formatDate(this.query.start) || "";
-    },
-
-    startFormatString() {
-      return this.formatDateString(this.query.start) || "";
-    },
-    endFormatString() {
-      return this.formatDateString(this.query.end) || "";
     },
   },
   methods: {
@@ -206,6 +223,7 @@ export default {
     },
 
     getDados() {
+      //"Busca todos os dados e Filtra");
       const data = this.eCowData;
       this.filtrado = Object.values(data).filter((value) => {
         return (

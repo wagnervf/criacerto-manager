@@ -1,28 +1,16 @@
 <template>
-  <div>
+  <v-container fluid>
     <v-card class="mx-1 mb-1">
       <v-toolbar
         class="pa-0 my-1"
-        color="teal"
-        elevation="0"
+        color="white"
+        elevation="1"
         dense
         shrink-on-scroll
-        dark
       >
         <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
           Quantitativo de Simulações Estados
         </v-app-bar-title>
-
-        <v-spacer />
-        <!-- <v-btn
-          text
-          fab
-          small
-          dark
-          title="Filtrar os Data ou Estados"
-        >
-          <v-icon>mdi-filter</v-icon>
-        </v-btn> -->
       </v-toolbar>
 
       <v-card-text class="pa-6">
@@ -45,7 +33,7 @@
         </v-row>
       </v-card-text>
     </v-card>
-  </div>
+  </v-container>
 </template>
 
 <script>

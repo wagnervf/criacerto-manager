@@ -2,19 +2,28 @@
   <v-container fluid>
     <div class="dashboard-page">
       <v-row>
-        <v-row>
-          <v-col cols="12">
-            <dashboardSimulacoesData />
-          </v-col>
-
-          <!-- <v-col cols="12">
-            <dashboardTiposTourosVue />
-          </v-col> -->
-        </v-row>
-
-        <v-col cols="12">
-          <dashboardQtdeEstadoDataVue />
+        <v-col
+          cols="12"
+          class="pa-0 ma-0"
+        >
+          <dashboardFilterVue />
         </v-col>
+
+        <v-col
+          cols="12"
+          class="pa-0 ma-0"
+        >
+          <dashboardCardsSimulacoes />
+        </v-col>
+
+        <v-row class="ma-0">
+          <v-col class="ma-0">
+            <dashboardTiposTourosPieVue />
+          </v-col>
+          <v-col class="ma-0">
+            <dashboardQtdeEstadoDataVue />
+          </v-col>
+        </v-row>
 
         <v-col cols="12">
           <dashboardCardsVue />
@@ -243,17 +252,18 @@
 <script>
 import mock from "./mock";
 import mixinUtils from "../../mixins/mixin-utils";
+import dashboardFilterVue from "./dashboard-filter.vue";
 //import ComponentProgress from "../../components/Progress.vue";
 // import eCow from "./e-cow";
 import dashboardCardsVue from "./dashboard-cards.vue";
 import dashboardChartColumnVue from "./dashboard-chart-column.vue";
 import dashboardQtdeEstadoDataVue from "./dashboard-Qtde-Estado-Data.vue";
 //;
-// import dashboardTableSimpleVue from "./dashboard-table-simple.vue";
+import dashboardTiposTourosPieVue from "./dashboard-tipos-touros-pie.vue";
 //;
 // import ApexChart from "vue-apexcharts";
 
-import dashboardSimulacoesData from "./dashboard-simulacoes-data.vue";
+import dashboardCardsSimulacoes from "./dashboard-cads-simulacoes.vue";
 
 export default {
   mixins: [mixinUtils],
@@ -261,11 +271,13 @@ export default {
   components: {
     dashboardCardsVue,
     dashboardChartColumnVue,
+    dashboardFilterVue,
+
     // dashboardTableSimpleVue,
     // dashboardTiposTourosVue,
     dashboardQtdeEstadoDataVue,
-    // ComponentProgress,
-    dashboardSimulacoesData,
+    dashboardTiposTourosPieVue,
+    dashboardCardsSimulacoes,
   },
   data() {
     return {

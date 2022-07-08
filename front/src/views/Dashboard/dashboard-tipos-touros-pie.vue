@@ -4,12 +4,16 @@
       class="mx-1 mb-1"
       style="min-height: 150px"
     >
-      <v-card-title class="pa-6 pb-3">
-        <p class="teal--text">
+      <v-toolbar
+        class="pa-0 my-1"
+        elevation="1"
+        dense
+        shrink-on-scroll
+      >
+        <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
           Tipos de Touros Simulados
-        </p>
-        <v-spacer />
-      </v-card-title>
+        </v-app-bar-title>
+      </v-toolbar>
 
       <v-card-text class="pa-6 pt-0">
         <v-row class="align-center justify-center">
@@ -23,6 +27,7 @@
               :options="chartOptions"
               :series="chartOptions.series"
             />
+            <p>Simulações Filtradas: {{ this.totalEcow }}</p>
           </v-col>
           <v-col
             v-else
@@ -53,6 +58,7 @@ export default {
       apexLoading: false,
       visivel: false,
       racasTouro: [],
+      total: 0,
 
       racas: [],
       racasSeparadas: {},
@@ -99,15 +105,25 @@ export default {
   },
 
   computed: {
-    eCowData() {
-      return this.$store.getters.getDataEcow;
+    // eCowData() {
+    //   return this.$store.getters.getDataEcow;
+    // },
+    totalEcow() {
+      let total = [];
+      Object.assign(total, this.eCowDataFiltered);
+      return total.length;
+    },
+
+    eCowDataFiltered() {
+      return this.$store.getters.geteCowDataFiltered;
     },
   },
 
   methods: {
     racaTouros() {
       // var data = this.eCow;
-      const data = this.eCowData;
+      const data = this.eCowDataFiltered;
+
       Object.values(data).forEach((value) => {
         const rar =
           typeof value.raca_touro === "undefined"
