@@ -105,9 +105,6 @@ export default {
   },
 
   computed: {
-    // eCowData() {
-    //   return this.$store.getters.getDataEcow;
-    // },
     totalEcow() {
       let total = [];
       Object.assign(total, this.eCowDataFiltered);

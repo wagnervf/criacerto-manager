@@ -24,11 +24,13 @@
           </v-col>
           <v-col v-else>
             <ApexChart
+              ref="realtimeChart"
               type="bar"
-              height="350"
+              height="345"
               :options="chartOptions"
               :series="series"
             />
+            <p>Simulações Filtradas: {{ this.totalEcow }}</p>
           </v-col>
         </v-row>
       </v-card-text>
@@ -67,11 +69,11 @@ export default {
         },
         plotOptions: {
           bar: {
-            borderRadius: 4,
+            borderRadius: 10,
+            columnHeight: "5%",
             horizontal: true,
           },
         },
-
         xaxis: {
           categories: [],
         },
@@ -79,13 +81,14 @@ export default {
 
       estados: [],
       estadosSeparados: [],
+      estadosObject: [],
+      animate: false,
     };
   },
 
   mounted() {
     setTimeout(() => {
       this.getEstados();
-
       this.visivel = false;
     }, 2000);
   },
@@ -94,11 +97,22 @@ export default {
     eCowData() {
       return this.$store.getters.getDataEcow;
     },
+    eCowDataFiltered() {
+      return this.$store.getters.geteCowDataFiltered;
+    },
+    totalEcow() {
+      let total = [];
+      Object.assign(total, this.eCowDataFiltered);
+      return total.length;
+    },
+    estadoFilterStore() {
+      return this.$store.getters.getEstadoFiltrado;
+    },
   },
 
   methods: {
     getEstados() {
-      const data = this.eCowData;
+      const data = this.eCowDataFiltered;
       Object.values(data).forEach((value) => {
         this.estados.push(value.state);
       });
@@ -107,25 +121,69 @@ export default {
     },
 
     separaEstados() {
-      const estados = {};
+      let estados = {};
       // Separa os estados
       this.estados.forEach((x) => {
         estados[x] = (estados[x] || 0) + 1;
       });
+      this.estadosObject = estados;
+      this.setEstadosSeparados(estados);
+    },
 
+    // Salva no Grafico
+    setEstadosSeparados(estados) {
+      this.estadosSeparados = [];
       Object.assign(this.estadosSeparados, this.ordenaPorQntdeEstados(estados));
+      this.chartOptions.xaxis.categories = Object.keys(this.estadosSeparados);
+      this.series[0].data = Object.values(this.estadosSeparados);
+      this.setEstadosExistentesStore();
+    },
 
-      Object.assign(
-        this.chartOptions.xaxis.categories,
+    setEstadosExistentesStore() {
+      this.$store.commit(
+        "SET_ESTADO_EXISTENTES",
         Object.keys(this.estadosSeparados)
       );
-      this.series["0"].data = Object.values(this.estadosSeparados);
+    },
+
+    filterEstado(estados, filter) {
+      estados = Object.keys(estados)
+        .filter((key) => filter.includes(key))
+        .reduce((obj, key) => {
+          obj[key] = estados[key];
+          return obj;
+        }, {});
+      this.setEstadosSeparados(estados);
     },
 
     ordenaPorQntdeEstados(estados) {
       return Object.entries(estados)
         .sort(([, a], [, b]) => b - a)
         .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+    },
+
+    reload() {
+      this.visivel = true;
+      setTimeout(() => {
+        this.visivel = false;
+      }, 2000);
+    },
+  },
+
+  watch: {
+    estadoFilterStore(value) {
+      if (value == "Todos") {
+        this.reload();
+        return this.setEstadosSeparados(this.estadosObject);
+      }
+      this.filterEstado(this.estadosObject, value);
+      this.reload();
+    },
+
+    eCowDataFiltered() {
+      //this.getEstados();
+      this.filterEstado(this.estadosObject, this.estadoFilterStore);
+      this.reload();
     },
   },
 };

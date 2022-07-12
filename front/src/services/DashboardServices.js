@@ -6,7 +6,6 @@ export default {
   async getDadosEcow() {
     try {
       const response = await ApiAxios().get("/ecow/find");
-      console.log(response);
       if (response.status == "200") {
         return response;
       }

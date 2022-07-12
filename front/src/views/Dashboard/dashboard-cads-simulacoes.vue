@@ -239,7 +239,6 @@ export default {
     totalEcowFiltered() {
       let total = [];
       Object.assign(total, this.eCowDataFiltered);
-      console.log(total);
       return total.length;
     },
   },

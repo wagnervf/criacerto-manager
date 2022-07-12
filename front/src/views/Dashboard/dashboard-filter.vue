@@ -45,91 +45,104 @@
             </v-row>
           </v-expansion-panel-header>
           <v-expansion-panel-content class="pa-0">
+            <v-progress-linear
+              indeterminate
+              color="teal"
+              :query="true"
+              v-if="loadingEstado"
+            />
             <v-form
+              v-else
               ref="form"
               v-model="valid"
               lazy-validation
             >
-              <v-row
-                justify="space-around"
-                class="my-2"
+              <v-col
+                cols="12"
+                class="py-0 pt-2"
               >
-                <v-col cols="7">
-                  <v-row>
-                    <v-col cols="4">
-                      <v-menu
-                        ref="startMenu"
-                        :close-on-content-click="false"
-                        v-model="date1"
-                        :return-value.sync="date1"
-                        offset-y
-                        min-width="290px"
-                      >
-                        <template #activator="{ on, attrs }">
-                          <v-text-field
-                            v-model="startFormat"
-                            label="Início"
-                            prepend-inner-icon="mdi-calendar"
-                            readonly
-                            v-bind="attrs"
-                            v-on="on"
-                            outlined
-                          />
-                        </template>
-                        <v-date-picker
-                          v-model="query.start"
-                          scrollable
-                          locale="pt-BR"
-                          @change="date1 = !date1"
+                <v-row>
+                  <v-col>
+                    <v-menu
+                      ref="startMenu"
+                      :close-on-content-click="false"
+                      v-model="date1"
+                      :return-value.sync="date1"
+                      offset-y
+                      min-width="290px"
+                    >
+                      <template #activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="startFormat"
+                          label="Início"
+                          prepend-inner-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                          flat
+                          dense
+                          filled
                         />
-                      </v-menu>
-                    </v-col>
+                      </template>
+                      <v-date-picker
+                        v-model="query.start"
+                        scrollable
+                        locale="pt-BR"
+                        @change="date1 = !date1"
+                      />
+                    </v-menu>
+                  </v-col>
 
-                    <v-col cols="4">
-                      <v-menu
-                        ref="endMenu"
-                        :close-on-content-click="false"
-                        :return-value.sync="date2"
-                        v-model="date2"
-                        offset-y
-                      >
-                        <template #activator="{ on, attrs }">
-                          <v-text-field
-                            v-model="endFormat"
-                            label="Fim"
-                            prepend-inner-icon="mdi-calendar"
-                            readonly
-                            v-bind="attrs"
-                            v-on="on"
-                            outlined
-                          />
-                        </template>
-                        <v-date-picker
-                          v-model="query.end"
-                          scrollable
-                          @change="date2 = !date2"
-                          locale="pt-BR"
+                  <v-col>
+                    <v-menu
+                      ref="endMenu"
+                      :close-on-content-click="false"
+                      :return-value.sync="date2"
+                      v-model="date2"
+                      offset-y
+                    >
+                      <template #activator="{ on, attrs }">
+                        <v-text-field
+                          v-model="endFormat"
+                          label="Fim"
+                          prepend-inner-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                          flat
+                          dense
+                          filled
                         />
-                      </v-menu>
-                    </v-col>
+                      </template>
+                      <v-date-picker
+                        v-model="query.end"
+                        scrollable
+                        @change="date2 = !date2"
+                        locale="pt-BR"
+                      />
+                    </v-menu>
+                  </v-col>
 
-                    <v-col class="ma-0 mt-2 pa-0">
-                      <v-btn
-                        :disabled="!valid"
-                        class="mt-4 pa-0"
-                        text
-                        dark
-                        elevation="0"
-                        color="teal lighten-2"
-                        @click="validate"
-                        title="Filtrar"
-                      >
-                        <v-icon dark>
-                          mdi-filter-check
-                        </v-icon>
-                      </v-btn>
+                  <v-col
+                    cols="1"
+                    class="ma-0 mt-2 pa-0"
+                  >
+                    <v-btn
+                      :disabled="!valid"
+                      class="mt-4 pa-0"
+                      text
+                      dark
+                      elevation="0"
+                      color="teal lighten-2"
+                      @click="validate"
+                      title="Filtrar"
+                    >
+                      <v-icon dark>
+                        mdi-filter-check
+                      </v-icon>
+                    </v-btn>
 
-                      <!-- <v-btn
+                    <!-- <v-btn
                         class="ma-0 pa-0"
                         text
                         elevation="0"
@@ -141,26 +154,28 @@
                           mdi-close-circle
                         </v-icon>
                       </v-btn> -->
-                    </v-col>
-                  </v-row>
-                </v-col>
+                  </v-col>
+                </v-row>
+              </v-col>
 
-                <v-col
-                  class="d-flex"
-                  cols="5"
-                >
-                  <v-combobox
-                    v-model="query.estado"
-                    :items="items"
-                    :search-input.sync="search"
-                    hide-selected
-                    label="Filtrar por Estados"
-                    persistent-hint
-                    small-chips
-                    hide-details
-                  />
-                </v-col>
-              </v-row>
+              <v-col
+                cols="11"
+                class="py-0"
+              >
+                <v-combobox
+                  v-model="query.estado"
+                  :items="estadosStore"
+                  :search-input.sync="search"
+                  @change="filterByEstate()"
+                  hide-selected
+                  label="Filtrar por Estados"
+                  persistent-hint
+                  small-chips
+                  hide-details
+                  filled
+                  dense
+                />
+              </v-col>
             </v-form>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -184,10 +199,11 @@ export default {
       query: {
         start: "",
         end: "",
-        estado: "TODOS",
+        estado: "Todos",
       },
       filtrado: [],
-      items: ["Foo", "Bar", "Fizz", "Buzz"],
+      estadosStore: [],
+      loadingEstado: true,
     };
   },
   mounted() {
@@ -211,6 +227,9 @@ export default {
     startFormat() {
       return this.formatDate(this.query.start) || "";
     },
+    // estadosStore() {
+    //   return this.$store.getters.getEstadosExistentes;
+    // },
   },
   methods: {
     validate() {
@@ -233,6 +252,21 @@ export default {
       });
 
       this.$store.commit("SET_DADOS_FILTRADOS_PERIODO", this.filtrado);
+      this.getEstadosStore();
+    },
+
+    filterByEstate() {
+      this.$store.commit("SET_ESTADO_FILTRADO", this.query.estado);
+    },
+
+    getEstadosStore() {
+      setTimeout(() => {
+        let listEstados = this.$store.getters.getEstadosExistentes;
+
+        listEstados.push("Todos");
+        this.estadosStore = listEstados;
+        this.loadingEstado = false;
+      }, 1500);
     },
   },
 };
