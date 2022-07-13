@@ -16,26 +16,32 @@
       </v-toolbar>
 
       <v-card-text class="pa-6 pt-0">
-        <v-row class="align-center justify-center">
-          <v-col
+        <v-row class="d-flex align-center justify-center">
+          <div
             v-if="visivel"
-            class="my-auto"
+            class="text-center pa-6"
+          >
+            <ComponentProgress />
+          </div>
+
+          <v-col
+            v-else
+            class="mx-auto"
           >
             <ApexChart
               type="pie"
               height="380"
+              width="100%"
               :options="chartOptions"
               :series="chartOptions.series"
             />
-            <p>Simulações Filtradas: {{ this.totalEcow }}</p>
-          </v-col>
-          <v-col
-            v-else
-            class="pa-6"
-          >
-            <div class="text-center">
-              <ComponentProgress />
-            </div>
+            <!-- Mixins -->
+            <p>Simulações Filtradas: {{ this.totalECowDataFiltered }}</p>
+            <p>Estado: {{ this.dadosFiltroStore.estado }}</p>
+            <p>
+              Período:{{ this.dadosFiltroStore.start | formatDateString }} -
+              {{ this.dadosFiltroStore.end | formatDateString }}
+            </p>
           </v-col>
         </v-row>
       </v-card-text>
@@ -46,20 +52,19 @@
 <script>
 import ApexChart from "vue-apexcharts";
 import ComponentProgress from "../../components/Progress.vue";
+import mixinUtils from "../../mixins/mixin-utils";
+
 export default {
   name: "DashboardTiposTouros",
   components: {
     ApexChart,
     ComponentProgress,
   },
-
+  mixins: [mixinUtils],
   data() {
     return {
-      apexLoading: false,
-      visivel: false,
+      visivel: true,
       racasTouro: [],
-      total: 0,
-
       racas: [],
       racasSeparadas: {},
       valuesRacasTouros: [],
@@ -76,8 +81,23 @@ export default {
             },
           },
         },
+        legend: {
+          show: true,
+          fontSize: "18px",
+          fontFamily: "Helvetica, Arial",
+          fontWeight: 400,
+        },
+        dataLabels: {
+          enabled: true,
+          style: {
+            fontSize: "16px",
+            fontFamily: "Helvetica, Arial, sans-serif",
+            fontWeight: "bold",
+          },
+        },
 
         labels: [],
+
         series: [],
         responsive: [
           {
@@ -98,47 +118,95 @@ export default {
 
   mounted() {
     setTimeout(() => {
-      this.racaTouros();
-      this.separaRacasTouros();
-      this.visivel = true;
-    }, 3000);
+      //Filtrar Raça por período
+      //    this.getRacaTouros(this.eCowFilteredPeriodo);
+      this.visivel = false;
+    }, 1000);
   },
 
   computed: {
-    totalEcow() {
-      let total = [];
-      Object.assign(total, this.eCowDataFiltered);
-      return total.length;
+    eCowFilteredPeriodo() {
+      return this.$store.getters.geteCowFilteredPeriodo;
     },
 
-    eCowDataFiltered() {
-      return this.$store.getters.geteCowDataFiltered;
+    estadoFilterStore() {
+      return this.$store.getters.getEstadoFiltrado;
     },
   },
 
   methods: {
-    racaTouros() {
-      // var data = this.eCow;
-      const data = this.eCowDataFiltered;
-
+    getRacaTouros(data) {
+      this.reload();
+      this.racas = [];
       Object.values(data).forEach((value) => {
         const rar =
           typeof value.raca_touro === "undefined"
             ? value.raca_touro_iatf
             : value.raca_touro;
-
         this.racas.push(rar);
       });
+
+      this.separaRacasTouros();
     },
 
     separaRacasTouros() {
-      const counts = {};
+      let racas = {};
       this.racas.forEach((x) => {
-        counts[x] = (counts[x] || 0) + 1;
+        racas[x] = (racas[x] || 0) + 1;
       });
-      Object.assign(this.racasSeparadas, counts);
+      this.setRacasSeparadas(racas);
+    },
+
+    setRacasSeparadas(racas) {
+      this.racasSeparadas = [];
+      Object.assign(this.racasSeparadas, racas);
       Object.assign(this.chartOptions.labels, Object.keys(this.racasSeparadas));
       this.chartOptions.series = Object.values(this.racasSeparadas);
+    },
+
+    filterRacasPorEstado(data) {
+      let filtrados = [];
+      let filter = this.estadoFilterStore;
+      Object.values(data).forEach((value) => {
+        if (value.state == filter) {
+          filtrados.push(value);
+        }
+      });
+      //caso um estado seja selecionado busque as racas já filtradas pelo estado
+      this.getRacaTouros(filtrados);
+    },
+
+    reload() {
+      this.visivel = true;
+      setTimeout(() => {
+        this.visivel = false;
+      }, 500);
+    },
+  },
+
+  watch: {
+    estadoFilterStore(value) {
+      if (value == "Todos") {
+        return this.getRacaTouros(this.eCowFilteredPeriodo);
+      }
+      //Filtrar a Raça por Estado
+      this.filterRacasPorEstado(this.eCowFilteredPeriodo);
+      this.reload();
+    },
+
+    eCowFilteredPeriodo() {
+      //Filtrar a Raça Período
+      //this.getRacaTouros(this.eCowFilteredPeriodo);
+      console.log("eCowFilteredPeriodo");
+      console.log(this.estadoFilterStore);
+      console.log(this.estadoFilterStore == "");
+      if (this.estadoFilterStore == "") {
+        this.getRacaTouros(this.eCowFilteredPeriodo);
+      } else {
+        this.filterRacasPorEstado(this.eCowFilteredPeriodo);
+      }
+
+      this.reload();
     },
   },
 };

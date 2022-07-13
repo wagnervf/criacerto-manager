@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-card>
+    <v-card class="mb-4">
       <v-expansion-panels
         v-model="panel"
         class="ma-0 pa-0 trasnparent"
@@ -44,7 +44,7 @@
               </v-col>
             </v-row>
           </v-expansion-panel-header>
-          <v-expansion-panel-content class="pa-0">
+          <v-expansion-panel-content class="pa-2 py-4">
             <v-progress-linear
               indeterminate
               color="teal"
@@ -252,11 +252,13 @@ export default {
       });
 
       this.$store.commit("SET_DADOS_FILTRADOS_PERIODO", this.filtrado);
+      this.$store.commit("SET_PERIODO_FILTRADO", this.query);
       this.getEstadosStore();
     },
 
     filterByEstate() {
       this.$store.commit("SET_ESTADO_FILTRADO", this.query.estado);
+      this.$store.commit("SET_PERIODO_FILTRADO", this.query);
     },
 
     getEstadosStore() {

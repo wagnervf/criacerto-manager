@@ -84,10 +84,10 @@
                   mdi-calendar-filter
                 </v-icon>
               </v-col>
-
+              <!-- Mixins -->
               <v-col class="text-center">
                 <p class="text-h1 font-weight-black cyan--text">
-                  {{ totalEcowFiltered }}
+                  {{ totalECowDataFiltered }}
                 </p>
               </v-col>
             </v-row>
@@ -236,11 +236,12 @@ export default {
       Object.assign(total, this.eCowData);
       return total.length;
     },
-    totalEcowFiltered() {
-      let total = [];
-      Object.assign(total, this.eCowDataFiltered);
-      return total.length;
-    },
+
+    // totalEcowFiltered() {
+    //   let total = [];
+    //   Object.assign(total, this.eCowDataFiltered);
+    //   return total.length;
+    // },
   },
   methods: {
     getData() {

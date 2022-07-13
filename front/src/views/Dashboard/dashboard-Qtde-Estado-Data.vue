@@ -30,7 +30,8 @@
               :options="chartOptions"
               :series="series"
             />
-            <p>Simulações Filtradas: {{ this.totalEcow }}</p>
+            <!-- Mixins -->
+            <p>Simulações Filtradas: {{ this.totalECowDataFiltered }}</p>
           </v-col>
         </v-row>
       </v-card-text>
@@ -40,13 +41,14 @@
 
 <script>
 import ApexChart from "vue-apexcharts";
-//import eCow from "./e-cow";
+import mixinUtils from "../../mixins/mixin-utils";
 
 export default {
   name: "DashboardChartBar",
   components: {
     ApexChart,
   },
+  mixins: [mixinUtils],
   data() {
     return {
       visivel: true,
@@ -82,41 +84,32 @@ export default {
       estados: [],
       estadosSeparados: [],
       estadosObject: [],
-      animate: false,
     };
   },
 
   mounted() {
     setTimeout(() => {
-      this.getEstados();
+      this.getEstados(this.eCowFilteredPeriodo);
       this.visivel = false;
     }, 2000);
   },
 
   computed: {
-    eCowData() {
-      return this.$store.getters.getDataEcow;
+    eCowFilteredPeriodo() {
+      return this.$store.getters.geteCowFilteredPeriodo;
     },
-    eCowDataFiltered() {
-      return this.$store.getters.geteCowDataFiltered;
-    },
-    totalEcow() {
-      let total = [];
-      Object.assign(total, this.eCowDataFiltered);
-      return total.length;
-    },
+
     estadoFilterStore() {
       return this.$store.getters.getEstadoFiltrado;
     },
   },
 
   methods: {
-    getEstados() {
-      const data = this.eCowDataFiltered;
+    getEstados(data) {
+      this.estados = [];
       Object.values(data).forEach((value) => {
         this.estados.push(value.state);
       });
-
       this.separaEstados();
     },
 
@@ -126,6 +119,7 @@ export default {
       this.estados.forEach((x) => {
         estados[x] = (estados[x] || 0) + 1;
       });
+
       this.estadosObject = estados;
       this.setEstadosSeparados(estados);
     },
@@ -133,6 +127,7 @@ export default {
     // Salva no Grafico
     setEstadosSeparados(estados) {
       this.estadosSeparados = [];
+      // Usa Mixins
       Object.assign(this.estadosSeparados, this.ordenaPorQntdeEstados(estados));
       this.chartOptions.xaxis.categories = Object.keys(this.estadosSeparados);
       this.series[0].data = Object.values(this.estadosSeparados);
@@ -156,37 +151,27 @@ export default {
       this.setEstadosSeparados(estados);
     },
 
-    ordenaPorQntdeEstados(estados) {
-      return Object.entries(estados)
-        .sort(([, a], [, b]) => b - a)
-        .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
-    },
-
     reload() {
       this.visivel = true;
       setTimeout(() => {
         this.visivel = false;
-      }, 2000);
+      }, 500);
     },
   },
 
   watch: {
     estadoFilterStore(value) {
+      this.reload();
       if (value == "Todos") {
-        this.reload();
         return this.setEstadosSeparados(this.estadosObject);
       }
       this.filterEstado(this.estadosObject, value);
-      this.reload();
     },
 
-    eCowDataFiltered() {
-      //this.getEstados();
-      this.filterEstado(this.estadosObject, this.estadoFilterStore);
+    eCowFilteredPeriodo(value) {
+      this.getEstados(value);
       this.reload();
     },
   },
 };
 </script>
-
-<style></style>

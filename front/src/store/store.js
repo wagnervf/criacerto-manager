@@ -35,7 +35,8 @@ export default new Vuex.Store({
     IATF_2State: {},
     IATF_3State: {},
     racasTouros: [],
-    eCowDataFiltered: [],
+    filtroSelecionado: {},
+    eCowFilteredPeriodo: [],
     estadosExistentes: {},
     estadoFiltrado: "",
   },
@@ -100,8 +101,8 @@ export default new Vuex.Store({
     },
 
     SET_DADOS_FILTRADOS_PERIODO(state, value) {
-      state.eCowDataFiltered = {};
-      Object.assign(state.eCowDataFiltered, value);
+      state.eCowFilteredPeriodo = {};
+      Object.assign(state.eCowFilteredPeriodo, value);
     },
 
     SET_ESTADO_EXISTENTES(state, value) {
@@ -112,6 +113,11 @@ export default new Vuex.Store({
     SET_ESTADO_FILTRADO(state, value) {
       state.estadoFiltrado = {};
       state.estadoFiltrado = value;
+    },
+
+    SET_PERIODO_FILTRADO(state, value) {
+      state.filtroSelecionado = {};
+      Object.assign(state.filtroSelecionado, value);
     },
 
     CLEAR_USER(state) {
@@ -376,10 +382,12 @@ export default new Vuex.Store({
 
     getRacasTouro: (state) => state.racasTouros,
 
-    geteCowDataFiltered: (state) => state.eCowDataFiltered,
+    geteCowFilteredPeriodo: (state) => state.eCowFilteredPeriodo,
 
     getEstadosExistentes: (state) => state.estadosExistentes,
 
     getEstadoFiltrado: (state) => state.estadoFiltrado,
+
+    getDadosFiltro: (state) => state.filtroSelecionado,
   },
 });

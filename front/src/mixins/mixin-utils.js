@@ -15,6 +15,17 @@ export default {
     userLogado() {
       return this.$store.getters.getUserLogged;
     },
+
+    totalECowDataFiltered() {
+      let total = [];
+      let filtered = this.$store.getters.geteCowFilteredPeriodo;
+      Object.assign(total, filtered);
+      return total.length;
+    },
+
+    dadosFiltroStore() {
+      return this.$store.getters.getDadosFiltro;
+    },
   },
 
   created() {
@@ -126,6 +137,12 @@ export default {
         currency: "BRL",
       });
       return val != "R$ NaN" ? val : 0;
+    },
+
+    ordenaPorQntdeEstados(estados) {
+      return Object.entries(estados)
+        .sort(([, a], [, b]) => b - a)
+        .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
     },
   },
 };

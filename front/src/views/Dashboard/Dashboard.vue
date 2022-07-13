@@ -15,10 +15,16 @@
       </v-col>
 
       <v-row class="pa-0 mt-2">
-        <v-col class="pa-0 ma-0">
+        <v-col
+          cols="6"
+          class="pa-0 ma-0"
+        >
           <dashboardTiposTourosPieVue />
         </v-col>
-        <v-col class="pa-0 ma-0">
+        <v-col
+          cols="6"
+          class="pa-0 ma-0"
+        >
           <dashboardQtdeEstadoDataVue />
         </v-col>
       </v-row>
