@@ -38,7 +38,7 @@ export default new Vuex.Store({
     filtroSelecionado: {},
     eCowFilteredPeriodo: [],
     estadosExistentes: {},
-    estadoFiltrado: "",
+    // estadoFiltrado: "",
   },
   mutations: {
     SET_SIDEBAR_DRAWER(state, payload) {
@@ -110,12 +110,12 @@ export default new Vuex.Store({
       Object.assign(state.estadosExistentes, value);
     },
 
-    SET_ESTADO_FILTRADO(state, value) {
-      state.estadoFiltrado = {};
-      state.estadoFiltrado = value;
-    },
+    // SET_ESTADO_FILTRADO(state, value) {
+    //   state.estadoFiltrado = {};
+    //   state.estadoFiltrado = value;
+    // },
 
-    SET_PERIODO_FILTRADO(state, value) {
+    SET_DADOS_DO_FILTRADO(state, value) {
       state.filtroSelecionado = {};
       Object.assign(state.filtroSelecionado, value);
     },
@@ -386,7 +386,7 @@ export default new Vuex.Store({
 
     getEstadosExistentes: (state) => state.estadosExistentes,
 
-    getEstadoFiltrado: (state) => state.estadoFiltrado,
+    // getEstadoFiltrado: (state) => state.estadoFiltrado,
 
     getDadosFiltro: (state) => state.filtroSelecionado,
   },

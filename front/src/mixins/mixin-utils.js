@@ -4,6 +4,24 @@ import Swal from "sweetalert2";
 import moment from "moment";
 
 export default {
+  created() {
+    // Salva a Função de Mensagem em uma variável global
+    Vue.prototype.$Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 4000,
+      iconColor: "white",
+      customClass: {
+        popup: "colored-toast",
+      },
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+  },
   computed: {
     ...mapState("store_auth", ["loggedIn"]),
     ...mapState("store_plataform", ["mobile", "desktop"]),
@@ -26,31 +44,27 @@ export default {
     dadosFiltroStore() {
       return this.$store.getters.getDadosFiltro;
     },
-  },
 
-  created() {
-    // Salva a Função de Mensagem em uma variável global
-    Vue.prototype.$Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 4000,
-      iconColor: "white",
-      customClass: {
-        popup: "colored-toast",
-      },
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-      },
-    });
+    objectFilter() {
+      let filter = {};
+      filter = {
+        qtdeFilter: this.totalECowDataFiltered,
+        estado: this.dadosFiltroStore.estado,
+        start: this.MetFormatDateBR(this.dadosFiltroStore.start),
+        end: this.MetFormatDateBR(this.dadosFiltroStore.end),
+      };
+      return filter;
+    },
   },
 
   filters: {
     formatDateString(date) {
       moment.locale("pt-br");
       return date ? moment(date).format("ll") : "";
+    },
+    formatDateBR(date) {
+      moment.locale("pt-br");
+      return date ? moment(date).format("l") : "";
     },
   },
 
@@ -143,6 +157,11 @@ export default {
       return Object.entries(estados)
         .sort(([, a], [, b]) => b - a)
         .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+    },
+
+    MetFormatDateBR(date) {
+      moment.locale("pt-br");
+      return date ? moment(date).format("l") : "";
     },
   },
 };

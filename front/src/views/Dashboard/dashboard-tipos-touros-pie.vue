@@ -35,15 +35,10 @@
               :options="chartOptions"
               :series="chartOptions.series"
             />
-            <!-- Mixins -->
-            <p>Simulações Filtradas: {{ this.totalECowDataFiltered }}</p>
-            <p>Estado: {{ this.dadosFiltroStore.estado }}</p>
-            <p>
-              Período:{{ this.dadosFiltroStore.start | formatDateString }} -
-              {{ this.dadosFiltroStore.end | formatDateString }}
-            </p>
           </v-col>
         </v-row>
+
+        <cardFilteredVue />
       </v-card-text>
     </v-card>
   </v-container>
@@ -53,12 +48,14 @@
 import ApexChart from "vue-apexcharts";
 import ComponentProgress from "../../components/Progress.vue";
 import mixinUtils from "../../mixins/mixin-utils";
+import cardFilteredVue from "../../components/cardFiltered.vue";
 
 export default {
   name: "DashboardTiposTouros",
   components: {
     ApexChart,
     ComponentProgress,
+    cardFilteredVue,
   },
   mixins: [mixinUtils],
   data() {
@@ -136,7 +133,7 @@ export default {
 
   methods: {
     getRacaTouros(data) {
-      this.reload();
+      //  this.reload();
       this.racas = [];
       Object.values(data).forEach((value) => {
         const rar =
@@ -196,13 +193,12 @@ export default {
 
     eCowFilteredPeriodo() {
       //Filtrar a Raça Período
-      //this.getRacaTouros(this.eCowFilteredPeriodo);
-      console.log("eCowFilteredPeriodo");
-      console.log(this.estadoFilterStore);
-      console.log(this.estadoFilterStore == "");
-      if (this.estadoFilterStore == "") {
+      let value = this.estadoFilterStore;
+
+      if (value == "" || value == "Todos") {
         this.getRacaTouros(this.eCowFilteredPeriodo);
-      } else {
+      }
+      {
         this.filterRacasPorEstado(this.eCowFilteredPeriodo);
       }
 

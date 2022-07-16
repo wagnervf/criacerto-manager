@@ -1,10 +1,7 @@
 <template>
   <v-container fluid>
     <v-card class="mb-4">
-      <v-expansion-panels
-        v-model="panel"
-        class="ma-0 pa-0 trasnparent"
-      >
+      <v-expansion-panels v-model="panel" class="ma-0 pa-0 trasnparent">
         <v-expansion-panel>
           <v-expansion-panel-header
             v-slot="{ open }"
@@ -16,15 +13,8 @@
               <v-col class="text--secondary">
                 <v-fade-transition leave-absolute>
                   <span v-if="open">Selecione a data do Filtro</span>
-                  <v-row
-                    v-else
-                    no-gutters
-                    style="width: 100%"
-                  >
-                    <v-col
-                      cols="6"
-                      class="d-flex justify-start"
-                    >
+                  <v-row v-else no-gutters style="width: 100%">
+                    <v-col cols="6" class="d-flex justify-start">
                       <!-- <span class="text-subtitle-2 ma-2">
                         Período Filtrado:
                       </span> -->
@@ -49,20 +39,12 @@
               indeterminate
               color="teal"
               :query="true"
-              v-if="loadingEstado"
+              v-if="visivel"
             />
-            <v-form
-              v-else
-              ref="form"
-              v-model="valid"
-              lazy-validation
-            >
-              <v-col
-                cols="12"
-                class="py-0 pt-2"
-              >
+            <v-form v-else ref="form" v-model="valid" lazy-validation>
+              <v-col cols="12" class="py-0 pt-2">
                 <v-row>
-                  <v-col>
+                  <v-col cols="5">
                     <v-menu
                       ref="startMenu"
                       :close-on-content-click="false"
@@ -93,7 +75,7 @@
                     </v-menu>
                   </v-col>
 
-                  <v-col>
+                  <v-col cols="5">
                     <v-menu
                       ref="endMenu"
                       :close-on-content-click="false"
@@ -122,59 +104,38 @@
                       />
                     </v-menu>
                   </v-col>
+                </v-row>
 
-                  <v-col
-                    cols="1"
-                    class="ma-0 mt-2 pa-0"
-                  >
+                <v-row>
+                  <v-col cols="8" class="py-0">
+                    <v-combobox
+                      v-model="query.estado"
+                      :items="listaEstados"
+                      :search-input.sync="search"
+                      @change="setFilters()"
+                      hide-selected
+                      label="Filtrar por Estados"
+                      persistent-hint
+                      small-chips
+                      hide-details
+                      filled
+                      dense
+                    />
+                  </v-col>
+                  <v-col cols="2">
                     <v-btn
-                      :disabled="!valid"
-                      class="mt-4 pa-0"
-                      text
+                      class="mb-4"
                       dark
-                      elevation="0"
                       color="teal lighten-2"
                       @click="validate"
                       title="Filtrar"
+                      large
                     >
-                      <v-icon dark>
-                        mdi-filter-check
-                      </v-icon>
+                      <v-icon dark left> mdi-filter-check </v-icon>
+                      Filtrar
                     </v-btn>
-
-                    <!-- <v-btn
-                        class="ma-0 pa-0"
-                        text
-                        elevation="0"
-                        color="error darken-1"
-                        @click="panel = []"
-                        title="Cancelar Filtro"
-                      >
-                        <v-icon class="ma-0 pa-0">
-                          mdi-close-circle
-                        </v-icon>
-                      </v-btn> -->
                   </v-col>
                 </v-row>
-              </v-col>
-
-              <v-col
-                cols="11"
-                class="py-0"
-              >
-                <v-combobox
-                  v-model="query.estado"
-                  :items="estadosStore"
-                  :search-input.sync="search"
-                  @change="filterByEstate()"
-                  hide-selected
-                  label="Filtrar por Estados"
-                  persistent-hint
-                  small-chips
-                  hide-details
-                  filled
-                  dense
-                />
               </v-col>
             </v-form>
           </v-expansion-panel-content>
@@ -196,25 +157,21 @@ export default {
       valid: true,
       date1: false,
       date2: false,
+      allEcow: [],
       query: {
-        start: "",
-        end: "",
+        start: this.firstDayMonth(),
+        end: this.lastDayMonth(),
         estado: "Todos",
       },
       filtrado: [],
-      estadosStore: [],
-      loadingEstado: true,
+      listaEstados: [],
+      visivel: true,
     };
   },
   mounted() {
     setTimeout(() => {
       this.getDados();
     }, 500);
-
-    // Mixins
-    this.query.start = this.firstDayMonth();
-    //this.query.end = this.lastDayMonth();
-    this.query.end = "2022-07-10";
   },
   computed: {
     eCowData() {
@@ -227,9 +184,6 @@ export default {
     startFormat() {
       return this.formatDate(this.query.start) || "";
     },
-    // estadosStore() {
-    //   return this.$store.getters.getEstadosExistentes;
-    // },
   },
   methods: {
     validate() {
@@ -244,31 +198,80 @@ export default {
     getDados() {
       //"Busca todos os dados e Filtra");
       const data = this.eCowData;
-      this.filtrado = Object.values(data).filter((value) => {
+      this.allEcow = [];
+      this.allEcow = data;
+      this.setFilters();
+    },
+
+    setFilters() {
+      let data = [];
+      //Primeiro Filtro por Data
+      data = this.filterByDate(this.allEcow);
+
+      //Segundo Filtro por Estado
+      this.filtrado = this.filterByEstado(data);
+
+      //Salva Store
+      this.setFilterByEstate(this.filtrado);
+
+      this.separaEstados(this.filtrado);
+    },
+
+    filterByDate(data) {
+      return Object.values(data).filter((value) => {
         return (
           this.formatDate(value.created) >= this.formatDate(this.query.start) &&
           this.formatDate(value.created) <= this.formatDate(this.query.end)
         );
       });
-
-      this.$store.commit("SET_DADOS_FILTRADOS_PERIODO", this.filtrado);
-      this.$store.commit("SET_PERIODO_FILTRADO", this.query);
-      this.getEstadosStore();
     },
 
-    filterByEstate() {
-      this.$store.commit("SET_ESTADO_FILTRADO", this.query.estado);
-      this.$store.commit("SET_PERIODO_FILTRADO", this.query);
+    filterByEstado(data, filter) {
+      filter = this.query.estado;
+      if (filter == "" || filter == "Todos") return data;
+
+      return Object.values(data).filter((value) => {
+        return value.state == filter;
+      });
     },
 
-    getEstadosStore() {
+    // Pega o nome dos Estados Filtrados
+    separaEstados(data) {
+      let estados = {};
+      let result = [];
+
+      Object.values(data).forEach((value) => {
+        result.push(value.state);
+      });
+
+     this.listaEstados = [];
+
+      result.forEach((x) => {
+        estados[x] = (estados[x] || 0) + 1;
+      });
+
+      console.log(estados);
+
+      this.listaEstados = Object.keys(estados);
+      this.listaEstados.push("Todos");
+      this.setEstadosExistentesStore(this.listaEstados);
+    },
+
+    setEstadosExistentesStore(value) {
+      this.$store.commit("SET_ESTADO_EXISTENTES", Object.keys(value));
+    },
+
+    setFilterByEstate(value) {
+ijsqwqj      this.$store.commit("SET_DADOS_FILTRADOS_PERIODO", value);
+      this.$store.commit("SET_DADOS_DO_FILTRADO", this.query);
+      this.reload();
+    },
+
+    reload() {
+      this.visivel = true;
       setTimeout(() => {
-        let listEstados = this.$store.getters.getEstadosExistentes;
-
-        listEstados.push("Todos");
-        this.estadosStore = listEstados;
-        this.loadingEstado = false;
-      }, 1500);
+        this.visivel = false;
+      }, 500);
     },
   },
 };
