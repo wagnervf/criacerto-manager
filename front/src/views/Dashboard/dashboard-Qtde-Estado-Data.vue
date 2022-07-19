@@ -81,14 +81,12 @@ export default {
           categories: [],
         },
       },
-      //  estados: [],
       estadosSeparados: [],
     };
   },
 
   mounted() {
     setTimeout(() => {
-      //  this.getAllEstados(this.eCowFilteredPeriodo);
       this.visivel = false;
     }, 1500);
   },
@@ -109,17 +107,14 @@ export default {
       Object.values(data).forEach((value) => {
         this.estados.push(value.state);
       });
-
       this.separaEstados();
-      this.reload();
     },
 
     separaEstados() {
       let estados = {};
-      this.estados.forEach((x) => {
-        estados[x] = (estados[x] || 0) + 1;
-      });
+      Object.assign(estados, this.separaObjetos(this.estados));
       this.setDadosGrafico(estados);
+      this.reload();
     },
 
     // Salva no Grafico
@@ -140,22 +135,8 @@ export default {
   },
 
   watch: {
-    // dadosFiltrados(value) {
-    //   if (value == "Todos") {
-    //     return this.setDadosGrafico(this.eCowFilteredPeriodo);
-    //   } else {
-    //     this.filterEstado(this.eCowFilteredPeriodo);
-    //     this.reload();
-    //   }
-    // },
     eCowFilteredPeriodo(value) {
-      //Filtrar a Raça Período
-      //  let filter = this.dadosFiltrados.estado;
-      //     if (filter == "" || filter == "Todos") {
-      //       this.filterEstado(value);
-      //     } else {
       this.getAllEstados(value);
-      //    }
     },
   },
 };

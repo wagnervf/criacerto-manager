@@ -44,7 +44,7 @@
 
               <v-col class="text-center">
                 <p class="text-h1 font-weight-black teal--text">
-                  {{ totalEcow }}
+                  {{ totalTodasSimulacoes }}
                 </p>
               </v-col>
             </v-row>
@@ -149,10 +149,10 @@
                       </v-avatar>
                     </v-list-item-icon>
                     <v-list-item-content>
-                      <v-list-item-subtitle class="indigo--text">
+                      <v-list-item-subtitle class="indigo--text pt-2">
                         {{ media.touro.title }}
                       </v-list-item-subtitle>
-                      <v-list-item-title class="indigo--text my-2 text-h6">
+                      <v-list-item-title class="indigo--text my-2 text-h6 pt-1">
                         {{ media.touro.value }}
                       </v-list-item-title>
                     </v-list-item-content>
@@ -177,7 +177,7 @@
                       <v-list-item-subtitle class="indigo--text">
                         {{ media.semen.title }}
                       </v-list-item-subtitle>
-                      <v-list-item-title class="mx-2 text-h6 indigo--text">
+                      <v-list-item-title class="mx-2 text-h6 indigo--text pt-1">
                         {{ media.semen.value }}
                       </v-list-item-title>
                     </v-list-item-content>
@@ -222,39 +222,28 @@ export default {
     setTimeout(() => {
       this.getData();
       this.visivel = true;
-    }, 1200);
+    }, 1500);
   },
   computed: {
     eCowData() {
       return this.$store.getters.getDataEcow;
     },
     eCowDataFiltered() {
-      return this.$store.getters.geteCowDataFiltered;
+      return this.$store.getters.geteCowFilteredPeriodo;
     },
-    totalEcow() {
-      let total = [];
-      Object.assign(total, this.eCowData);
-      return total.length;
-    },
-
-    // totalEcowFiltered() {
-    //   let total = [];
-    //   Object.assign(total, this.eCowDataFiltered);
-    //   return total.length;
-    // },
   },
   methods: {
     getData() {
       Object.assign(this.filtrado, this.eCowDataFiltered);
-      this.getMediaValorCompraTouro();
-      this.getMediaValorCompraSemen();
+      this.getMediaValorCompraTouro(this.filtrado);
+      this.getMediaValorCompraSemen(this.filtrado);
     },
 
-    getMediaValorCompraTouro() {
+    getMediaValorCompraTouro(data) {
       let value = 0;
       let precoTouro = [];
 
-      this.filtrado.forEach((value) => {
+      data.forEach((value) => {
         if (value.preco_touro) precoTouro.push(value.preco_touro);
       });
 
@@ -267,12 +256,12 @@ export default {
       );
     },
 
-    getMediaValorCompraSemen() {
+    getMediaValorCompraSemen(data) {
       let value = 0;
       let precoSemen = [];
       //const data = this.eCowDataFiltered;
 
-      this.filtrado.forEach((value) => {
+      data.forEach((value) => {
         if (value.preco_semen) precoSemen.push(value.preco_semen);
         if (value.preco_semen_2) precoSemen.push(value.preco_semen_2);
         if (value.preco_semen_3) precoSemen.push(value.preco_semen_3);

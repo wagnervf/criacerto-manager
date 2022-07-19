@@ -8,7 +8,7 @@
       >
         <v-card class="mx-1 mb-1">
           <v-card-title class="pa-6 pb-3">
-            <p>Light Blue</p>
+            <p>Aluguel do Pasto</p>
             <v-spacer />
             <v-menu>
               <template #activator="{ on, attrs }">
@@ -376,12 +376,12 @@
 </template>
 
 <script>
-import ApexChart from 'vue-apexcharts';
-import mock from './mock';
-import eCow from './e-cow';
+import ApexChart from "vue-apexcharts";
+import mock from "./mock";
+import eCow from "./e-cow";
 
 export default {
-  name: 'DashboardCards',
+  name: "DashboardCards",
   components: {
     ApexChart,
   },

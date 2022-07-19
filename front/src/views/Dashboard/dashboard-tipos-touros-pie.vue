@@ -133,8 +133,8 @@ export default {
 
   methods: {
     getRacaTouros(data) {
-      //  this.reload();
       this.racas = [];
+
       Object.values(data).forEach((value) => {
         const rar =
           typeof value.raca_touro === "undefined"
@@ -143,34 +143,20 @@ export default {
         this.racas.push(rar);
       });
 
-      this.separaRacasTouros();
+      let objSeparadaos = {};
+      // Usa Mixins
+      Object.assign(objSeparadaos, this.separaObjetos(this.racas));
+      this.setRacasSeparadas(objSeparadaos);
+      this.reload();
     },
 
-    separaRacasTouros() {
-      let racas = {};
-      this.racas.forEach((x) => {
-        racas[x] = (racas[x] || 0) + 1;
-      });
-      this.setRacasSeparadas(racas);
-    },
-
+    // Salva no Grafico
+    // Usa Mixins
     setRacasSeparadas(racas) {
       this.racasSeparadas = [];
-      Object.assign(this.racasSeparadas, racas);
-      Object.assign(this.chartOptions.labels, Object.keys(this.racasSeparadas));
+      this.racasSeparadas = racas;
+      this.chartOptions.labels = Object.keys(this.racasSeparadas);
       this.chartOptions.series = Object.values(this.racasSeparadas);
-    },
-
-    filterRacasPorEstado(data) {
-      let filtrados = [];
-      let filter = this.estadoFilterStore;
-      Object.values(data).forEach((value) => {
-        if (value.state == filter) {
-          filtrados.push(value);
-        }
-      });
-      //caso um estado seja selecionado busque as racas já filtradas pelo estado
-      this.getRacaTouros(filtrados);
     },
 
     reload() {
@@ -182,27 +168,8 @@ export default {
   },
 
   watch: {
-    estadoFilterStore(value) {
-      if (value == "Todos") {
-        return this.getRacaTouros(this.eCowFilteredPeriodo);
-      }
-      //Filtrar a Raça por Estado
-      this.filterRacasPorEstado(this.eCowFilteredPeriodo);
-      this.reload();
-    },
-
-    eCowFilteredPeriodo() {
-      //Filtrar a Raça Período
-      let value = this.estadoFilterStore;
-
-      if (value == "" || value == "Todos") {
-        this.getRacaTouros(this.eCowFilteredPeriodo);
-      }
-      {
-        this.filterRacasPorEstado(this.eCowFilteredPeriodo);
-      }
-
-      this.reload();
+    eCowFilteredPeriodo(value) {
+      this.getRacaTouros(value);
     },
   },
 };

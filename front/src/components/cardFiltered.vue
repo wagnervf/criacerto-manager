@@ -9,20 +9,24 @@
         <v-col cols="4">
           <p>Simulações Filtradas:</p>
 
-          <v-chip class="text-subtitle-2">
-            {{ objectFilter.qtdeFilter }}
+          <v-chip class="text-caption">
+            {{ objectComDadosFiltrados.qtdeFilter }}
           </v-chip>
         </v-col>
         <v-col cols="4">
           <p>Estado:</p>
-          <v-chip class="text-subtitle-2">
-            {{ objectFilter.estado }}
+          <v-chip class="text-caption">
+            {{ objectComDadosFiltrados.estado }}
           </v-chip>
         </v-col>
         <v-col cols="4">
           <p>Período:</p>
-          <v-chip class="text-subtitle-2">
-            {{ objectFilter.start }} - {{ objectFilter.end }}
+          <v-chip
+            class="text-caption text-wrap"
+            style="height: 60%"
+          >
+            {{ objectComDadosFiltrados.start }} -
+            {{ objectComDadosFiltrados.end }}
           </v-chip>
         </v-col>
       </v-row>
@@ -40,5 +44,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

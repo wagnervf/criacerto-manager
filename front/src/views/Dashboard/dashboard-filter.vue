@@ -1,7 +1,10 @@
 <template>
   <v-container fluid>
     <v-card class="mb-4">
-      <v-expansion-panels v-model="panel" class="ma-0 pa-0 trasnparent">
+      <v-expansion-panels
+        v-model="panel"
+        class="ma-0 pa-0 trasnparent"
+      >
         <v-expansion-panel>
           <v-expansion-panel-header
             v-slot="{ open }"
@@ -13,8 +16,15 @@
               <v-col class="text--secondary">
                 <v-fade-transition leave-absolute>
                   <span v-if="open">Selecione a data do Filtro</span>
-                  <v-row v-else no-gutters style="width: 100%">
-                    <v-col cols="6" class="d-flex justify-start">
+                  <v-row
+                    v-else
+                    no-gutters
+                    style="width: 100%"
+                  >
+                    <v-col
+                      cols="6"
+                      class="d-flex justify-start"
+                    >
                       <!-- <span class="text-subtitle-2 ma-2">
                         Período Filtrado:
                       </span> -->
@@ -41,10 +51,18 @@
               :query="true"
               v-if="visivel"
             />
-            <v-form v-else ref="form" v-model="valid" lazy-validation>
-              <v-col cols="12" class="py-0 pt-2">
+            <v-form
+              v-else
+              ref="form"
+              v-model="valid"
+              lazy-validation
+            >
+              <v-col
+                cols="12"
+                class="py-0 pt-2"
+              >
                 <v-row>
-                  <v-col cols="5">
+                  <v-col cols="4">
                     <v-menu
                       ref="startMenu"
                       :close-on-content-click="false"
@@ -75,7 +93,7 @@
                     </v-menu>
                   </v-col>
 
-                  <v-col cols="5">
+                  <v-col cols="4">
                     <v-menu
                       ref="endMenu"
                       :close-on-content-click="false"
@@ -107,7 +125,10 @@
                 </v-row>
 
                 <v-row>
-                  <v-col cols="8" class="py-0">
+                  <v-col
+                    cols="8"
+                    class="py-0"
+                  >
                     <v-combobox
                       v-model="query.estado"
                       :items="listaEstados"
@@ -131,7 +152,12 @@
                       title="Filtrar"
                       large
                     >
-                      <v-icon dark left> mdi-filter-check </v-icon>
+                      <v-icon
+                        dark
+                        left
+                      >
+                        mdi-filter-check
+                      </v-icon>
                       Filtrar
                     </v-btn>
                   </v-col>
@@ -198,6 +224,7 @@ export default {
     getDados() {
       //"Busca todos os dados e Filtra");
       const data = this.eCowData;
+
       this.allEcow = [];
       this.allEcow = data;
       this.setFilters();
@@ -235,6 +262,12 @@ export default {
       });
     },
 
+    setFilterByEstate(value) {
+      this.$store.commit("SET_DADOS_FILTRADOS_PERIODO", value);
+      this.$store.commit("SET_DADOS_DO_FILTRADO", this.query);
+      this.reload();
+    },
+
     // Pega o nome dos Estados Filtrados
     separaEstados(data) {
       let estados = {};
@@ -244,13 +277,10 @@ export default {
         result.push(value.state);
       });
 
-     this.listaEstados = [];
-
+      //  this.listaEstados = [];
       result.forEach((x) => {
         estados[x] = (estados[x] || 0) + 1;
       });
-
-      console.log(estados);
 
       this.listaEstados = Object.keys(estados);
       this.listaEstados.push("Todos");
@@ -259,12 +289,6 @@ export default {
 
     setEstadosExistentesStore(value) {
       this.$store.commit("SET_ESTADO_EXISTENTES", Object.keys(value));
-    },
-
-    setFilterByEstate(value) {
-ijsqwqj      this.$store.commit("SET_DADOS_FILTRADOS_PERIODO", value);
-      this.$store.commit("SET_DADOS_DO_FILTRADO", this.query);
-      this.reload();
     },
 
     reload() {

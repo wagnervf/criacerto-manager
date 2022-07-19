@@ -7,11 +7,16 @@
       >
         <dashboardFilterVue />
       </v-col>
+
       <v-col
         cols="12"
         class="pa-0 ma-0"
       >
         <dashboardCardsSimulacoes />
+      </v-col>
+
+      <v-col cols="12">
+        <dashboardChartColumnVue />
       </v-col>
 
       <v-row class="pa-0 mt-2">
@@ -31,10 +36,6 @@
 
       <v-col cols="12">
         <dashboardCardsVue />
-      </v-col>
-
-      <v-col cols="12">
-        <dashboardChartColumnVue />
       </v-col>
 
       <v-col

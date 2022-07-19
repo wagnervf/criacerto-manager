@@ -45,7 +45,7 @@ export default {
       return this.$store.getters.getDadosFiltro;
     },
 
-    objectFilter() {
+    objectComDadosFiltrados() {
       let filter = {};
       filter = {
         qtdeFilter: this.totalECowDataFiltered,
@@ -54,6 +54,10 @@ export default {
         end: this.MetFormatDateBR(this.dadosFiltroStore.end),
       };
       return filter;
+    },
+
+    totalTodasSimulacoes() {
+      return this.$store.getters.getTotalEcow;
     },
   },
 
@@ -162,6 +166,14 @@ export default {
     MetFormatDateBR(date) {
       moment.locale("pt-br");
       return date ? moment(date).format("l") : "";
+    },
+
+    separaObjetos(value) {
+      let obj = {};
+      value.forEach((x) => {
+        obj[x] = (obj[x] || 0) + 1;
+      });
+      return obj;
     },
   },
 };

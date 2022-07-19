@@ -30,6 +30,7 @@ export default new Vuex.Store({
       logado: "",
     },
     ecow: {},
+    totalEcow: {},
     montaNaturalState: {},
     IATFState: {},
     IATF_2State: {},
@@ -81,6 +82,11 @@ export default new Vuex.Store({
     SET_DATA_ECOW(state, value) {
       // state.ecow.push(value);
       Object.assign(state.ecow, value);
+
+      let total = [];
+      let filtered = value;
+      Object.assign(total, filtered);
+      state.totalEcow = total.length;
     },
 
     SET_DATA_MONTANATURAL(state, value) {
@@ -371,6 +377,8 @@ export default new Vuex.Store({
     getUserLogged: (state) => state.userLogado,
 
     getDataEcow: (state) => state.ecow,
+
+    getTotalEcow: (state) => state.totalEcow,
 
     getDataMontaNatural: (state) => state.montaNaturalState,
 
