@@ -175,5 +175,63 @@ export default {
       });
       return obj;
     },
+
+    separaQtdeSimulacoesMes(mes) {
+      let meses = {
+        jan: 0,
+        fev: 0,
+        mar: 0,
+        abr: 0,
+        mai: 0,
+        jun: 0,
+        jul: 0,
+        ago: 0,
+        set: 0,
+        out: 0,
+        nov: 0,
+        dez: 0,
+      };
+
+      switch (mes) {
+        case "1":
+          meses.jan += 1;
+          break;
+        case "2":
+          meses.fev += 1;
+          break;
+        case "3":
+          meses.mar += 1;
+          break;
+        case "4":
+          meses.abr += 1;
+          break;
+        case "5":
+          meses.mai += 1;
+          break;
+        case "6":
+          meses.jun += 5;
+          break;
+        case "7":
+          meses.jul += 5;
+          break;
+        case "8":
+          meses.ago += 1;
+          break;
+        case "9":
+          meses.set += 1;
+          break;
+        case "10":
+          meses.out += 1;
+          break;
+        case "11":
+          meses.nov += 1;
+          break;
+        case "12":
+          meses.dez += 1;
+          break;
+      }
+
+      return meses;
+    },
   },
 };

@@ -185,6 +185,13 @@ export default {
         nov: 0,
         dez: 0,
       },
+
+      tipos: {
+        monta: [],
+        iatf: [],
+        iatf_2: [],
+        iatf_3: [],
+      },
     };
   },
 
@@ -216,8 +223,11 @@ export default {
 
         return this.types;
       });
-
-      this.switchQtdMeses();
+      this.reload();
+      this.separaMonta();
+      this.separaIatf();
+      this.separaIatf2();
+      this.separaIatf3();
     },
 
     switchTypes(value) {
@@ -240,202 +250,79 @@ export default {
       }
     },
 
-    switchQtdMeses() {
-      let tipos = {
-        monta: [],
-        iatf: [],
-        iatf_2: [],
-        iatf_3: [],
-      };
-
-      console.log(this.types);
-
+    separaMonta() {
       this.types.montaNatural.forEach((value) => {
-        let mes = moment(value.created).format("M");
-        switch (mes) {
-          case "1":
-            this.meses.jan += 1;
-            break;
-          case "2":
-            this.meses.fev += 1;
-            break;
-          case "3":
-            this.meses.mar += 1;
-            break;
-          case "4":
-            this.meses.abr += 1;
-            break;
-          case "5":
-            this.meses.mai += 1;
-            break;
-          case "6":
-            this.meses.jun += 5;
-            break;
-          case "7":
-            this.meses.jul += 5;
-            break;
-          case "8":
-            this.meses.ago += 1;
-            break;
-          case "9":
-            this.meses.set += 1;
-            break;
-          case "10":
-            this.meses.out += 1;
-            break;
-          case "11":
-            this.meses.nov += 1;
-            break;
-          case "12":
-            this.meses.dez += 1;
-            break;
-        }
+        let mes = "";
+        mes = moment(value.created).format("M");
+        this.meses = this.separaQtdeSimulacoesMes(mes);
       });
       this.series[0].data = Object.values(this.meses);
-      tipos.monta = Object.values(this.meses);
+      this.tipos.monta = Object.values(this.meses);
+    },
 
+    separaIatf() {
       this.types.iatf.forEach((value) => {
-        let mes = moment(value.created).format("M");
-        switch (mes) {
-          case "1":
-            this.meses.jan += 1;
-            break;
-          case "2":
-            this.meses.fev += 1;
-            break;
-          case "3":
-            this.meses.mar += 1;
-            break;
-          case "4":
-            this.meses.abr += 1;
-            break;
-          case "5":
-            this.meses.mai += 1;
-            break;
-          case "6":
-            this.meses.jun += 5;
-            break;
-          case "7":
-            this.meses.jul += 5;
-            break;
-          case "8":
-            this.meses.ago += 1;
-            break;
-          case "9":
-            this.meses.set += 1;
-            break;
-          case "10":
-            this.meses.out += 1;
-            break;
-          case "11":
-            this.meses.nov += 1;
-            break;
-          case "12":
-            this.meses.dez += 1;
-            break;
-        }
+        let mes = "";
+        mes = moment(value.created).format("M");
+        this.meses = this.separaQtdeSimulacoesMes(mes);
       });
       this.series[1].data = Object.values(this.meses);
-      tipos.iatf = Object.values(this.meses);
+      this.tipos.iatf = Object.values(this.meses);
+    },
 
+
+    separaIatf2() {
       this.types.iatf_2.forEach((value) => {
-        let mes = moment(value.created).format("M");
-
-        switch (mes) {
-          case "1":
-            this.meses.jan += 1;
-            break;
-          case "2":
-            this.meses.fev += 1;
-            break;
-          case "3":
-            this.meses.mar += 1;
-            break;
-          case "4":
-            this.meses.abr += 1;
-            break;
-          case "5":
-            this.meses.mai += 1;
-            break;
-          case "6":
-            this.meses.jun += 5;
-            break;
-          case "7":
-            this.meses.jul += 5;
-            break;
-          case "8":
-            this.meses.ago += 1;
-            break;
-          case "9":
-            this.meses.set += 1;
-            break;
-          case "10":
-            this.meses.out += 1;
-            break;
-          case "11":
-            this.meses.nov += 1;
-            break;
-          case "12":
-            this.meses.dez += 1;
-            break;
-        }
+        let mes = "";
+        mes = moment(value.created).format("M");
+        this.meses = this.separaQtdeSimulacoesMes(mes);
       });
       this.series[2].data = Object.values(this.meses);
-      tipos.iatf_2 = Object.values(this.meses);
+      this.tipos.iatf_2 = Object.values(this.meses);
+    },
 
+     separaIatf3() {
       this.types.iatf_3.forEach((value) => {
-        let mes = moment(value.created).format("M");
-
-        switch (mes) {
-          case "1":
-            this.meses.jan += 1;
-            break;
-          case "2":
-            this.meses.fev += 1;
-            break;
-          case "3":
-            this.meses.mar += 1;
-            break;
-          case "4":
-            this.meses.abr += 1;
-            break;
-          case "5":
-            this.meses.mai += 1;
-            break;
-          case "6":
-            this.meses.jun += 1;
-            break;
-          case "7":
-            this.meses.jul += 1;
-            break;
-          case "8":
-            this.meses.ago += 1;
-            break;
-          case "9":
-            this.meses.set += 1;
-            break;
-          case "10":
-            this.meses.out += 1;
-            break;
-          case "11":
-            this.meses.nov += 1;
-            break;
-          case "12":
-            this.meses.dez += 1;
-            break;
-        }
+        let mes = "";
+        mes = moment(value.created).format("M");
+        this.meses = this.separaQtdeSimulacoesMes(mes);
       });
       this.series[3].data = Object.values(this.meses);
-      tipos.iatf_3 = Object.values(this.meses);
+      this.tipos.iatf_3 = Object.values(this.meses);
+    },
 
-      console.log(tipos);
-
+    reload(){
       this.visivel = true;
       setTimeout(() => {
-        //  this.series[0].data = Object.values(this.meses);
         this.visivel = false;
       }, 1500);
 
+    }
+
+
+    switchQtdMeses() {
+      // this.types.iatf.forEach((value) => {
+      //   let mes = moment(value.created).format("M");
+     
+      // this.series[1].data = Object.values(this.meses);
+      // tipos.iatf = Object.values(this.meses);
+      // this.types.iatf_2.forEach((value) => {
+      //   let mes = moment(value.created).format("M");
+      
+      // });
+      // this.series[2].data = Object.values(this.meses);
+      // tipos.iatf_2 = Object.values(this.meses);
+      // this.types.iatf_3.forEach((value) => {
+      //   let mes = moment(value.created).format("M");
+      
+      // });
+      // this.series[3].data = Object.values(this.meses);
+      // tipos.iatf_3 = Object.values(this.meses);
+      // this.visivel = true;
+      // setTimeout(() => {
+      //   //  this.series[0].data = Object.values(this.meses);
+      //   this.visivel = false;
+      // }, 1500);
       //  console.log(this.series);
       // console.log(this.meses);
     },
