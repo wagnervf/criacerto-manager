@@ -176,7 +176,7 @@ export default {
       return obj;
     },
 
-    separaQtdeSimulacoesMes(mes) {
+    separaSimulacaoPorMes(simulacoes) {
       let meses = {
         jan: 0,
         fev: 0,
@@ -192,46 +192,23 @@ export default {
         dez: 0,
       };
 
-      switch (mes) {
-        case "1":
-          meses.jan += 1;
-          break;
-        case "2":
-          meses.fev += 1;
-          break;
-        case "3":
-          meses.mar += 1;
-          break;
-        case "4":
-          meses.abr += 1;
-          break;
-        case "5":
-          meses.mai += 1;
-          break;
-        case "6":
-          meses.jun += 5;
-          break;
-        case "7":
-          meses.jul += 5;
-          break;
-        case "8":
-          meses.ago += 1;
-          break;
-        case "9":
-          meses.set += 1;
-          break;
-        case "10":
-          meses.out += 1;
-          break;
-        case "11":
-          meses.nov += 1;
-          break;
-        case "12":
-          meses.dez += 1;
-          break;
-      }
+      simulacoes.forEach((value) => {
+        let mes = moment(value.created).format("M");
+        if (mes == "1") meses.jan += 1;
+        if (mes == "2") meses.fev += 1;
+        if (mes == "3") meses.mar += 1;
+        if (mes == "4") meses.abr += 1;
+        if (mes == "5") meses.mai += 1;
+        if (mes == "6") meses.jun += 1;
+        if (mes == "7") meses.jul += 1;
+        if (mes == "8") meses.ago += 1;
+        if (mes == "9") meses.set += 1;
+        if (mes == "10") meses.out += 1;
+        if (mes == "11") meses.nov += 1;
+        if (mes == "12") meses.dez += 1;
+      });
 
-      return meses;
+      return Object.values(meses);
     },
   },
 };

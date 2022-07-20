@@ -1,58 +1,61 @@
 <template>
   <div>
-    <v-card class="mx-1 mb-1">
-      <v-card-title class="pa-6 pb-0">
+    <!-- <v-card-title class="pa-6 pb-0">
         <v-row no-gutters>
           <v-col
-            cols="7"
-            sm="4"
-            md="4"
-            lg="5"
+            cols="12"
             class="d-flex align-center"
           >
-            <p>Tipo de Simulações mais utilizadas</p>
+            <p>Simulações mais utilizadas</p>
           </v-col>
         </v-row>
-      </v-card-title>
-      <v-card-text class="pa-6">
-        <v-row>
-          <v-col v-if="visivel">
-            <v-progress-linear
-              indeterminate
-              color="cyan"
-              :query="true"
-            />
-          </v-col>
-          <v-col v-else>
-            <ApexChart
-              type="bar"
-              height="350"
-              :options="chartOptions"
-              :series="series"
-            />
+      </v-card-title> -->
 
-            <ApexChart
-              type="area"
-              height="350"
-              :options="chartOptions2"
-              :series="series"
-            />
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
+    <v-col v-if="visivel">
+      <v-progress-linear
+        indeterminate
+        color="cyan"
+        :query="true"
+      />
+    </v-col>
+
+    <v-row v-else>
+      <v-col>
+        <v-card class="pa-4">
+          <ApexChart
+            type="bar"
+            height="350"
+            :options="chartOptions"
+            :series="series"
+          />
+        </v-card>
+      </v-col>
+
+      <v-col>
+        <v-card class="pa-6 pt-4">
+          <ApexChart
+            type="treemap"
+            height="340"
+            :options="radialTreeMapOptions"
+            :series="radialTreeMapOptions.series"
+          />
+        </v-card>
+        <pre>{{ this.radialTreeMapOptions.series[0] }}</pre>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
 import ApexChart from "vue-apexcharts";
 import typesSimulations from "../../assets/json/typesSimulations.json";
-import moment from "moment";
+import mixinUtils from "../../mixins/mixin-utils";
 export default {
   name: "DashboardChartColumn",
   components: {
     ApexChart,
   },
+  mixins: [mixinUtils],
   data() {
     return {
       typesSimulations: typesSimulations,
@@ -92,6 +95,10 @@ export default {
             endingShape: "rounded",
           },
         },
+        title: {
+          text: "Simulações por Mês",
+          align: "center",
+        },
         dataLabels: {
           enabled: false,
         },
@@ -129,45 +136,61 @@ export default {
           opacity: 2,
         },
         tooltip: {
+          style: {
+            fontSize: "14px",
+          },
           y: {
             formatter(val) {
-              return `$ ${val} thousands`;
+              return val;
             },
           },
         },
       },
-      chartOptions2: {
+
+      radialTreeMapOptions: {
+        series: [
+          {
+            data: [],
+          },
+        ],
         chart: {
           height: 350,
-          type: "area",
+          type: "treemap",
+        },
+        legend: {
+          show: false,
+        },
+        title: {
+          text: "Tipos de Simulações",
+          align: "center",
         },
         dataLabels: {
-          enabled: false,
+          enabled: true,
+          style: {
+            fontSize: "18px",
+          },
+          formatter: function (text, op) {
+            return [text, op.value];
+          },
+          offsetY: -4,
         },
-        stroke: {
-          curve: "smooth",
+        colors: ["#008ffb", "#00e396", "#feb019", "#ff4560"],
+        plotOptions: {
+          treemap: {
+            distributed: true,
+            enableShades: false,
+          },
         },
-        xaxis: {
-          categories: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Abr",
-            "Mai",
-            "Jun",
-            "Jul",
-            "Ago",
-            "Set",
-            "Out",
-            "Nov",
-            "Dez",
-          ],
-        },
-        // tooltip: {
-        //   x: {
-        //     format: "dd/MM/yy HH:mm",
-        //   },
-        // },
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              legend: {
+                show: false,
+              },
+            },
+          },
+        ],
       },
       visivel: false,
       todosDados: [],
@@ -202,16 +225,19 @@ export default {
     }, 1500);
   },
   computed: {
-    eCowData() {
-      return this.$store.getters.getDataEcow;
-    },
-    eCowDataFiltered() {
+    eCowFilteredPeriodo() {
       return this.$store.getters.geteCowFilteredPeriodo;
     },
   },
   methods: {
     getData() {
-      Object.assign(this.todosDados, this.eCowDataFiltered);
+      this.todosDados = [];
+      this.series[0].data = [];
+      this.series[1].data = [];
+      this.series[2].data = [];
+      this.series[3].data = [];
+      this.radialTreeMapOptions.series[0].data = [];
+      Object.assign(this.todosDados, this.eCowFilteredPeriodo);
 
       //Primeiro Filtro por Data
       this.filterTypeSimulacao(this.todosDados);
@@ -220,14 +246,16 @@ export default {
     filterTypeSimulacao(data) {
       Object.values(data).forEach((value) => {
         this.switchTypes(value);
-
         return this.types;
       });
+
       this.reload();
+
       this.separaMonta();
       this.separaIatf();
       this.separaIatf2();
       this.separaIatf3();
+      this.separaRadialBar(this.types);
     },
 
     switchTypes(value) {
@@ -251,147 +279,64 @@ export default {
     },
 
     separaMonta() {
-      this.types.montaNatural.forEach((value) => {
-        let mes = "";
-        mes = moment(value.created).format("M");
-        this.meses = this.separaQtdeSimulacoesMes(mes);
-      });
-      this.series[0].data = Object.values(this.meses);
-      this.tipos.monta = Object.values(this.meses);
+      this.series[0].data = this.separaSimulacaoPorMes(this.types.montaNatural);
     },
 
     separaIatf() {
-      this.types.iatf.forEach((value) => {
-        let mes = "";
-        mes = moment(value.created).format("M");
-        this.meses = this.separaQtdeSimulacoesMes(mes);
-      });
-      this.series[1].data = Object.values(this.meses);
-      this.tipos.iatf = Object.values(this.meses);
+      this.series[1].data = this.separaSimulacaoPorMes(this.types.iatf);
     },
-
 
     separaIatf2() {
-      this.types.iatf_2.forEach((value) => {
-        let mes = "";
-        mes = moment(value.created).format("M");
-        this.meses = this.separaQtdeSimulacoesMes(mes);
-      });
-      this.series[2].data = Object.values(this.meses);
-      this.tipos.iatf_2 = Object.values(this.meses);
+      this.series[2].data = this.separaSimulacaoPorMes(this.types.iatf_2);
     },
 
-     separaIatf3() {
-      this.types.iatf_3.forEach((value) => {
-        let mes = "";
-        mes = moment(value.created).format("M");
-        this.meses = this.separaQtdeSimulacoesMes(mes);
-      });
-      this.series[3].data = Object.values(this.meses);
-      this.tipos.iatf_3 = Object.values(this.meses);
+    separaIatf3() {
+      this.series[3].data = this.separaSimulacaoPorMes(this.types.iatf_3);
     },
 
-    reload(){
+    separaRadialBar(value) {
+      Object.keys(value).map((val) => {
+        if (val == "montaNatural") {
+          this.radialTreeMapOptions.series[0].data.push({
+            x: "Monta Natural",
+            y: value.montaNatural.length,
+          });
+        }
+        if (val == "iatf") {
+          this.radialTreeMapOptions.series[0].data.push({
+            x: "IATF",
+            y: value.iatf.length,
+          });
+        }
+        if (val == "iatf_2") {
+          this.radialTreeMapOptions.series[0].data.push({
+            x: "2 IATF",
+            y: value.iatf_2.length,
+          });
+        }
+        if (val == "iatf_3") {
+          this.radialTreeMapOptions.series[0].data.push({
+            x: "3 IATF",
+            y: value.iatf_3.length,
+          });
+        }
+      });
+
+      console.log(this.radialTreeMapOptions.series[0]);
+    },
+
+    reload() {
       this.visivel = true;
       setTimeout(() => {
         this.visivel = false;
-      }, 1500);
-
-    }
-
-
-    switchQtdMeses() {
-      // this.types.iatf.forEach((value) => {
-      //   let mes = moment(value.created).format("M");
-     
-      // this.series[1].data = Object.values(this.meses);
-      // tipos.iatf = Object.values(this.meses);
-      // this.types.iatf_2.forEach((value) => {
-      //   let mes = moment(value.created).format("M");
-      
-      // });
-      // this.series[2].data = Object.values(this.meses);
-      // tipos.iatf_2 = Object.values(this.meses);
-      // this.types.iatf_3.forEach((value) => {
-      //   let mes = moment(value.created).format("M");
-      
-      // });
-      // this.series[3].data = Object.values(this.meses);
-      // tipos.iatf_3 = Object.values(this.meses);
-      // this.visivel = true;
-      // setTimeout(() => {
-      //   //  this.series[0].data = Object.values(this.meses);
-      //   this.visivel = false;
-      // }, 1500);
-      //  console.log(this.series);
-      // console.log(this.meses);
+      }, 500);
     },
+  },
 
-    getMonthSimulations(value) {
-      let meses = {
-        jan: 0,
-        fev: 0,
-        mar: 0,
-        abr: 0,
-        mai: 0,
-        jun: 0,
-        jul: 0,
-        ago: 0,
-        set: 0,
-        out: 0,
-        nov: 0,
-        dez: 0,
-      };
-      let mes = moment(value).format("M");
-      console.log(mes);
-
-      switch (mes) {
-        case "1":
-          meses.jan += 1;
-          break;
-        case "2":
-          meses.fev += 1;
-          break;
-        case "3":
-          meses.mar += 1;
-          break;
-        case "4":
-          meses.abr += 1;
-          break;
-        case "5":
-          meses.mai += 1;
-          break;
-        case "6":
-          meses.jun += 1;
-          break;
-        case "7":
-          meses.jul += 2;
-          break;
-        case "8":
-          meses.ago += 1;
-          break;
-        case "9":
-          meses.set += 1;
-          break;
-        case "10":
-          meses.out += 1;
-          break;
-        case "11":
-          meses.nov += 1;
-          break;
-        case "12":
-          meses.dez += 1;
-          break;
-      }
-
-      console.log(meses);
+  watch: {
+    eCowFilteredPeriodo(value) {
+      this.getData(value);
     },
   },
 };
 </script>
-
-<!--
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-const d = new Date();
-let month = months[d.getMonth()]; 
--->

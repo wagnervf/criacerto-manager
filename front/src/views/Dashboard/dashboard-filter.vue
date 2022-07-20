@@ -185,8 +185,10 @@ export default {
       date2: false,
       allEcow: [],
       query: {
-        start: this.firstDayMonth(),
-        end: this.lastDayMonth(),
+        start: "2022-01-01",
+        // start: this.firstDayMonth(),
+        end: "2022-11-12",
+        // end: this.lastDayMonth(),
         estado: "Todos",
       },
       filtrado: [],

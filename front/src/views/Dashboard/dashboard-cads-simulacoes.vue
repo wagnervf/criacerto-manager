@@ -1,14 +1,10 @@
 <template>
   <v-container fluid>
     <v-card
-      class="transparent mx-1"
+      class="transparent"
       elevation="0"
-      c
     >
-      <v-row
-        v-if="visivel"
-        justify="space-around"
-      >
+      <v-row justify="space-around">
         <v-col class="pa-1">
           <v-card
             class="pa-0"
@@ -32,7 +28,20 @@
               </v-btn>
             </v-toolbar>
 
-            <v-row class="py-4">
+            <v-col
+              v-if="!visivel"
+              class="text-center py-auto"
+            >
+              <v-progress-circular
+                indeterminate
+                color="teal"
+              />
+            </v-col>
+
+            <v-row
+              v-else
+              class="py-4"
+            >
               <v-col class="d-flex justify-center">
                 <v-icon
                   style="font-size: 90px"
@@ -74,7 +83,20 @@
               </v-btn>
             </v-toolbar>
 
-            <v-row class="py-4">
+            <v-col
+              v-if="!visivel"
+              class="text-center py-auto"
+            >
+              <v-progress-circular
+                indeterminate
+                color="cyan"
+              />
+            </v-col>
+
+            <v-row
+              v-else
+              class="py-4"
+            >
               <v-col class="d-flex justify-center">
                 <v-icon
                   style="font-size: 90px"
@@ -116,7 +138,21 @@
                 <v-icon>mdi-currency-usd</v-icon>
               </v-btn>
             </v-toolbar>
-            <v-row class="py-1">
+
+            <v-col
+              v-if="!visivel"
+              class="text-center py-auto"
+            >
+              <v-progress-circular
+                indeterminate
+                color="indigo"
+              />
+            </v-col>
+
+            <v-row
+              v-else
+              class="py-1"
+            >
               <v-col class="d-flex justify-center pa-0 ma-0">
                 <v-icon
                   style="font-size: 60px"
@@ -188,13 +224,6 @@
           </v-card>
         </v-col>
       </v-row>
-
-      <v-progress-linear
-        v-else
-        class="my-auto"
-        indeterminate
-        color="teal"
-      />
     </v-card>
   </v-container>
 </template>
