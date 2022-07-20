@@ -1,26 +1,17 @@
 <template>
-  <div>
-    <!-- <v-card-title class="pa-6 pb-0">
-        <v-row no-gutters>
-          <v-col
-            cols="12"
-            class="d-flex align-center"
-          >
-            <p>Simulações mais utilizadas</p>
-          </v-col>
-        </v-row>
-      </v-card-title> -->
-
-    <v-col v-if="visivel">
+    <v-container fluid>
+ 
+    <div v-if="visivel">
       <v-progress-linear
         indeterminate
         color="cyan"
         :query="true"
       />
-    </v-col>
+    </div>
 
-    <v-row v-else>
-      <v-col>
+    <div v-else>
+     <v-row>
+       <v-col cols="8">
         <v-card class="pa-4">
           <ApexChart
             type="bar"
@@ -31,19 +22,19 @@
         </v-card>
       </v-col>
 
-      <v-col>
+      <v-col cols="4">
         <v-card class="pa-6 pt-4">
           <ApexChart
-            type="treemap"
-            height="340"
-            :options="radialTreeMapOptions"
-            :series="radialTreeMapOptions.series"
+            type="polarArea"
+            height="400"
+            :options="donutOptions"
+            :series="donutOptions.series"
           />
         </v-card>
-        <pre>{{ this.radialTreeMapOptions.series[0] }}</pre>
       </v-col>
-    </v-row>
-  </div>
+     </v-row>
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -147,19 +138,13 @@ export default {
         },
       },
 
-      radialTreeMapOptions: {
-        series: [
-          {
-            data: [],
-          },
-        ],
+      donutOptions: {
+        series: [],
+        labels: [],
         chart: {
-          height: 350,
-          type: "treemap",
-        },
-        legend: {
-          show: false,
-        },
+          height: 400,
+          type: "polarArea",
+        },       
         title: {
           text: "Tipos de Simulações",
           align: "center",
@@ -169,18 +154,22 @@ export default {
           style: {
             fontSize: "18px",
           },
-          formatter: function (text, op) {
-            return [text, op.value];
-          },
           offsetY: -4,
         },
-        colors: ["#008ffb", "#00e396", "#feb019", "#ff4560"],
-        plotOptions: {
-          treemap: {
-            distributed: true,
-            enableShades: false,
-          },
-        },
+       
+           
+            legend: {
+              position: 'bottom'
+            },
+            
+           stroke: {
+              colors: ['#fff']
+            },
+            fill: {
+              opacity: 0.8
+            },
+            
+       
         responsive: [
           {
             breakpoint: 480,
@@ -209,12 +198,7 @@ export default {
         dez: 0,
       },
 
-      tipos: {
-        monta: [],
-        iatf: [],
-        iatf_2: [],
-        iatf_3: [],
-      },
+      tipos: [],
     };
   },
 
@@ -231,15 +215,11 @@ export default {
   },
   methods: {
     getData() {
-      this.todosDados = [];
-      this.series[0].data = [];
-      this.series[1].data = [];
-      this.series[2].data = [];
-      this.series[3].data = [];
-      this.radialTreeMapOptions.series[0].data = [];
+      this.todosDados = {};
+
       Object.assign(this.todosDados, this.eCowFilteredPeriodo);
 
-      //Primeiro Filtro por Data
+      //Primeiro Filtro por Tipo de Simulação
       this.filterTypeSimulacao(this.todosDados);
     },
 
@@ -295,34 +275,21 @@ export default {
     },
 
     separaRadialBar(value) {
+      let obj = {};
+
       Object.keys(value).map((val) => {
-        if (val == "montaNatural") {
-          this.radialTreeMapOptions.series[0].data.push({
-            x: "Monta Natural",
-            y: value.montaNatural.length,
-          });
-        }
-        if (val == "iatf") {
-          this.radialTreeMapOptions.series[0].data.push({
-            x: "IATF",
-            y: value.iatf.length,
-          });
-        }
-        if (val == "iatf_2") {
-          this.radialTreeMapOptions.series[0].data.push({
-            x: "2 IATF",
-            y: value.iatf_2.length,
-          });
-        }
-        if (val == "iatf_3") {
-          this.radialTreeMapOptions.series[0].data.push({
-            x: "3 IATF",
-            y: value.iatf_3.length,
-          });
-        }
+        if (val == "montaNatural") Object.assign(obj, {"Monta Natural": value.montaNatural.length} )
+        if (val == "iatf")  Object.assign(obj, {"IATF": value.iatf.length,} )
+        if (val == "iatf_2")  Object.assign(obj, {"2 IATF": value.iatf_2.length,} )
+        if (val == "iatf_3")  Object.assign(obj, {"3 IATF": value.iatf_3.length,} )
       });
 
-      console.log(this.radialTreeMapOptions.series[0]);
+      this.donutOptions.labels = [];
+      this.donutOptions.series = [];
+
+      this.donutOptions.labels = Object.keys(obj);
+      this.donutOptions.series = Object.values(obj);
+
     },
 
     reload() {

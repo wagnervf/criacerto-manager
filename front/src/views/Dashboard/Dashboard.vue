@@ -1,28 +1,19 @@
 <template>
   <v-container fluid>
     <div class="dashboard-page">
-      <v-col
-        cols="12"
-        class="pa-0 ma-0"
-      >
+      <v-row class="pa-0 my-2">
         <dashboardFilterVue />
-      </v-col>
+      </v-row>
 
-      <v-col
-        cols="12"
-        class="pa-0 ma-0"
-      >
+      <v-row class="pa-0 my-2">
         <dashboardCardsSimulacoes />
-      </v-col>
+      </v-row>
 
-      <v-col
-        cols="12"
-        class="pa-0 ma-0"
-      >
+      <v-row class="pa-0 my-2">
         <dashboardChartColumnVue />
-      </v-col>
+      </v-row>
 
-      <v-row class="pa-0 mt-2">
+      <v-row class="pa-0 my-2">
         <v-col
           cols="6"
           class="pa-0 ma-0"
@@ -31,15 +22,15 @@
         </v-col>
         <v-col
           cols="6"
-          class="pa-0 ma-0"
+          class="pa-0 my-2"
         >
           <dashboardQtdeEstadoDataVue />
         </v-col>
       </v-row>
 
-      <v-col cols="12">
+      <v-row class="pa-0 my-2">
         <dashboardCardsVue />
-      </v-col>
+      </v-row>
 
       <v-col
         lg="3"
