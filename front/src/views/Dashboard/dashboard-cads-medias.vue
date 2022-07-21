@@ -166,12 +166,14 @@ export default {
     getDadosSeparados() {
       let types = {};
       let data = this.typosSimulacoesSeparadas;
+      console.log(data.montaNatural);
 
-      Object.values(data).forEach((value) => {
-        console.log(value);
-        if (this.typesSimulations.monta == value.type)
-          types.monta = this.getMediaNumVacas(value.numero_de_vacas);
-      });
+      // Object.values(data.montaNatural).forEach((value) => {
+      //   //  types.monta = this.getMediaNumVacas(value.numero_de_vacas);
+      // });
+      // Object.values(data.iatf).forEach((value) => {
+      //   //    types.iatf = this.getMediaNumVacas(value.numero_de_vacas);
+      // });
 
       console.log(types);
     },
