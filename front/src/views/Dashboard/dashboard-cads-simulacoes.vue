@@ -249,7 +249,7 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.getData();
+      //this.getData();
       this.visivel = true;
     }, 1500);
   },
@@ -257,13 +257,13 @@ export default {
     eCowData() {
       return this.$store.getters.getDataEcow;
     },
-    eCowDataFiltered() {
+    eCowFilteredPeriodo() {
       return this.$store.getters.geteCowFilteredPeriodo;
     },
   },
   methods: {
-    getData() {
-      Object.assign(this.filtrado, this.eCowDataFiltered);
+    getData(value) {
+      Object.assign(this.filtrado, value);
       this.getMediaValorCompraTouro(this.filtrado);
       this.getMediaValorCompraSemen(this.filtrado);
     },
@@ -302,6 +302,12 @@ export default {
       this.media.semen.value = this.formatarMoedaReal(
         value / precoSemen.length
       );
+    },
+  },
+
+  watch: {
+    eCowFilteredPeriodo(value) {
+      this.getData(value);
     },
   },
 };

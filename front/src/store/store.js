@@ -39,6 +39,7 @@ export default new Vuex.Store({
     filtroSelecionado: {},
     eCowFilteredPeriodo: [],
     estadosExistentes: {},
+    tiposSimuacoesSeparadas: {},
     // estadoFiltrado: "",
   },
   mutations: {
@@ -124,6 +125,11 @@ export default new Vuex.Store({
     SET_DADOS_DO_FILTRADO(state, value) {
       state.filtroSelecionado = {};
       Object.assign(state.filtroSelecionado, value);
+    },
+
+    SET_TIPOS_SIMULACOES_SEPARADAS(state, value) {
+      state.tiposSimuacoesSeparadas = {};
+      Object.assign(state.tiposSimuacoesSeparadas, value);
     },
 
     CLEAR_USER(state) {
@@ -397,5 +403,7 @@ export default new Vuex.Store({
     // getEstadoFiltrado: (state) => state.estadoFiltrado,
 
     getDadosFiltro: (state) => state.filtroSelecionado,
+
+    getTiposSimulacoesSeparadas: (state) => state.tiposSimuacoesSeparadas,
   },
 });

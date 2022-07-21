@@ -31,15 +31,6 @@
       <v-divider />
 
       <v-card-actions />
-
-      <!-- <v-card-text
-        v-else
-        class="pa-6"
-      >
-        <div class="text-center">
-          <ComponentProgress />
-        </div>
-      </v-card-text> -->
     </v-card>
   </v-container>
 </template>
@@ -89,8 +80,13 @@ export default {
     eCowData() {
       return this.$store.getters.getDataEcow;
     },
+
     eCowCount() {
       return Object.keys(this.eCowData).length;
+    },
+
+    eCowFilteredPeriodo() {
+      return this.$store.getters.geteCowFilteredPeriodo;
     },
 
     aluguelPastoFormatado() {
@@ -113,8 +109,8 @@ export default {
   },
 
   methods: {
-    getDados() {
-      const data = this.eCowData;
+    getDados(data) {
+      // const data = this.eCowData;
       Object.values(data).forEach((value) => {
         const resul =
           typeof value.aluguel_pasto === "undefined" ? 0 : value.aluguel_pasto;
@@ -134,192 +130,13 @@ export default {
             : value.taxa_mortalidade;
         this.taxaMortalidade.push(resul);
       });
-
-      // this.getMediaAluguelPasto();
-      // this.getMediaValorVenda();
-      // this.getMediaTaxaMortalidade();
     },
+  },
 
-    // separaRacasTouros() {
-    //   const counts = {};
-    //   this.aluguelPasto.forEach(function (x) {
-    //     counts[x] = (counts[x] || 0) + 1;
-    //   });
-    //   Object.assign(this.racasSeparadas, counts);
-    //   Object.assign(this.chartOptions.labels, Object.keys(this.racasSeparadas));
-    //   this.chartOptions.series = Object.values(this.racasSeparadas);
-    // },
+  watch: {
+    eCowFilteredPeriodo(value) {
+      this.getDados(value);
+    },
   },
 };
 </script>
-
-<!--
-  series: [
-        {
-          name: "High - 2013",
-          data: [28, 29, 33, 36, 32, 32, 33],
-        },
-      ],
-      chartOptions: {
-        chart: {
-          height: 350,
-          type: "line",
-          toolbar: {
-            show: false,
-          },
-        },
-        colors: ["#77B6EA", "#545454"],
-        dataLabels: {
-          enabled: true,
-        },
-        stroke: {
-          curve: "smooth",
-        },
-        grid: {
-          borderColor: "#e7e7e7",
-          row: {
-            colors: ["#f3f3f3", "transparent"],
-            opacity: 0.5,
-          },
-        },
-        xaxis: {
-          categories: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "May",
-            "Jun",
-            "Jul",
-            "Ago",
-            "Set",
-            "Out",
-            "Nov",
-            "Dez",
-          ],
-          title: {
-            text: "Meses",
-          },
-        },
-        yaxis: {
-          title: {
-            text: "Qtde",
-          },
-          min: 0,
-          max: 100,
-        },
-      },
-
-        <div id="chart">
-          <VueApexCharts
-            type="line"
-            :options="chartOptions"
-            :series="series"
-          />
-        </div>
-   <v-row>
-          <v-col class="mx-4">
-            <v-menu
-              v-model="date1"
-              :close-on-content-click="false"
-              max-width="290"
-            >
-              <template #activator="{ on }">
-                <v-text-field
-                  :value="formatDate(query.initial)"
-                  clearable
-                  color="primary"
-                  label="Data Início"
-                  v-on="on"
-                  prepend-icon="mdi-calendar"
-                />
-              </template>
-              <v-date-picker
-                v-model="query.initial"
-                @change="date1 = false"
-                locale="pt-BR"
-              />
-            </v-menu>
-          </v-col>
-          <v-col class="mx-4">
-            <v-menu
-              v-model="date2"
-              :close-on-content-click="false"
-              max-width="290"
-            >
-              <template #activator="{ on }">
-                <v-text-field
-                  :value="formatDate(query.finish)"
-                  clearable
-                  color="primary"
-                  label="Data Fim"
-                  v-on="on"
-                  prepend-icon="mdi-calendar"
-                />
-              </template>
-              <v-date-picker
-                v-model="query.finish"
-                @change="date2 = false"
-                locale="pt-BR"
-              />
-            </v-menu>
-          </v-col>
-        </v-row> -->
-<!-- <v-col class="pa-0 ma-auto">
-            <v-col class="d-flex justify-end align-end">
-              <div class="text-caption flex-wrap">
-                Aluguel Pasto
-              </div>
-              <v-chip
-                label
-                small
-                dark
-                color="teal"
-                flex-wrap
-                class="font-weight-bold pa-2"
-              >
-                {{ aluguelPastoFormatado }}
-                <v-icon dark>
-                  mdi-arrow-top-right
-                </v-icon>
-              </v-chip>
-            </v-col>
-
-            <v-col>
-              <div class="text-caption flex-wrap">
-                Valor da Venda
-              </div>
-              <v-chip
-                label
-                small
-                dark
-                color="teal"
-                flex-wrap
-                class="font-weight-bold pa-2"
-              >
-                {{ valorVendaFormatado
-                }}<v-icon dark>
-                  mdi-arrow-top-right
-                </v-icon>
-              </v-chip>
-            </v-col>
-
-            <v-col>
-              <div class="text-caption flex-wrap">
-                Taxa Mortalidade
-              </div>
-              <v-chip
-                label
-                small
-                dark
-                color="red lighten-2"
-                flex-wrap
-                class="font-weight-bold pa-2"
-              >
-                {{ taxaMortalidadeFormatado
-                }}<v-icon dark>
-                  mdi-arrow-bottom-right
-                </v-icon>
-              </v-chip>
-            </v-col>
-          </v-col> -->

@@ -1,6 +1,5 @@
 <template>
-    <v-container fluid>
- 
+  <v-container fluid>
     <div v-if="visivel">
       <v-progress-linear
         indeterminate
@@ -10,29 +9,29 @@
     </div>
 
     <div v-else>
-     <v-row>
-       <v-col cols="8">
-        <v-card class="pa-4">
-          <ApexChart
-            type="bar"
-            height="350"
-            :options="chartOptions"
-            :series="series"
-          />
-        </v-card>
-      </v-col>
+      <v-row>
+        <v-col cols="8">
+          <v-card class="pa-4">
+            <ApexChart
+              type="bar"
+              height="350"
+              :options="barOptions"
+              :series="barOptions.series"
+            />
+          </v-card>
+        </v-col>
 
-      <v-col cols="4">
-        <v-card class="pa-6 pt-4">
-          <ApexChart
-            type="polarArea"
-            height="400"
-            :options="donutOptions"
-            :series="donutOptions.series"
-          />
-        </v-card>
-      </v-col>
-     </v-row>
+        <v-col cols="4">
+          <v-card class="pa-6 pt-4">
+            <ApexChart
+              type="polarArea"
+              height="400"
+              :options="donutOptions"
+              :series="donutOptions.series"
+            />
+          </v-card>
+        </v-col>
+      </v-row>
     </div>
   </v-container>
 </template>
@@ -50,31 +49,33 @@ export default {
   data() {
     return {
       typesSimulations: typesSimulations,
+      visivel: false,
       types: {
         montaNatural: [],
         iatf: [],
         iatf_2: [],
         iatf_3: [],
       },
-      series: [
-        {
-          name: "Monta Natural",
-          data: [],
-        },
-        {
-          name: "IATF+RT",
-          data: [],
-        },
-        {
-          name: "IATF+2RT",
-          data: [],
-        },
-        {
-          name: "IATF+3RT",
-          data: [],
-        },
-      ],
-      chartOptions: {
+
+      barOptions: {
+        series: [
+          {
+            name: "Monta Natural",
+            data: [],
+          },
+          {
+            name: "IATF+RT",
+            data: [],
+          },
+          {
+            name: "IATF+2RT",
+            data: [],
+          },
+          {
+            name: "IATF+3RT",
+            data: [],
+          },
+        ],
         chart: {
           type: "bar",
           height: 350,
@@ -144,7 +145,7 @@ export default {
         chart: {
           height: 400,
           type: "polarArea",
-        },       
+        },
         title: {
           text: "Tipos de Simulações",
           align: "center",
@@ -156,20 +157,21 @@ export default {
           },
           offsetY: -4,
         },
-       
-           
-            legend: {
-              position: 'bottom'
-            },
-            
-           stroke: {
-              colors: ['#fff']
-            },
-            fill: {
-              opacity: 0.8
-            },
-            
-       
+
+        legend: {
+          position: "bottom",
+        },
+
+        stroke: {
+          colors: ["#fff"],
+        },
+        fill: {
+          opacity: 0.8,
+        },
+        yaxis: {
+          show: false,
+        },
+
         responsive: [
           {
             breakpoint: 480,
@@ -181,31 +183,12 @@ export default {
           },
         ],
       },
-      visivel: false,
-      todosDados: [],
-      meses: {
-        jan: 0,
-        fev: 0,
-        mar: 0,
-        abr: 0,
-        mai: 0,
-        jun: 0,
-        jul: 0,
-        ago: 0,
-        set: 0,
-        out: 0,
-        nov: 0,
-        dez: 0,
-      },
-
-      tipos: [],
     };
   },
 
   mounted() {
     setTimeout(() => {
-      this.getData();
-      this.visivel = true;
+      this.visivel = false;
     }, 1500);
   },
   computed: {
@@ -214,27 +197,14 @@ export default {
     },
   },
   methods: {
-    getData() {
-      this.todosDados = {};
-
-      Object.assign(this.todosDados, this.eCowFilteredPeriodo);
-
-      //Primeiro Filtro por Tipo de Simulação
-      this.filterTypeSimulacao(this.todosDados);
-    },
-
-    filterTypeSimulacao(data) {
-      Object.values(data).forEach((value) => {
+    getData(value) {
+      this.reset();
+      Object.values(value).forEach((value) => {
         this.switchTypes(value);
-        return this.types;
       });
 
       this.reload();
-
-      this.separaMonta();
-      this.separaIatf();
-      this.separaIatf2();
-      this.separaIatf3();
+      this.separaTipos();
       this.separaRadialBar(this.types);
     },
 
@@ -256,40 +226,46 @@ export default {
           this.types.iatf_3.push(value);
           break;
       }
+
+      this.$store.commit("SET_TIPOS_SIMULACOES_SEPARADAS", this.types);
     },
 
-    separaMonta() {
-      this.series[0].data = this.separaSimulacaoPorMes(this.types.montaNatural);
-    },
-
-    separaIatf() {
-      this.series[1].data = this.separaSimulacaoPorMes(this.types.iatf);
-    },
-
-    separaIatf2() {
-      this.series[2].data = this.separaSimulacaoPorMes(this.types.iatf_2);
-    },
-
-    separaIatf3() {
-      this.series[3].data = this.separaSimulacaoPorMes(this.types.iatf_3);
+    separaTipos() {
+      this.barOptions.series[0].data = this.separaSimulacaoPorMes(
+        this.types.montaNatural
+      );
+      this.barOptions.series[1].data = this.separaSimulacaoPorMes(
+        this.types.iatf
+      );
+      this.barOptions.series[2].data = this.separaSimulacaoPorMes(
+        this.types.iatf_2
+      );
+      this.barOptions.series[3].data = this.separaSimulacaoPorMes(
+        this.types.iatf_3
+      );
     },
 
     separaRadialBar(value) {
       let obj = {};
-
       Object.keys(value).map((val) => {
-        if (val == "montaNatural") Object.assign(obj, {"Monta Natural": value.montaNatural.length} )
-        if (val == "iatf")  Object.assign(obj, {"IATF": value.iatf.length,} )
-        if (val == "iatf_2")  Object.assign(obj, {"2 IATF": value.iatf_2.length,} )
-        if (val == "iatf_3")  Object.assign(obj, {"3 IATF": value.iatf_3.length,} )
+        if (val == "montaNatural")
+          Object.assign(obj, { "Monta Natural": value.montaNatural.length });
+        if (val == "iatf") Object.assign(obj, { IATF: value.iatf.length });
+        if (val == "iatf_2")
+          Object.assign(obj, { "2 IATF": value.iatf_2.length });
+        if (val == "iatf_3")
+          Object.assign(obj, { "3 IATF": value.iatf_3.length });
       });
-
-      this.donutOptions.labels = [];
-      this.donutOptions.series = [];
 
       this.donutOptions.labels = Object.keys(obj);
       this.donutOptions.series = Object.values(obj);
+    },
 
+    reset() {
+      this.types.montaNatural = [];
+      this.types.iatf = [];
+      this.types.iatf_2 = [];
+      this.types.iatf_3 = [];
     },
 
     reload() {
