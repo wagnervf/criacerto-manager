@@ -1,40 +1,45 @@
 <template>
-  <v-container fluid>
-    <v-card class="mx-1 mb-1">
-      <v-toolbar
-        class="pa-0 my-1"
-        color="white"
-        elevation="1"
-        dense
-        shrink-on-scroll
-      >
-        <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
-          Quantitativo de Simulações Estados
-        </v-app-bar-title>
-      </v-toolbar>
+  <v-container
+    fluid
+    class="pa-0"
+  >
+    <v-row class="py-2">
+      <v-card class="mx-1 mb-1">
+        <v-toolbar
+          class="pa-0 my-1"
+          color="white"
+          elevation="1"
+          dense
+          shrink-on-scroll
+        >
+          <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
+            Quantitativo de Simulações Estados
+          </v-app-bar-title>
+        </v-toolbar>
 
-      <v-card-text class="pa-6">
-        <v-row>
-          <v-col v-if="visivel">
-            <v-progress-linear
-              indeterminate
-              color="cyan"
-              :query="true"
-            />
-          </v-col>
-          <v-col v-else>
-            <ApexChart
-              ref="realtimeChart"
-              type="bar"
-              height="345"
-              :options="chartOptions"
-              :series="series"
-            />
-            <cardFilteredVue />
-          </v-col>
-        </v-row>
-      </v-card-text>
-    </v-card>
+        <v-card-text class="pa-6">
+          <v-row>
+            <v-col v-if="visivel">
+              <v-progress-linear
+                indeterminate
+                color="cyan"
+                :query="true"
+              />
+            </v-col>
+            <v-col v-else>
+              <ApexChart
+                ref="realtimeChart"
+                type="bar"
+                height="345"
+                :options="chartOptions"
+                :series="series"
+              />
+              <cardFilteredVue />
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
+    </v-row>
   </v-container>
 </template>
 

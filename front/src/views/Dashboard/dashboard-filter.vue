@@ -1,5 +1,8 @@
 <template>
-  <v-container fluid>
+  <v-container
+    fluid
+    class="pa-0"
+  >
     <v-card class="mb-4">
       <v-expansion-panels
         v-model="panel"
@@ -62,7 +65,7 @@
                 class="py-0 pt-2"
               >
                 <v-row>
-                  <v-col cols="4">
+                  <v-col cols="6">
                     <v-menu
                       ref="startMenu"
                       :close-on-content-click="false"
@@ -81,7 +84,7 @@
                           v-on="on"
                           flat
                           dense
-                          filled
+                          outlined
                         />
                       </template>
                       <v-date-picker
@@ -93,7 +96,7 @@
                     </v-menu>
                   </v-col>
 
-                  <v-col cols="4">
+                  <v-col cols="6">
                     <v-menu
                       ref="endMenu"
                       :close-on-content-click="false"
@@ -111,7 +114,7 @@
                           v-on="on"
                           flat
                           dense
-                          filled
+                          outlined
                         />
                       </template>
                       <v-date-picker
@@ -124,11 +127,8 @@
                   </v-col>
                 </v-row>
 
-                <v-row>
-                  <v-col
-                    cols="8"
-                    class="py-0"
-                  >
+                <v-row class="pt-4">
+                  <v-col class="py-0">
                     <v-combobox
                       v-model="query.estado"
                       :items="listaEstados"
@@ -139,11 +139,13 @@
                       persistent-hint
                       small-chips
                       hide-details
-                      filled
                       dense
+                      outlined
                     />
                   </v-col>
-                  <v-col cols="2">
+                </v-row>
+                <v-row class="pt-4">
+                  <v-col class="d-flex justify-end">
                     <v-btn
                       class="mb-4"
                       dark

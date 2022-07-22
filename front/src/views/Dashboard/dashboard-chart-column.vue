@@ -1,38 +1,96 @@
 <template>
-  <v-container fluid>
-    <div v-if="visivel">
-      <v-progress-linear
-        indeterminate
-        color="cyan"
-        :query="true"
-      />
-    </div>
+  <v-container
+    fluid
+    class="pa-0"
+  >
+    <v-row
+      no-gutters
+      class="my-2"
+    >
+      <v-col
+        xl="8"
+        lg="8"
+        md="12"
+        sm="12"
+        xs="12"
+      >
+        <v-card class="mx-0 mb-1">
+          <v-toolbar
+            class="pa-0 my-1"
+            color="white"
+            elevation="1"
+            dense
+            shrink-on-scroll
+          >
+            <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
+              Tipos de Simulações
+            </v-app-bar-title>
+          </v-toolbar>
 
-    <div v-else>
-      <v-row>
-        <v-col cols="8">
-          <v-card class="pa-4">
-            <ApexChart
-              type="bar"
-              height="350"
-              :options="barOptions"
-              :series="barOptions.series"
-            />
-          </v-card>
-        </v-col>
+          <v-card-text class="pa-6">
+            <v-row>
+              <v-col v-if="visivel">
+                <v-progress-linear
+                  indeterminate
+                  color="cyan"
+                  :query="true"
+                />
+              </v-col>
+              <v-col v-else>
+                <ApexChart
+                  type="bar"
+                  height="350"
+                  :options="barOptions"
+                  :series="barOptions.series"
+                />
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
 
-        <v-col cols="4">
-          <v-card class="pa-6 pt-4">
-            <ApexChart
-              type="polarArea"
-              height="400"
-              :options="donutOptions"
-              :series="donutOptions.series"
-            />
-          </v-card>
-        </v-col>
-      </v-row>
-    </div>
+      <v-col
+        xl="4"
+        lg="4"
+        md="12"
+        sm="12"
+        xs="12"
+      >
+        <v-card class="mx-0 mb-1">
+          <v-toolbar
+            class="pa-0 my-1"
+            color="white"
+            elevation="1"
+            dense
+            shrink-on-scroll
+          >
+            <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
+              Tipos de Simulações
+            </v-app-bar-title>
+          </v-toolbar>
+
+          <v-card-text class="pa-6">
+            <v-row>
+              <v-col v-if="visivel">
+                <v-progress-circular
+                  indeterminate
+                  color="cyan"
+                  :query="true"
+                />
+              </v-col>
+              <v-col v-else>
+                <ApexChart
+                  type="polarArea"
+                  height="400"
+                  :options="donutOptions"
+                  :series="donutOptions.series"
+                />
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -137,6 +195,36 @@ export default {
             },
           },
         },
+
+        responsive: [
+          {
+            breakpoint: 1000,
+            options: {
+              plotOptions: {
+                bar: {
+                  horizontal: true,
+                },
+              },
+              legend: {
+                position: "bottom",
+              },
+            },
+            dataLabels: {
+              enabled: true,
+              textAnchor: "start",
+              style: {
+                colors: ["#000"],
+              },
+              formatter: function (val) {
+                return val.toFixed(1);
+              },
+              offsetX: 10,
+              dropShadow: {
+                enabled: false,
+              },
+            },
+          },
+        ],
       },
 
       donutOptions: {
@@ -146,10 +234,7 @@ export default {
           height: 400,
           type: "polarArea",
         },
-        title: {
-          text: "Tipos de Simulações",
-          align: "center",
-        },
+
         dataLabels: {
           enabled: true,
           style: {
@@ -174,10 +259,28 @@ export default {
 
         responsive: [
           {
-            breakpoint: 480,
+            breakpoint: 1000,
             options: {
+              chart: {
+                width: 200,
+              },
+
               legend: {
-                show: false,
+                position: "bottom",
+              },
+            },
+            dataLabels: {
+              enabled: true,
+              textAnchor: "start",
+              style: {
+                colors: ["#000"],
+              },
+              formatter: function (val) {
+                return val.toFixed(1);
+              },
+              offsetX: 10,
+              dropShadow: {
+                enabled: false,
               },
             },
           },

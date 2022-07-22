@@ -1,114 +1,62 @@
 <template>
   <v-container fluid>
-    <v-card
-      class="transparent"
-      elevation="0"
-    >
-      <v-col>
-        <v-col
-          lg="4"
-          sm="6"
-          md="7"
-          cols="12"
-        >
-          <v-container fluid>
-            <v-card
-              class="mx-1 mb-1"
-              style="height: 294px"
-            >
-              <v-card-title class="pa-6 pb-3">
-                <p>App Performance</p>
-                <v-spacer />
-                <v-menu>
-                  <template #activator="{ on, attrs }">
-                    <v-btn
-                      icon
-                      v-bind="attrs"
-                      v-on="on"
-                    >
-                      <v-icon color="textColor">
-                        mdi-dots-vertical
-                      </v-icon>
-                    </v-btn>
-                  </template>
-                  <v-list>
-                    <v-list-item
-                      v-for="(item, i) in menu"
-                      :key="i"
-                      @click="() => {}"
-                    >
-                      <v-list-item-title>{{ item }}</v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-              </v-card-title>
-              <v-card-text class="pa-6 pt-0">
-                <v-row
-                  no-gutters
-                  class="pb-5"
-                >
-                  <div class="mr-4">
-                    <v-icon
-                      color="primary"
-                      class="ml-n2"
-                    >
-                      mdi-circle-medium
-                    </v-icon>
-                    <span class="card-light-grey">Integration</span>
-                  </div>
-                  <div>
-                    <v-icon color="warning">
-                      mdi-circle-medium
-                    </v-icon>
-                    <span class="card-light-grey">SDK</span>
-                  </div>
-                </v-row>
-                <v-row
-                  no-gutters
-                  class="pb-3"
-                >
-                  <v-col>
-                    <div class="text-h6 card-light-grey font-weight-regular">
-                      Integration
-                    </div>
-                    <v-progress-linear
-                      :value="value"
-                      background-color="#ececec"
-                      color="primary"
-                    />
-                  </v-col>
-                </v-row>
-                <v-row
-                  no-gutters
-                  class="pb-1"
-                >
-                  <v-col>
-                    <div class="text-h6 card-light-grey font-weight-regular">
-                      SDK
-                    </div>
-                    <v-progress-linear
-                      :value="value2"
-                      background-color="#ececec"
-                      color="warning"
-                    />
-                  </v-col>
-                </v-row>
-              </v-card-text>
-            </v-card>
-          </v-container>
-        </v-col>
+    <v-row class="py-2">
+      <v-col
+        cols="12"
+        class="pa-0"
+      >
+        <v-card class="mx-0 mb-1">
+          <v-toolbar
+            class="pa-0 my-1"
+            color="white"
+            elevation="1"
+            dense
+            shrink-on-scroll
+          >
+            <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
+              Médias do Número de Vacas Simuladas
+            </v-app-bar-title>
+          </v-toolbar>
+
+          <v-card-text
+            class="pa-6 pt-0"
+            v-if="visivel"
+          >
+            <v-progress-linear
+              indeterminate
+              color="cyan"
+              :query="true"
+            />
+          </v-card-text>
+
+          <v-card-text
+            v-else
+            class="pa-6 pt-0"
+          >
+            <div id="chart">
+              <ApexChart
+                type="bar"
+                height="350"
+                :options="chartOptions"
+                :series="chartOptions.series"
+              />
+            </div>
+          </v-card-text>
+        </v-card>
       </v-col>
-    </v-card>
+    </v-row>
   </v-container>
 </template>
 <script>
 import mixinUtils from "../../mixins/mixin-utils";
 import typesSimulations from "../../assets/json/typesSimulations.json";
-
+import ApexChart from "vue-apexcharts";
 export default {
   name: "ViewDashboardCardsMedias",
   mixins: [mixinUtils],
-  components: {},
+  components: {
+    ApexChart,
+  },
   data() {
     return {
       typesSimulations: typesSimulations,
@@ -121,29 +69,120 @@ export default {
 
       valid: true,
       visivel: false,
-      value: this.getRandomInt(10, 90),
-      value2: this.getRandomInt(10, 90),
+
       filtrado: [],
       menu: {
         desc: "open",
       },
       media: {
-        numero_vaca: {
-          title: "Número Vacas à Inseminar",
+        monta: {
+          title: "Monta Natural",
           value: 0,
-          icon: "mdi-cow",
+          color: "#0097f7",
         },
+        iatf: {
+          title: "IATF + RT",
+          value: 0,
+          color: "#ffab34",
+        },
+        iatf_2: {
+          title: "2 IATF",
+          value: 0,
+          color: "#00e29b",
+        },
+        iatf_3: {
+          title: "3 IATF",
+          value: 0,
+          color: "#ff3d60",
+        },
+      },
+
+      chartOptions: {
+        series: [
+          {
+            data: [],
+          },
+        ],
+        xaxis: {
+          categories: [],
+        },
+        chart: {
+          type: "bar",
+          height: 350,
+        },
+
+        plotOptions: {
+          bar: {
+            horizontal: true,
+          },
+        },
+        colors: ["#009789"],
+
+        grid: {
+          xaxis: {
+            lines: {
+              show: true,
+            },
+          },
+        },
+        yaxis: {
+          reversed: true,
+          axisTicks: {
+            show: true,
+          },
+        },
+        dataLabels: {
+          enabled: true,
+          textAnchor: "start",
+          style: {
+            colors: ["#fff"],
+          },
+          formatter: function (val) {
+            return val.toFixed(2);
+          },
+          offsetX: 0,
+          dropShadow: {
+            enabled: true,
+          },
+        },
+        responsive: [
+          {
+            breakpoint: 1000,
+            options: {
+              plotOptions: {
+                bar: {
+                  horizontal: true,
+                },
+              },
+              legend: {
+                position: "bottom",
+              },
+            },
+            dataLabels: {
+              enabled: true,
+              textAnchor: "start",
+              style: {
+                colors: ["#000"],
+              },
+              formatter: function (val) {
+                return val.toFixed(2);
+              },
+              offsetX: 10,
+              dropShadow: {
+                enabled: false,
+              },
+            },
+          },
+        ],
       },
     };
   },
   mounted() {
     setTimeout(() => {
       this.getMediaNumVacas(this.eCowFilteredPeriodo);
-      this.visivel = true;
+      this.visivel = false;
       this.getDadosSeparados();
     }, 1500);
-    // console.log(this.value);
-    // console.log(this.value2);
   },
   computed: {
     eCowData() {
@@ -158,44 +197,37 @@ export default {
     },
   },
   methods: {
-    getRandomInt(min, max) {
-      const rand = min - 0.5 + Math.random() * (max - min + 1);
-      return Math.round(rand);
-    },
-
     getDadosSeparados() {
-      let types = {};
       let data = this.typosSimulacoesSeparadas;
-      console.log(data.montaNatural);
 
-      // Object.values(data.montaNatural).forEach((value) => {
-      //   //  types.monta = this.getMediaNumVacas(value.numero_de_vacas);
-      // });
-      // Object.values(data.iatf).forEach((value) => {
-      //   //    types.iatf = this.getMediaNumVacas(value.numero_de_vacas);
-      // });
+      this.media.monta.value = this.getMediaNumVacas(data.montaNatural);
+      this.media.iatf.value = this.getMediaNumVacas(data.iatf);
+      this.media.iatf_2.value = this.getMediaNumVacas(data.iatf_2);
+      this.media.iatf_3.value = this.getMediaNumVacas(data.iatf_3);
 
-      console.log(types);
+      this.reload();
+      Object.values(this.media).forEach((value) => {
+        this.chartOptions.xaxis.categories.push(value.title);
+        this.chartOptions.series[0].data.push(value.value);
+      });
     },
 
     getMediaNumVacas(data) {
-      Object.assign(this.filtrado, data);
       let soma = 0;
       let numeroVaca = [];
 
-      this.filtrado.forEach((value) => {
+      Object.values(data).forEach((value) => {
         if (value.numero_de_vacas) numeroVaca.push(value.numero_de_vacas);
+        soma += value.numero_de_vacas;
       });
+      return soma / data.length;
+    },
 
-      for (let index = 0; index < numeroVaca.length; index++) {
-        soma += numeroVaca[index];
-      }
-
-      return soma;
-
-      //this.media.numero_vaca.value = soma / numeroVaca.length;
-
-      //console.log(this.media.numero_vaca);
+    reload() {
+      this.visivel = true;
+      setTimeout(() => {
+        this.visivel = false;
+      }, 500);
     },
   },
 

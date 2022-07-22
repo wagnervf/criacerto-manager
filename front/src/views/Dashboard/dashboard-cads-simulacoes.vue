@@ -1,5 +1,8 @@
 <template>
-  <v-container fluid>
+  <v-container
+    fluid
+    class="pa-0"
+  >
     <v-card
       class="transparent"
       elevation="0"
@@ -116,7 +119,7 @@
           </v-card>
         </v-col>
 
-        <v-col class="pa-1">
+        <v-col class="pa-1 mb-2">
           <v-card
             class="pa-0"
             elevation="1"
