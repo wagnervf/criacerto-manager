@@ -11,12 +11,9 @@
           </v-icon>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title class="teal--text">
+          <v-list-item-title class="teal--text text-wrap">
             {{ title }}
           </v-list-item-title>
-          <v-list-item-subtitle class="text-wrap">
-            Monta Natural
-          </v-list-item-subtitle>
 
           <v-list-item-subtitle class="text-wrap">
             {{ subtitle }}
@@ -31,7 +28,6 @@
       >
         <v-col
           cols="12"
-          lg="12"
           justify-center
           flex
         >

@@ -33,25 +33,7 @@
       }
     ]
   },
-  {
-    "id": 5,
-    "title": "Ralatórios",
-    "icon": "mdi-note-text",
-    "children": [
-      {
-        "id": 51,
-        "title": "Raltórios Simulações",
-        "icon": "mdi-account-multiple",
-        "to": "/Usuarios/usuarios"
-      },
-      {
-        "id": 52,
-        "title": "Raltórios Gerais",
-        "icon": "mdi-account",
-        "to": "/Usuarios/profile"
-      }
-    ]
-  },
+  
 
   {
     "id": 30,

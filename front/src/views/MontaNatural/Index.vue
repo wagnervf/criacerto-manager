@@ -4,11 +4,10 @@
       <v-col
         class="px-1 py-0"
         cols="12"
-        lg="12"
         justify-center
         flex
       >
-        <v-card class="mx-auto">
+        <v-card class="mx-auto text-wrap">
           <v-toolbar
             class="pl-6 my-1"
             color="teal"
@@ -17,12 +16,12 @@
             shrink-on-scroll
             dark
           >
-            <v-app-bar-title class="ma-6 text-h4 font-weight-black">
+            <h5 class="ma-6 text-h4 font-weight-black text-wrap">
               Monta Natural
               <p class="white--text caption">
                 Subtítulo da Monta Natural
               </p>
-            </v-app-bar-title>
+            </h5>
 
             <v-spacer />
 
@@ -47,9 +46,7 @@
       <v-col
         class="px-1 py-4 mt-4"
         cols="12"
-        lg="12"
         justify-center
-        flex
       >
         <ListaDadosVue />
       </v-col>

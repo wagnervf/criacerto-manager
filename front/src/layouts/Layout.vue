@@ -1,7 +1,9 @@
 <template>
   <v-app id="inspire">
     <HeaderComponent />
+
     <SidebarComponent />
+
     <v-main class="grey lighten-4 pa-4">
       <router-view />
     </v-main>

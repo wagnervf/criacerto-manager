@@ -11,7 +11,7 @@
           </v-icon>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title class="teal--text">
+          <v-list-item-title class="teal--text text-wrap">
             {{ title }}
           </v-list-item-title>
 
