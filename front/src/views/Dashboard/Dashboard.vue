@@ -10,7 +10,7 @@
       </v-row>
 
       <v-row class="pa-0 my-2">
-        <dashboardChartColumnVue />
+        <dashboardSimulacoesPorMes />
       </v-row>
 
       <v-row class="pa-0 my-2">
@@ -68,21 +68,19 @@
 <script>
 import mixinUtils from "../../mixins/mixin-utils";
 import dashboardFilterVue from "./dashboard-filter.vue";
+import dashboardCardsSimulacoes from "./dashboard-cads-simulacoes.vue";
 
-import dashboardChartColumnVue from "./dashboard-chart-column.vue";
+import dashboardSimulacoesPorMes from "./dashboard-simulacoes-por-mes.vue";
 import dashboardQtdeEstadoDataVue from "./dashboard-Qtde-Estado-Data.vue";
-//;
 import dashboardTiposTourosPieVue from "./dashboard-tipos-touros-pie.vue";
 
-import dashboardCardsSimulacoes from "./dashboard-cads-simulacoes.vue";
 import dashboardCardsMediasNumVacas from "./dashboard-cads-medias-num-vacas.vue";
-
 import dashboardTableTodasSimulacoes from "./dashboard-table-todas-simulacoes.vue";
 export default {
   mixins: [mixinUtils],
   name: "DashboardView",
   components: {
-    dashboardChartColumnVue,
+    dashboardSimulacoesPorMes,
     dashboardFilterVue,
     dashboardQtdeEstadoDataVue,
     dashboardTiposTourosPieVue,

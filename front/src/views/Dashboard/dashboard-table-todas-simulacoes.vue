@@ -91,6 +91,8 @@ export default {
         { text: "Raça Touro", value: "raca_touro", align: "right" },
         { text: "Estado", value: "state", align: "right" },
         { text: "Cidade", value: "city", align: "right" },
+        { text: "Taxa Prenhez", value: "taxa_prenhez", align: "right" },
+
         { text: "Data", value: "created", align: "right" },
       ],
       itemsPerPage: 20,
