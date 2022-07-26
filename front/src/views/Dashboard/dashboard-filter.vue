@@ -14,6 +14,7 @@
             expand-icon="mdi-filter-menu"
             disable-icon-rotate
             color="grey lighten-3"
+            title="Filtrar Dados"
           >
             <v-row no-gutters>
               <v-col class="text--secondary">
@@ -28,19 +29,7 @@
                       cols="6"
                       class="d-flex justify-start"
                     >
-                      <!-- <span class="text-subtitle-2 ma-2">
-                        Período Filtrado:
-                      </span> -->
-                      <span class="text-subtitle-1 ma-1">
-                        <v-icon class="mx-2">mdi-calendar-filter</v-icon>
-                        <v-chip :ripple="false">
-                          {{ query.start | formatDateString }}
-                        </v-chip>
-                        -
-                        <v-chip :ripple="false">
-                          {{ query.end | formatDateString }}
-                        </v-chip>
-                      </span>
+                      <cardFilteredVue />
                     </v-col>
                   </v-row>
                 </v-fade-transition>
@@ -170,13 +159,16 @@
 </template>
 <script>
 import mixinUtils from "../../mixins/mixin-utils";
+import cardFilteredVue from "../../components/cardFiltered.vue";
 export default {
   name: "ViewDashBoardFilter",
   mixins: [mixinUtils],
-  components: {},
+  components: {
+    cardFilteredVue,
+  },
   data() {
     return {
-      panel: 0,
+      panel: 1,
       search: null,
       valid: true,
       date1: false,

@@ -6,42 +6,44 @@
         class="pa-0"
       >
         <v-card class="mx-0 mb-1">
-          <v-toolbar
-            class="pa-0 my-1"
-            color="white"
-            elevation="1"
-            dense
-            shrink-on-scroll
+          <v-expansion-panels
+            focusable
+            v-model="panel"
           >
-            <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
-              Médias do Número de Vacas Simuladas
-            </v-app-bar-title>
-          </v-toolbar>
+            <v-expansion-panel>
+              <v-expansion-panel-header>
+                <h3>
+                  Médias do Número de Vacas Simuladas por Tipos de Simulação
+                </h3>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <v-card-text
+                  class="pa-6 pt-0"
+                  v-if="visivel"
+                >
+                  <v-progress-linear
+                    indeterminate
+                    color="cyan"
+                    :query="true"
+                  />
+                </v-card-text>
 
-          <v-card-text
-            class="pa-6 pt-0"
-            v-if="visivel"
-          >
-            <v-progress-linear
-              indeterminate
-              color="cyan"
-              :query="true"
-            />
-          </v-card-text>
-
-          <v-card-text
-            v-else
-            class="pa-6 pt-0"
-          >
-            <div id="chart">
-              <ApexChart
-                type="bar"
-                height="350"
-                :options="chartOptions"
-                :series="chartOptions.series"
-              />
-            </div>
-          </v-card-text>
+                <v-card-text
+                  v-else
+                  class="pa-6 pt-0"
+                >
+                  <div id="chart">
+                    <ApexChart
+                      type="bar"
+                      height="350"
+                      :options="chartOptions"
+                      :series="chartOptions.series"
+                    />
+                  </div>
+                </v-card-text>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </v-card>
       </v-col>
     </v-row>
@@ -60,12 +62,7 @@ export default {
   data() {
     return {
       typesSimulations: typesSimulations,
-      types: {
-        montaNatural: [],
-        iatf: [],
-        iatf_2: [],
-        iatf_3: [],
-      },
+      panel: 0,
 
       valid: true,
       visivel: false,
@@ -76,22 +73,22 @@ export default {
       },
       media: {
         monta: {
-          title: "Monta Natural",
+          title: typesSimulations.monta,
           value: 0,
           color: "#0097f7",
         },
         iatf: {
-          title: "IATF + RT",
+          title: typesSimulations.iatf,
           value: 0,
           color: "#ffab34",
         },
         iatf_2: {
-          title: "2 IATF",
+          title: typesSimulations.iatf_2,
           value: 0,
           color: "#00e29b",
         },
         iatf_3: {
-          title: "3 IATF",
+          title: typesSimulations.iatf_3,
           value: 0,
           color: "#ff3d60",
         },
@@ -179,9 +176,9 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.getMediaNumVacas(this.eCowFilteredPeriodo);
+      //  this.getMediaNumVacas(this.eCowFilteredPeriodo);
       this.visivel = false;
-      this.getDadosSeparados();
+      //  this.getDadosSeparados();
     }, 1500);
   },
   computed: {
@@ -197,8 +194,8 @@ export default {
     },
   },
   methods: {
-    getDadosSeparados() {
-      let data = this.typosSimulacoesSeparadas;
+    getDadosSeparados(data) {
+      this.reset();
 
       this.media.monta.value = this.getMediaNumVacas(data.montaNatural);
       this.media.iatf.value = this.getMediaNumVacas(data.iatf);
@@ -223,6 +220,15 @@ export default {
       return soma / data.length;
     },
 
+    reset() {
+      this.media.monta.value = 0;
+      this.media.iatf.value = 0;
+      this.media.iatf_2.value = 0;
+      this.media.iatf_3.value = 0;
+      this.chartOptions.xaxis.categories = [];
+      this.chartOptions.series[0].data = [];
+    },
+
     reload() {
       this.visivel = true;
       setTimeout(() => {
@@ -232,9 +238,10 @@ export default {
   },
 
   watch: {
-    // eCowFilteredPeriodo(value) {
-    //   this.getData(value);
-    // },
+    typosSimulacoesSeparadas(value) {
+      this.getDadosSeparados(value);
+      this.getMediaNumVacas(this.eCowFilteredPeriodo);
+    },
   },
 };
 </script>

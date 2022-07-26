@@ -3,170 +3,109 @@
     fluid
     class="pa-0"
   >
-    <v-card
-      class="transparent"
-      elevation="0"
-    >
-      <v-row justify="space-around">
-        <v-col class="pa-1">
-          <v-card
-            class="pa-0"
-            elevation="1"
-            min-height="200"
-          >
-            <v-toolbar
-              class="pa-0 my-1"
-              color="teal"
-              dense
-              dark
-              shrink-on-scroll
-            >
-              <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
-                Total de Simulações
-              </v-app-bar-title>
-              <v-spacer />
-
-              <v-btn icon>
-                <v-icon>mdi-finance</v-icon>
-              </v-btn>
-            </v-toolbar>
-
-            <v-col
-              v-if="!visivel"
-              class="text-center py-auto"
-            >
-              <v-progress-circular
-                indeterminate
-                color="teal"
-              />
-            </v-col>
-
-            <v-row
-              v-else
-              class="py-4"
-            >
-              <v-col class="d-flex justify-center">
-                <v-icon
-                  style="font-size: 90px"
-                  color="teal lighten-4"
-                >
-                  mdi-equalizer
-                </v-icon>
+    <v-row justify="space-around">
+      <v-col class="pa-1">
+        <v-expansion-panels
+          focusable
+          dark
+          v-model="panel1"
+        >
+          <v-expansion-panel>
+            <v-expansion-panel-header color="teal">
+              <h3>Total de Simulações</h3>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content color="white">
+              <v-col
+                v-if="!visivel"
+                class="text-center py-auto"
+              >
+                <v-progress-circular
+                  indeterminate
+                  color="teal"
+                />
               </v-col>
 
-              <v-col class="text-center">
-                <p class="text-h1 font-weight-black teal--text">
-                  {{ totalTodasSimulacoes }}
-                </p>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
+              <v-row
+                v-else
+                class="py-4"
+              >
+                <v-col class="d-flex justify-center">
+                  <v-icon
+                    style="font-size: 90px"
+                    color="teal lighten-4"
+                  >
+                    mdi-equalizer
+                  </v-icon>
+                </v-col>
 
-        <v-col class="pa-1">
-          <v-card
-            class="pa-0"
-            elevation="1"
-            min-height="200"
-          >
-            <v-toolbar
-              class="pa-0 my-1"
-              color="cyan"
-              dense
-              dark
-              shrink-on-scroll
-            >
-              <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
-                Simulações no Período
-              </v-app-bar-title>
-              <v-spacer />
+                <v-col class="text-center">
+                  <p class="text-h1 font-weight-black teal--text">
+                    {{ totalTodasSimulacoes }}
+                  </p>
+                </v-col>
+              </v-row>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-col>
 
-              <v-btn icon>
-                <v-icon>mdi-magnify-plus-outline</v-icon>
-              </v-btn>
-            </v-toolbar>
-
-            <v-col
-              v-if="!visivel"
-              class="text-center py-auto"
-            >
-              <v-progress-circular
-                indeterminate
-                color="cyan"
-              />
-            </v-col>
-
-            <v-row
-              v-else
-              class="py-4"
-            >
-              <v-col class="d-flex justify-center">
-                <v-icon
-                  style="font-size: 90px"
-                  dark
-                  color="cyan lighten-4"
-                >
-                  mdi-calendar-filter
-                </v-icon>
-              </v-col>
-              <!-- Mixins -->
-              <v-col class="text-center">
-                <p class="text-h1 font-weight-black cyan--text">
-                  {{ totalECowDataFiltered }}
-                </p>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-
-        <v-col class="pa-1 mb-2">
-          <v-card
-            class="pa-0"
-            elevation="1"
-            min-height="200"
-          >
-            <v-toolbar
-              class="pa-0 my-1"
-              color="indigo"
-              dense
-              dark
-              shrink-on-scroll
-            >
-              <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
-                Média de Preços
-              </v-app-bar-title>
-              <v-spacer />
-
-              <v-btn icon>
-                <v-icon>mdi-currency-usd</v-icon>
-              </v-btn>
-            </v-toolbar>
-
-            <v-col
-              v-if="!visivel"
-              class="text-center py-auto"
-            >
-              <v-progress-circular
-                indeterminate
-                color="indigo"
-              />
-            </v-col>
-
-            <v-row
-              v-else
-              class="py-1"
-            >
-              <v-col class="d-flex justify-center pa-0 ma-0">
-                <v-icon
-                  style="font-size: 60px"
-                  dark
-                  color="indigo lighten-4"
-                  class="pa-0 ma-0"
-                >
-                  mdi-currency-brl
-                </v-icon>
+      <v-col class="pa-1">
+        <v-expansion-panels
+          focusable
+          dark
+          v-model="panel2"
+        >
+          <v-expansion-panel>
+            <v-expansion-panel-header color="cyan">
+              <h3>Simulações no Período</h3>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content color="white">
+              <v-col
+                v-if="!visivel"
+                class="text-center py-auto"
+              >
+                <v-progress-circular
+                  indeterminate
+                  color="cyan"
+                />
               </v-col>
 
+              <v-row
+                v-else
+                class="py-4"
+              >
+                <v-col class="d-flex justify-center">
+                  <v-icon
+                    style="font-size: 90px"
+                    dark
+                    color="cyan lighten-4"
+                  >
+                    mdi-calendar-filter
+                  </v-icon>
+                </v-col>
+                <!-- Mixins -->
+                <v-col class="text-center">
+                  <p class="text-h1 font-weight-black cyan--text">
+                    {{ totalECowDataFiltered }}
+                  </p>
+                </v-col>
+              </v-row>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-col>
+
+      <v-col class="pa-1 mb-2">
+        <v-expansion-panels
+          focusable
+          dark
+          v-model="panel2"
+        >
+          <v-expansion-panel>
+            <v-expansion-panel-header color="indigo">
+              <h3>Média de Preços</h3>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content color="white">
               <v-col class="mr-4 py-0">
                 <v-list
                   dense
@@ -188,10 +127,10 @@
                       </v-avatar>
                     </v-list-item-icon>
                     <v-list-item-content>
-                      <v-list-item-subtitle class="indigo--text pt-2">
+                      <v-list-item-subtitle class="indigo--text pt-1">
                         {{ media.touro.title }}
                       </v-list-item-subtitle>
-                      <v-list-item-title class="indigo--text my-2 text-h6 pt-1">
+                      <v-list-item-title class="indigo--text my-2 text-h6 pt-0">
                         {{ media.touro.value }}
                       </v-list-item-title>
                     </v-list-item-content>
@@ -223,11 +162,11 @@
                   </v-list-item>
                 </v-list>
               </v-col>
-            </v-row>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-card>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script>
@@ -243,6 +182,8 @@ export default {
       valid: true,
       visivel: false,
       filtrado: [],
+      panel1: 0,
+      panel2: 0,
 
       media: {
         touro: { title: "Compra Touro", value: 0, icon: "mdi-cow" },

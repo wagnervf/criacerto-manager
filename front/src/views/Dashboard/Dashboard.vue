@@ -13,10 +13,7 @@
         <dashboardChartColumnVue />
       </v-row>
 
-      <v-row
-        class="pa-0 my-2"
-        no-gutters
-      >
+      <v-row class="pa-0 my-2">
         <v-col
           xl="6"
           lg="6"
@@ -33,7 +30,7 @@
           md="6"
           sm="12"
           xs="12"
-          class="pa-0 my-1"
+          class="pa-0 ma-0"
         >
           <dashboardQtdeEstadoDataVue />
         </v-col>
@@ -44,11 +41,11 @@
       </v-row> -->
 
       <v-row class="pa-0 my-2">
-        <dashboardCardsMediasVue />
+        <dashboardCardsMediasNumVacas />
       </v-row>
 
       <v-row class="pa-0 my-2">
-        <dashboardTable />
+        <dashboardTableTodasSimulacoes />
       </v-row>
 
       <div class="d-flex align-end flex-column">
@@ -76,10 +73,11 @@ import dashboardChartColumnVue from "./dashboard-chart-column.vue";
 import dashboardQtdeEstadoDataVue from "./dashboard-Qtde-Estado-Data.vue";
 //;
 import dashboardTiposTourosPieVue from "./dashboard-tipos-touros-pie.vue";
-import dashboardCardsMediasVue from "./dashboard-cads-medias.vue";
 
 import dashboardCardsSimulacoes from "./dashboard-cads-simulacoes.vue";
-import dashboardTable from "./dashboard-table.vue";
+import dashboardCardsMediasNumVacas from "./dashboard-cads-medias-num-vacas.vue";
+
+import dashboardTableTodasSimulacoes from "./dashboard-table-todas-simulacoes.vue";
 export default {
   mixins: [mixinUtils],
   name: "DashboardView",
@@ -89,8 +87,8 @@ export default {
     dashboardQtdeEstadoDataVue,
     dashboardTiposTourosPieVue,
     dashboardCardsSimulacoes,
-    dashboardCardsMediasVue,
-    dashboardTable,
+    dashboardCardsMediasNumVacas,
+    dashboardTableTodasSimulacoes,
   },
   data() {
     return {};
@@ -117,7 +115,6 @@ export default {
 
   methods: {
     getData() {
-      console.log(Object.keys(this.eCowData));
       this.eCow = Object.values(this.eCowData);
     },
 

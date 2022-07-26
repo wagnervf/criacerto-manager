@@ -1,51 +1,46 @@
 <template>
-  <v-container
-    fluid
-    class="pa-0"
-  >
-    <v-row
-      no-gutters
-      class="my-2"
-    >
+  <v-container fluid>
+    <v-row class="my-2">
       <v-col
         xl="8"
         lg="8"
         md="12"
         sm="12"
         xs="12"
+        class="ma-0 px-1"
       >
         <v-card class="mx-0 mb-1">
-          <v-toolbar
-            class="pa-0 my-1"
-            color="white"
-            elevation="1"
-            dense
-            shrink-on-scroll
+          <v-expansion-panels
+            focusable
+            v-model="panel"
           >
-            <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
-              Tipos de Simulações
-            </v-app-bar-title>
-          </v-toolbar>
-
-          <v-card-text class="pa-6">
-            <v-row>
-              <v-col v-if="visivel">
-                <v-progress-linear
-                  indeterminate
-                  color="cyan"
-                  :query="true"
-                />
-              </v-col>
-              <v-col v-else>
-                <ApexChart
-                  type="bar"
-                  height="350"
-                  :options="barOptions"
-                  :series="barOptions.series"
-                />
-              </v-col>
-            </v-row>
-          </v-card-text>
+            <v-expansion-panel>
+              <v-expansion-panel-header>
+                <h3>Simulações por Mês</h3>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <v-card-text class="pa-6">
+                  <v-row>
+                    <v-col v-if="visivel">
+                      <v-progress-linear
+                        indeterminate
+                        color="cyan"
+                        :query="true"
+                      />
+                    </v-col>
+                    <v-col v-else>
+                      <ApexChart
+                        type="bar"
+                        height="350"
+                        :options="barOptions"
+                        :series="barOptions.series"
+                      />
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </v-card>
       </v-col>
 
@@ -55,39 +50,40 @@
         md="12"
         sm="12"
         xs="12"
+        class="ma-0 px-1"
       >
         <v-card class="mx-0 mb-1">
-          <v-toolbar
-            class="pa-0 my-1"
-            color="white"
-            elevation="1"
-            dense
-            shrink-on-scroll
+          <v-expansion-panels
+            focusable
+            v-model="panel2"
           >
-            <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
-              Tipos de Simulações
-            </v-app-bar-title>
-          </v-toolbar>
-
-          <v-card-text class="pa-6">
-            <v-row>
-              <v-col v-if="visivel">
-                <v-progress-circular
-                  indeterminate
-                  color="cyan"
-                  :query="true"
-                />
-              </v-col>
-              <v-col v-else>
-                <ApexChart
-                  type="polarArea"
-                  height="400"
-                  :options="donutOptions"
-                  :series="donutOptions.series"
-                />
-              </v-col>
-            </v-row>
-          </v-card-text>
+            <v-expansion-panel>
+              <v-expansion-panel-header>
+                <h3>Tipos de Simulações</h3>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <v-card-text class="pa-6">
+                  <v-row>
+                    <v-col v-if="visivel">
+                      <v-progress-linear
+                        indeterminate
+                        color="cyan"
+                        :query="true"
+                      />
+                    </v-col>
+                    <v-col v-else>
+                      <ApexChart
+                        type="polarArea"
+                        height="400"
+                        :options="donutOptions"
+                        :series="donutOptions.series"
+                      />
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </v-card>
       </v-col>
     </v-row>
@@ -114,6 +110,8 @@ export default {
         iatf_2: [],
         iatf_3: [],
       },
+      panel: 0,
+      panel2: 0,
 
       barOptions: {
         series: [
@@ -145,10 +143,7 @@ export default {
             endingShape: "rounded",
           },
         },
-        title: {
-          text: "Simulações por Mês",
-          align: "center",
-        },
+
         dataLabels: {
           enabled: false,
         },

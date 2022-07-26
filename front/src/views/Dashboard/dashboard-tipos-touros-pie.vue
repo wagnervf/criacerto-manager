@@ -3,49 +3,45 @@
     fluid
     class="pa-0"
   >
-    <v-row class="my-2">
-      <v-card
-        class="mx-0 mb-1"
-        style="min-height: 150px"
+    <v-card class="mx-0 mb-1">
+      <v-expansion-panels
+        focusable
+        v-model="panel"
       >
-        <v-toolbar
-          class="pa-0 my-1"
-          elevation="1"
-          dense
-          shrink-on-scroll
-        >
-          <v-app-bar-title class="ma-2 text-subtitle-1 font-weight-black">
-            Tipos de Touros Simulados
-          </v-app-bar-title>
-        </v-toolbar>
+        <v-expansion-panel>
+          <v-expansion-panel-header>
+            <h3>Tipos de Touros Simulados</h3>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <v-card-text class="pa-6 pt-0">
+              <v-row class="d-flex align-center justify-center">
+                <div
+                  v-if="visivel"
+                  class="text-center pa-6"
+                >
+                  <ComponentProgress />
+                </div>
 
-        <v-card-text class="pa-6 pt-0">
-          <v-row class="d-flex align-center justify-center">
-            <div
-              v-if="visivel"
-              class="text-center pa-6"
-            >
-              <ComponentProgress />
-            </div>
+                <v-col
+                  v-else
+                  class="mx-auto"
+                >
+                  <ApexChart
+                    type="pie"
+                    height="380"
+                    width="100%"
+                    :options="chartOptions"
+                    :series="chartOptions.series"
+                  />
+                </v-col>
+              </v-row>
 
-            <v-col
-              v-else
-              class="mx-auto"
-            >
-              <ApexChart
-                type="pie"
-                height="380"
-                width="100%"
-                :options="chartOptions"
-                :series="chartOptions.series"
-              />
-            </v-col>
-          </v-row>
-
-          <cardFilteredVue />
-        </v-card-text>
-      </v-card>
-    </v-row>
+              <cardFilteredVue />
+            </v-card-text>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </v-card>
   </v-container>
 </template>
 
@@ -65,6 +61,7 @@ export default {
   mixins: [mixinUtils],
   data() {
     return {
+      panel: 0,
       visivel: true,
       racasTouro: [],
       racas: [],
