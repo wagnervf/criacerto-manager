@@ -34,9 +34,9 @@ export default {
       return this.$store.getters.getUserLogged;
     },
 
-    totalECowDataFiltered() {
+    totalSimulacoesDataFiltered() {
       let total = [];
-      let filtered = this.$store.getters.geteCowFilteredPeriodo;
+      let filtered = this.$store.getters.getSimulacoesFilteredPeriodo;
       Object.assign(total, filtered);
       return total.length;
     },
@@ -48,7 +48,7 @@ export default {
     objectComDadosFiltrados() {
       let filter = {};
       filter = {
-        qtdeFilter: this.totalECowDataFiltered,
+        qtdeFilter: this.totalSimulacoesDataFiltered,
         estado: this.dadosFiltroStore.estado,
         start: this.MetFormatDateBR(this.dadosFiltroStore.start),
         end: this.MetFormatDateBR(this.dadosFiltroStore.end),
@@ -57,7 +57,7 @@ export default {
     },
 
     totalTodasSimulacoes() {
-      return this.$store.getters.getTotalEcow;
+      return this.$store.getters.getTotalSimulacoes;
     },
   },
 
@@ -83,10 +83,7 @@ export default {
     },
 
     messageErrorRequestApi() {
-      return this.messageSwalToast(
-        "error",
-        "Erro ao carregar os parâmetros do Banco de Dados."
-      );
+      return this.messageSwalToast("error", "Erro ao carregar os parâmetros do Banco de Dados.");
     },
 
     messageSucessUpdateApi() {
@@ -135,17 +132,13 @@ export default {
 
     firstDayMonth() {
       const now = new Date();
-      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1)
-        .toISOString()
-        .slice(0, 10);
+      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1).toISOString().slice(0, 10);
       return firstDay;
     },
 
     lastDayMonth() {
       const now = new Date();
-      const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0)
-        .toISOString()
-        .slice(0, 10);
+      const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).toISOString().slice(0, 10);
       return lastDay;
     },
 

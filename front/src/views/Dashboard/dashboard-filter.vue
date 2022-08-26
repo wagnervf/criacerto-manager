@@ -173,7 +173,7 @@ export default {
       valid: true,
       date1: false,
       date2: false,
-      allEcow: [],
+      allSimulacoes: [],
       query: {
         start: "2022-01-01",
         // start: this.firstDayMonth(),
@@ -192,8 +192,8 @@ export default {
     }, 500);
   },
   computed: {
-    eCowData() {
-      return this.$store.getters.getDataEcow;
+    simulacoesData() {
+      return this.$store.getters.getDataSimulacoes;
     },
 
     endFormat() {
@@ -215,20 +215,21 @@ export default {
 
     getDados() {
       //"Busca todos os dados e Filtra");
-      const data = this.eCowData;
+      const data = this.simulacoesData;
 
-      this.allEcow = [];
-      this.allEcow = data;
+      this.allSimulacoes = [];
+      this.allSimulacoes = data;
       this.setFilters();
     },
 
     setFilters() {
       let data = [];
       //Primeiro Filtro por Data
-      data = this.filterByDate(this.allEcow);
+      data = this.filterByDate(this.allSimulacoes);
 
       //Segundo Filtro por Estado
       this.filtrado = this.filterByEstado(data);
+      
 
       //Salva Store
       this.setFilterByEstate(this.filtrado);
@@ -238,6 +239,7 @@ export default {
 
     filterByDate(data) {
       return Object.values(data).filter((value) => {
+     
         return (
           this.formatDate(value.created) >= this.formatDate(this.query.start) &&
           this.formatDate(value.created) <= this.formatDate(this.query.end)

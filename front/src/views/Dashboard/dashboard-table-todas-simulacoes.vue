@@ -39,7 +39,7 @@
                   >
                     <v-data-table
                       :headers="headers"
-                      :items="eCow"
+                      :items="simulacoes"
                       :search="search"
                       item-key="code"
                       sort-by="created"
@@ -84,7 +84,7 @@ export default {
     return {
       search: "",
       panel: 0,
-      eCow: [],
+      simulacoes: [],
       visivel: true,
       headers: [
         { text: "Tipo", align: "start", value: "type" },
@@ -92,7 +92,6 @@ export default {
         { text: "Estado", value: "state", align: "right" },
         { text: "Cidade", value: "city", align: "right" },
         { text: "Taxa Prenhez", value: "taxa_prenhez", align: "right" },
-
         { text: "Data", value: "created", align: "right" },
       ],
       itemsPerPage: 20,
@@ -108,14 +107,15 @@ export default {
   },
 
   computed: {
-    eCowData() {
-      return this.$store.getters.getDataEcow;
+    simulacoesData() {
+      return this.$store.getters.getDataSimulacoes;
     },
   },
 
   methods: {
     getData() {
-      this.eCow = Object.values(this.eCowData);
+      this.simulacoes = Object.values(this.simulacoesData);
+      console.log(this.simulacoes)
     },
   },
 };

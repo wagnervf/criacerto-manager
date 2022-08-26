@@ -10,7 +10,7 @@ RUN npm install
 #RUN npm install --no-optional && npm cache clean --force
 #RUN npm install -g nodemon
 
-EXPOSE 3000
+EXPOSE 3100
 
 CMD [ "npm", "npm", "run" ]
 

@@ -73,7 +73,7 @@
                     </v-col>
                     <v-col v-else>
                       <ApexChart
-                        type="polarArea"
+                        type="donut"
                         height="400"
                         :options="donutOptions"
                         :series="donutOptions.series"
@@ -224,16 +224,17 @@ export default {
 
       donutOptions: {
         series: [],
-        labels: [],
+        labels: [],          
+
         chart: {
           height: 400,
-          type: "polarArea",
+          type: "donut",
         },
 
         dataLabels: {
           enabled: true,
           style: {
-            fontSize: "18px",
+            fontSize: "20px",
           },
           offsetY: -4,
         },
@@ -290,8 +291,8 @@ export default {
     }, 1500);
   },
   computed: {
-    eCowFilteredPeriodo() {
-      return this.$store.getters.geteCowFilteredPeriodo;
+    simulacoesFiltradasPeriodo() {
+      return this.$store.getters.getSimulacoesFilteredPeriodo;
     },
   },
   methods: {
@@ -375,7 +376,7 @@ export default {
   },
 
   watch: {
-    eCowFilteredPeriodo(value) {
+    simulacoesFiltradasPeriodo(value) {
       this.getData(value);
     },
   },

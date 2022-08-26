@@ -29,15 +29,15 @@ export default new Vuex.Store({
       isAdmin: false,
       logado: "",
     },
-    ecow: {},
-    totalEcow: {},
+    simulacoes: {},
+    totalSimulacoes: {},
     montaNaturalState: {},
     IATFState: {},
     IATF_2State: {},
     IATF_3State: {},
     racasTouros: [],
     filtroSelecionado: {},
-    eCowFilteredPeriodo: [],
+    simulacoeFilteredPeriodo: [],
     estadosExistentes: {},
     tiposSimuacoesSeparadas: {},
     // estadoFiltrado: "",
@@ -80,14 +80,13 @@ export default new Vuex.Store({
       }
     },
 
-    SET_DATA_ECOW(state, value) {
-      // state.ecow.push(value);
-      Object.assign(state.ecow, value);
+    SET_DATA_SIMULACOES(state, value) {
+      Object.assign(state.simulacoes, value);
 
       let total = [];
       let filtered = value;
       Object.assign(total, filtered);
-      state.totalEcow = total.length;
+      state.totalSimulacoes = total.length;
     },
 
     SET_DATA_MONTANATURAL(state, value) {
@@ -108,8 +107,8 @@ export default new Vuex.Store({
     },
 
     SET_DADOS_FILTRADOS_PERIODO(state, value) {
-      state.eCowFilteredPeriodo = {};
-      Object.assign(state.eCowFilteredPeriodo, value);
+      state.simulacoeFilteredPeriodo = {};
+      Object.assign(state.simulacoeFilteredPeriodo, value);
     },
 
     SET_ESTADO_EXISTENTES(state, value) {
@@ -139,16 +138,16 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async getDataEcowApi({ commit }) {
+    async getAllDataSimulacoesApi({ commit }) {
       try {
-        const response = await DashboardService.getDadosEcow();
+        const response = await DashboardService.getDadosAllSimulacoes();
         if (response.status == 200) {
           if (response.data[0]._id) {
             delete response.data[0]._id;
           }
-          const result = response.data[0];
+          const result = response.data;
 
-          return commit("SET_DATA_ECOW", result);
+          return commit("SET_DATA_SIMULACOES", result);
         } else {
           return mixinUtils.methods.messageErrorRequestApi();
         }
@@ -181,10 +180,7 @@ export default new Vuex.Store({
           let message = response.error.message;
           let title = response.mensagem;
           //Função de Mixins
-          return mixinUtils.methods.messageSwalToast(
-            "error",
-            title + message + path
-          );
+          return mixinUtils.methods.messageSwalToast("error", title + message + path);
         }
 
         commit("SET_DATA_MONTANATURAL", value);
@@ -218,10 +214,7 @@ export default new Vuex.Store({
           let message = response.error.message;
           let title = response.mensagem;
           //Função de Mixins
-          return mixinUtils.methods.messageSwalToast(
-            "error",
-            title + message + path
-          );
+          return mixinUtils.methods.messageSwalToast("error", title + message + path);
         }
 
         console.log("updateDadosIATF");
@@ -256,10 +249,7 @@ export default new Vuex.Store({
           let message = response.error.message;
           let title = response.mensagem;
           //Função de Mixins
-          return mixinUtils.methods.messageSwalToast(
-            "error",
-            title + message + path
-          );
+          return mixinUtils.methods.messageSwalToast("error", title + message + path);
         }
 
         commit("SET_DATA_IATF_2", value);
@@ -369,10 +359,7 @@ export default new Vuex.Store({
           return response;
         }
         //Função de Mixins
-        return mixinUtils.methods.messageSwalToast(
-          "error",
-          response.error.message
-        );
+        return mixinUtils.methods.messageSwalToast("error", response.error.message);
       } catch (error) {
         return mixinUtils.methods.updateError(error.response);
       }
@@ -382,9 +369,9 @@ export default new Vuex.Store({
   getters: {
     getUserLogged: (state) => state.userLogado,
 
-    getDataEcow: (state) => state.ecow,
+    getDataSimulacoes: (state) => state.simulacoes,
 
-    getTotalEcow: (state) => state.totalEcow,
+    getTotalSimulacoes: (state) => state.totalSimulacoes,
 
     getDataMontaNatural: (state) => state.montaNaturalState,
 
@@ -396,7 +383,7 @@ export default new Vuex.Store({
 
     getRacasTouro: (state) => state.racasTouros,
 
-    geteCowFilteredPeriodo: (state) => state.eCowFilteredPeriodo,
+    getSimulacoesFilteredPeriodo: (state) => state.simulacoeFilteredPeriodo,
 
     getEstadosExistentes: (state) => state.estadosExistentes,
 

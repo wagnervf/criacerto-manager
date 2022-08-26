@@ -94,7 +94,7 @@ export default {
 
   mounted() {
     // Solicita ao Vuex para buscar os dados e salvar no State
-    this.$store.dispatch("getDataEcowApi");
+    this.$store.dispatch("getAllDataSimulacoesApi");
 
     setTimeout(() => {
       this.getData();
@@ -102,18 +102,18 @@ export default {
   },
 
   computed: {
-    eCowData() {
-      return this.$store.getters.getDataEcow;
+    simulacoesData() {
+      return this.$store.getters.getDataSimulacoes;
     },
 
-    eCowCount() {
-      return Object.keys(this.eCowData).length;
+    simulacoesCount() {
+      return Object.keys(this.simulacoesData).length;
     },
   },
 
   methods: {
     getData() {
-      this.eCow = Object.values(this.eCowData);
+      this.simulacoes = Object.values(this.simulacoesData);
     },
 
     toTop: function () {

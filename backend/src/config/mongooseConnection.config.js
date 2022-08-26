@@ -5,13 +5,13 @@
 const mongoose = require("mongoose");
 
 // Importando a conexão com o DB
-// const databaseConfig = require("./db.config");
+const dataBaseConnect = require("./db.config");
 
 mongoose.Promise = global.Promise;
 
 // ==> Conexão com o banco de dados
 mongoose
-  .connect("mongodb://root:admin@mongo:27017/managerdb?authSource=admin", {
+  .connect(dataBaseConnect.local.localDataBaseUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

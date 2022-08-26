@@ -176,17 +176,17 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      //  this.getMediaNumVacas(this.eCowFilteredPeriodo);
+      //  this.getMediaNumVacas(this.simulacoesFiltradasPeriodo);
       this.visivel = false;
       //  this.getDadosSeparados();
     }, 1500);
   },
   computed: {
-    eCowData() {
-      return this.$store.getters.getDataEcow;
+    simulacoesData() {
+      return this.$store.getters.getDataSimulacoes;
     },
-    eCowFilteredPeriodo() {
-      return this.$store.getters.geteCowFilteredPeriodo;
+    simulacoesFiltradasPeriodo() {
+      return this.$store.getters.getSimulacoesFilteredPeriodo;
     },
 
     typosSimulacoesSeparadas() {
@@ -240,7 +240,7 @@ export default {
   watch: {
     typosSimulacoesSeparadas(value) {
       this.getDadosSeparados(value);
-      this.getMediaNumVacas(this.eCowFilteredPeriodo);
+      this.getMediaNumVacas(this.simulacoesFiltradasPeriodo);
     },
   },
 };

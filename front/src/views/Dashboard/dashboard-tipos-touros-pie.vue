@@ -133,14 +133,14 @@ export default {
   mounted() {
     setTimeout(() => {
       //Filtrar Raça por período
-      //    this.getRacaTouros(this.eCowFilteredPeriodo);
+      //    this.getRacaTouros(this.simulacoesFiltradasPeriodo);
       this.visivel = false;
     }, 1000);
   },
 
   computed: {
-    eCowFilteredPeriodo() {
-      return this.$store.getters.geteCowFilteredPeriodo;
+    simulacoesFiltradasPeriodo() {
+      return this.$store.getters.getSimulacoesFilteredPeriodo;
     },
 
     estadoFilterStore() {
@@ -185,7 +185,7 @@ export default {
   },
 
   watch: {
-    eCowFilteredPeriodo(value) {
+    simulacoesFiltradasPeriodo(value) {
       this.getRacaTouros(value);
     },
   },

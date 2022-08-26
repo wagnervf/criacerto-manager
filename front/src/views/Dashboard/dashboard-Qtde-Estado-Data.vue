@@ -98,8 +98,8 @@ export default {
   },
 
   computed: {
-    eCowFilteredPeriodo() {
-      return this.$store.getters.geteCowFilteredPeriodo;
+    simulacoesFiltradasPeriodo() {
+      return this.$store.getters.getSimulacoesFilteredPeriodo;
     },
 
     dadosFiltrados() {
@@ -141,7 +141,7 @@ export default {
   },
 
   watch: {
-    eCowFilteredPeriodo(value) {
+    simulacoesFiltradasPeriodo(value) {
       this.getAllEstados(value);
     },
   },

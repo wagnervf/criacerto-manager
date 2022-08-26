@@ -1,11 +1,12 @@
-// import swal from "sweetalert";
 import ApiAxios from "./ApiAxios";
 // import { AuthStr } from "../Core/tokenConnectServices";
+
+const URL_USERS = process.env.VUE_APP_URL_USERS;
 
 export default {
   async getListaUsuarios() {
     try {
-      const response = await ApiAxios().get("/user/list");
+      const response = await ApiAxios().get(URL_USERS + "/list");
       if (response.status == "200") {
         return response;
       }
@@ -15,40 +16,10 @@ export default {
     }
   },
 
-  async storeUsuario(dados) {
-    try {
-      return await ApiAxios()
-        .post("user/register", dados)
-        .then((response) => {
-          console.log(response);
-          return response;
-        })
-        .catch((error) => {
-          console.log(error.response);
-          return error.response;
-        });
-    } catch (erro) {
-      console.log(erro);
-      return erro;
-    }
-  },
-
   async updateUsuario(dados) {
     try {
       return await ApiAxios()
-        .put("user/update", dados)
-        .then((response) => response)
-        .catch((error) => error.response);
-    } catch (erro) {
-      console.log(erro);
-      return erro;
-    }
-  },
-
-  async removerUsuario(id) {
-    try {
-      return await ApiAxios()
-        .delete("user/delete/", { data: { id } })
+        .put(URL_USERS + "/update", dados)
         .then((response) => response)
         .catch((error) => error.response);
     } catch (erro) {

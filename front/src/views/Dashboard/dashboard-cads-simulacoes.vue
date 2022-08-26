@@ -86,7 +86,7 @@
                 <!-- Mixins -->
                 <v-col class="text-center">
                   <p class="text-h1 font-weight-black cyan--text">
-                    {{ totalECowDataFiltered }}
+                    {{ totalSimulacoesDataFiltered }}
                   </p>
                 </v-col>
               </v-row>
@@ -198,11 +198,11 @@ export default {
     }, 1500);
   },
   computed: {
-    eCowData() {
-      return this.$store.getters.getDataEcow;
+    simulacoesData() {
+      return this.$store.getters.getDataSimulacoes;
     },
-    eCowFilteredPeriodo() {
-      return this.$store.getters.geteCowFilteredPeriodo;
+    simulacoesFiltradasPeriodo() {
+      return this.$store.getters.getSimulacoesFilteredPeriodo;
     },
   },
   methods: {
@@ -232,7 +232,7 @@ export default {
     getMediaValorCompraSemen(data) {
       let value = 0;
       let precoSemen = [];
-      //const data = this.eCowDataFiltered;
+      //const data = this.simulacoesDataFiltered;
 
       data.forEach((value) => {
         if (value.preco_semen) precoSemen.push(value.preco_semen);
@@ -250,7 +250,7 @@ export default {
   },
 
   watch: {
-    eCowFilteredPeriodo(value) {
+    simulacoesFiltradasPeriodo(value) {
       this.getData(value);
     },
   },
