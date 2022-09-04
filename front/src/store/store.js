@@ -19,14 +19,14 @@ export default new Vuex.Store({
     loggedIn: false,
     userLogado: {
       _id: "",
-      nome: "",
+      name: "",
       email: "",
       // perfil: "",
       token: "",
-      emailVerified: false,
-      created: null,
-      ultimoLogin: null,
-      isAdmin: false,
+      //emailVerified: false,
+      changed: "",
+      // ultimoLogin: null,
+      admin: false,
       logado: "",
     },
     simulacoes: {},
@@ -62,18 +62,17 @@ export default new Vuex.Store({
     SET_USER_LOGADO(state, payload) {
       if (payload) {
         console.log(payload);
-        state.userLogado._id = payload.user._id;
-        state.userLogado.nome = payload.user.nome;
-        state.userLogado.email = payload.user.email;
+        state.userLogado._id = payload._id;
+        state.userLogado.name = payload.name;
+        state.userLogado.email = payload.email;
         //   state.userLogado.perfil = payload.user.perfil;
         state.userLogado.token = payload.token;
         state.userLogado.emailVerified = false;
-        state.userLogado.created = payload.user.createdAt;
-        state.userLogado.ultimoLogin = payload.user.updatedAt;
+        state.userLogado.changed = payload.changed;
+        // state.userLogado.ultimoLogin = payload.user.updatedAt;
         state.userLogado.logado = true;
-        state.userLogado.isAdmin = payload.isAdmin;
-        state.userLogado.tecnico = payload.tecnico;
         state.userLogado.admin = payload.admin;
+        //state.userLogado.tecnico = payload.tecnico;
 
         state.loggedIn = true;
         localStorage.setItem("loggedIn", true);

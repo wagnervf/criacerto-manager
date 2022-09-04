@@ -14,23 +14,6 @@
         </v-toolbar-title>
 
         <v-spacer />
-
-        <v-btn
-          color="white"
-          outlined
-          dark
-          title="Adicionar um usuário"
-          @click="formAddUser"
-        >
-          <span>Novo Usuário</span>
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
-
-        <!-- <FormAdd
-            :dialog="dialog"
-            @update="dialog = $event"
-            :usuarioEditar="usuarioEditado"
-          /> -->
       </v-toolbar>
 
       <v-toolbar class="elevation-0 grey lighten-4">
@@ -45,59 +28,12 @@
           cols="5"
           class="text-left"
         >
-          <!-- <v-list
-            two-line
-            width="100%"
-          > -->
-          <!-- <v-list-item v-if="usuarios.length < 1">
-              <v-btn
-                :loading="loading"
-                :disabled="loading"
-                color="success"
-                class="ma-2 white--text"
-                text
-                @click="getUsuarios"
-              >
-                <v-icon
-                  left
-                  dark
-                >
-                  mdi-reload
-                </v-icon>
-                Carregar Usuários
-              </v-btn>
-            </v-list-item> -->
-          <v-text-field
-            v-model="search"
-            label="Search Company Directory"
-            dark
-            flat
-            solo-inverted
-            hide-details
-            clearable
-            clear-icon="mdi-close-circle-outline"
-          />
-          <v-btn
-            :loading="loading"
-            :disabled="loading"
-            color="success"
-            class="ma-2 white--text"
-            text
-            @click="getUsuarios"
-          >
-            <v-icon
-              left
-              dark
-            >
-              mdi-reload
-            </v-icon>
-          </v-btn>
           <v-card>
             <v-card-title>
               <v-text-field
                 v-model="search"
                 append-icon="mdi-magnify"
-                label="Search"
+                label="Buscar Usuário"
                 single-line
                 hide-details
               />
@@ -106,31 +42,15 @@
               :headers="headers"
               :items="usuarios"
               :search="search"
+              :loading="!listaCarregada"
+              loading-text="Carregando... Usuários"
+              v-model="selecionado"
+              :single-select="true"
+              item-key="name"
+              show-select
+              class="elevation-1"
             />
           </v-card>
-
-          <!-- 
-            <v-list-item-group color="primary">
-              <v-list-item
-                v-for="(item, i) in usuarios"
-                :key="i"
-                selectable
-                exact-active-class="primary"
-                link
-                @click="userSelecionado(item)"
-              >
-                <v-list-item-avatar>
-                  <v-icon>mdi-account</v-icon>
-                </v-list-item-avatar>
-
-                <v-list-item-content>
-                  <div v-html="item.name" />
-
-                  <div v-html="item.perfil" />
-                </v-list-item-content>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list> -->
         </v-col><!-- Lista de usuários -->
 
         <v-divider vertical />
@@ -148,81 +68,74 @@
             >
               <v-card-text>
                 <h3 class="text-h5 mb-2">
-                  {{ selecionado.name }}
+                  {{ selecionado[0].name }}
                 </h3>
                 <div class="blue--text mb-2">
-                  {{ selecionado.email }}
+                  {{ selecionado[0].email }}
                 </div>
               </v-card-text>
 
-              <v-divider />
+              <v-divider class="my-2" />
 
-              <v-row class="text-center py-4 my-4">
-                <v-list-item two-line>
-                  <v-list-item-content>
-                    <v-list-item-title>Perfil</v-list-item-title>
-                    <v-list-item-subtitle>
-                      <strong v-if="selecionado.admin"> Administrador </strong>
-                      <strong v-if="selecionado.tecnico"> Técnico </strong>
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item two-line>
-                  <v-list-item-content>
-                    <v-list-item-title>Local</v-list-item-title>
-                    <v-list-item-subtitle>
-                      {{ selecionado.local }}
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item two-line>
-                  <v-list-item-content>
-                    <v-list-item-title>ID</v-list-item-title>
-                    <v-list-item-subtitle>
-                      {{ selecionado._id }}
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item two-line>
-                  <v-list-item-content>
-                    <v-list-item-title>Criado</v-list-item-title>
-                    <v-list-item-subtitle>
-                      {{ selecionado.created }}
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item two-line>
-                  <v-list-item-content>
-                    <v-list-item-title>Atualizado</v-list-item-title>
-                    <v-list-item-subtitle>
-                      {{ selecionado.changed }}
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-row>
-
-              <pre>{{ selecionado }}</pre>
-
-              <v-divider />
-
-              <v-card-text class="my-2">
-                <v-row
-                  align="center"
-                  class="my-2"
-                  justify="space-around"
+              <v-col class="text-center py-4 my-4">
+                <v-form
+                  ref="form"
+                  v-model="valid"
+                  lazy-validation
+                  class="pa-2 white ma-2"
                 >
-                  <v-btn
-                    outlined
-                    class="ma-2"
-                    color="primary"
-                    @click="editarUsuario()"
-                  >
-                    <v-icon left>
-                      mdi-pencil
-                    </v-icon> Editar
-                  </v-btn>
-                </v-row>
-              </v-card-text>
+                  <label class="text--title">
+                    <v-icon left>mdi-badge-account</v-icon>
+                    Administrador do Sistema
+                  </label>
+                  <v-simple-table class="my-4">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <v-switch
+                            v-model="selecionado[0].admin"
+                            :label="selecionado[0].admin ? 'SIM' : 'NÃO'"
+                            class="mx-2 text-center"
+                            id="switchh"
+                          />
+                        </td>
+                        <td>
+                          <v-btn
+                            color="success"
+                            :disabled="!valid"
+                            @click="validate"
+                            class="mx-2"
+                            dark
+                            title="Salvar"
+                            fab
+                            small
+                          >
+                            <v-icon dark>
+                              mdi-content-save
+                            </v-icon>
+                          </v-btn>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </v-simple-table>
+                </v-form>
+
+                <v-divider />
+
+                <v-list-item
+                  two-line
+                  class="mt-6"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title class="subtitle-1">
+                      Atualizado
+                    </v-list-item-title>
+                    <v-list-item-subtitle class="subtitle-2">
+                      {{ selecionado[0].changed }}
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-col>
             </v-card>
           </v-scroll-y-transition>
         </v-col><!-- Usuário selecionado -->
@@ -246,11 +159,19 @@ export default {
     open: [],
     users: [],
     usuarios: [],
-    selecionado: {},
+    selecionado: [],
     usuarioEditado: {},
     perfis: ["Técnico", "Administrador"],
     loading: false,
     loader: null,
+    formRegister: {
+      id: "",
+      admin: false,
+    },
+    switch: true,
+    valid: false,
+    openSalvar: false,
+    ultimoEstadoSalvar: false,
 
     caseSensitive: false,
     search: "",
@@ -264,13 +185,18 @@ export default {
     ],
   }),
 
-  mounted() {},
+  mounted() {
+    //Salvar status do Admin
+    this.ultimoEstadoSalvar = this.formRegister.admin;
+  },
 
   computed: {
     foiSelecionado() {
       return Object.keys(this.selecionado).length > 0;
     },
-
+    listaCarregada() {
+      return Object.keys(this.usuarios).length > 0;
+    },
     filter() {
       return this.caseSensitive
         ? (item, search, textKey) => item[textKey].indexOf(search) > -1
@@ -278,15 +204,56 @@ export default {
     },
   },
 
-  watch: {},
+  watch: {
+    "formRegister.admin"() {
+      //if (this.ultimoEstadoSalvar != value) {
+      this.openSalvar = true;
+      //  }
+    },
+  },
 
   // Carrega usuários ao criar a página
   // TODO: Analisar se ficará assim
   created() {
-    // this.getUsuarios();
+    this.getUsuarios();
   },
 
   methods: {
+    updateForm() {},
+    validate() {
+      if (this.$refs.form.validate()) {
+        this.updateUsuario();
+      }
+    },
+
+    async updateUsuario() {
+      try {
+        this.formRegister = {
+          id: this.selecionado[0]._id,
+          admin: this.selecionado[0].admin,
+        };
+
+        const response = await UsuariosServices.updateUsuario(
+          this.formRegister
+        );
+
+        if (response.status != 200) {
+          // Erro na atualização do usuário
+          return this.setMessage(response.data.message, true, "error");
+        }
+        this.setMessage(
+          "success",
+          "Finalizado!",
+          "Usuário atualizado sucesso!"
+        );
+
+        await pause(1000);
+        this.$router.go();
+      } catch (error) {
+        return this.setMessage("error", "Erro", error.data.message);
+      }
+    },
+
     setLoader() {
       this.loader = "loading";
       const l = this.loader;
@@ -305,6 +272,7 @@ export default {
     async getUsuarios() {
       try {
         const response = await UsuariosServices.getListaUsuarios();
+        console.log(response);
 
         if (typeof response == "undefined" || response.status != 200) {
           return this.setMessage(
@@ -313,7 +281,6 @@ export default {
             "Não foi possível carregar os usuários, tente novamente mais tarde!"
           );
         }
-        console.log(response);
 
         this.setLoader();
         await pause(1000);
@@ -323,15 +290,15 @@ export default {
       }
     },
 
-    async formAddUser() {
-      this.$router.push({ name: "Novo Usuario" });
-    },
+    // async formAddUser() {
+    //   this.$router.push({ name: "Novo Usuario" });
+    // },
 
-    editarUsuario() {
-      this.usuarioEditado = { ...this.selecionado };
-      const link = { name: "Novo Usuario", params: this.usuarioEditado };
-      this.$router.push(link);
-    },
+    // editarUsuario() {
+    //   this.usuarioEditado = { ...this.selecionado };
+    //   const link = { name: "Novo Usuario", params: this.usuarioEditado };
+    //   this.$router.push(link);
+    // },
 
     atualizaLista() {
       this.selecionado = [];
@@ -352,5 +319,8 @@ export default {
 <style>
 .v-treeview-node__label {
   color: #1867c0 !important;
+}
+.v-input__slot {
+  display: block !important;
 }
 </style>

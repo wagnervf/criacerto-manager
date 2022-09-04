@@ -1,133 +1,137 @@
 <template>
   <v-container>
     <v-row
-      class="mx-auto my-12 pa-0 elevation-10 col-xl-6 col-lg-10 col-md-10 col-sm-10 col-xs-10"
+      class="mx-auto my-5 pa-0 elevation-10 col-xl-6 col-lg-10 col-md-10 col-sm-10 col-xs-10"
       justify="center"
     >
-      <v-col class="grey lighten-5 py-12">
-        <div class="px-6 mt-4 mx-4">
-          <p class="text-left mx-6 text-h4 teal--text">
+      <v-col class="grey lighten-5 pa-0">
+        <v-card-text class="teal darken-1 white--text">
+          <p class="text-left mx-6 text-h4 white--text">
             Cria Certo Manager
           </p>
           <p class="text-caption text-left mx-6 text--grey">
-            Acesse com seu usuário e senha
+            Acesse com seu usuário e pin
           </p>
-        </div>
+        </v-card-text>
 
         <v-form
           ref="form"
           v-model="valid"
-          class="pa-6 ma-6"
+          class="pa-4 ma-2"
           lazy-validation
         >
-          <v-text-field
-            v-model="loginForm.email"
-            label="E-mail"
-            name="email"
-            prepend-inner-icon="mdi-email"
-            :rules="emailRules"
-            required
-            type="email"
-            outlined
-          />
-
-          <v-text-field
-            id="password"
-            v-model="loginForm.senha"
-            :rules="passRules"
-            required
-            label="Password"
-            name="password"
-            prepend-inner-icon="mdi-lock"
-            type="password"
-            counter
-            outlined
-          />
-
-          <section class="my-4">
-            <v-btn
-              :disabled="!valid"
-              large
-              block
-              color="teal dark-1"
-              dark
-              class="mr-4"
-              @click="submitLoginUser"
-            >
-              Acessar
-            </v-btn>
-          </section>
-        </v-form>
-
-        <div class="text-right px-6 mx-6">
-          <v-btn
-            text
-            color="teal "
-            class="text-subtitle-2"
-            @click="recuperarSenha"
-          >
-            Esqueceu a senha?
-          </v-btn>
-        </div>
-      </v-col>
-
-      <v-col class="teal darken-1 ma-0 pa-0">
-        <v-card-text class="white--text mt-12">
-          <h1 class="text-center display-1">
-            Seja bem-vindo!
-          </h1>
-          <div class="text-center mt-4">
-            <p>Sistema Gerenciador da Plataforma Cria Certo</p>
-          </div>
-        </v-card-text>
-        <div class="text-center">
-          <v-btn
+          <v-stepper
+            v-model="step"
+            flat
             rounded
-            outlined
-            dark
-            @click="step++"
           >
-            Criar Conta
-          </v-btn>
-        </div>
+            <v-stepper-items class="mt-6">
+              <v-stepper-content
+                step="1"
+                class="my-6"
+              >
+                <label class="grey--text"> Informe seu email</label>
 
-        <div class="text-center mt-14">
-          <v-btn
-            to="/dashboard/basic-dashboard"
-            text
-            color="white"
-          >
-            Criar Conta
-          </v-btn>
+                <v-text-field
+                  v-model="loginForm.email"
+                  label="E-mail"
+                  name="email"
+                  prepend-inner-icon="mdi-email"
+                  :rules="emailRules"
+                  required
+                  type="email"
+                  outlined
+                  class="mt-2"
+                />
 
-          <v-btn
-            to="/Home/home"
-            text
-            color="white"
-          >
-            Início
-          </v-btn>
-        </div>
+                <div class="pt-6 justify-end text-right">
+                  <v-btn
+                    color="primary"
+                    @click="enviarEmailComPin"
+                    class="mr-4"
+                    :disabled="!valid"
+                  >
+                    Continuar
+                  </v-btn>
+                </div>
+                <!-- </v-stepper-content>
+              <v-stepper-content
+                step="2"
+                class="my-6"
+              > -->
+                <label class="grey--text">
+                  Informe o número do Pin recebido em seu email</label>
+                <v-text-field
+                  id="pin"
+                  v-model="loginForm.pin"
+                  :rules="passRules"
+                  required
+                  label="Pin"
+                  name="Pin"
+                  prepend-inner-icon="mdi-lock"
+                  counter
+                  outlined
+                  class="mt-2"
+                  :append-icon="iconPin ? 'mdi-eye-off' : 'mdi-eye'"
+                  @click:append="() => (iconPin = !iconPin)"
+                  :type="iconPin ? 'password' : 'text'"
+                />
+
+                <div class="pt-6">
+                  <v-btn
+                    :disabled="!valid"
+                    large
+                    block
+                    color="teal dark-1"
+                    dark
+                    class="mr-4"
+                    @click="authenticateUser"
+                  >
+                    Acessar
+                  </v-btn>
+
+                  <v-btn
+                    outlined
+                    @click="step = 1"
+                    block
+                    dark
+                    class="mr-4 mt-2"
+                    color="indigo"
+                  >
+                    Voltar
+                  </v-btn>
+                </div>
+              </v-stepper-content>
+            </v-stepper-items>
+          </v-stepper>
+        </v-form>
       </v-col>
     </v-row>
+    <v-footer padless>
+      <v-col
+        class="text-center"
+        cols="12"
+      >
+        <p class="text-center my-2">
+          <img
+            src="@/assets/img/embrapa.png"
+            style="width: 150px"
+            alt="Logo da Embrapa"
+          >
+        </p>
+      </v-col>
 
-    <v-snackbar
-      v-model="snackbar"
-      :vertical="true"
-      :color="color"
-    >
-      {{ snackbarText }}
-      <template #action="{ attrs }">
-        <v-btn
-          dark
-          text
-          v-bind="attrs"
-          @click="snackbar = false"
-        >
-          Fechar
-        </v-btn>
-      </template>
-    </v-snackbar>
+      <v-col
+        class="text-center"
+        cols="12"
+      >
+        <div class="text-center grey--text mt-4">
+          <p>Sistema Gerenciador da Plataforma Cria Certo</p>
+          {{ new Date().getFullYear() }}
+          <p />
+        </div>
+      </v-col>
+    </v-footer>
   </v-container>
 </template>
 
@@ -148,20 +152,20 @@ export default {
         source: String,
       },
       step: 1,
+      iconPin: String,
       valid: true,
       passRules: [
-        (v) => !!v || "A senha é obrigatória",
-        (v) => (v && v.length > 4) || "A senha deve ter no mínimo 4 caracteres",
+        (v) => !!v || "O pin é obrigatória",
+        (v) => (v && v.length > 5) || "O pin deve ter no mínimo 6 caracteres",
       ],
       emailRules: [
         (v) => !!v || "O e-mail é obrigatório",
         (v) => /.+@.+\..+/.test(v) || "O e-mail é inválido",
       ],
       loginForm: {
-        email: null,
-        senha: null,
+        email: "wagner@gmail.com",
+        pin: "778632",
       },
-      isSubmitted: false,
       snackbar: false,
       snackbarText: "",
       color: "",
@@ -169,59 +173,94 @@ export default {
     };
   },
 
-  // computed: {
-  //   ...mapState(["SidebarColor", "SidebarBg"]),
-  //   Sidebar_drawer: {
-  //     get() {
-  //       return this.$store.state.Sidebar_drawer;
-  //     },
-  //     set(val) {
-  //       this.$store.commit("SET_SIDEBAR_DRAWER", val);
-  //     },
-  //   },
-
-  // },
+  computed: {},
 
   methods: {
     ...mapState(["SetLoggedIn"]),
 
-    async submitLoginUser() {
-      if (this.$refs.form.validate()) {
-        try {
-          const response = await LoginService.loginUser(this.loginForm);
-          if (response.status == 200) {
-            this.isSubmitted = true;
+    async enviarEmailComPin() {
+      try {
+        if (this.loginForm.email != "") {
+          const response = await LoginService.enviarPin(this.loginForm);
 
-            this.$store.commit("SET_USER_LOGADO", response.data);
-            this.setMessage("Logado com sucesso!", true, "");
-            this.$router.push("/");
+          if (response.status == 201) {
+            this.step = 2;
+            return this.setMessage(
+              "success",
+              "PIN enviado para o email: " + this.loginForm.email,
+              "Verefique seu email!"
+            );
           } else {
-            this.setMessage("Erro no Login. Tente novamentemais tarde!", true, "error");
+            this.step = 1;
+            return this.setMessage(
+              "error",
+              "Erro ao enviar email",
+              "Não possível enviar o PIN, tenta novamente mais tarde!"
+            );
           }
-        } catch (error) {
-          this.setMessage(
-            "O endereço de e-mail ou a senha que você inseriu não é válido!",
-            true,
-            this.errorColor
-          );
         }
+      } catch (error) {
+        return this.setMessage(
+          "error",
+          "Erro ao enviar email",
+          "O endereço de e-mail ou a pin que você inseriu não é válido!" +
+            error.code
+        );
       }
     },
 
-    recuperarSenha() {
-      // https://www.youtube.com/watch?v=Zwdv9RllPqU&list=PL85ITvJ7FLoiXVwHXeOsOuVppGbBzo2dp&index=3
-      console.log("Ver esse vídeo");
-      console.log(
-        "https://www.youtube.com/watch?v=Zwdv9RllPqU&list=PL85ITvJ7FLoiXVwHXeOsOuVppGbBzo2dp&index=3"
-      );
+    async authenticateUser() {
+      try {
+        // if (this.loginForm.pin != "") {
+        // console.log(this.loginForm);
+
+        const response = await LoginService.authenticate(this.loginForm);
+        console.log(response);
+        //console.log(response.status == 200);
+
+        if (response.status !== 200) {
+          return this.setMessage(
+            "error",
+            "Erro no Login.",
+            "Tente novamente mais tarde!"
+          );
+        }
+        if (!response) {
+          return this.setMessage(
+            "error",
+            "Erro no Login.",
+            "Usuário não encontrado!"
+          );
+        }
+
+        this.$store.commit("SET_USER_LOGADO", response.data.data.email);
+        this.$router.push("/");
+        return this.setMessage(
+          "success",
+          "Acesso Liberado",
+          response.data.data.email
+        );
+        //  }
+      } catch (error) {
+        console.log(error);
+        return this.setMessage(
+          "error",
+          "Erro no Login.",
+          "Tente novamentemais tarde! " + error.code
+        );
+      }
     },
 
-    setMessage(message, snack, color) {
-      this.snackbarText = message;
-      this.snackbar = snack;
-      this.color = color;
+    setMessage(type, title, message) {
+      return this.$notify({
+        group: "foo",
+        type: type,
+        title: title,
+        text: message,
+      });
     },
   },
-};
 
+  watch: {},
+};
 </script>

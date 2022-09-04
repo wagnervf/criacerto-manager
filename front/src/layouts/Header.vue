@@ -73,10 +73,12 @@
                       accesskey="u"
                       class="inline-block"
                     >
-                      <v-list-item-title>{{ user.nome }}</v-list-item-title>
-                      <v-list-item-subtitle>
-                        {{ user.email }}
+                      <v-list-item-subtitle class="text-right">
+                        {{ user.name }}
                       </v-list-item-subtitle>
+                      <!-- <v-list-item-subtitle>
+                        {{ user.email }}
+                      </v-list-item-subtitle> -->
                     </v-list-item-content>
                     <v-icon>mdi-menu-down</v-icon>
                   </v-list-item>
@@ -183,7 +185,7 @@ export default {
     },
 
     nomeUser() {
-      return this.$store.getters.getUserLogged.nome;
+      return this.$store.getters.getUserLogged.name;
     },
 
     emailUser() {
@@ -195,8 +197,8 @@ export default {
     getUserLocalStorage() {
       const user = JSON.parse(localStorage.getItem("userLogged"));
       if (user) {
-        this.user.nome = user.nome
-          ? user.nome.charAt(0).toUpperCase() + user.nome.slice(1)
+        this.user.name = user.name
+          ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
           : "";
         this.user.email = user.email.toLowerCase();
       }
