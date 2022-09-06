@@ -1,55 +1,61 @@
 // import swal from "sweetalert";
 import ApiAxios from "./ApiAxios";
 // import { AuthStr } from "../Core/tokenConnectServices";
-
-const apiDadosBasicos = "/dadosbasicos/";
+const URL_API = process.env.VUE_APP_URL_API;
 
 export default {
   async getRacasTourosApi() {
     try {
-      const response = await ApiAxios().get(
-        apiDadosBasicos.concat("racastouro/find")
-      );
+      const response = await ApiAxios().get(URL_API.concat("/racastouro/find"));
 
       return response;
-    } catch (error) {
-      console.error(error);
-      return error.response.data;
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        return err.response;
+      } else err.request;
+      return err;
     }
   },
 
   async updateRacasTourosApi(dados) {
     try {
       const result = await ApiAxios()
-        .put(apiDadosBasicos.concat("racastouro/update"), dados)
+        .put(URL_API.concat("/racastouro/update"), dados)
         .then((response) => response)
         .catch((error) => error.response.data);
 
       return result;
-    } catch (erro) {
-      console.log(erro);
-      return erro;
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        return err.response;
+      } else err.request;
+      return err;
     }
   },
 
   async saveRacasTourosApi(dados) {
     try {
       const response = await ApiAxios()
-        .post(apiDadosBasicos.concat("racastouro/save"), dados)
+        .post(URL_API.concat("/racastouro/save"), dados)
         .then((response) => response)
         .catch((error) => error.response.data);
 
       return response;
-    } catch (error) {
-      console.log(error);
-      return error;
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        return err.response;
+      } else err.request;
+      return err;
     }
   },
 
   async deleteRacasTourosApi(id) {
     try {
       const result = await ApiAxios()
-        .delete(apiDadosBasicos.concat("racastouro/delete"), { params: { id } })
+        .delete(URL_API.concat("/racastouro/delete"), { params: { id } })
         .then((response) => response)
         .catch((error) => error.response.data);
 

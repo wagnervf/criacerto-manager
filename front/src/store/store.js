@@ -289,64 +289,6 @@ export default new Vuex.Store({
       }
     },
 
-    async getRacasTouro({ commit }) {
-      try {
-        const response = await DadosBasicosServices.getRacasTourosApi();
-        if (response.status == 200) {
-          let result = response.data;
-
-          result = mixinUtils.methods.orderBy(result);
-
-          const value = result.map((raca) => ({
-            value: raca._id,
-            text: raca.descricao,
-          }));
-
-          return commit("SET_DATA_RACAS_TOURO", value);
-        }
-        return mixinUtils.methods.messageErrorRequestApi();
-      } catch (error) {
-        console.log(error);
-        return mixinUtils.methods.messageErrorRequestApi();
-      }
-    },
-
-    async saveDadosRacasTouro({ commit }, value) {
-      try {
-        const response = await DadosBasicosServices.saveRacasTourosApi(value);
-
-        if (response.status == 201) {
-          commit("SET_DATA_RACAS_TOURO", value);
-          mixinUtils.methods.messageSaveRacaTouroApi(response.data.mensagem);
-          return response;
-        }
-
-        let message = response.mensagem;
-        //Função de Mixins
-        return mixinUtils.methods.messageSwalToast("error", message);
-      } catch (error) {
-        return mixinUtils.methods.updateError(error.response.data);
-      }
-    },
-
-    async updateDadosRacasTouro({ commit }, value) {
-      try {
-        const response = await DadosBasicosServices.updateRacasTourosApi(value);
-
-        if (response.status == 200) {
-          commit("SET_DATA_RACAS_TOURO", value);
-          mixinUtils.methods.messageRacaTouroApi(response.data.mensagem);
-          return response;
-        } else {
-          let message = response.mensagem;
-          //Função de Mixins
-          return mixinUtils.methods.messageSwalToast("error", message);
-        }
-      } catch (error) {
-        return mixinUtils.methods.updateError(error.response.data);
-      }
-    },
-
     async deleteDadosRacasTouro({ dispatch }, value) {
       try {
         const response = await DadosBasicosServices.deleteRacasTourosApi(value);

@@ -43,9 +43,9 @@
 
             <div class="my-4" />
 
-            <v-col>
+            <!-- <v-col>
               <ListEstados />
-            </v-col>
+            </v-col> -->
           </v-col>
           <v-col />
         </v-card>
@@ -56,13 +56,13 @@
 
 <script>
 // import FormCustom from "../../components/FormCustom.vue";
-import ListEstados from "../../components/estados.vue";
+//import ListEstados from "../../components/estados.vue";
 import RacasTouro from "../../components/racasTouro.vue";
 export default {
   name: "ViewDadosBasicos",
   components: {
     // FormCustom ,
-    ListEstados,
+    // ListEstados,
     RacasTouro,
   },
 

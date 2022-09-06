@@ -54,11 +54,11 @@
                     Continuar
                   </v-btn>
                 </div>
-                <!-- </v-stepper-content>
+              </v-stepper-content>
               <v-stepper-content
                 step="2"
                 class="my-6"
-              > -->
+              >
                 <label class="grey--text">
                   Informe o número do Pin recebido em seu email</label>
                 <v-text-field
@@ -136,13 +136,14 @@
 </template>
 
 <script>
-// import swal from 'sweetalert';
+import mixinUtils from "../../mixins/mixin-utils";
 import LoginService from "@/services/LoginService";
 // import Snackbar from "../../components/Snackbar.vue";
 import { mapState } from "vuex";
 // import { mapActions } from 'vuex';
 
 export default {
+  mixins: [mixinUtils],
   name: "LoginComponent",
   components: {},
 
@@ -163,8 +164,8 @@ export default {
         (v) => /.+@.+\..+/.test(v) || "O e-mail é inválido",
       ],
       loginForm: {
-        email: "wagner@gmail.com",
-        pin: "778632",
+        email: "wagnerfreiria@gmail.com",
+        pin: "",
       },
       snackbar: false,
       snackbarText: "",
@@ -182,82 +183,57 @@ export default {
       try {
         if (this.loginForm.email != "") {
           const response = await LoginService.enviarPin(this.loginForm);
+          console.log(response);
 
           if (response.status == 201) {
             this.step = 2;
-            return this.setMessage(
+            return mixinUtils.methods.messageSwalToast(
               "success",
-              "PIN enviado para o email: " + this.loginForm.email,
-              "Verefique seu email!"
+              "PIN enviado para o email: " + this.loginForm.email
             );
           } else {
             this.step = 1;
-            return this.setMessage(
+            return mixinUtils.methods.messageSwalToast(
               "error",
-              "Erro ao enviar email",
-              "Não possível enviar o PIN, tenta novamente mais tarde!"
+              "Erro no Login. " + response
             );
           }
         }
       } catch (error) {
-        return this.setMessage(
+        console.log(error);
+        return mixinUtils.methods.messageSwalToast(
           "error",
-          "Erro ao enviar email",
-          "O endereço de e-mail ou a pin que você inseriu não é válido!" +
-            error.code
+          "O endereço de email ou o PIN que você inseriu não é válido! " +
+            error.response
         );
       }
     },
 
     async authenticateUser() {
       try {
-        // if (this.loginForm.pin != "") {
-        // console.log(this.loginForm);
-
         const response = await LoginService.authenticate(this.loginForm);
         console.log(response);
-        //console.log(response.status == 200);
-
-        if (response.status !== 200) {
-          return this.setMessage(
+        if (response.status == 200) {
+          this.$store.commit("SET_USER_LOGADO", response.data.data);
+          this.$router.push("/");
+          return mixinUtils.methods.messageSwalToast(
+            "success",
+            "Acesso autorizado " + response.data.data.email
+          );
+        } else {
+          return mixinUtils.methods.messageSwalToast(
             "error",
-            "Erro no Login.",
-            "Tente novamente mais tarde!"
+            "Erro no Login " + response.data.message
           );
         }
-        if (!response) {
-          return this.setMessage(
-            "error",
-            "Erro no Login.",
-            "Usuário não encontrado!"
-          );
-        }
-
-        this.$store.commit("SET_USER_LOGADO", response.data.data.email);
-        this.$router.push("/");
-        return this.setMessage(
-          "success",
-          "Acesso Liberado",
-          response.data.data.email
-        );
-        //  }
       } catch (error) {
         console.log(error);
-        return this.setMessage(
+        return mixinUtils.methods.messageSwalToast(
           "error",
-          "Erro no Login.",
+          "Erro no Login ",
           "Tente novamentemais tarde! " + error.code
         );
       }
-    },
-
-    setMessage(type, title, message) {
-      return this.$notify({
-        group: "foo",
-        type: type,
-        title: title,
-        text: message,
-      });
     },
   },
 

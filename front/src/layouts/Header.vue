@@ -62,13 +62,6 @@
                     link
                     v-on="{ ...tooltip, ...on }"
                   >
-                    <!-- <v-list-item-avatar>
-                      <v-avatar color="grey">
-                        <v-icon dark>
-                          mdi-account-circle
-                        </v-icon>
-                      </v-avatar>
-                    </v-list-item-avatar> -->
                     <v-list-item-content
                       accesskey="u"
                       class="inline-block"
@@ -149,7 +142,6 @@ export default {
   data: () => ({
     userprofile: [
       { title: "Perfil", to: "/usuarios/perfil", icon: "mdi-account" },
-      { title: "Mensagens", to: "", icon: "mdi-email" },
       { title: "Sobre", to: "/Sobre/sobre", icon: "mdi-information" },
     ],
 

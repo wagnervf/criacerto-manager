@@ -221,33 +221,6 @@ export default [
   },
 
   {
-    name: "Novo Usuario",
-    path: "usuarios/Add",
-    component: () => import("@/views/Usuarios/Add.vue"),
-    meta: {
-      breadCrumb: [
-        {
-          text: "Início",
-          disabled: true,
-          href: "/",
-        },
-        {
-          text: "Lista de Usuarios",
-          to: { name: "" },
-          disabled: false,
-          href: "listausuarios",
-        },
-        {
-          text: "Novo Usuario",
-          to: { name: "" },
-          disabled: false,
-        },
-      ],
-      permission: ["ADMIN", "TEC"],
-    },
-  },
-
-  {
     name: "Sobre",
     path: "Sobre/sobre",
     component: () => import("@/views/Sobre/Sobre.vue"),

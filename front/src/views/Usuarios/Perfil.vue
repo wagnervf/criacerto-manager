@@ -15,84 +15,54 @@
             <v-toolbar-title> Meu Perfil </v-toolbar-title>
           </v-toolbar>
 
-          <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-          >
-            <v-row>
-              <v-card-text>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="formPerfil.nome"
-                    label="Nome"
-                    :rules="nameRules"
-                    required
-                    prepend-icon="mdi-account"
-                  />
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="formPerfil.email"
-                    label="E-mail"
-                    :rules="emailRules"
-                    required
-                    type="email"
-                    prepend-icon="mdi-email"
-                  />
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="formPerfil.senha"
-                    label="Senha"
-                    :rules="passwordRules"
-                    required
-                    :counter="6"
-                    type="password"
-                    prepend-icon="mdi-lock"
-                  />
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="formPerfil.local"
-                    label="Local"
-                    prepend-icon="mdi-map-marker"
-                  />
-                </v-col>
-                <v-col cols="12">
-                  <v-select
-                    v-model="formPerfil.perfil"
-                    :items="perfis"
-                    :rules="[(v) => !!v || 'Selecione um perfil']"
-                    required
-                    label="Perfil"
-                    prepend-icon="mdi-badge-account-alert"
-                  />
-                </v-col>
-              </v-card-text>
+          <v-col class="d-flex text-center">
+            <v-scroll-y-transition mode="out-in">
+              <v-card
+                class="py-6 mx-auto"
+                flat
+                max-width="70%"
+              >
+                <v-card-text>
+                  <h3 class="text-h5 mb-2">
+                    {{ usuario.name }}
+                  </h3>
+                  <div class="blue--text mb-2">
+                    {{ usuario.email }}
+                  </div>
+                </v-card-text>
 
-              <v-card-actions class="col-12 pr-6">
-                <v-spacer />
-                <v-btn
-                  color="error"
-                  depressed
-                  @click="cancelar"
-                >
-                  Cancelar
-                </v-btn>
-                <v-btn
-                  color="success"
-                  depressed
-                  :disabled="!valid"
-                  @click="validate"
-                >
-                  Salvar
-                </v-btn>
-              </v-card-actions>
-            </v-row>
-            <pre>valid : {{ valid }}</pre>
-            <pre>{{ formPerfil }}</pre>
-          </v-form>
+                <v-divider class="my-2" />
+
+                <v-col class="text-center">
+                  <div class="my-6">
+                    <v-icon left>
+                      mdi-badge-account
+                    </v-icon>
+                    Perfil :
+                    <span class="text--title">{{
+                      usuario.admin ? " ADMINISTRADOR" : " TÉCNICO"
+                    }}</span>
+                  </div>
+
+                  <v-divider />
+
+                  <v-list-item
+                    two-line
+                    class="my-6"
+                  >
+                    <v-list-item-content>
+                      <v-list-item-title class="subtitle-1">
+                        Atualizado
+                      </v-list-item-title>
+                      <v-list-item-subtitle class="subtitle-2">
+                        {{ usuario.changed }}
+                      </v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-col>
+              </v-card>
+            </v-scroll-y-transition>
+          </v-col><!-- Usuário selecionado -->
         </v-card>
       </v-col>
     </v-row>
@@ -100,60 +70,23 @@
 </template>
 
 <script>
+import mixinUtils from "../../mixins/mixin-utils";
 export default {
+  mixins: [mixinUtils],
   name: "ViewProfile",
   components: {},
 
   data: () => ({
     ativo: true,
-    perfis: ["Técnico", "Administrador"],
-    desserts: [],
-    editedIndex: -1,
 
-    formPerfil: {
-      nome: "",
-      email: "",
-      senha: "",
-      local: "",
-      perfil: "",
-    },
-    valid: false,
-
-    nameRules: [
-      (v) => !!v || "Nome é obrigatório",
-      (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
-    ],
-    emailRules: [
-      (v) => !!v || "E-mail é obrigatório",
-      (v) => /.+@.+\..+/.test(v) || "E-mail não é válido",
-    ],
-
-    passwordRules: [
-      (v) => !!v || "A senha é obrigatória",
-      (v) =>
-        (v && v.length <= 6) || "A senha deve conter no mínimo 6 caracteres",
-    ],
-
-    snackbar: false,
-    snackbarText: "",
-    timeout: 2000,
+    usuario: {},
   }),
 
-  methods: {
-    validate() {
-      this.$refs.form.validate();
-      console.log(this.$refs.form);
-      this.snackbarText = "Salvo com sucesso!";
-      this.snackbar = true;
-    },
-    reset() {
-      this.$refs.form.reset();
-    },
-    cancelar() {
-      this.formPerfil = {};
-
-      this.$refs.form.resetValidation();
-    },
+  created() {
+    console.log(this.userLogado);
+    this.usuario = this.userLogado;
   },
+
+  methods: {},
 };
 </script>
