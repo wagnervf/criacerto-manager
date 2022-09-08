@@ -121,6 +121,7 @@
 
 <script>
 import mixinUtils from "../../mixins/mixin-utils";
+import MontaNaturaServices from "@/services/MontaNaturaServices";
 
 export default {
   mixins: [mixinUtils],
@@ -150,10 +151,10 @@ export default {
   computed: {},
 
   methods: {
-    getDataStore() {
+    async getDataStore() {
       this.parametros = [];
       this.loader = "loading";
-      let result = this.$store.getters.getDataMontaNatural;
+      let result = await this.getDadosMontaNatural();
       //console.log(result);
 
       if (Object.values(result).length > 0) {
@@ -165,24 +166,23 @@ export default {
       }
     },
 
-    // paserData(key, inputArray) {
+    async getDadosMontaNatural() {
+      try {
+        const response = await MontaNaturaServices.getMontaNaturalApi();
+        if (response.status == 200) {
+          const result = response.data;
 
-    //   result.push(this.$store.getters.getDataMontaNatural);
-
-    //   const value = result.map((val) => ({
-    //     key: Object.keys(val),
-    //     value: Object.values(val),
-    //   }));
-
-    //   console.log(value[0]);
-    //   for (let i = 0; i < inputArray.length; i++) {
-    //     if (inputArray[i].key === key) {
-    //       console.log(inputArray[i].key);
-    //     }
-    //   }
-
-    //   //console.log(search);
-    // },
+          this.$store.commit("SET_DATA_MONTANATURAL", result);
+        }
+        return mixinUtils.methods.messageSwalToast(
+          "error",
+          response.data.message
+        );
+      } catch (error) {
+        console.log(error);
+        return mixinUtils.methods.messageSwalToast("error", error.data.message);
+      }
+    },
 
     mountDataDownload() {
       this.downloadItems.push(this.parametros);

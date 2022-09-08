@@ -230,7 +230,6 @@ export default {
         console.log(error);
         return mixinUtils.methods.messageSwalToast(
           "error",
-          "Erro no Login ",
           "Tente novamentemais tarde! " + error.code
         );
       }

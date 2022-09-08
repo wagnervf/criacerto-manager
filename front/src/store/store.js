@@ -4,7 +4,7 @@ import MontaNaturaServices from "@/services/MontaNaturaServices";
 import IatfServices from "@/services/IatfServices";
 import Iatf_2Services from "@/services/Iatf_2Services";
 import Iatf_3Services from "@/services/Iatf_3Services";
-import DadosBasicosServices from "@/services/DadosBasicosServices";
+//import DadosBasicosServices from "@/services/DadosBasicosServices";
 import mixinUtils from "../mixins/mixin-utils";
 import DashboardService from "@/services/DashboardServices";
 
@@ -155,37 +155,19 @@ export default new Vuex.Store({
       }
     },
 
-    async getDadosMontaNatural({ commit }) {
-      try {
-        const response = await MontaNaturaServices.getMontaNaturalApi();
-        if (response.status == 200) {
-          const result = response.data[0];
-
-          return commit("SET_DATA_MONTANATURAL", result);
-        }
-        return mixinUtils.methods.messageErrorRequestApi();
-      } catch (error) {
-        console.log(error);
-        return mixinUtils.methods.messageErrorRequestApi();
-      }
-    },
-
     async updateMontaNatural({ commit }, value) {
       try {
         const response = await MontaNaturaServices.updateMontaNaturalApi(value);
 
         if (response.status != 200) {
-          let path = response.error.path;
-          let message = response.error.message;
-          let title = response.mensagem;
           //Função de Mixins
-          return mixinUtils.methods.messageSwalToast("error", title + message + path);
+          return mixinUtils.methods.messageSwalToast("error", response.data.message);
         }
 
         commit("SET_DATA_MONTANATURAL", value);
         return mixinUtils.methods.messageSucessUpdateApi();
       } catch (error) {
-        return mixinUtils.methods.updateError(error.response.data);
+        return mixinUtils.methods.updateError(error.data.message);
       }
     },
 
@@ -286,23 +268,6 @@ export default new Vuex.Store({
         return mixinUtils.methods.messageSucessUpdateApi();
       } catch (error) {
         return mixinUtils.methods.updateError(error.response.data);
-      }
-    },
-
-    async deleteDadosRacasTouro({ dispatch }, value) {
-      try {
-        const response = await DadosBasicosServices.deleteRacasTourosApi(value);
-
-        if (response.status == 200) {
-          // commit("SET_DATA_RACAS_TOURO", value);
-          dispatch("getRacasTouro");
-          mixinUtils.methods.messageRacaTouroApi(response.data.mensagem);
-          return response;
-        }
-        //Função de Mixins
-        return mixinUtils.methods.messageSwalToast("error", response.error.message);
-      } catch (error) {
-        return mixinUtils.methods.updateError(error.response);
       }
     },
   },

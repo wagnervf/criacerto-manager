@@ -172,9 +172,9 @@ export default [
   },
 
   {
-    name: "Lista de Usuarios",
-    path: "usuarios/listausuarios",
-    component: () => import("@/views/Usuarios/ListaUsuarios.vue"),
+    name: "Gerenciar Usuarios",
+    path: "usuarios/gerenciar",
+    component: () => import("@/views/Usuarios/GerenciarUsuarios.vue"),
     meta: {
       breadCrumb: [
         {
@@ -183,7 +183,7 @@ export default [
           href: "/",
         },
         {
-          text: "Lista de Usuarios",
+          text: "Gerenciar Usuarios",
           to: { name: "" },
           disabled: false,
           href: "index",

@@ -32,31 +32,35 @@
         lg="12"
         justify-center
         flex
+        class="pa-0"
       >
         <v-form
           ref="form"
           v-model="valid"
-          class="pa-0 white ma-1"
+          class="pa-0 white"
           lazy-validation
         >
           <div v-if="openInput">
-            <v-alert
+            <v-card
               outlined
               text
-              color="grey lighten-2"
+              color="grey lighten-3"
               radio
               class="px-4"
             >
-              <v-text-field
-                outlined
-                ref="form.touro"
-                v-model.trim="form.descricao"
-                :rules="descricaoRules"
-                placeholder="Inserir raça do touro"
-                required
-                class="mt-4 pa-2 teal--text"
-              />
-              <v-divider class="mx-4 my-0 pa-0" />
+              <v-card-title>{{ label }} de Touro</v-card-title>
+              <v-card-text>
+                <v-text-field
+                  outlined
+                  ref="form.touro"
+                  v-model.trim="form.descricao"
+                  :rules="descricaoRules"
+                  placeholder="Inserir raça do touro"
+                  required
+                  class="mt-4 pa-2 teal--text"
+                />
+              </v-card-text>
+
               <v-card-actions>
                 <v-spacer />
                 <v-btn
@@ -78,82 +82,38 @@
                   Salvar
                 </v-btn>
               </v-card-actions>
-            </v-alert>
+            </v-card>
           </div>
-          <v-card>
-            <v-card-title>
-              <v-text-field
-                v-model="search"
-                append-icon="mdi-magnify"
-                label="Filtrar"
-                single-line
-                hide-details
-              />
-            </v-card-title>
-            <v-data-table
-              :headers="headers"
-              :items="desserts"
-              :search="search"
-              mobile-breakpoint="600"
-              no-data-text="Nenhuma Raça de Touro Encontrada"
-              no-results-text="Nada encontrado"
-            >
-              <!-- eslint-disable-next-line vue/v-slot-style -->
-              <!-- eslint-disable-next-line vue/valid-v-slot -->
-              <template #item.actions="{ item }">
-                <v-btn
-                  class="mx-1"
-                  fab
-                  small
-                  color="primary"
-                  title="Editar Raça de Touro"
-                  @click="editTouro(item)"
-                >
-                  <v-icon dark>
-                    mdi-pencil
-                  </v-icon>
-                </v-btn>
-                <v-btn
-                  class="mx-1"
-                  fab
-                  small
-                  color="error"
-                  title="Remover Raça de Touro"
-                  @click="deleteTouro"
-                >
-                  <v-icon dark>
-                    mdi-delete
-                  </v-icon>
-                </v-btn>
-              </template>
-            </v-data-table>
-          </v-card>
+        </v-form>
 
-          <!-- <v-row v-if="viewList"> -->
-          <!-- <v-col cols="10">
-              <v-autocomplete
-                v-model="form"
-                :items="racasTouro"
-                @click:clear="limpar()"
-                label="Raça do Touro"
-                required
-                class="mt-4 pa-2 teal--text"
-                clearable
-                outlined
-                hide-details
-                flat
-                return-object
-              />
-            </v-col> -->
-          <!-- <v-col class="d-flex align-center">
+        <v-card>
+          <v-card-title>
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Filtrar"
+              single-line
+              hide-details
+            />
+          </v-card-title>
+          <v-data-table
+            :headers="headers"
+            :items="desserts"
+            :search="search"
+            mobile-breakpoint="600"
+            no-data-text="Nenhuma Raça de Touro Encontrada"
+            no-results-text="Nada encontrado"
+          >
+            <!-- eslint-disable-next-line vue/v-slot-style -->
+            <!-- eslint-disable-next-line vue/valid-v-slot -->
+            <template #item.actions="{ item }">
               <v-btn
                 class="mx-1"
                 fab
                 small
                 color="primary"
                 title="Editar Raça de Touro"
-                :disabled="this.form.descricao == ''"
-                @click="editTouro"
+                @click="editTouro(item)"
               >
                 <v-icon dark>
                   mdi-pencil
@@ -165,16 +125,15 @@
                 small
                 color="error"
                 title="Remover Raça de Touro"
-                :disabled="this.form.descricao == ''"
-                @click="deleteTouro"
+                @click="deleteTouro(item)"
               >
                 <v-icon dark>
                   mdi-delete
                 </v-icon>
-              </v-btn> -->
-          <!-- </v-col> -->
-          <!-- </v-row> -->
-        </v-form>
+              </v-btn>
+            </template>
+          </v-data-table>
+        </v-card>
       </v-col>
     </v-card>
 
@@ -246,9 +205,11 @@ export default {
     desserts: [],
 
     form: {
+      _id: "",
       active: true,
       descricao: "",
     },
+    label: "",
 
     salvar: false,
     editar: false,
@@ -310,16 +271,14 @@ export default {
         const response = await DadosBasicosServices.getRacasTourosApi();
         if (response.status == 200) {
           let result = response.data;
-
           result = mixinUtils.methods.orderBy(result);
+
+          console.log(result);
 
           const value = result.map((raca) => ({
             value: raca._id,
             text: raca.descricao,
           }));
-
-          // this.racasTouro = [];
-          // this.racasTouro = value;
 
           this.$store.commit("SET_DATA_RACAS_TOURO", value);
 
@@ -347,12 +306,23 @@ export default {
     },
 
     async deleteConfirm() {
-      let id = this.form.value;
+      console.log(this.form);
 
-      let response = await this.$store.dispatch("deleteDadosRacasTouro", id);
-      if (response.status == 200) {
-        this.dialog = false;
-        return this.updateSuccess();
+      try {
+        const response = await DadosBasicosServices.deleteRacasTourosApi(
+          this.form._id
+        );
+        console.log(response);
+        if (response.status == 200) {
+          this.getRacasTouro();
+          mixinUtils.methods.messageSwalToast("success", response.data.message);
+          this.dialog = false;
+          return true;
+        }
+        //Função de Mixins
+        return mixinUtils.methods.messageSwalToast("error", response.message);
+      } catch (error) {
+        return mixinUtils.methods.messageSwalToast("error", error.data.message);
       }
     },
 
@@ -366,6 +336,7 @@ export default {
       this.salvar = false;
       this.editar = false;
       this.viewList = true;
+      this.label = "";
     },
 
     // parserDataStore() {
@@ -373,13 +344,15 @@ export default {
     // },
 
     inserirTouro() {
-      this.openInput = true;
+      this.label = "Inserir Nova Raça";
+      this.openInput = !this.openInput;
       this.salvar = true;
       this.viewList = false;
     },
 
     editTouro(value) {
-      this.openInput = true;
+      this.label = "Editar Raça";
+      this.openInput = !this.openInput;
       this.editar = true;
       this.viewList = false;
 
@@ -390,9 +363,10 @@ export default {
       };
     },
 
-    deleteTouro() {
+    deleteTouro(value) {
       this.dialog = !this.dialog;
       this.deletarDescricao = this.form.text;
+      this.form._id = value;
     },
   },
 };

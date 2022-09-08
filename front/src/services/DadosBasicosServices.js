@@ -54,15 +54,18 @@ export default {
 
   async deleteRacasTourosApi(id) {
     try {
-      const result = await ApiAxios()
+      const response = await ApiAxios()
         .delete(URL_API.concat("/racastouro/delete"), { params: { id } })
         .then((response) => response)
         .catch((error) => error.response.data);
 
-      return result;
-    } catch (erro) {
-      console.log(erro);
-      return erro;
+      return response;
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        return err.response;
+      } else err.request;
+      return err;
     }
   },
 };

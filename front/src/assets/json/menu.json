@@ -23,7 +23,7 @@
         "id": 41,
         "title": "Gerenciar Usuários",
         "icon": "mdi-account-multiple",
-        "to": "/usuarios/listausuarios"
+        "to": "/usuarios/gerenciar"
       },
       {
         "id": 42,

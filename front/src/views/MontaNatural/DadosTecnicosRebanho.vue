@@ -121,7 +121,6 @@
             <v-row class="d-flex justify-end mt-6">
               <div class="form-group">
                 <v-btn
-                  outlined
                   color="error"
                   class="mr-4"
                   @click="resetValidation"
@@ -130,8 +129,7 @@
                 </v-btn>
 
                 <v-btn
-                  outlined
-                  color="success"
+                  color="primary"
                   class="mr-4"
                   :disabled="!valid"
                   @click="validate"

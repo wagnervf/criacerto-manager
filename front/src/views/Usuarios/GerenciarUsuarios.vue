@@ -146,14 +146,14 @@
 
 <script>
 import UsuariosServices from "@/services/UsuariosServices";
+import mixinUtils from "../../mixins/mixin-utils";
 
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default {
+  mixins: [mixinUtils],
   components: {},
-
   props: {},
-
   data: () => ({
     active: [],
     open: [],
@@ -206,7 +206,6 @@ export default {
 
   watch: {
     "formRegister.admin"() {
-      //if (this.ultimoEstadoSalvar != value) {
       this.openSalvar = true;
       //  }
     },
@@ -239,18 +238,23 @@ export default {
 
         if (response.status != 200) {
           // Erro na atualização do usuário
-          return this.setMessage(response.data.message, true, "error");
+          return mixinUtils.methods.messageSwalToast(
+            "error",
+            response.data.message
+          );
         }
-        this.setMessage(
+        mixinUtils.methods.messageSwalToast(
           "success",
-          "Finalizado!",
           "Usuário atualizado sucesso!"
         );
 
         await pause(1000);
         this.$router.go();
       } catch (error) {
-        return this.setMessage("error", "Erro", error.data.message);
+        return mixinUtils.methods.messageSwalToast(
+          "error",
+          "Tente novamentemais tarde! " + error.data.message
+        );
       }
     },
 
@@ -272,12 +276,10 @@ export default {
     async getUsuarios() {
       try {
         const response = await UsuariosServices.getListaUsuarios();
-        console.log(response);
 
         if (typeof response == "undefined" || response.status != 200) {
-          return this.setMessage(
+          return mixinUtils.methods.messageSwalToast(
             "error",
-            "Lista de Usuários",
             "Não foi possível carregar os usuários, tente novamente mais tarde!"
           );
         }
@@ -286,31 +288,15 @@ export default {
         await pause(1000);
         this.usuarios = response.data;
       } catch (error) {
-        return this.setMessage("error", "Lista de Usuários", error);
+        return mixinUtils.methods.messageSwalToast(
+          "error",
+          "Não foi possível carregar os usuários, tente novamente mais tarde!"
+        );
       }
     },
 
-    // async formAddUser() {
-    //   this.$router.push({ name: "Novo Usuario" });
-    // },
-
-    // editarUsuario() {
-    //   this.usuarioEditado = { ...this.selecionado };
-    //   const link = { name: "Novo Usuario", params: this.usuarioEditado };
-    //   this.$router.push(link);
-    // },
-
     atualizaLista() {
       this.selecionado = [];
-    },
-
-    setMessage(type, title, message) {
-      return this.$notify({
-        group: "foo",
-        type: type,
-        title: title,
-        text: message,
-      });
     },
   },
 };
