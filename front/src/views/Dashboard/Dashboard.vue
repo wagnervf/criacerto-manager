@@ -1,5 +1,29 @@
 <template>
-  <v-container fluid>
+  <div
+    class="text-center justify-center"
+    v-if="loading"
+  >
+    <v-dialog
+      v-model="loading"
+      width="650"
+      class="text-center justify-center"
+      :scrollable="false"
+    >
+      <v-progress-circular
+        :size="500"
+        :width="30"
+        color="primary"
+        indeterminate
+      >
+        <h3>Carregando...</h3>
+      </v-progress-circular>
+    </v-dialog>
+  </div>
+
+  <v-container
+    fluid
+    v-else
+  >
     <div class="dashboard-page">
       <v-row class="pa-0 my-2">
         <dashboardFilterVue />
@@ -64,6 +88,13 @@
     </div>
   </v-container>
 </template>
+<style>
+.v-dialog {
+  height: 650px;
+  box-shadow: none !important;
+  -webkit-box-shadow: nome !important;
+}
+</style>
 
 <script>
 import mixinUtils from "../../mixins/mixin-utils";
@@ -89,7 +120,12 @@ export default {
     dashboardTableTodasSimulacoes,
   },
   data() {
-    return {};
+    return {
+      loading: true,
+    };
+  },
+  beforeDestroy() {
+    clearInterval(this.interval);
   },
 
   mounted() {
@@ -98,6 +134,7 @@ export default {
 
     setTimeout(() => {
       this.getData();
+      this.loading = false;
     }, 1000);
   },
 

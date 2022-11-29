@@ -1,126 +1,23 @@
-/* eslint-disable vue/no-v-text-v-html-on-component */
 <template>
-  <v-expansion-panels
-    focusable
-    v-model="panel"
-  >
-    <v-expansion-panel>
-      <v-toolbar
-        color="blue-grey"
-        dark
-        dense
-        flat
-      >
-        <v-toolbar-title> Informações </v-toolbar-title>
-      </v-toolbar>
-
-      <v-expansion-panel-header class="pl-3">
-        <v-list-item>
-          <v-list-item-avatar
-            color="blue-grey"
-            size="56"
-          >
-            <v-icon color="white">
-              {{ icon }}
-            </v-icon>
-          </v-list-item-avatar>
-          <v-list-item-content>
-            <v-list-item-title class="blue-grey--text">
-              {{ title }}
-            </v-list-item-title>
-            <v-list-item-subtitle class="text-wrap">
-              {{ subtitle }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-expansion-panel-header>
-      <v-expansion-panel-content>
-        <v-container
-          fluid
-          class="py-0"
-        >
-          <v-col
-            cols="12"
-            lg="12"
-            justify-center
-            flex
-          >
-            <v-toolbar
-              flat
-              color="transparent"
-            >
-              <v-toolbar-title>Parâmetros</v-toolbar-title>
-              <v-spacer />
-              <v-btn
-                :loading="loading"
-                :disabled="loading"
-                title="Atualizar lista de Parâmetros"
-                :color="color"
-                class="mx-4 white--text"
-                icon
-                @click="getDataStore"
-              >
-                <v-icon dark>
-                  {{ icone }}
-                </v-icon>
-              </v-btn>
-              <span title="download dos parametros em csv">
-                <vue-blob-json-csv
-                  tag-name="div"
-                  file-type="csv"
-                  file-name="2iatf_rt"
-                  title="download"
-                  :data="downloadItems"
-                  class="btnDownload"
-                  aria-label="download dos parametros em csv"
-                  role="button"
-                />
-              </span>
-            </v-toolbar>
-
-            <v-divider />
-
-            <v-simple-table
-              dense
-              light
-            >
-              <template #default>
-                <thead>
-                  <tr>
-                    <th class="text-left text-subtitle-1 font-weight-medium">
-                      Nome
-                    </th>
-                    <th class="text-left text-subtitle-1 font-weight-medium">
-                      Valor
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="(item, index) in parametros"
-                    :key="index"
-                  >
-                    <td>{{ index }}</td>
-                    <td>{{ item }}</td>
-                  </tr>
-                </tbody>
-              </template>
-            </v-simple-table>
-
-            <v-divider />
-          </v-col>
-        </v-container>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
-  </v-expansion-panels>
+  <simpleTableVue
+    :parametros="parametros"
+    :loading="loading"
+    :download-items="downloadItems"
+    :color="color"
+    :icone="icone"
+    :subtitle="subtitle"
+    @reloaddados="getDataStore()"
+  />
 </template>
 
 <script>
 import mixinUtils from "../../mixins/mixin-utils";
+import Iatf_2Services from "../../services/Iatf_2Services";
+import simpleTableVue from "../../components/simpleTable.vue";
 
 export default {
   mixins: [mixinUtils],
-  components: {},
+  components: { simpleTableVue },
   data: () => ({
     panel: [],
     loader: null,
@@ -135,9 +32,6 @@ export default {
   }),
 
   mounted() {
-    // Solicita ao Vuex para buscar os dados e salvar no State
-    this.$store.dispatch("getDados_2IATF");
-    //
     setTimeout(() => {
       this.getDataStore();
     }, 500);
@@ -146,10 +40,10 @@ export default {
   computed: {},
 
   methods: {
-    getDataStore() {
+    async getDataStore() {
       this.parametros = [];
       this.loader = "loading";
-      let result = this.$store.getters.getDataIatf_2RT;
+      let result = await this.getDados_2IATF();
 
       if (Object.values(result).length > 0) {
         this.parametros = result;
@@ -157,6 +51,18 @@ export default {
         this.mountDataDownload();
       } else {
         this.errorMessage();
+      }
+    },
+
+    async getDados_2IATF() {
+      try {
+        const response = await Iatf_2Services.getIatf_2Api();
+
+        // Mixins
+        return this.tratarDadosResponse(response, "SET_DATA_IATF_2");
+      } catch (error) {
+        console.log(error);
+        return mixinUtils.methods.messageSwalToast("error", error.data.message);
       }
     },
 

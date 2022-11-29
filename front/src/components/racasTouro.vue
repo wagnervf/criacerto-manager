@@ -104,7 +104,6 @@
             no-data-text="Nenhuma Raça de Touro Encontrada"
             no-results-text="Nada encontrado"
           >
-            <!-- eslint-disable-next-line vue/v-slot-style -->
             <!-- eslint-disable-next-line vue/valid-v-slot -->
             <template #item.actions="{ item }">
               <v-btn
@@ -234,6 +233,8 @@ export default {
       pal = pal.toLowerCase();
       this.form.descricao = pal[0].toUpperCase() + pal.substr(1);
 
+      console.log(this.$refs.form.validate());
+
       if (this.$refs.form.validate()) {
         if (this.salvar) {
           // Save
@@ -317,6 +318,11 @@ export default {
           this.getRacasTouro();
           mixinUtils.methods.messageSwalToast("success", response.data.message);
           this.dialog = false;
+
+          this.limpar();
+          this.desserts = [];
+          this.getRacasTouro();
+
           return true;
         }
         //Função de Mixins

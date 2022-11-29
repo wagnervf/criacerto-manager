@@ -38,7 +38,7 @@ export default {
       if (typeof this.$route.meta.breadCrumb === "function") {
         return this.$route.meta.breadCrumb.call(this, this.$route);
       }
-      console.log(this.$route.meta.breadCrumb);
+      //console.log(this.$route.meta.breadCrumb);
       return this.$route.meta.breadCrumb;
     },
   },

@@ -52,10 +52,12 @@ export default {
     }
   },
 
-  async deleteRacasTourosApi(id) {
+  async deleteRacasTourosApi(value) {
     try {
+      console.log(value);
+      let id = value.value;
       const response = await ApiAxios()
-        .delete(URL_API.concat("/racastouro/delete"), { params: { id } })
+        .delete(URL_API.concat("/racastouro/delete/").concat(id))
         .then((response) => response)
         .catch((error) => error.response.data);
 

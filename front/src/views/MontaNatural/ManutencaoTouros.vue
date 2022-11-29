@@ -1,26 +1,10 @@
 <template>
   <v-expansion-panel>
-    <v-expansion-panel-header class="pl-3">
-      <v-list-item>
-        <v-list-item-avatar
-          color="teal"
-          size="56"
-        >
-          <v-icon color="white">
-            {{ icon }}
-          </v-icon>
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title class="teal--text text-wrap">
-            {{ title }}
-          </v-list-item-title>
-
-          <v-list-item-subtitle class="text-wrap">
-            {{ subtitle }}
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-    </v-expansion-panel-header>
+    <headerExpansionVue
+      :title="title"
+      :icon="icon"
+      :subtitle="subtitle"
+    />
     <v-expansion-panel-content>
       <v-container
         fluid
@@ -148,9 +132,12 @@
 
 <script>
 import mixinUtils from "../../mixins/mixin-utils";
+import headerExpansionVue from "../../components/headerExpansion.vue";
 
 export default {
   mixins: [mixinUtils],
+  components: { headerExpansionVue },
+
   name: "ManutencaoTourosMontaNatural",
   data: () => ({
     valid: true,
@@ -186,7 +173,7 @@ export default {
   },
   computed: {
     parametros() {
-      return this.$store.getters.getDataIatfRT;
+      return this.$store.getters.getDataMontaNatural;
     },
   },
   methods: {

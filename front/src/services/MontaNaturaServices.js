@@ -11,7 +11,6 @@ export default {
   async getMontaNaturalApi() {
     try {
       const response = await ApiAxios().get(URL.concat("/find"));
-      console.log(response);
 
       return response;
     } catch (err) {

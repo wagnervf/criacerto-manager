@@ -168,7 +168,7 @@ vida_util_touro:
 
 
 ------------ IATF -------------
-"_id": "62ba664cf587219e3f3a7824",
+    "_id": "62ba664cf587219e3f3a7824",
     "active": 0,
     "aluguel_pasto": 2500,
     "code": "ef176d19-3524-4bb5-8440-dc3b9ea535de",
@@ -958,3 +958,9 @@ racasTouro: [
       "vida_util_touro": "6",
     }
 }
+
+Restore Backup Bson
+docker exec cria-certo_database_1 mongorestore --port 27017 --db cria-certo --collection users /home/users.bson
+docker exec cria-certo_database_1 mongorestore --port 27017 --db cria-certo --collection simulations /home/simulations.bson
+docker exec cria-certo_database_1 mongorestore --port 27017 --db cria-certo --collection racasTouro /home/racasTouro.bson
+docker exec cria-certo_database_1 mongorestore --port 27017 --db cria-certo --collection pin /home/pin.bson

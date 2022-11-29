@@ -1,23 +1,30 @@
 import ApiAxios from "./ApiAxios";
 // import { AuthStr } from "../Core/tokenConnectServices";
 
-const apiIATF = "/iatf/";
+const URL_API = process.env.VUE_APP_URL_API;
+const URL_IATF = process.env.VUE_APP_URL_IATF;
+
+const URL = URL_API + URL_IATF;
 
 export default {
   async getIatfApi() {
     try {
-      const response = await ApiAxios().get(apiIATF.concat("find"));
+      const response = await ApiAxios().get(URL.concat("/find"));
 
       return response;
-    } catch (error) {
-      return error.response.data;
+    } catch (err) {
+      console.log(err);
+      if (err.response) {
+        return err.response;
+      } else err.request;
+      return err;
     }
   },
 
   async updateIatfApi(dados) {
     try {
       const result = await ApiAxios()
-        .put(apiIATF.concat("update"), dados)
+        .put(URL.concat("/update"), dados)
         .then((response) => response)
         .catch((error) => error);
 

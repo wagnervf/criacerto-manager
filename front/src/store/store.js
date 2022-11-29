@@ -171,21 +171,6 @@ export default new Vuex.Store({
       }
     },
 
-    async getDadosIATF({ commit }) {
-      try {
-        const response = await IatfServices.getIatfApi();
-        if (response.status == 200) {
-          const result = response.data[0];
-
-          return commit("SET_DATA_IATF", result);
-        }
-        return mixinUtils.methods.messageErrorRequestApi();
-      } catch (error) {
-        console.log(error);
-        return mixinUtils.methods.messageErrorRequestApi();
-      }
-    },
-
     async updateDadosIATF({ commit }, value) {
       try {
         const response = await IatfServices.updateIatfApi(value);
@@ -207,20 +192,6 @@ export default new Vuex.Store({
       }
     },
 
-    async getDados_2IATF({ commit }) {
-      try {
-        const response = await Iatf_2Services.getIatf_2Api();
-        if (response.status == 200) {
-          const result = response.data[0];
-          return commit("SET_DATA_IATF_2", result);
-        }
-        return mixinUtils.methods.messageErrorRequestApi();
-      } catch (error) {
-        console.log(error);
-        return mixinUtils.methods.messageErrorRequestApi();
-      }
-    },
-
     async updateDados_2IATF({ commit }, value) {
       try {
         const response = await Iatf_2Services.updateIatf_2Api(value);
@@ -237,20 +208,6 @@ export default new Vuex.Store({
         return mixinUtils.methods.messageSucessUpdateApi();
       } catch (error) {
         return mixinUtils.methods.updateError(error.response.data);
-      }
-    },
-
-    async getDados_3IATF({ commit }) {
-      try {
-        const response = await Iatf_3Services.getIatf_3Api();
-        if (response.status == 200) {
-          const result = response.data[0];
-          return commit("SET_DATA_IATF_3", result);
-        }
-        return mixinUtils.methods.messageErrorRequestApi();
-      } catch (error) {
-        console.log(error);
-        return mixinUtils.methods.messageErrorRequestApi();
       }
     },
 

@@ -1,26 +1,11 @@
 <template>
   <v-expansion-panel>
-    <v-expansion-panel-header class="pl-3">
-      <v-list-item>
-        <v-list-item-avatar
-          color="teal"
-          size="56"
-        >
-          <v-icon color="white">
-            {{ icon }}
-          </v-icon>
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title class="teal--text text-wrap">
-            {{ title }}
-          </v-list-item-title>
+    <headerExpansionVue
+      :title="title"
+      :icon="icon"
+      :subtitle="subtitle"
+    />
 
-          <v-list-item-subtitle class="text-wrap">
-            {{ subtitle }}
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-    </v-expansion-panel-header>
     <v-expansion-panel-content>
       <v-container
         fluid
@@ -121,6 +106,7 @@
             <v-row class="d-flex justify-end mt-6">
               <div class="form-group">
                 <v-btn
+                  outlined
                   color="error"
                   class="mr-4"
                   @click="resetValidation"
@@ -129,6 +115,7 @@
                 </v-btn>
 
                 <v-btn
+                  outlined
                   color="primary"
                   class="mr-4"
                   :disabled="!valid"
@@ -147,9 +134,12 @@
 
 <script>
 import mixinUtils from "../../mixins/mixin-utils";
+import headerExpansionVue from "../../components/headerExpansion.vue";
 
 export default {
   mixins: [mixinUtils],
+  components: { headerExpansionVue },
+
   name: "ViewDadosTecnicosRebanhoMonta",
   data: () => ({
     valid: true,

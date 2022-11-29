@@ -203,5 +203,18 @@ export default {
 
       return Object.values(meses);
     },
+
+    tratarDadosResponse(response, commit) {
+      if (response.status == 200) {
+        const result = response.data.data;
+        this.$store.commit(commit, result);
+
+        this.messageSwalToast("success", response.data.message);
+
+        return result;
+      }
+
+      return this.messageSwalToast("error", response.data.message);
+    },
   },
 };

@@ -20,7 +20,7 @@
             <v-app-bar-title class="ma-6 text-h4 font-weight-black">
               Simulações
               <p class="white--text caption">
-                Listagem de todas as Simulações do Cria Certo
+                Listagem dos parâmetros de todas as Simulações do Cria Certo
               </p>
             </v-app-bar-title>
 
