@@ -52,39 +52,11 @@ sudo systemctl restart mongod
 
 
 
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTE3ZDYxM2E4MjljYjZhNTJkNDBlNjAiLCJuYW1lIjoiU3IuIFRlc3RlIiwiZW1haWwiOiJ0ZXN0ZUBnbWFpbC5jb20iLCJpYXQiOjE2Mjg5NTIwODR9.f_Oluy7CsCYVc4-xh2ibZXt8pe5-zQveqRQ2-syf4YM
 
 
 
 
 
-
-
-
-website: "hildegard.org"
-
-https://www.bezkoder.com/node-express-vue-jwt-auth/
-https://www.bezkoder.com/node-js-jwt-authentication-mysql/
-https://dev.to/kevin_odongo35/mongodb-express-vue-and-node-2cml 
-https://www.bezkoder.com/vue-node-express-mongodb-mevn-crud/
-
-
-
-
-
-
-00109642155
-
-
-Dentro de 
-/home/wagner/Develop/projects/vue-node/backend
-
- - docker-compose -f mongodb.docker-compose.yml up -d
- - docker start mongo-criacerto
-
-
--  docker build -f node.dockerfile -t wagnerfreiria/node .
-    Verificar os erros no npm install por causa das depência no package.json
 
 
 
@@ -959,8 +931,3 @@ racasTouro: [
     }
 }
 
-Restore Backup Bson
-docker exec cria-certo_database_1 mongorestore --port 27017 --db cria-certo --collection users /home/users.bson
-docker exec cria-certo_database_1 mongorestore --port 27017 --db cria-certo --collection simulations /home/simulations.bson
-docker exec cria-certo_database_1 mongorestore --port 27017 --db cria-certo --collection racasTouro /home/racasTouro.bson
-docker exec cria-certo_database_1 mongorestore --port 27017 --db cria-certo --collection pin /home/pin.bson
