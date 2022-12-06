@@ -119,3 +119,4 @@ backend/volumes/journal/WiredTigerPreplog.0000000002
 
 ./front/src/services/ApiAxios.js
 front/src/services/ApiAxios.js
+aws
