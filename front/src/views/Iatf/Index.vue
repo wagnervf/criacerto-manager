@@ -8,29 +8,11 @@
         justify-center
         flex
       >
-        <v-card class="mx-auto">
-          <v-toolbar
-            class="pl-6 my-1"
-            color="teal"
-            elevation="0"
-            prominent
-            shrink-on-scroll
-            dark
-          >
-            <v-app-bar-title class="ma-6 text-h4 font-weight-black">
-              IATF + RT
-              <p class="white--text caption">
-                Subtítulo da IATF RT
-              </p>
-            </v-app-bar-title>
+        <titleToolbarListTealVue
+          :title="title"
+          :subtitle="subtitle"
+        />
 
-            <v-spacer />
-
-            <v-btn icon>
-              <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
-          </v-toolbar>
-        </v-card>
         <v-expansion-panels
           focusable
           v-model="panel"
@@ -66,6 +48,7 @@ import RepasseTouroVue from "./RepasseTouro";
 import AquisicaoTourosVue from "./AquisicaoTouro";
 import ManutencaoTouroVue from "./ManutencaoTouro.vue";
 import ListaDadosVue from "./ListaDados.vue";
+import titleToolbarListTealVue from "../../components/titleToolbarListTeal.vue";
 
 export default {
   name: "ViewIATFRT",
@@ -76,11 +59,14 @@ export default {
     AquisicaoTourosVue,
     ManutencaoTouroVue,
     ListaDadosVue,
+    titleToolbarListTealVue,
   },
   data: () => ({
     panel: [],
     search: null,
     meta: null,
+    subtitle: "Listagem dos parâmetros do IATF + RT",
+    title: "IATF + RT",
   }),
 
   computed: {

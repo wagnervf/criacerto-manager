@@ -8,29 +8,10 @@
         justify-center
         flex
       >
-        <v-card class="mx-auto">
-          <v-toolbar
-            class="pl-6 my-1"
-            color="teal"
-            elevation="0"
-            prominent
-            shrink-on-scroll
-            dark
-          >
-            <v-app-bar-title class="ma-6 text-h4 font-weight-black">
-              3 IATF
-              <p class="white--text caption">
-                Subtítulo da 3 IATF
-              </p>
-            </v-app-bar-title>
-
-            <v-spacer />
-
-            <v-btn icon>
-              <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
-          </v-toolbar>
-        </v-card>
+        <titleToolbarListTealVue
+          :title="title"
+          :subtitle="subtitle"
+        />
         <v-expansion-panels
           focusable
           v-model="panel"
@@ -69,6 +50,7 @@ import AquisicaoSemenProtocolo_1IATFVue from "./AquisicaoSemenProtocolo_1IATF";
 import AquisicaoSemenProtocolo_2IATFVue from "./AquisicaoSemenProtocolo_2IATF";
 import AquisicaoSemenProtocolo_3IATFVue from "./AquisicaoSemenProtocolo_3IATF";
 import ListaDadosVue from "./ListaDados.vue";
+import titleToolbarListTealVue from "../../components/titleToolbarListTeal.vue";
 export default {
   name: "View3IATF",
   components: {
@@ -79,11 +61,14 @@ export default {
     AquisicaoSemenProtocolo_2IATFVue,
     AquisicaoSemenProtocolo_3IATFVue,
     ListaDadosVue,
+    titleToolbarListTealVue,
   },
   data: () => ({
     panel: [],
     search: null,
     meta: null,
+    subtitle: "Listagem dos parâmetros do 3 IATF",
+    title: "3 IATF",
   }),
 
   computed: {

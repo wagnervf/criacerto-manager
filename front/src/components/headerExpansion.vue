@@ -5,13 +5,14 @@
         <v-list-item-avatar
           color="teal"
           size="56"
+          class="d-none d-sm-flex"
         >
           <v-icon color="white">
             {{ icon }}
           </v-icon>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title class="teal--text">
+          <v-list-item-title class="teal--text text-wrap">
             {{ title }}
           </v-list-item-title>
 

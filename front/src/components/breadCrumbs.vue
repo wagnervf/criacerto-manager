@@ -7,16 +7,14 @@
       <template #item="{ item }">
         <v-breadcrumbs-item
           :to="item.to"
-          class="text-subtitle-2 crumb-item teal--text"
+          class="text-subtitle-2 crumb-item teal--text pa-0"
           :disabled="item.disabled"
           exact
         >
           <v-icon class="text-h5 pr-2 teal--text">
             {{ item.icon }}
           </v-icon>
-          <span class="text-sm-caption">
-            {{ item.text }}
-          </span>
+          <span class="text-sm-caption pa-0"> {{ item.text }} </span>
         </v-breadcrumbs-item>
       </template>
       <template #divider>
@@ -39,14 +37,11 @@ export default {
         return this.$route.meta.breadCrumb.call(this, this.$route);
       }
       //console.log(this.$route.meta.breadCrumb);
+      //return window.history.back();
       return this.$route.meta.breadCrumb;
     },
   },
 };
 </script>
 
-<style scope>
-.v-breadcrumbs__item li a {
-  font-size: 10px !important;
-}
-</style>
+<style scope></style>

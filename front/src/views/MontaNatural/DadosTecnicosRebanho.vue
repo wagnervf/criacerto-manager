@@ -1,132 +1,129 @@
 <template>
-  <v-expansion-panel>
+  <v-expansion-panel class="pa-0">
     <headerExpansionVue
       :title="title"
       :icon="icon"
       :subtitle="subtitle"
     />
 
-    <v-expansion-panel-content>
+    <v-expansion-panel-content class="pa-0">
       <v-container
         fluid
-        class="py-0"
+        class="pa-0"
       >
-        <v-col
-          cols="12"
-          justify-center
-          flex
+        <v-form
+          ref="form"
+          v-model="valid"
+          class="pa-0 white ma-1"
+          lazy-validation
         >
-          <v-form
-            ref="form"
-            v-model="valid"
-            class="pa-0 white ma-1"
-            lazy-validation
-          >
-            <v-row>
-              <v-col justify="space-between">
-                <v-text-field
-                  v-model="form.numero_de_vacas"
-                  label="Número de Vacas a Cobrir"
-                  required
-                  class="mt-4 pa-2 teal--text"
-                  suffix="Cabeças"
-                  :rules="numero_de_vacasRules"
-                  type="number"
-                  outlined
-                />
+          <v-row>
+            <v-col
+              justify="space-between"
+              class="pa-0"
+            >
+              <v-text-field
+                v-model="form.numero_de_vacas"
+                label="Nº de Vacas a Cobrir"
+                required
+                class="mt-4 pa-2 teal--text"
+                suffix="Cabeças"
+                :rules="numero_de_vacasRules"
+                type="number"
+                outlined
+              />
 
-                <v-text-field
-                  v-model="form.numero_de_touros"
-                  label="Número de Touros"
-                  required
-                  class="mt-2 pa-2 teal--text"
-                  outlined
-                  suffix="Cabeças"
-                  :rules="numero_de_tourosRules"
-                  type="number"
-                />
+              <v-text-field
+                v-model="form.numero_de_touros"
+                label="Nº de Touros"
+                required
+                class="pa-2 teal--text"
+                outlined
+                suffix="Cabeças"
+                :rules="numero_de_tourosRules"
+                type="number"
+              />
 
-                <v-text-field
-                  v-model="form.vida_util_touro"
-                  label="Vida Últil do Touro"
-                  required
-                  class="mt-2 pa-2 teal--text"
-                  outlined
-                  suffix="Anos"
-                  :rules="vida_util_touroRules"
-                  type="number"
-                />
+              <v-text-field
+                v-model="form.vida_util_touro"
+                label="Vida Últil do Touro"
+                required
+                class="pa-2 teal--text"
+                outlined
+                suffix="Anos"
+                :rules="vida_util_touroRules"
+                type="number"
+              />
 
-                <v-text-field
-                  v-model="form.taxa_prenhez"
-                  label="Taxa de Prenhez"
-                  required
-                  class="mt-2 pa-2 teal--text"
-                  outlined
-                  suffix="%"
-                  :rules="taxa_prenhezRules"
-                  type="number"
-                />
+              <v-text-field
+                v-model="form.taxa_prenhez"
+                label="Taxa de Prenhez"
+                required
+                class="pa-2 teal--text"
+                outlined
+                suffix="%"
+                :rules="taxa_prenhezRules"
+                type="number"
+              />
 
-                <v-text-field
-                  v-model="form.taxa_mortalidade"
-                  label="Mortalidade do Nascimento à Desmama"
-                  required
-                  class="mt-2 pa-2 teal--text"
-                  outlined
-                  suffix="%"
-                  :rules="taxa_mortalidadeRules"
-                  type="number"
-                />
+              <v-text-field
+                v-model="form.taxa_mortalidade"
+                label="Mortalidade do Nascimento à Desmama"
+                required
+                class="pa-2 teal--text"
+                outlined
+                suffix="%"
+                :rules="taxa_mortalidadeRules"
+                type="number"
+              />
 
-                <v-text-field
-                  v-model="form.preco_bezerro"
-                  label="Preço kg do Bezerro"
-                  required
-                  class="mt-2 pa-2 teal--text"
-                  outlined
-                  prefix="R$"
-                  :rules="preco_bezerroRules"
-                  type="number"
-                />
+              <v-text-field
+                v-model="form.preco_bezerro"
+                label="Preço kg do Bezerro"
+                required
+                class="pa-2 teal--text"
+                outlined
+                prefix="R$"
+                :rules="preco_bezerroRules"
+                type="number"
+              />
 
-                <v-text-field
-                  v-model="form.peso_comercial"
-                  label="Peso à Desmana da Fazenda"
-                  required
-                  class="mt-2 pa-2 teal--text"
-                  outlined
-                  suffix="Kg"
-                  :rules="peso_comercialRules"
-                  type="number"
-                />
-              </v-col>
-            </v-row>
+              <v-text-field
+                v-model="form.peso_comercial"
+                label="Peso à Desmana da Fazenda"
+                required
+                class="pa-2 teal--text"
+                outlined
+                suffix="Kg"
+                :rules="peso_comercialRules"
+                type="number"
+              />
+            </v-col>
+          </v-row>
 
-            <v-row class="d-flex justify-end mt-6">
-              <div class="form-group">
-                <v-btn
-                  outlined
-                  color="error"
-                  class="mr-4"
-                  @click="resetValidation"
-                >
-                  Cancelar
-                </v-btn>
+          <v-row class="d-flex justify-end my-6">
+            <div class="form-group">
+              <v-btn
+                outlined
+                color="error"
+                class="mr-4"
+                @click="resetValidation"
+              >
+                Cancelar
+              </v-btn>
 
-                <v-btn
-                  outlined
-                  color="primary"
-                  class="mr-4"
-                  :disabled="!valid"
-                  @click="validate"
-                >
-                  Salvar
-                </v-btn>
-              </div>
-            </v-row>
-          </v-form>
-        </v-col>
+              <v-btn
+                outlined
+                color="primary"
+                class="mr-4"
+                :disabled="!valid"
+                @click="validate"
+              >
+                Salvar
+              </v-btn>
+            </div>
+          </v-row>
+        </v-form>
       </v-container>
     </v-expansion-panel-content>
   </v-expansion-panel>

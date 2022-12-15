@@ -1,33 +1,31 @@
 <template>
-  <v-expansion-panel>
+  <v-expansion-panel class="pa-0">
     <headerExpansionVue
       :title="title"
       :icon="icon"
       :subtitle="subtitle"
     />
-    <v-expansion-panel-content>
+    <v-expansion-panel-content class="pa-0">
       <v-container
         fluid
-        class="py-0"
+        class="pa-0"
       >
-        <v-col
-          cols="12"
-          lg="12"
-          justify-center
-          flex
+        <v-form
+          ref="form"
+          v-model="valid"
+          class="pa-0 white ma-1"
+          lazy-validation
         >
-          <v-form
-            ref="form"
-            v-model="valid"
-            class="pa-0 white ma-1"
-            lazy-validation
-          >
-            <v-col justify="space-between">
+          <v-row>
+            <v-col
+              justify="space-between"
+              class="pa-0"
+            >
               <v-text-field
                 v-model="form.preco_touro"
                 label="Preço de Aquisição de Touro"
                 required
-                class="mt-2 pa-2 teal--text"
+                class="mt-4 pa-2 teal--text"
                 outlined
                 type="number"
                 prefix="R$"
@@ -56,29 +54,29 @@
                 :rules="depRules"
               />
             </v-col>
+          </v-row>
 
-            <div class="d-flex justify-end mt-6">
-              <v-btn
-                outlined
-                color="error"
-                class="mr-4"
-                @click="resetValidation"
-              >
-                Cancelar
-              </v-btn>
+          <v-row class="d-flex justify-end mt-6">
+            <v-btn
+              outlined
+              color="error"
+              class="mr-4"
+              @click="resetValidation"
+            >
+              Cancelar
+            </v-btn>
 
-              <v-btn
-                outlined
-                color="success"
-                class="mr-4"
-                :disabled="!valid"
-                @click="validate"
-              >
-                Salvar
-              </v-btn>
-            </div>
-          </v-form>
-        </v-col>
+            <v-btn
+              outlined
+              color="success"
+              class="mr-4"
+              :disabled="!valid"
+              @click="validate"
+            >
+              Salvar
+            </v-btn>
+          </v-row>
+        </v-form>
       </v-container>
     </v-expansion-panel-content>
   </v-expansion-panel>

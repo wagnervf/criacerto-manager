@@ -1,15 +1,14 @@
 <template>
   <v-navigation-drawer
     id="main-sidebar"
-    v-model="Sidebar_drawer"
-    mobile-breakpoint="960"
-    :mini-variant.sync="mini"
-    width="250"
+    v-model="sideBarCustom"
+    :permanent="$vuetify.breakpoint.mdAndUp"
+    fixed
+    left
+    clipped
     app
-    permanent
-    elevation-1
   >
-    <v-list-item class="pl-2 pr-0 mr-1">
+    <v-list-item class="pl-2 pr-0 mr-1 mb-1">
       <v-list-item-avatar
         class="pr-0"
         style="cursor: pointer"
@@ -24,38 +23,18 @@
         <span class="font-weight-bold teal--text">Manager</span>
       </v-list-item-title>
 
-      <v-btn
+      <!-- <v-btn
         icon
         accesskey="m"
         @click.stop="mini = !mini"
       >
         <v-icon>mdi-chevron-left</v-icon>
-      </v-btn>
+      </v-btn> -->
     </v-list-item>
-    <v-divider />
 
     <v-divider class="pb-2" />
 
     <ListSidebar />
-
-    <v-footer
-      justify-end
-      absolute
-      end
-    >
-      <v-list-item class="px-0">
-        <v-spacer />
-        <v-divider />
-        <v-list-item-title>
-          <span
-            style="font-size: 10px"
-            class="text-center wrap"
-          >
-            Cria Certo Manager&copy; {{ new Date().getFullYear() }}
-          </span>
-        </v-list-item-title>
-      </v-list-item>
-    </v-footer>
   </v-navigation-drawer>
 </template>
 
@@ -76,7 +55,7 @@ export default {
     },
   },
   data: () => ({
-    drawer: true,
+    drawer: null,
     mini: true,
   }),
 
@@ -89,6 +68,10 @@ export default {
       set(val) {
         this.$store.commit("SET_SIDEBAR_DRAWER", val);
       },
+    },
+
+    sideBarCustom() {
+      return this.$store.state.openSideBar;
     },
   },
   watch: {

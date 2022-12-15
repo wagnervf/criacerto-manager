@@ -1,28 +1,133 @@
 <template>
   <v-container
     fluid
-    class="pa-0"
+    class="pa-0 white"
   >
-    <v-row
-      no-gutters
-      class="grey lighten-4 ma-0"
+    <v-card
+      class="pa-0 white"
+      elevation="1"
+      style="border-radius: 0px"
     >
-      <v-col
-        md="8"
-        xs="12"
-        sm="12"
-        class="col-xs-12 py-0"
+      <v-row
+        no-gutters
+        class="ma-0 white"
       >
-        <v-breadcrumbs :items="rotas">
+        <v-col class="py-0 text-left col-6">
+          <v-list-item class="pa-2 d-flex d-sm-none">
+            <v-btn
+              icon
+              @click.stop="openMenu()"
+            >
+              <v-icon class="px-2 teal--text">
+                mdi-menu
+              </v-icon>
+            </v-btn>
+            <v-list-item-title>
+              Cria Certo
+              <span class="font-weight-bold teal--text">Manager</span>
+            </v-list-item-title>
+          </v-list-item>
+        </v-col>
+
+        <v-col class="py-0 text-rigth col-6">
+          <v-menu
+            offset-y
+            tabindex="1"
+            transition="scale-transition"
+            title="Menu de ações do usuário"
+          >
+            <template #activator="{ on }">
+              <v-tooltip bottom>
+                <template #activator="{ on: tooltip }">
+                  <v-list
+                    flat
+                    style="height: 60px"
+                    class="white mx-0"
+                  >
+                    <v-list-item
+                      link
+                      v-on="{ ...tooltip, ...on }"
+                      class="ma-0"
+                    >
+                      <v-list-item-content
+                        accesskey="u"
+                        class="inline-block mx-0"
+                      >
+                        <v-list-item-subtitle class="text-right mx-0">
+                          {{ user.name }}
+                        </v-list-item-subtitle>
+                        <!-- <v-list-item-subtitle>
+                        {{ user.email }}
+                      </v-list-item-subtitle> -->
+                      </v-list-item-content>
+                      <v-icon>mdi-menu-down</v-icon>
+                    </v-list-item>
+                  </v-list>
+                </template>
+                <span>Menu de ações do usuário</span>
+              </v-tooltip>
+            </template>
+
+            <v-list dense>
+              <v-list-item
+                v-for="item in userprofile"
+                :key="item.title"
+                :active-class="`teal--text`"
+                class="px-2"
+                link
+                router
+                :to="item.to"
+                dense
+              >
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <v-icon class="px-2">
+                      {{ item.icon }}
+                    </v-icon>
+                    {{ item.title }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-divider />
+              <v-list-item
+                dense
+                link
+                class="px-2 teal--text"
+                tabindex="2"
+                @click="logout"
+              >
+                <v-list-item-content>
+                  <v-list-item-title>
+                    <v-icon class="px-2 teal--text">
+                      mdi-logout
+                    </v-icon>
+                    Sair
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-col>
+      </v-row>
+    </v-card>
+
+    <v-row class="ma-0 grey lighten-4">
+      <v-col class="col-12 py-0 grey lighten-4 t">
+        <v-breadcrumbs
+          :items="rotas"
+          divider=">"
+          class="justify-end text-righ mr-2"
+        >
           <template #item="{ item }">
             <v-breadcrumbs-item
               v-if="item.text == 'Início'"
               :href="item.href"
-              class="teal--text"
+              class="teal--text px-0 text-sm-caption"
             >
               <v-icon class="mx-0">
                 mdi-home
               </v-icon>
+
               <!-- {{ item.text }} -->
             </v-breadcrumbs-item>
 
@@ -30,96 +135,12 @@
               v-else
               :href="item.href"
               :disabled="item.disabled"
-              class="text-wrap text-sm-caption"
+              class="text-wrap text-xs-caption ma-0 pa-0"
             >
               {{ item.text }}
             </v-breadcrumbs-item>
           </template>
         </v-breadcrumbs>
-      </v-col>
-
-      <v-col
-        class="py-0 text-sm-center text-xs-center text-md-rigth col-xs-12"
-        md="4"
-        xs="12"
-        sm="12"
-      >
-        <v-menu
-          offset-y
-          tabindex="1"
-          transition="scale-transition"
-          title="Menu de ações do usuário"
-        >
-          <template #activator="{ on }">
-            <v-tooltip bottom>
-              <template #activator="{ on: tooltip }">
-                <v-list
-                  flat
-                  color="grey lighten-4"
-                  style="height: 60px"
-                >
-                  <v-list-item
-                    link
-                    v-on="{ ...tooltip, ...on }"
-                  >
-                    <v-list-item-content
-                      accesskey="u"
-                      class="inline-block"
-                    >
-                      <v-list-item-subtitle class="text-right">
-                        {{ user.name }}
-                      </v-list-item-subtitle>
-                      <!-- <v-list-item-subtitle>
-                        {{ user.email }}
-                      </v-list-item-subtitle> -->
-                    </v-list-item-content>
-                    <v-icon>mdi-menu-down</v-icon>
-                  </v-list-item>
-                </v-list>
-              </template>
-              <span>Menu de ações do usuário</span>
-            </v-tooltip>
-          </template>
-
-          <v-list dense>
-            <v-list-item
-              v-for="item in userprofile"
-              :key="item.title"
-              :active-class="`teal--text`"
-              class="px-2"
-              link
-              router
-              :to="item.to"
-              dense
-            >
-              <v-list-item-content>
-                <v-list-item-title>
-                  <v-icon class="px-2">
-                    {{ item.icon }}
-                  </v-icon>
-                  {{ item.title }}
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            <v-divider />
-            <v-list-item
-              dense
-              link
-              class="px-2 teal--text"
-              tabindex="2"
-              @click="logout"
-            >
-              <v-list-item-content>
-                <v-list-item-title>
-                  <v-icon class="px-2 teal--text">
-                    mdi-logout
-                  </v-icon>
-                  Sair
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-menu>
       </v-col>
     </v-row>
   </v-container>
@@ -150,17 +171,10 @@ export default {
       email: "",
     },
 
-    breadcrumbs: [],
-
-    // href() {
-    //   return undefined;
-    // },
+    drawer: null,
   }),
 
-  created() {
-    // this.breadcrumbs = this.rotas();
-    // console.log(this.$route.meta.breadCrumb);
-  },
+  created() {},
 
   mounted() {
     this.getUserLocalStorage();
@@ -200,6 +214,10 @@ export default {
       localStorage.removeItem("userLogged");
       this.$router.push({ name: "login" });
     },
+
+    openMenu() {
+      this.$store.commit("SET_SIDEBAR_CUSTOM", (this.drawer = !this.drawer));
+    },
   },
 };
 </script>
@@ -218,5 +236,13 @@ export default {
   .v-toolbar__content {
     height: 1px !important;
   }
+}
+
+.v-breadcrumbs {
+  padding: 4px !important;
+}
+
+.v-breadcrumbs li {
+  font-size: 12px !important;
 }
 </style>

@@ -50,3 +50,11 @@
   .btnDownload:hover {
     background-color: #ebf7f6!important;
   }
+
+
+  .v-toolbar--prominent {
+    height: auto !important;
+  }
+  .v-toolbar__content {
+    height: auto !important;
+  }

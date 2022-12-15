@@ -4,16 +4,19 @@
 
     <SidebarComponent />
 
-    <v-main class="grey lighten-4 pa-4">
+    <v-main class="grey lighten-4 pa-0">
       <router-view />
     </v-main>
+
+    <FooterComponent />
   </v-app>
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+//import { mapState, mapMutations } from "vuex";
 import HeaderComponent from "./Header";
 import SidebarComponent from "./Sidebar";
+import FooterComponent from "./Footer.vue";
 
 export default {
   name: "LayoutDefault",
@@ -21,20 +24,21 @@ export default {
   components: {
     HeaderComponent,
     SidebarComponent,
+    FooterComponent,
   },
 
   props: {
-    source: String,
+    // source: String,
   },
   data: () => ({}),
-  computed: {
-    ...mapState(["Customizer_drawer"]),
-  },
+  // computed: {
+  //   ...mapState(["Customizer_drawer"]),
+  // },
 
-  methods: {
-    ...mapMutations({
-      setCustomizerDrawer: "SET_CUSTOMIZER_DRAWER",
-    }),
-  },
+  // methods: {
+  //   ...mapMutations({
+  //     setCustomizerDrawer: "SET_CUSTOMIZER_DRAWER",
+  //   }),
+  //},
 };
 </script>

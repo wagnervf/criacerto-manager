@@ -8,29 +8,11 @@
         justify-center
         flex
       >
-        <v-card class="mx-auto">
-          <v-toolbar
-            class="pl-6 my-1"
-            color="teal"
-            elevation="0"
-            prominent
-            shrink-on-scroll
-            dark
-          >
-            <v-app-bar-title class="ma-6 text-h4 font-weight-black">
-              2 IATF + RT
-              <p class="white--text caption">
-                Subtítulo da IATF RT
-              </p>
-            </v-app-bar-title>
+        <titleToolbarListTealVue
+          :title="title"
+          :subtitle="subtitle"
+        />
 
-            <v-spacer />
-
-            <v-btn icon>
-              <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
-          </v-toolbar>
-        </v-card>
         <v-expansion-panels
           focusable
           v-model="panel"
@@ -68,6 +50,7 @@ import DadosTecnicosRebanho_1IATFVue from "./DadosTecnicosRebanho_1IATF";
 import DadosTecnicosRebanho_2IATFVue from "./DadosTecnicosRebanho_2IATF";
 import AquisicaoSemenProtocolo_1IATFVue from "./AquisicaoSemenProtocolo_1IATF";
 import AquisicaoSemenProtocolo_2IATFVue from "./AquisicaoSemenProtocolo_2IATF";
+import titleToolbarListTealVue from "../../components/titleToolbarListTeal.vue";
 
 import RepasseTouroVue from "./RepasseTouro";
 import AquisicaoTourosVue from "./AquisicaoTouro";
@@ -85,11 +68,14 @@ export default {
     AquisicaoTourosVue,
     ManutencaoTouroVue,
     ListaDadosVue,
+    titleToolbarListTealVue,
   },
   data: () => ({
     panel: [],
     search: null,
     meta: null,
+    subtitle: "Listagem dos parâmetros de 2 IATF + RT",
+    title: "2 IATF + RT",
   }),
 
   computed: {

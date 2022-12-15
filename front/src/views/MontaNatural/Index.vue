@@ -7,29 +7,10 @@
         justify-center
         flex
       >
-        <v-card class="mx-auto text-wrap">
-          <v-toolbar
-            class="pl-6 my-1"
-            color="teal"
-            elevation="0"
-            prominent
-            shrink-on-scroll
-            dark
-          >
-            <h5 class="ma-6 text-h4 font-weight-black text-wrap">
-              Monta Natural
-              <p class="white--text caption">
-                Subtítulo da Monta Natural
-              </p>
-            </h5>
-
-            <v-spacer />
-
-            <v-btn icon>
-              <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
-          </v-toolbar>
-        </v-card>
+        <titleToolbarListTealVue
+          :title="title"
+          :subtitle="subtitle"
+        />
 
         <v-expansion-panels
           focusable
@@ -59,6 +40,7 @@ import DadosTecnicosRebanhoVue from "./DadosTecnicosRebanho";
 import AquisicaoTourosVue from "./AquisicaoTouros";
 import ManutecaoTourosVue from "./ManutencaoTouros";
 import ListaDadosVue from "./ListaDados.vue";
+import titleToolbarListTealVue from "../../components/titleToolbarListTeal.vue";
 
 export default {
   name: "ViewMontaNatural",
@@ -67,11 +49,14 @@ export default {
     AquisicaoTourosVue,
     ManutecaoTourosVue,
     ListaDadosVue,
+    titleToolbarListTealVue,
   },
   data: () => ({
     panel: [],
     search: null,
     meta: null,
+    subtitle: "Listagem dos parâmetros da Monta Natural",
+    title: "Monta Natural",
   }),
 
   computed: {
@@ -98,3 +83,5 @@ export default {
   },
 };
 </script>
+
+<style></style>

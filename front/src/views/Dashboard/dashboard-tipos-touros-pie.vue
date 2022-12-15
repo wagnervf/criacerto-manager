@@ -3,45 +3,50 @@
     fluid
     class="pa-0"
   >
-    <v-card class="mx-0 mb-1">
-      <v-expansion-panels
-        focusable
-        v-model="panel"
-      >
-        <v-expansion-panel>
-          <v-expansion-panel-header>
-            <h3>Tipos de Touros Simulados</h3>
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-card-text class="pa-6 pt-0">
-              <v-row class="d-flex align-center justify-center">
-                <div
-                  v-if="visivel"
-                  class="text-center pa-6"
-                >
-                  <ComponentProgress />
-                </div>
+    <v-row
+      class="ma-1"
+      style="display: contents"
+    >
+      <v-card class="ma-1">
+        <v-expansion-panels
+          focusable
+          v-model="panel"
+        >
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              <h3>Tipos de Touros Simulados</h3>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-card-text class="pa-6 pt-0">
+                <v-row class="d-flex align-center justify-center">
+                  <div
+                    v-if="visivel"
+                    class="text-center pa-6"
+                  >
+                    <ComponentProgress />
+                  </div>
 
-                <v-col
-                  v-else
-                  class="mx-auto"
-                >
-                  <ApexChart
-                    type="pie"
-                    height="380"
-                    width="100%"
-                    :options="chartOptions"
-                    :series="chartOptions.series"
-                  />
-                </v-col>
-              </v-row>
+                  <v-col
+                    v-else
+                    class="mx-auto"
+                  >
+                    <ApexChart
+                      type="pie"
+                      height="380"
+                      width="100%"
+                      :options="chartOptions"
+                      :series="chartOptions.series"
+                    />
+                  </v-col>
+                </v-row>
 
-              <cardFilteredVue />
-            </v-card-text>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-    </v-card>
+                <cardFilteredVue />
+              </v-card-text>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-card>
+    </v-row>
   </v-container>
 </template>
 

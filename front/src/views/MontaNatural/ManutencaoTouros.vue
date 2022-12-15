@@ -5,126 +5,122 @@
       :icon="icon"
       :subtitle="subtitle"
     />
-    <v-expansion-panel-content>
+    <v-expansion-panel-content class="pa-0">
       <v-container
         fluid
-        class="py-0"
+        class="pa-0"
       >
-        <v-col
-          cols="12"
-          lg="12"
-          justify-center
-          flex
+        <v-form
+          ref="form"
+          v-model="valid"
+          class="pa-0 white ma-1"
+          lazy-validation
         >
-          <v-form
-            ref="form"
-            v-model="valid"
-            class="pa-0 white ma-1"
-            lazy-validation
-          >
-            <v-row>
-              <v-col justify="space-between">
-                <v-text-field
-                  v-model="form.exame_andrologico"
-                  :rules="exame_andrologicoRules"
-                  type="number"
-                  label="Exame Andrológico"
-                  required
-                  class="mt-4 pa-2 teal--text"
-                  suffix="R$/cab/ano"
-                  outlined
-                />
-
-                <v-text-field
-                  v-model="form.aluguel_pasto"
-                  :rules="aluguel_pastoRules"
-                  type="number"
-                  label="Aluguel Pasto"
-                  required
-                  class="mt-2 pa-2 teal--text"
-                  outlined
-                  suffix="R$/cab/ano"
-                />
-
-                <v-text-field
-                  v-model="form.sal_mineral"
-                  :rules="sal_mineralRules"
-                  type="number"
-                  label="Sal Mineral"
-                  required
-                  class="mt-2 pa-2 teal--text"
-                  outlined
-                  suffix="R$/cab/ano"
-                />
-
-                <v-text-field
-                  v-model="form.racoes"
-                  :rules="racoesRules"
-                  type="number"
-                  label="Rações"
-                  required
-                  class="mt-2 pa-2 teal--text"
-                  outlined
-                  suffix="R$/cab/ano"
-                />
-
-                <v-text-field
-                  v-model="form.vacinas_vermifugos"
-                  :rules="vacinas_vermifugosRules"
-                  type="number"
-                  label="Produtos Veterinarios"
-                  required
-                  class="mt-2 pa-2 teal--text"
-                  outlined
-                  suffix="R$/cab/ano"
-                />
-
-                <v-text-field
-                  v-model="form.juros_anuais"
-                  :rules="juros_anuaisRules"
-                  type="number"
-                  label="Juros Anuais"
-                  required
-                  class="mt-2 pa-2 teal--text"
-                  outlined
-                  suffix="%"
-                />
-
-                <v-text-field
-                  v-model="form.valor_venda"
-                  :rules="valor_vendaRules"
-                  label="Valor Venda Touros"
-                  type="number"
-                  prefix="R$"
-                  required
-                  class="mt-2 pa-2 teal--text"
-                  outlined
-                />
-              </v-col>
-            </v-row>
-
-            <div class="d-flex justify-end mt-6">
-              <v-btn
+          <v-row>
+            <v-col
+              justify="space-between"
+              class="pa-0"
+            >
+              <v-text-field
+                v-model="form.exame_andrologico"
+                :rules="exame_andrologicoRules"
+                type="number"
+                label="Exame Andrológico"
+                required
+                class="mt-4 pa-2 teal--text"
+                suffix="R$/cab/ano"
                 outlined
-                color="error"
-                class="mr-4"
-                @click="resetValidation"
-              >
-                Cancelar
-              </v-btn>
+              />
 
-              <v-btn
+              <v-text-field
+                v-model="form.aluguel_pasto"
+                :rules="aluguel_pastoRules"
+                type="number"
+                label="Aluguel Pasto"
+                required
+                class="mt-2 pa-2 teal--text"
                 outlined
-                color="success"
-                class="mr-4"
-                :disabled="!valid"
-                @click="validate"
-              >
-                Salvar
-              </v-btn>
-            </div>
-          </v-form>
-        </v-col>
+                suffix="R$/cab/ano"
+              />
+
+              <v-text-field
+                v-model="form.sal_mineral"
+                :rules="sal_mineralRules"
+                type="number"
+                label="Sal Mineral"
+                required
+                class="mt-2 pa-2 teal--text"
+                outlined
+                suffix="R$/cab/ano"
+              />
+
+              <v-text-field
+                v-model="form.racoes"
+                :rules="racoesRules"
+                type="number"
+                label="Rações"
+                required
+                class="mt-2 pa-2 teal--text"
+                outlined
+                suffix="R$/cab/ano"
+              />
+
+              <v-text-field
+                v-model="form.vacinas_vermifugos"
+                :rules="vacinas_vermifugosRules"
+                type="number"
+                label="Produtos Veterinarios"
+                required
+                class="mt-2 pa-2 teal--text"
+                outlined
+                suffix="R$/cab/ano"
+              />
+
+              <v-text-field
+                v-model="form.juros_anuais"
+                :rules="juros_anuaisRules"
+                type="number"
+                label="Juros Anuais"
+                required
+                class="mt-2 pa-2 teal--text"
+                outlined
+                suffix="%"
+              />
+
+              <v-text-field
+                v-model="form.valor_venda"
+                :rules="valor_vendaRules"
+                label="Valor Venda Touros"
+                type="number"
+                prefix="R$"
+                required
+                class="mt-2 pa-2 teal--text"
+                outlined
+              />
+            </v-col>
+          </v-row>
+
+          <v-row class="d-flex justify-end my-6">
+            <v-btn
+              outlined
+              color="error"
+              class="mr-4"
+              @click="resetValidation"
+            >
+              Cancelar
+            </v-btn>
+
+            <v-btn
+              outlined
+              color="success"
+              class="mr-4"
+              :disabled="!valid"
+              @click="validate"
+            >
+              Salvar
+            </v-btn>
+          </v-row>
+        </v-form>
       </v-container>
     </v-expansion-panel-content>
   </v-expansion-panel>

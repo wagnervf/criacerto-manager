@@ -6,36 +6,32 @@
     <v-card class="mb-4">
       <v-expansion-panels
         v-model="panel"
-        class="ma-0 pa-0 trasnparent"
+        class="ma-0 pa-0 transparent"
       >
         <v-expansion-panel>
-          <v-expansion-panel-header
-            v-slot="{ open }"
-            expand-icon="mdi-filter-menu"
-            disable-icon-rotate
-            color="grey lighten-3"
-            title="Filtrar Dados"
-          >
-            <v-row no-gutters>
+          <v-card-title class="pa-0">
+            <v-expansion-panel-header
+              disable-icon-rotate
+              color="grey lighten-3"
+              title="Filtrar Dados"
+            >
+              <template #actions>
+                <v-icon> mdi-filter </v-icon>
+              </template>
+              Filtrar Dados
+              <!-- <v-row no-gutters>
               <v-col class="text--secondary">
                 <v-fade-transition leave-absolute>
                   <span v-if="open">Selecione a data do Filtro</span>
-                  <v-row
-                    v-else
-                    no-gutters
-                    style="width: 100%"
-                  >
-                    <v-col
-                      cols="6"
-                      class="d-flex justify-start"
-                    >
-                      <cardFilteredVue />
-                    </v-col>
+                  <v-row v-else>
+                    <cardFilteredVue />
                   </v-row>
                 </v-fade-transition>
               </v-col>
-            </v-row>
-          </v-expansion-panel-header>
+            </v-row> -->
+            </v-expansion-panel-header>
+          </v-card-title>
+
           <v-expansion-panel-content class="pa-2 py-4">
             <v-progress-linear
               indeterminate
@@ -159,16 +155,16 @@
 </template>
 <script>
 import mixinUtils from "../../mixins/mixin-utils";
-import cardFilteredVue from "../../components/cardFiltered.vue";
+// import cardFilteredVue from "../../components/cardFiltered.vue";
 export default {
   name: "ViewDashBoardFilter",
   mixins: [mixinUtils],
   components: {
-    cardFilteredVue,
+    //   cardFilteredVue,
   },
   data() {
     return {
-      panel: 1,
+      panel: 0,
       search: null,
       valid: true,
       date1: false,
@@ -204,6 +200,9 @@ export default {
     },
   },
   methods: {
+    opens() {
+      this.panel = 0;
+    },
     validate() {
       if (this.$refs.form.validate()) {
         this.getDados();
@@ -229,7 +228,6 @@ export default {
 
       //Segundo Filtro por Estado
       this.filtrado = this.filterByEstado(data);
-      
 
       //Salva Store
       this.setFilterByEstate(this.filtrado);
@@ -239,7 +237,6 @@ export default {
 
     filterByDate(data) {
       return Object.values(data).filter((value) => {
-     
         return (
           this.formatDate(value.created) >= this.formatDate(this.query.start) &&
           this.formatDate(value.created) <= this.formatDate(this.query.end)

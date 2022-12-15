@@ -41,8 +41,13 @@ export default new Vuex.Store({
     estadosExistentes: {},
     tiposSimuacoesSeparadas: {},
     // estadoFiltrado: "",
+    openSideBar: null,
   },
   mutations: {
+    SET_SIDEBAR_CUSTOM(state, payload) {
+      state.openSideBar = payload;
+    },
+
     SET_SIDEBAR_DRAWER(state, payload) {
       state.Sidebar_drawer = payload;
     },

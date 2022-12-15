@@ -29,22 +29,22 @@
         <dashboardFilterVue />
       </v-row>
 
-      <v-row class="pa-0 my-2 px-2">
+      <v-row class="pa-0 my-1 px-2">
         <dashboardCardsSimulacoes />
       </v-row>
 
-      <v-row class="pa-0 my-2">
+      <v-row class="pa-0">
         <dashboardSimulacoesPorMes />
       </v-row>
 
-      <v-row class="pa-0 my-2">
+      <v-row class="pa-0">
         <v-col
           xl="6"
           lg="6"
           md="6"
           sm="12"
           xs="12"
-          class="pa-0 ma-0"
+          class="ma-0 pa-0"
         >
           <dashboardTiposTourosPieVue />
         </v-col>
@@ -54,7 +54,7 @@
           md="6"
           sm="12"
           xs="12"
-          class="pa-0 ma-0"
+          class="ma-0 pa-0"
         >
           <dashboardQtdeEstadoDataVue />
         </v-col>
@@ -64,11 +64,11 @@
         <dashboardCardsVue />
       </v-row> -->
 
-      <v-row class="pa-0 my-2">
+      <v-row class="pa-0 my-4">
         <dashboardCardsMediasNumVacas />
       </v-row>
 
-      <v-row class="pa-0 my-2">
+      <v-row class="pa-0 my-1">
         <dashboardTableTodasSimulacoes />
       </v-row>
 

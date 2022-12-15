@@ -12,14 +12,17 @@
           dense
           flat
         >
-          <v-toolbar-title> Informações </v-toolbar-title>
+          <v-toolbar-title class="pt-2">
+            Informações
+          </v-toolbar-title>
         </v-toolbar>
 
-        <v-expansion-panel-header class="pl-3">
+        <v-expansion-panel-header class="pa-0">
           <v-list-item>
             <v-list-item-avatar
               color="blue-grey"
               size="56"
+              class="d-none d-sm-flex"
             >
               <v-icon color="white">
                 {{ icon }}
@@ -36,23 +39,27 @@
           </v-list-item>
         </v-expansion-panel-header>
 
-        <v-expansion-panel-content>
+        <v-expansion-panel-content class="pa-0">
           <v-container
             fluid
-            class="py-0"
+            class="pa-0"
           >
             <v-col
               cols="12"
-              lg="12"
               justify-center
               flex
+              class="pa-0"
             >
               <v-toolbar
                 flat
                 color="transparent"
               >
-                <v-toolbar-title>Parâmetros</v-toolbar-title>
+                <v-toolbar-title class="text-sm-caption">
+                  Parâmetros
+                </v-toolbar-title>
+
                 <v-spacer />
+
                 <v-btn
                   :loading="loading"
                   :disabled="loading"
@@ -66,6 +73,7 @@
                     {{ icone }}
                   </v-icon>
                 </v-btn>
+
                 <span title="download dos parametros em csv">
                   <vue-blob-json-csv
                     tag-name="div"

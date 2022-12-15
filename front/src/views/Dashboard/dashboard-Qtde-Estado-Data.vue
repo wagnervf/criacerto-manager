@@ -3,43 +3,46 @@
     fluid
     class="pa-0"
   >
-    <v-card class="mx-1 mb-1">
-      <v-expansion-panels
-        focusable
-        v-model="panel"
-      >
-        <v-expansion-panel>
-          <v-expansion-panel-header>
-            <h3>
-              Quantitativo de Simulações Estados
-            </h3>
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-card-text class="pa-6">
-              <v-row>
-                <v-col v-if="visivel">
-                  <v-progress-linear
-                    indeterminate
-                    color="cyan"
-                    :query="true"
-                  />
-                </v-col>
-                <v-col v-else>
-                  <ApexChart
-                    ref="realtimeChart"
-                    type="bar"
-                    height="345"
-                    :options="chartOptions"
-                    :series="series"
-                  />
-                  <cardFilteredVue />
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-    </v-card>
+    <v-row
+      class="ma-1"
+      style="display: contents"
+    >
+      <v-card class="ma-1">
+        <v-expansion-panels
+          focusable
+          v-model="panel"
+        >
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              <h3>Quantitativo de Simulações Estados</h3>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-card-text class="pa-6">
+                <v-row>
+                  <v-col v-if="visivel">
+                    <v-progress-linear
+                      indeterminate
+                      color="cyan"
+                      :query="true"
+                    />
+                  </v-col>
+                  <v-col v-else>
+                    <ApexChart
+                      ref="realtimeChart"
+                      type="bar"
+                      height="345"
+                      :options="chartOptions"
+                      :series="series"
+                    />
+                    <cardFilteredVue />
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-card>
+    </v-row>
   </v-container>
 </template>
 
