@@ -35,7 +35,7 @@
             class="pl-8"
             link
             router
-            :to="subItem.to"
+            @click="navegar(subItem.to)"
             dense
           >
             <v-list-item-icon left>
@@ -54,7 +54,7 @@
           :key="item.title"
           link
           router
-          :to="item.to"
+          @click="navegar(item.to)"
           :active-class="`teal--text`"
           dense
         >
@@ -104,6 +104,12 @@ export default {
     logout() {
       localStorage.removeItem("userLogged");
       this.$router.push({ name: "login" });
+    },
+
+    navegar(to) {
+      console.log(to);
+      this.$store.commit("SET_SIDEBAR_CUSTOM", false);
+      this.$router.push(to);
     },
   },
 };
