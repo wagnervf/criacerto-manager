@@ -1,13 +1,19 @@
 <template>
-  <simpleTableVue
-    :parametros="parametros"
-    :loading="loading"
-    :download-items="downloadItems"
-    :color="color"
-    :icone="icone"
-    :subtitle="subtitle"
-    @reloaddados="getDataStore()"
-  />
+  <div>
+    <v-row>
+      <v-col>
+        <simpleTableVue
+          :parametros="parametros"
+          :loading="loading"
+          :download-items="downloadItems"
+          :color="color"
+          :icone="icone"
+          :subtitle="subtitle"
+          @reloaddados="getDataStore()"
+        />
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
@@ -44,6 +50,7 @@ export default {
       this.parametros = [];
       this.loader = "loading";
       let result = await this.getDadosMontaNatural();
+      console.log(result);
 
       if (Object.values(result).length > 0) {
         this.parametros = result;
@@ -57,10 +64,8 @@ export default {
     async getDadosMontaNatural() {
       try {
         const response = await MontaNaturaServices.getMontaNaturalApi();
-
         return this.tratarDadosResponse(response, "SET_DATA_MONTANATURAL");
       } catch (error) {
-        console.log(error);
         return mixinUtils.methods.messageSwalToast("error", error.data.message);
       }
     },

@@ -114,6 +114,11 @@ export default {
       return date ? moment(date).format("L") : "";
     },
 
+    formatDateTime(date) {
+      moment.locale();
+      return date ? moment(date).format("DD/MM/YY - h:mm a") : "";
+    },
+
     getMediaAluguelPasto() {
       let value = 0;
       for (let index = 0; index < this.aluguelPasto.length; index++) {

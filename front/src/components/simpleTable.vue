@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/require-default-prop -->
 <template>
   <div>
     <v-expansion-panels
@@ -28,12 +27,28 @@
                 {{ icon }}
               </v-icon>
             </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title class="blue-grey--text">
+            <v-list-item-content class="pa-4">
+              <v-list-item-title class="blue-grey--text text--bold text-h6">
                 {{ title }}
               </v-list-item-title>
               <v-list-item-subtitle class="text-wrap">
                 {{ subtitle }}
+              </v-list-item-subtitle>
+
+              <v-list-item-subtitle class="text-wrap py-4 grey--text">
+                <p class="text-subtitle-1 font-weight-bold">
+                  Última atualização
+                </p>
+                <p class="text-body">
+                  <v-icon class="mr-1 grey--text text-body">
+                    mdi-account
+                  </v-icon>{{ userUpdate }}
+                </p>
+                <p class="text-body">
+                  <v-icon class="mr-1 grey--text text-body">
+                    mdi-clock
+                  </v-icon>{{ dateUpdate }}
+                </p>
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -132,11 +147,11 @@
 </template>
 
 <script>
-export default {
-  props: {
-    // eslint-disable-next-line vue/require-default-prop
+import mixinUtils from "../mixins/mixin-utils";
 
-    // eslint-disable-next-line vue/require-default-prop, vue/require-prop-types
+export default {
+  mixins: [mixinUtils],
+  props: {
     parametros: {},
     loading: {
       type: Boolean,
@@ -175,6 +190,17 @@ export default {
     title: "Lista dos Parâmentros",
     icon: "mdi-view-list",
   }),
+
+  computed: {
+    userUpdate() {
+      let user = this.parametros.user_updatedAt;
+      return user != null ? user : "";
+    },
+    dateUpdate() {
+      //
+      return this.formatDateTime(this.parametros.updatedAt);
+    },
+  },
 
   methods: {
     recarregarDadosNoComponentePai() {

@@ -112,7 +112,7 @@
     </v-card>
 
     <v-row class="ma-0 grey lighten-4">
-      <v-col class="col-12 py-0 grey lighten-4 t">
+      <v-col class="col-12 pt-2 grey lighten-4 t">
         <v-breadcrumbs
           :items="rotas"
           divider=">"
@@ -122,7 +122,7 @@
             <v-breadcrumbs-item
               v-if="item.text == 'Início'"
               :href="item.href"
-              class="teal--text px-0 text-sm-caption"
+              class="teal--text px-0"
             >
               <v-icon class="mx-0">
                 mdi-home
@@ -135,7 +135,7 @@
               v-else
               :href="item.href"
               :disabled="item.disabled"
-              class="text-wrap text-xs-caption ma-0 pa-0"
+              class="text-wrap text-sm-caption ma-0 pa-0"
             >
               {{ item.text }}
             </v-breadcrumbs-item>

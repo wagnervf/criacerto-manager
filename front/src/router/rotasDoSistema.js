@@ -245,6 +245,22 @@ export default [
   },
 
   {
+    name: "Documentacao",
+    path: "Documentacao",
+    component: () => import("@/views/Documentacao/Index.vue"),
+    meta: {
+      breadCrumb: [
+        {
+          text: "Documentação",
+          to: { name: "" },
+          disabled: false,
+        },
+      ],
+      permission: ["ADMIN"],
+    },
+  },
+
+  {
     name: "Configuracoes",
     path: "Configuracoes/configuracoes",
     component: () => import("@/views/Configuracoes/Configuracoes.vue"),

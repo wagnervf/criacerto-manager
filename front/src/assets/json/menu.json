@@ -30,6 +30,12 @@
         "title": "Meu Perfil",
         "icon": "mdi-account",
         "to": "/usuarios/perfil"
+      },
+      {
+        "id": 43,
+        "title": "Documentação",
+        "icon": "mdi-text-box",
+        "to": "/documentacao"
       }
     ]
   },
@@ -37,9 +43,11 @@
 
   {
     "id": 30,
-    "title": "Ajuda Cria Certo",
+    "title": "Ajuda",
     "icon": "mdi-help",
     "to": "/ajuda/ajuda"
   }
+
+  
   
 ]
