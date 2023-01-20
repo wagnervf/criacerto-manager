@@ -12,37 +12,31 @@
     "icon": "mdi-database",
     "to": "/simulacoes"
   },
-  
- 
+   
+  {
+    "id": 3,
+    "title": "Gerenciar Usuários",
+    "icon": "mdi-account-multiple",
+    "to": "/usuarios/gerenciar"
+  },
+
   {
     "id": 4,
-    "title": "Configurações",
-    "icon": "mdi-cog",
-    "children": [
-      {
-        "id": 41,
-        "title": "Gerenciar Usuários",
-        "icon": "mdi-account-multiple",
-        "to": "/usuarios/gerenciar"
+    "title": "Documentação",
+    "icon": "mdi-text-box",
+    "to": "/documentacao"
       },
-      {
-        "id": 42,
-        "title": "Meu Perfil",
-        "icon": "mdi-account",
-        "to": "/usuarios/perfil"
-      },
-      {
-        "id": 43,
-        "title": "Documentação",
-        "icon": "mdi-text-box",
-        "to": "/documentacao"
-      }
-    ]
+
+  {
+    "id": 5,
+    "title": "Meu Perfil",
+    "icon": "mdi-account",
+    "to": "/usuarios/perfil"
   },
   
 
   {
-    "id": 30,
+    "id": 6,
     "title": "Ajuda",
     "icon": "mdi-help",
     "to": "/ajuda/ajuda"

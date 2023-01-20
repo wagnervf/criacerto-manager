@@ -36,15 +36,15 @@
               </v-list-item-subtitle>
 
               <v-list-item-subtitle class="text-wrap py-4 grey--text">
-                <p class="text-subtitle-1 font-weight-bold">
+                <p class="text-subtitle-1 font-weight-bold ma-0">
                   Última atualização
                 </p>
-                <p class="text-body">
+                <p class="text-body ma-0">
                   <v-icon class="mr-1 grey--text text-body">
                     mdi-account
                   </v-icon>{{ userUpdate }}
                 </p>
-                <p class="text-body">
+                <p class="text-body ma-0">
                   <v-icon class="mr-1 grey--text text-body">
                     mdi-clock
                   </v-icon>{{ dateUpdate }}

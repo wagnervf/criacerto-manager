@@ -2,21 +2,29 @@
 <template>
   <div>
     <v-container class="py-0 full-height">
-      <v-card
-        min-height="70vh"
-        class="pa-2"
-      >
-        <v-card-title>
-          <h1 class="font-weight-regular my-4">
-            Rotas de Acesso
-          </h1>
-          <p class="text-subtitle-1 py-2">
+      <v-card min-height="70vh">
+        <v-toolbar
+          color="primary"
+          dark
+          elevation="0"
+        >
+          <v-toolbar-title class="mx-4">
+            <h2 class="font-weight-regular">
+              Rotas de Acesso
+            </h2>
+          </v-toolbar-title>
+        </v-toolbar>
+
+        <v-card-title class="d-block">
+          <h3 class="text-subtitle-1 py-2">
             Rotas que serão utilizadas para acessar os parâmetros atualizados
             pelos Cria Certo Manager
-          </p>
-          <li class="text-caption py-4">
-            http://servidorEmprapa.com.br/<b>manager</b>
-          </li>
+          </h3>
+          <ul>
+            <li class="text-caption py-4">
+              http://servidorEmprapa.com.br/<b>manager</b>
+            </li>
+          </ul>
         </v-card-title>
 
         <v-divider class="mx-4" />
@@ -47,15 +55,13 @@
         >
           <v-card-title primary-title>
             <h3 class="font-weight-medium primary--text">
-              HTTP status code 200
+              Status Code: 200 OK
             </h3>
           </v-card-title>
           <v-divider />
 
           <v-card-title class="font-weight-light">
             <ul>
-              <li>Body</li>
-              <li>Media type: application/json</li>
               <li><b>Exemplo de resposta:</b></li>
             </ul>
           </v-card-title>
@@ -67,15 +73,12 @@
               prominent
             >
               <pre>
-                {
-                  "title": "Hello world Response",
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
+                <code
+                  v-for="(resp, i) in respostas"
+                  :key="i"
+                  >
+                  {{ resp.Monta }}
+                </code>
               </pre>
             </v-alert>
           </v-card-text>
@@ -87,15 +90,13 @@
         >
           <v-card-title primary-title>
             <h3 class="font-weight-medium error--text">
-              HTTP status code ERROR
+              Status Code: 404 ERROR
             </h3>
           </v-card-title>
           <v-divider />
 
           <v-card-title class="font-weight-light">
             <ul>
-              <li>Body</li>
-              <li>Media type: application/json</li>
               <li><b>Exemplo de resposta:</b></li>
             </ul>
           </v-card-title>
@@ -107,15 +108,9 @@
               prominent
             >
               <pre>
-                {
-                  "title": "Hello world Response",
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
+                <code>
+                  {{ code404 }}
+                </code>              
               </pre>
             </v-alert>
           </v-card-text>
@@ -127,10 +122,12 @@
 
 <script>
 //import panelDocumentationVue from "../../components/panelDocumentation.vue";
+import respostasJson from "../../assets/json/respostas.json";
 export default {
   name: "IndexDocumentacao",
   // components: { panelDocumentationVue },
   data: () => ({
+    respostas: respostasJson,
     panel: [0, 1, 2, 3, 4, 5],
     readonly: true,
     expanded: [],
@@ -194,6 +191,19 @@ export default {
         acao: "GET",
       },
     ],
+
+    code200: {
+      title: "Hello",
+      type: "object",
+      properties: {
+        message: {
+          type: "string",
+        },
+      },
+    },
+    code404: {
+      message: "Nenhum parâmetro da Monta Natural foi encontrado!",
+    },
   }),
 };
 </script>

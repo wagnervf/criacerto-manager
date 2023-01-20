@@ -38,7 +38,7 @@
                 type="number"
                 label="Aluguel Pasto"
                 required
-                class="mt-2 pa-2 teal--text"
+                class="mt-0 pa-2 pt-0 teal--text"
                 outlined
                 suffix="R$/cab/ano"
               />
@@ -49,7 +49,7 @@
                 type="number"
                 label="Sal Mineral"
                 required
-                class="mt-2 pa-2 teal--text"
+                class="mt-0 pa-2 pt-0 teal--text"
                 outlined
                 suffix="R$/cab/ano"
               />
@@ -60,7 +60,7 @@
                 type="number"
                 label="Rações"
                 required
-                class="mt-2 pa-2 teal--text"
+                class="mt-0 pa-2 pt-0 teal--text"
                 outlined
                 suffix="R$/cab/ano"
               />
@@ -71,7 +71,7 @@
                 type="number"
                 label="Produtos Veterinarios"
                 required
-                class="mt-2 pa-2 teal--text"
+                class="mt-0 pa-2 pt-0 teal--text"
                 outlined
                 suffix="R$/cab/ano"
               />
@@ -82,7 +82,7 @@
                 type="number"
                 label="Juros Anuais"
                 required
-                class="mt-2 pa-2 teal--text"
+                class="mt-0 pa-2 pt-0 teal--text"
                 outlined
                 suffix="%"
               />
@@ -94,7 +94,7 @@
                 type="number"
                 prefix="R$"
                 required
-                class="mt-2 pa-2 teal--text"
+                class="mt-0 pa-2 pt-0 teal--text"
                 outlined
               />
             </v-col>

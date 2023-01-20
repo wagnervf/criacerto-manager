@@ -5,27 +5,29 @@
       class="mx-auto"
       tile
     >
-      <v-toolbar class="teal px-4">
-        <v-toolbar-title
-          class="white--text pa-2"
-          dark
-        >
-          Gerenciar Usuários
+      <v-toolbar
+        color="primary"
+        elevation="0"
+        dark
+      >
+        <v-toolbar-title class="mx-4">
+          <h2 class="font-weight-regular">
+            Gerenciar Usuários
+          </h2>
         </v-toolbar-title>
-
-        <v-spacer />
       </v-toolbar>
-
+      <!-- 
       <v-toolbar class="elevation-0 grey lighten-4">
         <v-toolbar-title>Lista dos Usuários</v-toolbar-title>
-      </v-toolbar>
+      </v-toolbar> -->
 
       <v-row
         class="px-4 text-left"
         tag="v-card-text"
       >
         <v-col
-          cols="5"
+          sm="12"
+          md="5"
           class="text-left"
         >
           <v-card>
@@ -57,14 +59,14 @@
 
         <v-col
           v-if="foiSelecionado"
-          cols="7"
+          sm="12"
+          md="7"
           class="d-flex text-center"
         >
           <v-scroll-y-transition mode="out-in">
             <v-card
               class="py-6 mx-auto"
               flat
-              max-width="70%"
             >
               <v-card-text>
                 <h3 class="text-h5 mb-2">

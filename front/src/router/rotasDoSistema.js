@@ -183,7 +183,7 @@ export default [
           href: "/",
         },
         {
-          text: "Gerenciar Usuarios",
+          text: "Gerenciar Usuários",
           to: { name: "" },
           disabled: false,
           href: "index",
@@ -205,14 +205,8 @@ export default [
           href: "/",
         },
         {
-          text: "Lista de Usuarios",
-          to: { name: "" },
-          disabled: false,
-          href: "listausuarios",
-        },
-        {
           text: "Meu Perfil",
-          to: { name: "" },
+          href: "/usuarios/perfil",
           disabled: false,
         },
       ],
@@ -234,6 +228,11 @@ export default [
     meta: {
       breadCrumb: [
         {
+          text: "Início",
+          disabled: true,
+          href: "/",
+        },
+        {
           text: "Ajuda",
           disabled: true,
           href: "/ajuda",
@@ -251,8 +250,13 @@ export default [
     meta: {
       breadCrumb: [
         {
+          text: "Início",
+          disabled: true,
+          href: "/",
+        },
+        {
           text: "Documentação",
-          to: { name: "" },
+          href: "/documentacao",
           disabled: false,
         },
       ],

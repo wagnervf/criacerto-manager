@@ -1,0 +1,32 @@
+[
+   {
+    "Monta" : [
+        {
+            "_id": "62b278bb70c581d787006cdf",
+            "active": 1,
+            "aluguel_pasto": 2500,
+            "code": "3a53d06c-782a-4a7c-996b-6da6f12449e5",
+            "dep": 5,
+            "despesas_compra": 10, 
+            "exame_andrologico": 100,
+            "juros_anuais": 6,
+            "numero_de_touros": 25,
+            "numero_de_vacas": 1000,
+            "peso_comercial": 180,
+            "peso_elite": 218,
+            "preco_bezerro": 6,
+            "preco_touro": 4200,
+            "raca_touro": "Nelore",
+            "racoes": 264.57,
+            "sal_mineral": 35.4,
+            "taxa_mortalidade": 3,
+            "taxa_prenhez": 80,
+            "type": "Monta Natural",
+            "vacinas_vermifugos": 9.66,
+            "valor_venda": 3200,
+            "vida_util_touro": 6
+            }
+    ]
+   }
+   
+]

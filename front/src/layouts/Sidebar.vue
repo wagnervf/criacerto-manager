@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer
+  <!-- <v-navigation-drawer
     id="main-sidebar"
     v-model="sideBarCustom"
     :permanent="$vuetify.breakpoint.mdAndUp"
@@ -7,35 +7,23 @@
     left
     clipped
     app
-  >
-    <v-list-item class="pl-2 pr-0 mr-1 mb-1">
-      <v-list-item-avatar
-        class="pr-0"
-        style="cursor: pointer"
-      >
-        <v-icon class="teal--text px-1">
-          mdi-web
-        </v-icon>
-      </v-list-item-avatar>
-
-      <v-list-item-title>
-        Cria Certo
-        <span class="font-weight-bold teal--text">Manager</span>
-      </v-list-item-title>
-
-      <!-- <v-btn
+  > -->
+  <div>
+    <!-- <v-list-item class="pl-2 pr-0 mr-1 mb-1">
+       <v-btn
         icon
         accesskey="m"
         @click.stop="mini = !mini"
       >
         <v-icon>mdi-chevron-left</v-icon>
-      </v-btn> -->
-    </v-list-item>
+      </v-btn> 
+    </v-list-item> -->
 
-    <v-divider class="pb-2" />
+    <!-- <v-divider class="my-2" /> -->
 
     <ListSidebar />
-  </v-navigation-drawer>
+  </div>
+  <!-- </v-navigation-drawer> -->
 </template>
 
 <script>

@@ -1,94 +1,51 @@
 <template>
   <div>
     <v-list
-      dense
       nav
+      dense
+      flat
     >
-      <template v-for="item in items">
-        <v-list-group
-          v-if="item.children !== undefined"
-          :key="item.title"
-          v-model="item.active"
-          :active-class="`teal--text`"
-          no-action
-          link
-          dense
-          dark
-          class="py-1"
-        >
-          <template #activator>
-            <v-list-item-icon left>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-content>
-              <v-list-item-title>
-                <div v-text="item.title" />
-              </v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item
-            v-for="subItem in item.children"
-            :key="subItem.title"
-            :active-class="`teal--text`"
-            class="pl-8"
-            link
-            router
-            @click="navegar(subItem.to)"
-            dense
-          >
-            <v-list-item-icon left>
-              <v-icon>{{ subItem.icon }}</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>
-                <div v-text="subItem.title" />
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
-
+      <v-list-item-group
+        v-model="selectedItem"
+        :active-class="`teal--text`"
+        no-action
+        link
+        dense
+        class="py-1"
+      >
         <v-list-item
-          v-else
-          :key="item.title"
+          v-for="(item, i) in items"
+          :key="i"
           link
           router
           @click="navegar(item.to)"
-          :active-class="`teal--text`"
-          dense
         >
-          <v-list-item-icon left>
+          <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
+
           <v-list-item-content>
-            <v-list-item-title>
-              <div v-text="item.title" />
-            </v-list-item-title>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-      </template>
-
-      <v-divider />
-      <v-list-item
-        dense
-        link
-        class="teal--text"
-        tabindex="2"
-        accesskey="s"
-        title="Sair do Sistema"
-        @click="logout"
-      >
-        <v-list-item-content>
-          <v-list-item-title>
-            <v-icon class="teal--text">
-              mdi-logout
-            </v-icon>
-            Sair
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+      </v-list-item-group>
     </v-list>
+
+    <v-divider />
+    <v-list-item
+      link
+      tabindex="2"
+      accesskey="s"
+      title="Sair do Sistema"
+      @click="logout"
+    >
+      <v-list-item-icon left>
+        <v-icon> mdi-logout </v-icon>
+      </v-list-item-icon>
+      <v-list-item-content>
+        <v-list-item-title> Sair </v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
   </div>
 </template>
 
@@ -98,6 +55,17 @@ import Menu from "../assets/json/menu.json";
 export default {
   data: () => ({
     items: Menu,
+    selecionado: 0,
+    selectedItem: 0,
+    items2: [
+      { text: "My Files", icon: "mdi-folder" },
+      { text: "Shared with me", icon: "mdi-account-multiple" },
+      { text: "Starred", icon: "mdi-star" },
+      { text: "Recent", icon: "mdi-history" },
+      { text: "Offline", icon: "mdi-check-circle" },
+      { text: "Uploads", icon: "mdi-upload" },
+      { text: "Backups", icon: "mdi-cloud-upload" },
+    ],
   }),
 
   methods: {
