@@ -58,3 +58,7 @@
   .v-toolbar__content {
     height: auto !important;
   }
+
+  .v-toolbar {
+    flex: none!important;
+  }

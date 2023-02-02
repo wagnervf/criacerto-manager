@@ -70,12 +70,12 @@ export default {
 
   methods: {
     logout() {
-      localStorage.removeItem("userLogged");
+      this.$store.commit("LOGOUT");
       this.$router.push({ name: "login" });
     },
 
     navegar(to) {
-      console.log(to);
+     // console.log(to);
       this.$store.commit("SET_SIDEBAR_CUSTOM", false);
       this.$router.push(to);
     },

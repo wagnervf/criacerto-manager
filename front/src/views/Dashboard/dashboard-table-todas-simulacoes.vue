@@ -115,7 +115,6 @@ export default {
   methods: {
     getData() {
       this.simulacoes = Object.values(this.simulacoesData);
-      console.log(this.simulacoes)
     },
   },
 };

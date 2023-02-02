@@ -4,7 +4,6 @@ import MontaNaturaServices from "@/services/MontaNaturaServices";
 import IatfServices from "@/services/IatfServices";
 import Iatf_2Services from "@/services/Iatf_2Services";
 import Iatf_3Services from "@/services/Iatf_3Services";
-//import DadosBasicosServices from "@/services/DadosBasicosServices";
 import mixinUtils from "../mixins/mixin-utils";
 import DashboardService from "@/services/DashboardServices";
 
@@ -21,11 +20,8 @@ export default new Vuex.Store({
       _id: "",
       name: "",
       email: "",
-      // perfil: "",
       token: "",
-      //emailVerified: false,
       changed: "",
-      // ultimoLogin: null,
       admin: false,
       logado: "",
     },
@@ -40,7 +36,6 @@ export default new Vuex.Store({
     simulacoeFilteredPeriodo: [],
     estadosExistentes: {},
     tiposSimuacoesSeparadas: {},
-    // estadoFiltrado: "",
     openSideBar: null,
   },
   mutations: {
@@ -66,22 +61,32 @@ export default new Vuex.Store({
     // Set variáveis do Login
     SET_USER_LOGADO(state, payload) {
       if (payload) {
-        console.log(payload);
-        state.userLogado._id = payload._id;
-        state.userLogado.name = payload.name;
-        state.userLogado.email = payload.email;
-        //   state.userLogado.perfil = payload.user.perfil;
-        state.userLogado.token = payload.token;
-        state.userLogado.emailVerified = false;
-        state.userLogado.changed = payload.changed;
-        // state.userLogado.ultimoLogin = payload.user.updatedAt;
-        state.userLogado.logado = true;
-        state.userLogado.admin = payload.admin;
-        //state.userLogado.tecnico = payload.tecnico;
-
         state.loggedIn = true;
-        localStorage.setItem("loggedIn", true);
+
+        let user = this.dispatch.mapedUser(payload);
+        // let user = {
+        //   _id: payload._id,
+        //   email: payload.email,
+        //   name: payload.name,
+        //   token: payload.token,
+        //   admin: payload.admin,
+        //   logado: true,
+        //   changed: payload.changed,
+        // };
+
+        Object.assign(state.userLogado, user);
+
+        localStorage.setItem("user", JSON.stringify(user));
       }
+    },
+
+    LOGOUT(state) {
+      state.userLogado = {};
+      state.loggedIn = false;
+      localStorage.removeItem("user");
+
+      let user = {};
+      Object.assign(state.userLogado, user);
     },
 
     SET_DATA_SIMULACOES(state, value) {
@@ -134,14 +139,30 @@ export default new Vuex.Store({
       state.tiposSimuacoesSeparadas = {};
       Object.assign(state.tiposSimuacoesSeparadas, value);
     },
-
-    CLEAR_USER(state) {
-      state.userLogado = {};
-      state.loggedIn = false;
-      localStorage.setItem("loggedIn", false);
-    },
   },
   actions: {
+    async getUserStorage({ dispatch }) {
+      const dados = JSON.parse(localStorage.getItem("user"));
+      //let user = dispatch("mapedUser", dados);
+      let user = dispatch("mapedUser", dados);
+
+      return user;
+    },
+
+    mapedUser(payload) {
+      let user = {
+        _id: payload._id,
+        email: payload.email,
+        name: payload.name,
+        token: payload.token,
+        admin: payload.admin,
+        logado: true,
+        changed: payload.changed,
+      };
+
+      return user;
+    },
+
     async getAllDataSimulacoesApi({ commit }) {
       try {
         const response = await DashboardService.getDadosAllSimulacoes();

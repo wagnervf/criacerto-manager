@@ -111,8 +111,7 @@
               >
                 <v-card>
                   <v-card-title class="text-h5">
-                    Você tem certeza que deseja remover esse
-                    item?
+                    Você tem certeza que deseja remover esse item?
                   </v-card-title>
                   <v-card-actions>
                     <v-spacer />
@@ -300,7 +299,6 @@ export default {
       TiposSimulacoesServices.updateTiposSimulacoes(value.id, value).then(
         (resposta) => {
           this.snackbar = true;
-          console.log(resposta);
           if (resposta.status == 201) {
             this.textSnackbar = resposta.data.message;
             return;

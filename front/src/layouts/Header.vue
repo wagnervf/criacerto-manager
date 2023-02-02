@@ -176,8 +176,12 @@ export default {
   },
 
   methods: {
-    getUserLocalStorage() {
-      const user = JSON.parse(localStorage.getItem("userLogged"));
+    async getUserLocalStorage() {
+      const user = await this.$store.dispatch("getUserStorage");
+
+      console.log(user);
+
+      // const user = JSON.parse(localStorage.getItem("userLogged"));
       if (user) {
         this.user.name = user.name
           ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
@@ -187,7 +191,7 @@ export default {
     },
 
     logout() {
-      localStorage.removeItem("userLogged");
+      this.$store.commit("LOGOUT");
       this.$router.push({ name: "login" });
     },
 

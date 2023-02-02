@@ -233,8 +233,6 @@ export default {
       pal = pal.toLowerCase();
       this.form.descricao = pal[0].toUpperCase() + pal.substr(1);
 
-      console.log(this.$refs.form.validate());
-
       if (this.$refs.form.validate()) {
         if (this.salvar) {
           // Save
@@ -274,8 +272,6 @@ export default {
           let result = response.data;
           result = mixinUtils.methods.orderBy(result);
 
-          console.log(result);
-
           const value = result.map((raca) => ({
             value: raca._id,
             text: raca.descricao,
@@ -307,13 +303,10 @@ export default {
     },
 
     async deleteConfirm() {
-      console.log(this.form);
-
       try {
         const response = await DadosBasicosServices.deleteRacasTourosApi(
           this.form._id
         );
-        console.log(response);
         if (response.status == 200) {
           this.getRacasTouro();
           mixinUtils.methods.messageSwalToast("success", response.data.message);

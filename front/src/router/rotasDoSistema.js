@@ -16,6 +16,27 @@ export default [
     },
   },
   {
+    name: "Parametros",
+    path: "/parametros",
+    component: () => import("@/views/Parametros/Index.vue"),
+    meta: {
+      breadCrumb: [
+        {
+          text: "Início",
+          disabled: true,
+          href: "/",
+        },
+        {
+          text: "Parametros",
+          disabled: true,
+          href: "/parametros",
+          icon: "mdi-list-box-outline",
+        },
+      ],
+      permission: ["ADMIN", "TEC"],
+    },
+  },
+  {
     name: "Simulações",
     path: "/simulacoes",
     component: () => import("@/views/Simulacoes/Simulacoes.vue"),

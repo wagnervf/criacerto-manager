@@ -10,7 +10,8 @@
             Cria Certo Manager
           </p>
           <p class="text-caption text-left mx-6 text--grey">
-            Acesse com seu usuário e pin
+            Sistema Gerenciador dos parâmetros utilizado pelo aplicativo Cria
+            Certo
           </p>
         </v-card-text>
 
@@ -112,7 +113,7 @@
         class="text-center"
         cols="12"
       >
-        <p class="text-center my-2">
+        <p class="text-center mt-0">
           <img
             src="@/assets/img/embrapa.png"
             style="width: 150px"
@@ -125,10 +126,12 @@
         class="text-center"
         cols="12"
       >
-        <div class="text-center grey--text mt-4">
-          <p>Sistema Gerenciador da Plataforma Cria Certo</p>
-          {{ new Date().getFullYear() }}
-          <p />
+        <div class="text-center grey--text mt-1">
+          <p>
+            <!-- Sistema Gerenciador dos parâmetros
+            utilizado pelo aplicativo Cria Certo <br> -->
+            {{ new Date().getFullYear() }}
+          </p>
         </div>
       </v-col>
     </v-footer>
@@ -214,6 +217,7 @@ export default {
         const response = await LoginService.authenticate(this.loginForm);
         console.log(response);
         if (response.status == 200) {
+          // Gravar os dados do usuário no Storage e no Vuex
           this.$store.commit("SET_USER_LOGADO", response.data.data);
           this.$router.push("/");
           return mixinUtils.methods.messageSwalToast(

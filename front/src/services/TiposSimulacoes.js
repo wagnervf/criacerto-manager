@@ -25,10 +25,6 @@ export default {
     try {
       const response = await ApiAxios().get("/contracts/find");
 
-      if (response) {
-        console.log(response.data);
-      }
-
       return response.data;
     } catch (error) {
       swal({

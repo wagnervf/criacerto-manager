@@ -9,6 +9,7 @@
         color="primary"
         elevation="0"
         dark
+        height="64"
       >
         <v-toolbar-title class="mx-4">
           <h2 class="font-weight-regular">
@@ -309,6 +310,6 @@ export default {
   color: #1867c0 !important;
 }
 .v-input__slot {
-  display: block !important;
+  /* display: block !important; */
 }
 </style>

@@ -6,13 +6,13 @@
     >
       <v-expansion-panel>
         <v-toolbar
-          color="blue-grey"
+          color="primary"
           dark
-          dense
           flat
+          height="auto"
         >
-          <v-toolbar-title class="pt-2">
-            Informações
+          <v-toolbar-title class="my-2 py-2">
+            {{ title }}
           </v-toolbar-title>
         </v-toolbar>
 
@@ -28,12 +28,12 @@
               </v-icon>
             </v-list-item-avatar>
             <v-list-item-content class="pa-4">
-              <v-list-item-title class="blue-grey--text text--bold text-h6">
+              <!-- <v-list-item-title class="blue-grey--text text--bold text-h6">
                 {{ title }}
               </v-list-item-title>
               <v-list-item-subtitle class="text-wrap">
                 {{ subtitle }}
-              </v-list-item-subtitle>
+              </v-list-item-subtitle> -->
 
               <v-list-item-subtitle class="text-wrap py-4 grey--text">
                 <p class="text-subtitle-1 font-weight-bold ma-0">
@@ -187,7 +187,7 @@ export default {
   components: {},
   data: () => ({
     panel: [],
-    title: "Lista dos Parâmentros",
+    title: "Lista dos Parâmetros da Monta Natural",
     icon: "mdi-view-list",
   }),
 

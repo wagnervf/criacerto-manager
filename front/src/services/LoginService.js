@@ -22,16 +22,8 @@ export default {
     try {
       const response = await ApiAxios().post(URL_LOGIN + "/authenticate", user);
 
-      if (response) {
-        let user = {
-          email: response.data.data.email,
-          name: response.data.data.name,
-        };
-        localStorage.setItem("userLogged", JSON.stringify(user));
-        localStorage.setItem("token", response.data.data.token);
-      }
-
       return response;
+      
     } catch (err) {
       console.log(err.response);
       if (err.response) {
