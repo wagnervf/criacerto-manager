@@ -1,59 +1,49 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-import routes from './router';
-// import NProgress from "nprogress";
+import routes from "./router";
+//import NProgress from "nprogress";
+
+import LoginService from "../services/LoginService";
 
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  mode: 'history',
-  // eslint-disable-next-line no-undef
+  mode: "history",
   base: process.env.BASE_URL,
   routes,
 });
 
-/*
-
 router.beforeEach((to, from, next) => {
-//  console.log(to);
- // console.log(from);
-//  console.log(next);
-//  console.log(localStorage.getItem("userLogged"))
+  let user = LoginService.getUserStorage();
+  const permissionsPage = to.meta.permission;
 
-  if (to.name !== "login" && !localStorage.getItem("userLogged")) {
+  console.log(to);
+  console.log(user);
 
-   // let storePermissions = store.state.permissions;
-  //  let includesPermissions;
+  // Páginas públicas
+  if (permissionsPage.includes("PUBLIC")) {
+    console.log("Apenas PUBLIC");
+    next();
+  }
 
-      for (const key in to.meta.permission) {
+  // Não está logado, vá para login
+  if (to.name !== "login" && !user.logado && !permissionsPage.includes("PUBLIC")) {
+    next({ name: "Dashboard" });
+    console.log("NÃO LOGADO");
+  }
 
-        console.log(key)
-        // for (const chave in storePermissions) {
-        //     if ((storePermissions[chave]).includes(to.meta.permission[key])) {
-        //     includesPermissions = true;
-        //  }
-       // }
-      }
+  // Apenas ADMIN
+  if (permissionsPage.includes("ADMIN") && user.admin) {
+    console.log("apenas páginas admin");
+    next();
+  }
 
-   next({
-      name: "login",
-    });
-  } else {
-   next();
+  // Permissão padrão e estou logado
+  if (permissionsPage.includes("TEC") && user.logado) {
+    console.log("técnico");
+    next();
   }
 });
-
-*/
-
-// console.log(from);
-// if (to.matched.some(record => record.meta.requireAuth)) {
-
-// });
-
-// router.afterEach((to, from) => {
-//   // Completando a animação da rota no NProgress
-//   NProgress.done();
-// });
 
 export default router;

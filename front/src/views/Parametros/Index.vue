@@ -6,19 +6,31 @@
         cols="12"
         justify-center
       >
-        <ListaDadosVue />
+        <ListaDadosVueMontaNatural />
+        <br>
+        <ListaDadosVueIATF />
+        <br>
+        <ListaDadosVueIATF_2 />
+        <br>
+        <ListaDadosVueIATF_3 />
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
-import ListaDadosVue from "../MontaNatural/ListaDados.vue";
+import ListaDadosVueMontaNatural from "../MontaNatural/ListaDados.vue";
+import ListaDadosVueIATF from "../Iatf/ListaDados.vue";
+import ListaDadosVueIATF_2 from "../Iatf_2/ListaDados.vue";
+import ListaDadosVueIATF_3 from "../Iatf_3/ListaDados.vue";
 
 export default {
   name: "ViewParametros",
   components: {
-    ListaDadosVue,
+    ListaDadosVueMontaNatural,
+    ListaDadosVueIATF,
+    ListaDadosVueIATF_2,
+    ListaDadosVueIATF_3,
   },
   data: () => ({
     panel: [],

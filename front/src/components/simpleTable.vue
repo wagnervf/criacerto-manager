@@ -9,25 +9,25 @@
           color="primary"
           dark
           flat
-          height="auto"
+          dense
         >
-          <v-toolbar-title class="my-2 py-2">
+          <v-toolbar-title class="my-1 py-1 font-weight-bold">
             {{ title }}
           </v-toolbar-title>
         </v-toolbar>
 
         <v-expansion-panel-header class="pa-0">
-          <v-list-item>
+          <v-list-item style="height: 100px">
             <v-list-item-avatar
               color="blue-grey"
-              size="56"
+              size="45"
               class="d-none d-sm-flex"
             >
               <v-icon color="white">
                 {{ icon }}
               </v-icon>
             </v-list-item-avatar>
-            <v-list-item-content class="pa-4">
+            <v-list-item-content class="pa-4 pr-0 mr-0">
               <!-- <v-list-item-title class="blue-grey--text text--bold text-h6">
                 {{ title }}
               </v-list-item-title>
@@ -36,16 +36,16 @@
               </v-list-item-subtitle> -->
 
               <v-list-item-subtitle class="text-wrap py-4 grey--text">
-                <p class="text-subtitle-1 font-weight-bold ma-0">
-                  Última atualização
+                <p class="text-subtitle-2 font-weight-light ma-0">
+                  Atualizado
                 </p>
-                <p class="text-body ma-0">
-                  <v-icon class="mr-1 grey--text text-body">
+                <p class="ma-0 font-weight-light">
+                  <v-icon class="mr-1 grey--text text-caption">
                     mdi-account
                   </v-icon>{{ userUpdate }}
                 </p>
-                <p class="text-body ma-0">
-                  <v-icon class="mr-1 grey--text text-body">
+                <p class="ma-0 font-weight-light">
+                  <v-icon class="mr-1 grey--text text-caption">
                     mdi-clock
                   </v-icon>{{ dateUpdate }}
                 </p>
@@ -177,6 +177,12 @@ export default {
         return "mdi-cached";
       },
     },
+    title: {
+      type: String,
+      default() {
+        return "Parâmetros";
+      },
+    },
     subtitle: {
       type: String,
       default() {
@@ -187,7 +193,7 @@ export default {
   components: {},
   data: () => ({
     panel: [],
-    title: "Lista dos Parâmetros da Monta Natural",
+    // title: "Lista dos Parâmetros da Monta Natural",
     icon: "mdi-view-list",
   }),
 
@@ -210,3 +216,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.v-expansion-panel-header__icon {
+  margin-right: 4%;
+}
+</style>

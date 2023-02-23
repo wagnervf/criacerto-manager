@@ -1,24 +1,19 @@
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
-  <div>
-    <v-container class="py-0 full-height">
-      <v-card min-height="70vh">
-        <v-toolbar
-          color="primary"
-          dark
-          elevation="0"
-        >
-          <v-toolbar-title class="mx-4">
-            <h2 class="font-weight-regular">
-              Rotas de Acesso
-            </h2>
-          </v-toolbar-title>
-        </v-toolbar>
-
+  <v-expansion-panel>
+    <headerExpansionVue
+      :title="title"
+      :icon="icon"
+      :subtitle="subtitle"
+    />
+    <v-expansion-panel-content class="pa-0">
+      <v-container
+        fluid
+        class="pa-0"
+      >
         <v-card-title class="d-block">
           <h3 class="text-subtitle-1 py-2">
-            Rotas que serão utilizadas para acessar os parâmetros atualizados
-            pelos Cria Certo Manager
+            Servidor
           </h3>
           <ul>
             <li class="text-caption py-4">
@@ -50,7 +45,7 @@
         </div>
 
         <v-card
-          elevation-1
+          elevation-0
           class="ma-4 pa-4"
         >
           <v-card-title primary-title>
@@ -115,23 +110,30 @@
             </v-alert>
           </v-card-text>
         </v-card>
-      </v-card>
-    </v-container>
-  </div>
+      </v-container>
+    </v-expansion-panel-content>
+  </v-expansion-panel>
 </template>
 
 <script>
 //import panelDocumentationVue from "../../components/panelDocumentation.vue";
 import respostasJson from "../../assets/json/respostas.json";
+import headerExpansionVue from "../../components/headerExpansion.vue";
+
 export default {
   name: "IndexDocumentacao",
-  // components: { panelDocumentationVue },
+  components: { headerExpansionVue },
   data: () => ({
     respostas: respostasJson,
     panel: [0, 1, 2, 3, 4, 5],
     readonly: true,
     expanded: [],
     singleExpand: true,
+    title: "Rotas do Sistema",
+    icon: "mdi-routes",
+    subtitle:
+      "Rotas que serão utilizadas para acessar os parâmetros atualizados pelos Cria Certo Manager",
+
     headers: [
       {
         text: "Nome",

@@ -5,6 +5,7 @@
     :download-items="downloadItems"
     :color="color"
     :icone="icone"
+    :title="title"
     :subtitle="subtitle"
     @reloaddados="getDataStore()"
   />
@@ -21,7 +22,9 @@ export default {
   data: () => ({
     loader: null,
     loading: false,
-    subtitle: "Todos os Parâmentros utilizados nas Simulações da 3 IATF",
+    title: "Parâmetros 3 IATF",
+
+    subtitle: "Todos os Parâmetros utilizados nas Simulações da 3 IATF",
     parametros: [],
     downloadItems: [],
     icone: "mdi-cached",

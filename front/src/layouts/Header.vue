@@ -1,133 +1,108 @@
 <template>
-  <div>
-    <!-- <v-container
-    fluid
-    class="pa-0 white"
-  > -->
-    <!-- <v-card
-      class="pa-0 white"
-      elevation="1"
-      style="border-radius: 0px"
-    > -->
-    <!-- <v-row
-      no-gutters
-      class="ma-0 white text-rigt"
-    > -->
-    <!-- <v-col class="py-0 text-left col-6">
-          <v-list-item class="pa-2 d-flex d-sm-none">
-            <v-btn
-              icon
-              @click.stop="openMenu()"
+  <div class="py-0 text-rigth">
+    <v-menu
+      v-if="this.userLogado"
+      offset-y
+      tabindex="1"
+      transition="scale-transition"
+      title="Menu de ações do usuário"
+    >
+      <template #activator="{ on }">
+        <v-tooltip bottom>
+          <template #activator="{ on: tooltip }">
+            <v-list
+              flat
+              style="height: 60px; width: 150px"
+              class="transparent mx-0"
             >
-              <v-icon class="px-2 teal--text">
-                mdi-menu
-              </v-icon>
-            </v-btn>
-            <v-list-item-title>
-              Cria Certo
-              <span class="font-weight-bold teal--text">Manager</span>
-            </v-list-item-title>
-          </v-list-item>
-        </v-col> -->
-
-    <!-- <v-col class="py-0 text-rigth col-6"> -->
-
-    <div class="py-0 text-rigth">
-      <v-menu
-        offset-y
-        tabindex="1"
-        transition="scale-transition"
-        title="Menu de ações do usuário"
-      >
-        <template #activator="{ on }">
-          <v-tooltip bottom>
-            <template #activator="{ on: tooltip }">
-              <v-list
-                flat
-                style="height: 60px; width: 150px"
-                class="transparent mx-0"
+              <v-list-item
+                link
+                v-on="{ ...tooltip, ...on }"
+                class="ma-0"
               >
-                <v-list-item
-                  link
-                  v-on="{ ...tooltip, ...on }"
-                  class="ma-0"
+                <v-list-item-content
+                  accesskey="u"
+                  class="inline-block mx-0"
                 >
-                  <v-list-item-content
-                    accesskey="u"
-                    class="inline-block mx-0"
-                  >
-                    <v-list-item-subtitle class="text-right mx-0">
-                      {{ user.name }}
-                    </v-list-item-subtitle>
-                    <!-- <v-list-item-subtitle>
+                  <v-list-item-subtitle class="text-right mx-0">
+                    {{ user.name }}
+                  </v-list-item-subtitle>
+                  <!-- <v-list-item-subtitle>
                         {{ user.email }}
                       </v-list-item-subtitle> -->
-                  </v-list-item-content>
-                  <v-icon>mdi-menu-down</v-icon>
-                </v-list-item>
-              </v-list>
-            </template>
-            <span>Menu de ações do usuário</span>
-          </v-tooltip>
-        </template>
+                </v-list-item-content>
+                <v-icon>mdi-menu-down</v-icon>
+              </v-list-item>
+            </v-list>
+          </template>
+          <span>Menu de ações do usuário</span>
+        </v-tooltip>
+      </template>
 
-        <v-list dense>
-          <v-list-item
-            v-for="item in userprofile"
-            :key="item.title"
-            :active-class="`teal--text`"
-            class="px-2"
-            link
-            router
-            :to="item.to"
-            dense
-          >
-            <v-list-item-content>
-              <v-list-item-title>
-                <v-icon class="px-2">
-                  {{ item.icon }}
-                </v-icon>
-                {{ item.title }}
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-divider />
-          <v-list-item
-            dense
-            link
-            class="px-2 teal--text"
-            tabindex="2"
-            @click="logout"
-          >
-            <v-list-item-content>
-              <v-list-item-title>
-                <v-icon class="px-2 teal--text">
-                  mdi-logout
-                </v-icon>
-                Sair
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </div>
+      <v-list dense>
+        <v-list-item
+          v-for="item in userprofile"
+          :key="item.title"
+          :active-class="`teal--text`"
+          class="px-2"
+          link
+          router
+          :to="item.to"
+          dense
+        >
+          <v-list-item-content>
+            <v-list-item-title>
+              <v-icon class="px-2">
+                {{ item.icon }}
+              </v-icon>
+              {{ item.title }}
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider />
+        <v-list-item
+          dense
+          link
+          class="px-2 teal--text"
+          tabindex="2"
+          @click="logout"
+        >
+          <v-list-item-content>
+            <v-list-item-title>
+              <v-icon class="px-2 teal--text">
+                mdi-logout
+              </v-icon>
+              Sair
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-menu>
 
-    <!-- </v-col> -->
-    <!-- </v-row> -->
-    <!-- </v-card> -->
-
-    <!-- <v-row class="ma-0 grey lighten-4"> -->
-    <!-- <v-col class="col-12 pt-2 grey lighten-4 t">
-         -->
-    <!-- </v-col> -->
-    <!-- </v-row> -->
-
-    <!-- </v-container> -->
+    <v-list-item
+      v-else
+      dense
+      link
+      class="px-2 pr-0 teal--text"
+      tabindex="2"
+      @click="login"
+      title="Acessar"
+    >
+      <v-list-item-content class="pr-0 mr-0">
+        <v-list-item-title>
+          Login
+          <v-icon class="px-2 teal--text">
+            mdi-login
+          </v-icon>
+        </v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import LoginService from "../services/LoginService";
 
 export default {
   name: "LayoutHeader",
@@ -166,22 +141,22 @@ export default {
       // ...
     ]),
 
-    nomeUser() {
-      return this.$store.getters.getUserLogged.name;
+    userLogado() {
+      return LoginService.getUserStorage();
     },
 
-    emailUser() {
-      return this.$store.getters.getUserLogged.email;
-    },
+    // emailUser() {
+    //   return this.$store.getters.getUserLogged.email;
+    // },
   },
 
   methods: {
     async getUserLocalStorage() {
-      const user = await this.$store.dispatch("getUserStorage");
+      //const user = await this.$store.dispatch("getUserStorage");
+      const user = this.userLogado;
 
       console.log(user);
 
-      // const user = JSON.parse(localStorage.getItem("userLogged"));
       if (user) {
         this.user.name = user.name
           ? user.name.charAt(0).toUpperCase() + user.name.slice(1)
@@ -191,7 +166,12 @@ export default {
     },
 
     logout() {
-      this.$store.commit("LOGOUT");
+      //this.$store.commit("LOGOUT");
+      LoginService.logout();
+      this.$router.push({ name: "login" });
+    },
+
+    login() {
       this.$router.push({ name: "login" });
     },
 

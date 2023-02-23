@@ -41,7 +41,7 @@
                 :to="item.to"
                 :icon="item.icon"
                 :title2="item.title"
-                :subtitle2="'Parâmetros comum à todas as Simulações'"
+                :subtitle2="'Parâmetros comum a todas as Simulações'"
                 :color="'grey lighten-4'"
               />
             </div>
@@ -60,12 +60,12 @@ import titleToolbarListTealVue from "../../components/titleToolbarListTeal.vue";
 import cardListToolbarVue from "../../components/cardListToolbar.vue";
 
 export default {
-  name: "ViewSimulacoes",
+  name: "IndexGerenciarParametros",
   components: { titleToolbarListTealVue, cardListToolbarVue },
   data: () => ({
     items: Menu,
-    subtitle: "Listagem dos parâmetros de todas as Simulações do Cria Certo",
-    title: "Simulações",
+    subtitle: "Listagem das Simulações com os parâmetros do Cria Certo",
+    title: "Gerenciar Parâmetros",
     open: [1, 2],
     search: null,
   }),

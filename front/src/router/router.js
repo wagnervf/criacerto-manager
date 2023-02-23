@@ -9,11 +9,17 @@ const routes = [
     path: "/login",
     name: "login",
     component: () => import("@/views/Login/Login.vue"),
+    meta: {
+      permission: ["PUBLIC"],
+    },
   },
   {
     path: "/",
     redirect: "/",
     component: () => import("@/layouts/Layout"),
+    meta: {
+      permission: ["PUBLIC"],
+    },
 
     children: [],
   },

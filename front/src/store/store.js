@@ -59,35 +59,26 @@ export default new Vuex.Store({
     },
 
     // Set variáveis do Login
-    SET_USER_LOGADO(state, payload) {
-      if (payload) {
-        state.loggedIn = true;
+    // SET_USER_LOGADO(state, payload) {
+    //   if (payload) {
+    //     state.loggedIn = true;
 
-        let user = this.dispatch.mapedUser(payload);
-        // let user = {
-        //   _id: payload._id,
-        //   email: payload.email,
-        //   name: payload.name,
-        //   token: payload.token,
-        //   admin: payload.admin,
-        //   logado: true,
-        //   changed: payload.changed,
-        // };
+    //     let user = this.dispatch.mapedUser(payload);
 
-        Object.assign(state.userLogado, user);
+    //     Object.assign(state.userLogado, user);
 
-        localStorage.setItem("user", JSON.stringify(user));
-      }
-    },
+    //     localStorage.setItem("user", JSON.stringify(user));
+    //   }
+    // },
 
-    LOGOUT(state) {
-      state.userLogado = {};
-      state.loggedIn = false;
-      localStorage.removeItem("user");
+    // LOGOUT(state) {
+    //   state.userLogado = {};
+    //   state.loggedIn = false;
+    //   localStorage.removeItem("user");
 
-      let user = {};
-      Object.assign(state.userLogado, user);
-    },
+    //   let user = {};
+    //   Object.assign(state.userLogado, user);
+    // },
 
     SET_DATA_SIMULACOES(state, value) {
       Object.assign(state.simulacoes, value);
@@ -141,27 +132,26 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async getUserStorage({ dispatch }) {
-      const dados = JSON.parse(localStorage.getItem("user"));
-      //let user = dispatch("mapedUser", dados);
-      let user = dispatch("mapedUser", dados);
+    // async getUserStorage({ dispatch }) {
+    //   const dados = JSON.parse(localStorage.getItem("user"));
+    //   let user = dispatch("mapedUser", dados);
 
-      return user;
-    },
+    //   return user;
+    // },
 
-    mapedUser(payload) {
-      let user = {
-        _id: payload._id,
-        email: payload.email,
-        name: payload.name,
-        token: payload.token,
-        admin: payload.admin,
-        logado: true,
-        changed: payload.changed,
-      };
+    // mapedUser(payload) {
+    //   let user = {
+    //     _id: payload._id,
+    //     email: payload.email,
+    //     name: payload.name,
+    //     token: payload.token,
+    //     admin: payload.admin,
+    //     logado: true,
+    //     changed: payload.changed,
+    //   };
 
-      return user;
-    },
+    //   return user;
+    // },
 
     async getAllDataSimulacoesApi({ commit }) {
       try {

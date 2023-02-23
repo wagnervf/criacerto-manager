@@ -22,8 +22,10 @@ export default {
     try {
       const response = await ApiAxios().post(URL_LOGIN + "/authenticate", user);
 
+      //Salvar no Storage
+      this.setUserStorage(response.data.data);
+
       return response;
-      
     } catch (err) {
       console.log(err.response);
       if (err.response) {
@@ -33,6 +35,36 @@ export default {
       } else err.request;
       return err;
     }
+  },
+
+  setUserStorage(user) {
+    return localStorage.setItem("user", JSON.stringify(user));
+  },
+
+  getUserStorage() {
+    const dados = JSON.parse(localStorage.getItem("user"));
+    if (dados == null) return false;
+
+    let user = this.mapedUser(dados);
+    return user;
+  },
+
+  logout() {
+    return localStorage.removeItem("user");
+  },
+
+  mapedUser(payload) {
+    let user = {
+      _id: payload._id,
+      email: payload.email,
+      name: payload.name,
+      token: payload.token,
+      admin: payload.admin,
+      logado: true,
+      changed: payload.changed,
+    };
+
+    return user;
   },
 
   // async getListaUsuarios() {

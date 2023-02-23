@@ -12,7 +12,7 @@ export default [
           icon: "mdi-chart-box",
         },
       ],
-      permission: ["ADMIN", "TEC"],
+      permission: ["PUBLIC"],
     },
   },
   {
@@ -27,7 +27,7 @@ export default [
           href: "/",
         },
         {
-          text: "Parametros",
+          text: "Parâmetros",
           disabled: true,
           href: "/parametros",
           icon: "mdi-list-box-outline",
@@ -37,9 +37,9 @@ export default [
     },
   },
   {
-    name: "Simulações",
-    path: "/simulacoes",
-    component: () => import("@/views/Simulacoes/Simulacoes.vue"),
+    name: "Gerenciar Parâmetros",
+    path: "/gerenciarparametros",
+    component: () => import("@/views/GerenciarParametros/Index.vue"),
     meta: {
       breadCrumb: [
         {
@@ -48,19 +48,19 @@ export default [
           href: "/",
         },
         {
-          text: "Simulações",
+          text: "Gerenciar Parâmetros",
           disabled: true,
-          href: "/simulacoes",
+          href: "/index",
           icon: "mdi-database",
         },
       ],
-      permission: ["ADMIN", "TEC"],
+      permission: ["ADMIN"],
     },
   },
   {
     name: "Dados Basicos",
-    path: "simulacoes/dadosbasicos",
-    component: () => import("@/views/Simulacoes/DadosBasicos.vue"),
+    path: "gerenciarparametros/dadosbasicos",
+    component: () => import("@/views/GerenciarParametros/DadosBasicos.vue"),
     meta: {
       breadCrumb: [
         {
@@ -69,10 +69,10 @@ export default [
           href: "/",
         },
         {
-          text: "Simulações",
+          text: "Gerenciar Parâmetros",
           to: { name: "" },
           disabled: false,
-          href: "/simulacoes",
+          href: "/gerenciarparametros",
         },
         {
           text: "Dados Básicos das Simulações",
@@ -80,7 +80,7 @@ export default [
           disabled: false,
         },
       ],
-      permission: ["ADMIN", "TEC"],
+      permission: ["ADMIN"],
     },
   },
 
@@ -96,9 +96,9 @@ export default [
           href: "/",
         },
         {
-          text: "Simulações",
+          text: "Gerenciar Parâmetros",
           disabled: false,
-          href: "/simulacoes",
+          href: "/gerenciarparametros",
           icon: "mdi-database",
         },
         {
@@ -107,7 +107,7 @@ export default [
           disabled: false,
         },
       ],
-      permission: ["ADMIN", "TEC"],
+      permission: ["ADMIN"],
     },
   },
 
@@ -123,9 +123,9 @@ export default [
           href: "/",
         },
         {
-          text: "Simulações",
+          text: "Gerenciar Parâmetros",
           disabled: false,
-          href: "/simulacoes",
+          href: "/gerenciarparametros",
           icon: "mdi-database",
         },
         {
@@ -134,7 +134,7 @@ export default [
           disabled: false,
         },
       ],
-      permission: ["ADMIN", "TEC"],
+      permission: ["ADMIN"],
     },
   },
 
@@ -150,9 +150,9 @@ export default [
           href: "/",
         },
         {
-          text: "Simulações",
+          text: "Gerenciar Parâmetros",
           disabled: false,
-          href: "/simulacoes",
+          href: "/gerenciarparametros",
           icon: "mdi-database",
         },
         {
@@ -161,7 +161,7 @@ export default [
           disabled: false,
         },
       ],
-      permission: ["ADMIN", "TEC"],
+      permission: ["ADMIN"],
     },
   },
 
@@ -177,9 +177,9 @@ export default [
           href: "/",
         },
         {
-          text: "Simulações",
+          text: "Gerenciar Parâmetros",
           disabled: false,
-          href: "/simulacoes",
+          href: "/gerenciarparametros",
           icon: "mdi-database",
         },
         {
@@ -188,7 +188,7 @@ export default [
           disabled: false,
         },
       ],
-      permission: ["ADMIN", "TEC"],
+      permission: ["ADMIN"],
     },
   },
 
@@ -214,26 +214,26 @@ export default [
     },
   },
 
-  {
-    name: "Usuarios Meu Perfil",
-    path: "usuarios/perfil",
-    component: () => import("@/views/Usuarios/Perfil.vue"),
-    meta: {
-      breadCrumb: [
-        {
-          text: "Início",
-          disabled: true,
-          href: "/",
-        },
-        {
-          text: "Meu Perfil",
-          href: "/usuarios/perfil",
-          disabled: false,
-        },
-      ],
-      permission: ["ADMIN", "TEC"],
-    },
-  },
+  // {
+  //   name: "Usuarios Meu Perfil",
+  //   path: "usuarios/perfil",
+  //   component: () => import("@/views/Usuarios/Perfil.vue"),
+  //   meta: {
+  //     breadCrumb: [
+  //       {
+  //         text: "Início",
+  //         disabled: true,
+  //         href: "/",
+  //       },
+  //       {
+  //         text: "Meu Perfil",
+  //         href: "/usuarios/perfil",
+  //         disabled: false,
+  //       },
+  //     ],
+  //     permission: ["ADMIN", "TEC"],
+  //   },
+  // },
 
   {
     name: "Sobre",
@@ -255,7 +255,7 @@ export default [
         },
         {
           text: "Ajuda",
-          disabled: true,
+          disabled: false,
           href: "/ajuda",
           icon: "mdi-help",
         },
@@ -265,9 +265,9 @@ export default [
   },
 
   {
-    name: "Documentacao",
-    path: "Documentacao",
-    component: () => import("@/views/Documentacao/Index.vue"),
+    name: "Ajuda",
+    path: "Ajuda/parametros",
+    component: () => import("@/views/Ajuda/parametrosAjuda.vue"),
     meta: {
       breadCrumb: [
         {
@@ -276,14 +276,42 @@ export default [
           href: "/",
         },
         {
-          text: "Documentação",
-          href: "/documentacao",
+          text: "Ajuda",
+          disabled: true,
+          href: "/ajuda",
+          icon: "mdi-help",
+        },
+        {
+          text: "Parâmetros",
           disabled: false,
+          href: "/parametrosAjuda",
+          icon: "mdi-help",
         },
       ],
-      permission: ["ADMIN"],
+      permission: ["ADMIN", "TEC"],
     },
   },
+
+  // {
+  //   name: "Documentacao",
+  //   path: "Documentacao",
+  //   component: () => import("@/views/Documentacao/Index.vue"),
+  //   meta: {
+  //     breadCrumb: [
+  //       {
+  //         text: "Início",
+  //         disabled: true,
+  //         href: "/",
+  //       },
+  //       {
+  //         text: "Documentação",
+  //         href: "/documentacao",
+  //         disabled: false,
+  //       },
+  //     ],
+  //     permission: ["ADMIN"],
+  //   },
+  // },
 
   {
     name: "Configuracoes",
@@ -292,3 +320,17 @@ export default [
     meta: { permission: ["ADMIN", "TEC"] },
   },
 ];
+
+// {
+//   "id": 5,
+//   "title": "Documentação",
+//   "icon": "mdi-text-box",
+//   "to": "/documentacao"
+//     },
+
+// {
+//   "id": 6,
+//   "title": "Meu Perfil",
+//   "icon": "mdi-account",
+//   "to": "/usuarios/perfil"
+// },

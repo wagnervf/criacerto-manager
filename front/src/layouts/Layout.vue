@@ -37,7 +37,7 @@
     >
       <v-sheet
         color="grey lighten-4"
-        class="pa-4 my-4"
+        class="pa-4 mb-4"
       >
         <v-row>
           <v-col class="flex-grow-0 pr-0">
@@ -66,6 +66,17 @@
     >
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-spacer />
+
+      <picture
+        style="position: absolute"
+        class="d-flex d-md-none d-lg-none ml-10 mb-2"
+      >
+        <img
+          height="45"
+          src="cria_certo.png"
+        >
+      </picture>
+
       <HeaderComponent />
     </v-app-bar>
 

@@ -5,6 +5,7 @@
     :download-items="downloadItems"
     :color="color"
     :icone="icone"
+    :title="title"
     :subtitle="subtitle"
     @reloaddados="getDataStore()"
   />
@@ -22,9 +23,10 @@ export default {
     panel: [],
     loader: null,
     loading: false,
-    title: "Lista dos Parâmentros",
+    title: "Parâmetros IATF + 2 RT",
+
     icon: "mdi-view-list",
-    subtitle: "Todos os Parâmentros utilizados nas Simulações da 2 IATF + RT",
+    subtitle: "Todos os Parâmetros utilizados nas Simulações da 2 IATF + RT",
     parametros: [],
     downloadItems: [],
     icone: "mdi-cached",

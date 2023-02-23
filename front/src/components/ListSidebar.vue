@@ -14,7 +14,7 @@
         class="py-1"
       >
         <v-list-item
-          v-for="(item, i) in items"
+          v-for="(item, i) in menuFiltered"
           :key="i"
           link
           router
@@ -31,51 +31,73 @@
       </v-list-item-group>
     </v-list>
 
-    <v-divider />
-    <v-list-item
-      link
-      tabindex="2"
-      accesskey="s"
-      title="Sair do Sistema"
-      @click="logout"
-    >
-      <v-list-item-icon left>
-        <v-icon> mdi-logout </v-icon>
-      </v-list-item-icon>
-      <v-list-item-content>
-        <v-list-item-title> Sair </v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
+    <div v-if="this.userLogado">
+      <v-divider />
+      <v-list-item
+        link
+        tabindex="2"
+        accesskey="s"
+        title="Sair do Sistema"
+        @click="logout"
+      >
+        <v-list-item-icon left>
+          <v-icon> mdi-logout </v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title> Sair </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </div>
   </div>
 </template>
 
 <script>
 import Menu from "../assets/json/menu.json";
+import LoginService from "../services/LoginService";
 
 export default {
   data: () => ({
     items: Menu,
     selecionado: 0,
     selectedItem: 0,
-    items2: [
-      { text: "My Files", icon: "mdi-folder" },
-      { text: "Shared with me", icon: "mdi-account-multiple" },
-      { text: "Starred", icon: "mdi-star" },
-      { text: "Recent", icon: "mdi-history" },
-      { text: "Offline", icon: "mdi-check-circle" },
-      { text: "Uploads", icon: "mdi-upload" },
-      { text: "Backups", icon: "mdi-cloud-upload" },
-    ],
   }),
+
+  mounted() {
+    console.log(this.menuFiltered);
+  },
+
+  computed: {
+    userLogado() {
+      return LoginService.getUserStorage();
+    },
+
+    menuFiltered() {
+      let menu = this.items.filter((word) => {
+        if (!this.userLogado) {
+          return word.permission == "public";
+        }
+
+        if (this.userLogado && this.userLogado.admin) {
+          return word.permission;
+        }
+
+        if (this.userLogado && !this.userLogado.admin) {
+          return word.permission != "admin";
+        }
+      });
+
+      return menu;
+    },
+  },
 
   methods: {
     logout() {
-      this.$store.commit("LOGOUT");
+      LoginService.logout();
       this.$router.push({ name: "login" });
     },
 
     navegar(to) {
-     // console.log(to);
+      // console.log(to);
       this.$store.commit("SET_SIDEBAR_CUSTOM", false);
       this.$router.push(to);
     },

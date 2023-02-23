@@ -9,7 +9,7 @@
           <p class="text-left mx-6 text-h4 white--text">
             Cria Certo Manager
           </p>
-          <p class="text-caption text-left mx-6 text--grey">
+          <p class="text-caption text-left mx-6 text--white">
             Sistema Gerenciador dos parâmetros utilizado pelo aplicativo Cria
             Certo
           </p>
@@ -18,15 +18,16 @@
         <v-form
           ref="form"
           v-model="valid"
-          class="pa-4 ma-2"
+          class="pa-4 ma-2 white"
           lazy-validation
         >
           <v-stepper
             v-model="step"
             flat
             rounded
+            class="white"
           >
-            <v-stepper-items class="mt-6">
+            <v-stepper-items class="mt-6 white">
               <v-stepper-content
                 step="1"
                 class="my-6"
@@ -110,10 +111,10 @@
     </v-row>
     <v-footer padless>
       <v-col
-        class="text-center"
+        class="text-center white"
         cols="12"
       >
-        <p class="text-center mt-0">
+        <p class="text-center mt-0 white">
           <img
             src="@/assets/img/embrapa.png"
             style="width: 150px"
@@ -123,7 +124,7 @@
       </v-col>
 
       <v-col
-        class="text-center"
+        class="text-center white"
         cols="12"
       >
         <div class="text-center grey--text mt-1">
@@ -217,9 +218,9 @@ export default {
         const response = await LoginService.authenticate(this.loginForm);
         console.log(response);
         if (response.status == 200) {
-          // Gravar os dados do usuário no Storage e no Vuex
-          this.$store.commit("SET_USER_LOGADO", response.data.data);
+          
           this.$router.push("/");
+
           return mixinUtils.methods.messageSwalToast(
             "success",
             "Acesso autorizado " + response.data.data.email

@@ -4,49 +4,45 @@
     "id": 1,
     "title": "Dashboard",
     "icon": "mdi-chart-box",
-    "to": "/"
+    "to": "/",
+    "permission": "public"
+
   },
   {
     "id": 2,
-    "title": "Simulações do Cria Certo",
+    "title": "Gerenciar Parâmetros",
     "icon": "mdi-database",
-    "to": "/simulacoes"
+    "to": "/gerenciarparametros",
+    "permission": "admin"
   },
 
   {
     "id": 3,
-    "title": "Parâmetros",
+    "title": "Visualizar os Parâmetros",
     "icon": "mdi-list-box-outline",
-    "to": "/parametros"
+    "to": "/parametros",
+    "permission": "tec"
+
   },
    
   {
     "id": 4,
     "title": "Gerenciar Usuários",
     "icon": "mdi-account-multiple",
-    "to": "/usuarios/gerenciar"
+    "to": "/usuarios/gerenciar",
+    "permission": "admin"
+
   },
 
-  {
-    "id": 5,
-    "title": "Documentação",
-    "icon": "mdi-text-box",
-    "to": "/documentacao"
-      },
 
-  {
-    "id": 6,
-    "title": "Meu Perfil",
-    "icon": "mdi-account",
-    "to": "/usuarios/perfil"
-  },
-  
 
   {
     "id": 7,
     "title": "Ajuda",
     "icon": "mdi-help",
-    "to": "/ajuda/ajuda"
+    "to": "/ajuda/ajuda",
+    "permission": "public"
+
   }
 
  

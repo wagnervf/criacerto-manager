@@ -8,6 +8,7 @@
           :download-items="downloadItems"
           :color="color"
           :icone="icone"
+          :title="title"
           :subtitle="subtitle"
           @reloaddados="getDataStore()"
         />
@@ -27,9 +28,9 @@ export default {
     panel: [],
     loader: null,
     loading: false,
-    //title: "Lista dos Parâmentros",
+    title: "Parâmetros Monta Natural",
     // icon: "mdi-view-list",
-    subtitle: "Todos os Parâmentros utilizados nas Simulações da Monta Natural",
+    subtitle: "Todos os Parâmetros utilizados nas Simulações da Monta Natural",
     parametros: [],
     downloadItems: [],
     icone: "mdi-cached",
@@ -50,8 +51,6 @@ export default {
       this.parametros = [];
       this.loader = "loading";
       let result = await this.getDadosMontaNatural();
-      console.log(result);
-
       if (Object.values(result).length > 0) {
         this.parametros = result;
         this.alterIcon("mdi-check", "teal");
