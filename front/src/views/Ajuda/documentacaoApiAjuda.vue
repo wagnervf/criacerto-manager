@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/valid-v-slot -->
 <template>
   <v-expansion-panel>
     <headerExpansionVue

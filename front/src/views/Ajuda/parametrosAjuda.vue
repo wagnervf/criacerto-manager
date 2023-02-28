@@ -1,26 +1,30 @@
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
-  <v-container
-    fluid
-    class="pa-0"
-  >
-    <!-- <v-expansion-panel> -->
-    <v-toolbar class="mb-2">
-      <v-toolbar-title class="teal--text pa-4">
-        {{ title }}
-      </v-toolbar-title>
+  <v-expansion-panel>
+    <headerExpansionVue
+      :title="title"
+      :icon="icon"
+      :subtitle="subtitle"
+    />
+    <v-expansion-panel-content class="pa-0">
+      <v-container
+        fluid
+        class="pa-0"
+      >
+        <v-toolbar class="mb-2">
+          <v-toolbar-title class="teal--text pa-4">
+            {{ title }}
+          </v-toolbar-title>
 
-      <v-spacer />
+          <v-spacer />
 
-      <v-btn icon>
-        <v-icon>mdi-help</v-icon>
-      </v-btn>
-    </v-toolbar>
+          <v-btn icon>
+            <v-icon>mdi-help</v-icon>
+          </v-btn>
+        </v-toolbar>
 
-    <!-- <v-expansion-panel-content class="pa-0"> -->
-
-    <v-card>
-      <pre>
+        <v-card>
+          <pre>
           -Firefox:
             * Menu: Alt + Shift + m
             * Ações do usuário : Alt + Shift + u
@@ -32,18 +36,18 @@
             * Sair: Alt + s
 
           </pre>
-    </v-card>
-  </v-container>
-  <!-- </v-expansion-panel-content> -->
-  <!-- </v-expansion-panel> -->
+        </v-card>
+      </v-container>
+    </v-expansion-panel-content>
+  </v-expansion-panel>
 </template>
 
 <script>
-//import headerExpansionVue from "../../components/headerExpansion.vue";
+import headerExpansionVue from "../../components/headerExpansion.vue";
 
 export default {
+  components: { headerExpansionVue },
   name: "ParametrosAjuda",
-  components: {},
   data: () => ({
     title: "Ajuda Parâmetros do Cria Certo",
     icon: "mdi-database",

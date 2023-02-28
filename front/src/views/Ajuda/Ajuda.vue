@@ -12,48 +12,63 @@
           :subtitle="subtitle"
         />
 
-        <v-expansion-panels
+        <headerListVue
+          :title="titleD"
+          :icon="iconD"
+          :subtitle="subtitleD"
+          :icon-expand="icon"
+          :rota="dash"
+        />
+
+        <!-- <v-List-panels
           focusable
+          multi-line
+          multiple
           v-model="panel"
         >
           <dashboardAjuda @fechar="resetExpand" />
+
           <parametrosAjuda @fechar="resetExpand" />
 
           <documentacaoApi @fechar="resetExpand" />
-          <teclasAtalho @fechar="resetExpand" />
-        </v-expansion-panels>
-      </v-col>
 
-      <!-- <v-col
-        class="px-1 py-4 mt-4"
-        cols="12"
-        justify-center
-      >
-        <ListaDadosVue />
-      </v-col> -->
+          <teclasAtalho @fechar="resetExpand" /> 
+        </v-expansion-panels> -->
+      </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
-import teclasAtalho from "./teclasAtalhoAjuda.vue";
-import documentacaoApi from "./documentacaoApiAjuda.vue";
-import dashboardAjuda from "./dashboardAjuda.vue";
-import parametrosAjuda from "./parametrosAjuda.vue";
+// import teclasAtalho from "./teclasAtalhoAjuda.vue";
+// import documentacaoApi from "./documentacaoApiAjuda.vue";
+// import dashboardAjuda from "./dashboardAjuda.vue";
+// import parametrosAjuda from "./parametrosAjuda.vue";
 import titleToolbarListTealVue from "../../components/titleToolbarListTeal.vue";
+
+import headerListVue from "../../components/headerList.vue";
+
 export default {
   name: "AjudaIndex",
   components: {
-    teclasAtalho,
-    documentacaoApi,
+    //teclasAtalho,
+    // documentacaoApi,
     titleToolbarListTealVue,
-    dashboardAjuda,
-    parametrosAjuda,
+    //dashboardAjuda,
+    // parametrosAjuda,
+    headerListVue,
   },
   data() {
     return {
-      panel: [],
+      panel: [0],
       subtitle: "Tela de ajuda do Cria Certo Manager",
       title: "Ajuda",
+
+      titleD: "Dashboard",
+      iconD: "mdi-chart-box",
+      subtitleD: "Ajuda da Tela de Dashboard",
+      dash: "AjudaDashboard",
+
+      icon: "mdi-chevron-right",
     };
   },
 

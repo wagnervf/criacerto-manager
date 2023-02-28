@@ -265,7 +265,35 @@ export default [
   },
 
   {
-    name: "Ajuda",
+    name: "AjudaDashboard",
+    path: "Ajuda/dashboard",
+    component: () => import("@/views/Ajuda/dashboardAjuda.vue"),
+    meta: {
+      breadCrumb: [
+        {
+          text: "Início",
+          disabled: true,
+          href: "/",
+        },
+        {
+          text: "Ajuda",
+          disabled: true,
+          href: "/ajuda",
+          icon: "mdi-help",
+        },
+        {
+          text: "Dashboard",
+          disabled: false,
+          href: "/dashboardAjuda",
+          icon: "mdi-help",
+        },
+      ],
+      permission: ["ADMIN", "TEC"],
+    },
+  },
+
+  {
+    name: "AjudaParametros",
     path: "Ajuda/parametros",
     component: () => import("@/views/Ajuda/parametrosAjuda.vue"),
     meta: {

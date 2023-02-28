@@ -63,7 +63,7 @@ export default {
   }),
 
   mounted() {
-    console.log(this.menuFiltered);
+    this.menuFiltered;
   },
 
   computed: {

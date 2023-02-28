@@ -73,7 +73,7 @@
       >
         <img
           height="45"
-          src="cria_certo.png"
+          src="../assets/img/cria_certo.png"
         >
       </picture>
 
@@ -106,7 +106,6 @@ export default {
   data: () => ({ drawer: null }),
   computed: {
     rotas() {
-      console.log(this.$route.meta);
       return this.$route.meta.breadCrumb;
     },
   },

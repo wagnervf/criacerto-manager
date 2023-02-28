@@ -49,8 +49,10 @@ export default {
     return user;
   },
 
+  // Limpar Storage
   logout() {
-    return localStorage.removeItem("user");
+    localStorage.removeItem("user");
+    return localStorage.clear();
   },
 
   mapedUser(payload) {
@@ -62,32 +64,18 @@ export default {
       admin: payload.admin,
       logado: true,
       changed: payload.changed,
+      dateExpired: this.expiredStorage(),
     };
 
     return user;
   },
 
-  // async getListaUsuarios() {
-  //   try {
-  //     const response = await ApiAxios().get(URL_USERS + "/list");
-  //     if (response.status == "200") {
-  //       return response;
-  //     }
-  //     return response;
-  //   } catch (error) {
-  //     return error.response;
-  //   };]
-  // },
+  expiredStorage() {
+    const now = new Date();
 
-  // async updateUsuario(dados) {
-  //   try {
-  //     return await ApiAxios()
-  //       .put(URL_USERS + "/update", dados)
-  //       .then((response) => response)
-  //       .catch((error) => error.response);
-  //   } catch (erro) {
-  //     console.log(erro);
-  //     return erro;
-  //   }
-  // },
+    // 1 dia para expirar o token
+    let expiry = now.getTime() + 86400000;
+
+    return expiry;
+  },
 };

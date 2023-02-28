@@ -136,26 +136,16 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      "getUserLogged",
-      // ...
-    ]),
+    ...mapGetters(["getUserLogged"]),
 
     userLogado() {
       return LoginService.getUserStorage();
     },
-
-    // emailUser() {
-    //   return this.$store.getters.getUserLogged.email;
-    // },
   },
 
   methods: {
     async getUserLocalStorage() {
-      //const user = await this.$store.dispatch("getUserStorage");
       const user = this.userLogado;
-
-      console.log(user);
 
       if (user) {
         this.user.name = user.name
@@ -166,7 +156,6 @@ export default {
     },
 
     logout() {
-      //this.$store.commit("LOGOUT");
       LoginService.logout();
       this.$router.push({ name: "login" });
     },

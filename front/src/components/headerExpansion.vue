@@ -1,7 +1,11 @@
 <template>
   <div>
     <v-expansion-panel-header class="pl-3">
-      <v-list-item>
+      <v-list-item
+        link
+        router
+        :to="rota"
+      >
         <v-list-item-avatar
           color="teal"
           size="56"
@@ -41,6 +45,20 @@ export default {
       },
     },
     subtitle: {
+      type: String,
+      default() {
+        return "";
+      },
+    },
+
+    iconExpand: {
+      type: String,
+      default() {
+        return "mdi-chevron-down";
+      },
+    },
+
+    rota: {
       type: String,
       default() {
         return "";
