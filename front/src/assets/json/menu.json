@@ -41,7 +41,7 @@
     "title": "Ajuda",
     "icon": "mdi-help",
     "to": "/ajuda/ajuda",
-    "permission": "public"
+    "permission": "tec"
 
   }
 

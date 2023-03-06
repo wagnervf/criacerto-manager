@@ -1,22 +1,15 @@
 /* eslint-disable vue/no-v-text-v-html-on-component */
 <template>
   <v-container>
+    <titleToolbarListTealVue
+      :title="title"
+      :subtitle="subtitle"
+    />
+    <br>
     <v-card
       class="mx-auto"
       tile
     >
-      <v-toolbar
-        color="primary"
-        elevation="0"
-        dark
-        height="64"
-      >
-        <v-toolbar-title class="mx-4">
-          <h2 class="font-weight-regular">
-            Gerenciar Usuários
-          </h2>
-        </v-toolbar-title>
-      </v-toolbar>
       <!-- 
       <v-toolbar class="elevation-0 grey lighten-4">
         <v-toolbar-title>Lista dos Usuários</v-toolbar-title>
@@ -150,12 +143,13 @@
 <script>
 import UsuariosServices from "@/services/UsuariosServices";
 import mixinUtils from "../../mixins/mixin-utils";
+import titleToolbarListTealVue from "../../components/titleToolbarListTeal.vue";
 
 const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default {
   mixins: [mixinUtils],
-  components: {},
+  components: { titleToolbarListTealVue },
   props: {},
   data: () => ({
     active: [],
@@ -175,6 +169,9 @@ export default {
     valid: false,
     openSalvar: false,
     ultimoEstadoSalvar: false,
+
+    subtitle: "LIstagem dos usuários",
+    title: "Gerenciar Usuários",
 
     caseSensitive: false,
     search: "",

@@ -40,8 +40,14 @@
         class="pa-4 mb-4"
       >
         <v-row>
-          <v-col class="flex-grow-0 pr-0">
-            <v-icon
+          <v-img
+            max-width="180"
+            alt="Logo Cria Certo Manager"
+            class="my-2 ma-auto"
+            src="../assets/img/cria-certo-manager2.png"
+          />
+
+          <!-- <v-icon
               class="teal--text px-0"
               size="64"
             >
@@ -52,8 +58,7 @@
             <h3>Cria Certo</h3>
             <h1 class="font-weight-bold teal--text">
               Manager
-            </h1>
-          </v-col>
+            </h1> -->
         </v-row>
       </v-sheet>
 
@@ -73,7 +78,7 @@
       >
         <img
           height="45"
-          src="../assets/img/cria_certo.png"
+          src="../assets/img/cria-certo-manager2.png"
         >
       </picture>
 

@@ -23,7 +23,7 @@ export default {
     panel: [],
     loader: null,
     loading: false,
-    title: "Parâmetros IATF + 2 RT",
+    title: "IATF + 2 RT",
 
     icon: "mdi-view-list",
     subtitle: "Todos os Parâmetros utilizados nas Simulações da 2 IATF + RT",

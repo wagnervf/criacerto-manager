@@ -15,7 +15,22 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   let user = LoginService.getUserStorage();
+
   const permissionsPage = to.meta.permission;
+
+  //console.log(user);
+  //console.log(permissionsPage);
+
+  if (to.fullPath == "/dashboard") {
+    return next({ name: "Dashboard" });
+  }
+
+  if (typeof permissionsPage == "undefined") {
+    return next({ name: "login" });
+  }
+
+  //else {
+  //console.log("else");
 
   //Checar token expirado +1 dia
   if (to.name !== "login") {
@@ -24,23 +39,28 @@ router.beforeEach((to, from, next) => {
 
   // Páginas públicas
   if (permissionsPage.includes("PUBLIC")) {
-    next();
+    return next();
   }
 
   // Não está logado, vá para login
   if (to.name !== "login" && !user.logado && !permissionsPage.includes("PUBLIC")) {
-    next({ name: "Dashboard" });
+    return next({ name: "login" });
   }
 
   // Apenas ADMIN
   if (permissionsPage.includes("ADMIN") && user.admin) {
-    next();
+    return next();
   }
+
+  //  if (permissionsPage.includes("ADMIN") && !user.admin) {
+  //    return next({ name: "Dashboard" });
+  //  }
 
   // Permissão padrão e estou logado
   if (permissionsPage.includes("TEC") && user.logado) {
-    next();
+    return next();
   }
+  //}
 });
 
 // Verifica se token está expirado

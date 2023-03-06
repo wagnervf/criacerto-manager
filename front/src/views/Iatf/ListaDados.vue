@@ -22,7 +22,7 @@ export default {
     panel: [],
     loader: null,
     loading: false,
-    title: "Parâmetros IATF + RT",
+    title: "IATF + RT",
     subtitle: "Todos os Parâmetros utilizados nas Simulações da IATF + RT",
     parametros: [],
     downloadItems: [],

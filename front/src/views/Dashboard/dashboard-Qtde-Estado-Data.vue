@@ -14,7 +14,7 @@
         >
           <v-expansion-panel>
             <v-expansion-panel-header>
-              <h3>Quantitativo de Simulações Estados</h3>
+              <h3>Quantitativo de Simulações por Estados</h3>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-card-text class="pa-6">

@@ -1,72 +1,70 @@
 <template>
   <v-expansion-panel>
-    <headerExpansionVue
-      :title="title"
-      :icon="icon"
-      :subtitle="subtitle"
-    />
-    <v-expansion-panel-content class="pa-0">
-      <v-container
-        fluid
-        class="pa-0"
+    <v-card>
+      <v-card-title>{{ title }}</v-card-title>
+      <v-card-text>{{ subtitle }}</v-card-text>
+    </v-card>
+    <v-container
+      fluid
+      class="pa-0"
+    >
+      <v-card-title class="d-block">
+        <h3 class="text-subtitle-1 py-2">
+          Servidor
+        </h3>
+        <ul>
+          <li class="text-caption py-4">
+            http://servidorEmprapa.com.br/<b>manager</b>
+          </li>
+        </ul>
+      </v-card-title>
+
+      <v-divider class="mx-4" />
+
+      <div class="mt-4">
+        <v-data-table
+          :headers="headers"
+          :items="rotas"
+          :items-per-page="5"
+          class="elevation-1 ma-4 mt-6"
+          :hide-default-footer="true"
+        >
+          <!-- eslint-disable-next-line vue/valid-v-slot -->
+          <template #item.acao="{ item }">
+            <v-chip
+              color="primary"
+              dark
+            >
+              {{ item.acao }}
+            </v-chip>
+          </template>
+        </v-data-table>
+      </div>
+
+      <v-card
+        elevation-0
+        class="ma-4 pa-4"
       >
-        <v-card-title class="d-block">
-          <h3 class="text-subtitle-1 py-2">
-            Servidor
+        <v-card-title primary-title>
+          <h3 class="font-weight-medium primary--text">
+            Status Code: 200 OK
           </h3>
+        </v-card-title>
+        <v-divider />
+
+        <v-card-title class="font-weight-light">
           <ul>
-            <li class="text-caption py-4">
-              http://servidorEmprapa.com.br/<b>manager</b>
-            </li>
+            <li><b>Exemplo de resposta:</b></li>
           </ul>
         </v-card-title>
 
-        <v-divider class="mx-4" />
-
-        <div class="mt-4">
-          <v-data-table
-            :headers="headers"
-            :items="rotas"
-            :items-per-page="5"
-            class="elevation-1 ma-4 mt-6"
-            :hide-default-footer="true"
+        <v-card-text class="my-4">
+          <v-alert
+            dense
+            color="grey lighten-3"
+            prominent
           >
-            <!-- eslint-disable-next-line vue/valid-v-slot -->
-            <template #item.acao="{ item }">
-              <v-chip
-                color="primary"
-                dark
-              >
-                {{ item.acao }}
-              </v-chip>
-            </template>
-          </v-data-table>
-        </div>
-
-        <v-card
-          elevation-0
-          class="ma-4 pa-4"
-        >
-          <v-card-title primary-title>
-            <h3 class="font-weight-medium primary--text">
-              Status Code: 200 OK
-            </h3>
-          </v-card-title>
-          <v-divider />
-
-          <v-card-title class="font-weight-light">
-            <ul>
-              <li><b>Exemplo de resposta:</b></li>
-            </ul>
-          </v-card-title>
-
-          <v-card-text class="my-4">
-            <v-alert
-              dense
-              color="grey lighten-3"
-              prominent
-            >
-              <pre>
+            <pre>
                 <code
                   v-for="(resp, i) in respostas"
                   :key="i"
@@ -74,54 +72,52 @@
                   {{ resp.Monta }}
                 </code>
               </pre>
-            </v-alert>
-          </v-card-text>
-        </v-card>
+          </v-alert>
+        </v-card-text>
+      </v-card>
 
-        <v-card
-          elevation-1
-          class="ma-4 pa-4"
-        >
-          <v-card-title primary-title>
-            <h3 class="font-weight-medium error--text">
-              Status Code: 404 ERROR
-            </h3>
-          </v-card-title>
-          <v-divider />
+      <v-card
+        elevation-1
+        class="ma-4 pa-4"
+      >
+        <v-card-title primary-title>
+          <h3 class="font-weight-medium error--text">
+            Status Code: 404 ERROR
+          </h3>
+        </v-card-title>
+        <v-divider />
 
-          <v-card-title class="font-weight-light">
-            <ul>
-              <li><b>Exemplo de resposta:</b></li>
-            </ul>
-          </v-card-title>
+        <v-card-title class="font-weight-light">
+          <ul>
+            <li><b>Exemplo de resposta:</b></li>
+          </ul>
+        </v-card-title>
 
-          <v-card-text class="my-4">
-            <v-alert
-              dense
-              color="grey lighten-3"
-              prominent
-            >
-              <pre>
+        <v-card-text class="my-4">
+          <v-alert
+            dense
+            color="grey lighten-3"
+            prominent
+          >
+            <pre>
                 <code>
                   {{ code404 }}
                 </code>              
               </pre>
-            </v-alert>
-          </v-card-text>
-        </v-card>
-      </v-container>
-    </v-expansion-panel-content>
+          </v-alert>
+        </v-card-text>
+      </v-card>
+    </v-container>
   </v-expansion-panel>
 </template>
 
 <script>
 //import panelDocumentationVue from "../../components/panelDocumentation.vue";
 import respostasJson from "../../assets/json/respostas.json";
-import headerExpansionVue from "../../components/headerExpansion.vue";
 
 export default {
   name: "IndexDocumentacao",
-  components: { headerExpansionVue },
+  components: {},
   data: () => ({
     respostas: respostasJson,
     panel: [0, 1, 2, 3, 4, 5],

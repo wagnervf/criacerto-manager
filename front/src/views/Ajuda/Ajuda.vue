@@ -20,29 +20,34 @@
           :rota="dash"
         />
 
-        <!-- <v-List-panels
-          focusable
-          multi-line
-          multiple
-          v-model="panel"
-        >
-          <dashboardAjuda @fechar="resetExpand" />
+        <headerListVue
+          :title="titleParametros"
+          :icon="iconParametros"
+          :subtitle="subtitleParametros"
+          :icon-expand="icon"
+          :rota="dashParametros"
+        />
 
-          <parametrosAjuda @fechar="resetExpand" />
+        <headerListVue
+          :title="titleDocApi"
+          :icon="iconDocApi"
+          :subtitle="subtitleDocApi"
+          :icon-expand="icon"
+          :rota="dashDocApi"
+        />
 
-          <documentacaoApi @fechar="resetExpand" />
-
-          <teclasAtalho @fechar="resetExpand" /> 
-        </v-expansion-panels> -->
+        <headerListVue
+          :title="titleDocUser"
+          :icon="iconDocUser"
+          :subtitle="subtitleDocUser"
+          :icon-expand="icon"
+          :rota="dashDocUser"
+        />
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
-// import teclasAtalho from "./teclasAtalhoAjuda.vue";
-// import documentacaoApi from "./documentacaoApiAjuda.vue";
-// import dashboardAjuda from "./dashboardAjuda.vue";
-// import parametrosAjuda from "./parametrosAjuda.vue";
 import titleToolbarListTealVue from "../../components/titleToolbarListTeal.vue";
 
 import headerListVue from "../../components/headerList.vue";
@@ -50,11 +55,7 @@ import headerListVue from "../../components/headerList.vue";
 export default {
   name: "AjudaIndex",
   components: {
-    //teclasAtalho,
-    // documentacaoApi,
     titleToolbarListTealVue,
-    //dashboardAjuda,
-    // parametrosAjuda,
     headerListVue,
   },
   data() {
@@ -68,6 +69,20 @@ export default {
       subtitleD: "Ajuda da Tela de Dashboard",
       dash: "AjudaDashboard",
 
+      titleParametros: "Parâmetros",
+      iconParametros: "mdi-database",
+      subtitleParametros: "Ajuda da Tela de Parâmetros",
+      dashParametros: "AjudaParametros",
+
+      titleDocApi: "Documentação da API",
+      iconDocApi: "mdi-routes",
+      subtitleDocApi: "Ajuda da Tela de Documentação da API",
+      dashDocApi: "AjudaDocumentacaoApi",
+
+      titleDocUser: "Gerenciar Usuários",
+      iconDocUser: "mdi-account-cog",
+      subtitleDocUser: "Ajuda da Tela de Gerenciar Usuários",
+      dashDocUser: "AjudaGerenciarUsuarios",
       icon: "mdi-chevron-right",
     };
   },

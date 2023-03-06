@@ -2,6 +2,7 @@ import Vue from "vue";
 import { mapState, mapActions, mapGetters } from "vuex";
 import Swal from "sweetalert2";
 import moment from "moment";
+import LoginService from "../services/LoginService";
 
 export default {
   created() {
@@ -31,7 +32,7 @@ export default {
     // },
 
     userLogado() {
-      return this.$store.getters.getUserLogged;
+      return LoginService.getUserStorage();
     },
 
     totalSimulacoesDataFiltered() {

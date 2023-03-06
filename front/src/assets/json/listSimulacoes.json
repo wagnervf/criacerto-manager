@@ -37,7 +37,7 @@
     "title": "Dados Básicos das Simulações",
     "icon": "mdi-database-edit",   
     "subtitle": "Raça de Touro, Estados, Municípios",
-    "to": "/simulacoes/dadosbasicos"
+    "to": "/gerenciarparametros/dadosbasicos"
   }
   
 ]

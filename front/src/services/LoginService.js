@@ -37,7 +37,8 @@ export default {
     }
   },
 
-  setUserStorage(user) {
+  setUserStorage(dados) {
+    let user = this.mapedUser(dados);
     return localStorage.setItem("user", JSON.stringify(user));
   },
 

@@ -6,6 +6,12 @@
         cols="12"
         justify-center
       >
+        <titleToolbarListTealVue
+          title="Lista dos Parâmetros"
+          subtitle="Lista de todos os parâmentros do sistema, disponíveis para download"
+        />
+        <br>
+
         <ListaDadosVueMontaNatural />
         <br>
         <ListaDadosVueIATF />
@@ -23,6 +29,7 @@ import ListaDadosVueMontaNatural from "../MontaNatural/ListaDados.vue";
 import ListaDadosVueIATF from "../Iatf/ListaDados.vue";
 import ListaDadosVueIATF_2 from "../Iatf_2/ListaDados.vue";
 import ListaDadosVueIATF_3 from "../Iatf_3/ListaDados.vue";
+import titleToolbarListTealVue from "../../components/titleToolbarListTeal.vue";
 
 export default {
   name: "ViewParametros",
@@ -31,6 +38,7 @@ export default {
     ListaDadosVueIATF,
     ListaDadosVueIATF_2,
     ListaDadosVueIATF_3,
+    titleToolbarListTealVue,
   },
   data: () => ({
     panel: [],

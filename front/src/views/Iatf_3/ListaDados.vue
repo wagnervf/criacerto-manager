@@ -22,7 +22,7 @@ export default {
   data: () => ({
     loader: null,
     loading: false,
-    title: "Parâmetros 3 IATF",
+    title: "3 IATF",
 
     subtitle: "Todos os Parâmetros utilizados nas Simulações da 3 IATF",
     parametros: [],

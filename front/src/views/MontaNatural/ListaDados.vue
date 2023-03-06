@@ -28,7 +28,7 @@ export default {
     panel: [],
     loader: null,
     loading: false,
-    title: "Parâmetros Monta Natural",
+    title: "Monta Natural",
     // icon: "mdi-view-list",
     subtitle: "Todos os Parâmetros utilizados nas Simulações da Monta Natural",
     parametros: [],

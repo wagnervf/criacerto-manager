@@ -236,13 +236,6 @@ export default [
   // },
 
   {
-    name: "Sobre",
-    path: "Sobre/sobre",
-    component: () => import("@/views/Sobre/Sobre.vue"),
-    meta: { permission: ["ADMIN", "TEC"] },
-  },
-
-  {
     name: "Ajuda",
     path: "Ajuda/ajuda",
     component: () => import("@/views/Ajuda/Ajuda.vue"),
@@ -277,7 +270,7 @@ export default [
         },
         {
           text: "Ajuda",
-          disabled: true,
+          disabled: false,
           href: "/ajuda",
           icon: "mdi-help",
         },
@@ -305,7 +298,7 @@ export default [
         },
         {
           text: "Ajuda",
-          disabled: true,
+          disabled: false,
           href: "/ajuda",
           icon: "mdi-help",
         },
@@ -313,6 +306,62 @@ export default [
           text: "Parâmetros",
           disabled: false,
           href: "/parametrosAjuda",
+          icon: "mdi-help",
+        },
+      ],
+      permission: ["ADMIN", "TEC"],
+    },
+  },
+
+  {
+    name: "AjudaDocumentacaoApi",
+    path: "Ajuda/documentacao",
+    component: () => import("@/views/Ajuda/documentacaoApiAjuda.vue"),
+    meta: {
+      breadCrumb: [
+        {
+          text: "Início",
+          disabled: true,
+          href: "/",
+        },
+        {
+          text: "Ajuda",
+          disabled: false,
+          href: "/ajuda",
+          icon: "mdi-help",
+        },
+        {
+          text: "Parâmetros",
+          disabled: false,
+          href: "/parametrosAjuda",
+          icon: "mdi-help",
+        },
+      ],
+      permission: ["ADMIN", "TEC"],
+    },
+  },
+
+  {
+    name: "AjudaGerenciarUsuarios",
+    path: "Ajuda/usuarios",
+    component: () => import("@/views/Ajuda/gerenciarUsuariosAjuda.vue"),
+    meta: {
+      breadCrumb: [
+        {
+          text: "Início",
+          disabled: true,
+          href: "/",
+        },
+        {
+          text: "Ajuda",
+          disabled: false,
+          href: "/ajuda",
+          icon: "mdi-help",
+        },
+        {
+          text: "Parâmetros",
+          disabled: false,
+          href: "/usuarios",
           icon: "mdi-help",
         },
       ],
@@ -347,6 +396,20 @@ export default [
     component: () => import("@/views/Configuracoes/Configuracoes.vue"),
     meta: { permission: ["ADMIN", "TEC"] },
   },
+
+  {
+    name: "Sobre",
+    path: "Sobre/sobre",
+    component: () => import("@/views/Sobre/Sobre.vue"),
+    meta: { permission: ["ADMIN", "TEC"] },
+  },
+
+  {
+    name: "Meu Perfil",
+    path: "Usuarios/perfil",
+    component: () => import("@/views/Usuarios/Perfil.vue"),
+    meta: { permission: ["ADMIN", "TEC"] },
+  },
 ];
 
 // {
@@ -355,10 +418,3 @@ export default [
 //   "icon": "mdi-text-box",
 //   "to": "/documentacao"
 //     },
-
-// {
-//   "id": 6,
-//   "title": "Meu Perfil",
-//   "icon": "mdi-account",
-//   "to": "/usuarios/perfil"
-// },

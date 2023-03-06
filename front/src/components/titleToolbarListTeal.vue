@@ -79,10 +79,14 @@ export default {
           this.$router.push("ajuda/parametros");
           break;
 
+        case "Gerenciar Usuarios":
+          this.$router.push("ajuda/usuarios");
+          break;
+
         default:
           break;
       }
-      console.log(this.$route);
+      console.log(this.$route.name);
     },
   },
 };

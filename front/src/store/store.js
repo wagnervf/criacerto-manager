@@ -132,11 +132,9 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    // async getUserStorage({ dispatch }) {
-    //   const dados = JSON.parse(localStorage.getItem("user"));
-    //   let user = dispatch("mapedUser", dados);
-
-    //   return user;
+    // async getUserStorage() {
+    //   return JSON.parse(localStorage.getItem("user"));
+    //   //  let user = dispatch("mapedUser", dados);
     // },
 
     // mapedUser(payload) {

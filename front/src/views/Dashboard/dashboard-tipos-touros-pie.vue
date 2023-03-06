@@ -14,7 +14,7 @@
         >
           <v-expansion-panel>
             <v-expansion-panel-header>
-              <h3>Tipos de Touros Simulados</h3>
+              <h3>Raças de Touros Simulados</h3>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <v-card-text class="pa-6 pt-0">
