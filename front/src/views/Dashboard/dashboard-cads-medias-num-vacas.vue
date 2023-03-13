@@ -221,6 +221,7 @@ export default {
     },
 
     reset() {
+      this.filtrado = [];
       this.media.monta.value = 0;
       this.media.iatf.value = 0;
       this.media.iatf_2.value = 0;

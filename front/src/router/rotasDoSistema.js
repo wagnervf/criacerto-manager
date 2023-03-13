@@ -15,6 +15,29 @@ export default [
       permission: ["PUBLIC"],
     },
   },
+
+  {
+    name: "Todas as Simulações",
+    path: "/simulacoes/index",
+    component: () => import("@/views/Simulacoes/index.vue"),
+    meta: {
+      breadCrumb: [
+        {
+          text: "Início",
+          disabled: true,
+          href: "/",
+        },
+        {
+          text: "Simulações",
+          disabled: true,
+          href: "/simulacoes/index",
+          icon: "mdi-list-box-outline",
+        },
+      ],
+      permission: ["ADMIN", "TEC"],
+    },
+  },
+
   {
     name: "Parametros",
     path: "/parametros",

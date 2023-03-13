@@ -138,7 +138,6 @@ export default {
   mounted() {
     setTimeout(() => {
       //Filtrar Raça por período
-      //    this.getRacaTouros(this.simulacoesFiltradasPeriodo);
       this.visivel = false;
     }, 1000);
   },

@@ -14,6 +14,23 @@
               cols="12"
               class="pa-0"
             >
+              <v-col class="col-md-12 text-end">
+                <v-btn
+                  class="ma-2"
+                  outlined
+                  color="primary"
+                  @click="goToSimulacoes"
+                >
+                  Acessar todos os dados
+                  <v-icon
+                    right
+                    dark
+                  >
+                    mdi-arrow-right
+                  </v-icon>
+                </v-btn>
+              </v-col>
+
               <v-card class="mx-1 mb-1">
                 <v-card-title>
                   <v-text-field
@@ -110,11 +127,25 @@ export default {
     simulacoesData() {
       return this.$store.getters.getDataSimulacoes;
     },
+
+    simulacoesFiltradasPeriodo() {
+      return this.$store.getters.getSimulacoesFilteredPeriodo;
+    },
   },
 
   methods: {
     getData() {
-      this.simulacoes = Object.values(this.simulacoesData);
+      // this.simulacoes = Object.values(this.simulacoesData);
+      this.simulacoes = Object.values(this.simulacoesFiltradasPeriodo);
+    },
+    goToSimulacoes() {
+      this.$router.push({ name: "Todas as Simulações" });
+    },
+  },
+
+  watch: {
+    simulacoesFiltradasPeriodo(value) {
+      this.getData(value);
     },
   },
 };

@@ -155,6 +155,23 @@
                       </v-icon>
                       Filtrar
                     </v-btn>
+
+                    <v-btn
+                      class="mb-4 ml-2"
+                      dark
+                      color="red "
+                      @click="reset"
+                      title="Limpar Filtros"
+                      large
+                    >
+                      <v-icon
+                        dark
+                        left
+                      >
+                        mdi-filter-remove
+                      </v-icon>
+                      Limpar
+                    </v-btn>
                   </v-col>
                 </v-row>
               </v-container>
@@ -167,13 +184,10 @@
 </template>
 <script>
 import mixinUtils from "../../mixins/mixin-utils";
-// import cardFilteredVue from "../../components/cardFiltered.vue";
 export default {
   name: "ViewDashBoardFilter",
   mixins: [mixinUtils],
-  components: {
-    //   cardFilteredVue,
-  },
+  components: {},
   data() {
     return {
       panel: 0,
@@ -183,9 +197,9 @@ export default {
       date2: false,
       allSimulacoes: [],
       query: {
-        start: "2022-01-01",
+        start: "2020-01-01",
         // start: this.firstDayMonth(),
-        end: "2022-11-12",
+        end: "2020-06-01",
         // end: this.lastDayMonth(),
         estado: "Todos",
       },
@@ -220,9 +234,6 @@ export default {
         this.getDados();
       }
     },
-    reset() {
-      this.$refs.form.reset();
-    },
 
     getDados() {
       //"Busca todos os dados e Filtra");
@@ -235,6 +246,7 @@ export default {
 
     setFilters() {
       let data = [];
+
       //Primeiro Filtro por Data
       data = this.filterByDate(this.allSimulacoes);
 
@@ -243,15 +255,13 @@ export default {
 
       //Salva Store
       this.setFilterByEstate(this.filtrado);
-
       this.separaEstados(this.filtrado);
     },
 
     filterByDate(data) {
       return Object.values(data).filter((value) => {
         return (
-          this.formatDate(value.created) >= this.formatDate(this.query.start) &&
-          this.formatDate(value.created) <= this.formatDate(this.query.end)
+          value.created >= this.query.start && value.created <= this.query.end
         );
       });
     },
@@ -280,7 +290,6 @@ export default {
         result.push(value.state);
       });
 
-      //  this.listaEstados = [];
       result.forEach((x) => {
         estados[x] = (estados[x] || 0) + 1;
       });
@@ -292,6 +301,21 @@ export default {
 
     setEstadosExistentesStore(value) {
       this.$store.commit("SET_ESTADO_EXISTENTES", Object.keys(value));
+    },
+
+    reset() {
+      this.filtrado = [];
+      this.listaEstados = [];
+      this.visivel = true;
+      this.allSimulacoes = [];
+      (this.query = {
+        start: "2018-01-01",
+        // start: this.firstDayMonth(),
+        end: "2018-06-01",
+        // end: this.lastDayMonth(),
+        estado: "Todos",
+      }),
+        this.validate();
     },
 
     reload() {

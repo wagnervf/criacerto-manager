@@ -12,7 +12,7 @@
         >
           <v-expansion-panel>
             <v-expansion-panel-header color="teal">
-              <h3>Total de Simulações</h3>
+              <h3>Total de Todas as Simulações</h3>
             </v-expansion-panel-header>
             <v-expansion-panel-content color="white">
               <v-col
@@ -57,7 +57,7 @@
         >
           <v-expansion-panel>
             <v-expansion-panel-header color="cyan">
-              <h3>Simulações no Período</h3>
+              <h3>Simulações no Período Filtrado</h3>
             </v-expansion-panel-header>
             <v-expansion-panel-content color="white">
               <v-col
