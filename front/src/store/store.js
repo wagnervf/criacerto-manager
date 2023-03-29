@@ -24,6 +24,7 @@ export default new Vuex.Store({
       changed: "",
       admin: false,
       logado: "",
+      manager: false,
     },
     simulacoes: {},
     totalSimulacoes: {},

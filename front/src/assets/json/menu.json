@@ -6,7 +6,6 @@
     "icon": "mdi-chart-box",
     "to": "/",
     "permission": "public"
-
   },
   {
     "id": 2,
@@ -43,6 +42,15 @@
     "to": "/ajuda/ajuda",
     "permission": "tec"
 
+  },
+
+
+  {
+    "id": 8,
+    "title": "Sobre",
+    "icon": "mdi-information",
+    "to": "/sobre/index",
+    "permission": "public"
   }
 
  

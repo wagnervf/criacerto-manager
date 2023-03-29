@@ -66,6 +66,7 @@ export default {
       logado: true,
       changed: payload.changed,
       dateExpired: this.expiredStorage(),
+      manager: payload.manager,
     };
 
     return user;

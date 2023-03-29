@@ -23,7 +23,7 @@
 
         <v-img
           class="my-2 ma-auto"
-          max-height="600"
+          max-height="700"
           max-width="800"
           src="../../assets/img/ajuda/gerenciarUser.png"
         />
@@ -32,10 +32,9 @@
         <br>
 
         <li>
-          O sistema utiliza duas categorias de permissão, a categoria padrão,
-          atribuído a todos os usuários que acessarem o sistema pela primeira
-          vez, nela só será possível ter o acesso de leitura dos parâmetros,
-          além de, não conseguir alterar as permissões de outros usuários.
+          A categoria padrão é atribuído, automaticamente, a todos os usuários
+          que acessarem o sistema pela primeira vez, nela só será possível ter o
+          acesso de leitura dos parâmetros.
         </li>
         <br>
 
@@ -43,6 +42,11 @@
           O segunda modalidade de permissão é o nível administrador, que poderá
           gerenciar os parâmetros que serão utilizados pelo Cria Certo e
           modificar outros usuários.
+        </li>
+        <br>
+
+        <li>
+          Além disso, é possível conceder ou não permissão de acessar o Manager.
         </li>
         <br>
 

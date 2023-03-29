@@ -17,6 +17,23 @@ export default [
   },
 
   {
+    name: "Sobre",
+    path: "Sobre/index",
+    component: () => import("@/views/Sobre/Index.vue"),
+    meta: {
+      breadCrumb: [
+        {
+          text: "Sobre",
+          disabled: true,
+          href: "/sobre",
+          icon: "mdi-information",
+        },
+      ],
+      permission: ["PUBLIC"],
+    },
+  },
+
+  {
     name: "Todas as Simulações",
     path: "/simulacoes/index",
     component: () => import("@/views/Simulacoes/index.vue"),
@@ -417,13 +434,6 @@ export default [
     name: "Configuracoes",
     path: "Configuracoes/configuracoes",
     component: () => import("@/views/Configuracoes/Configuracoes.vue"),
-    meta: { permission: ["ADMIN", "TEC"] },
-  },
-
-  {
-    name: "Sobre",
-    path: "Sobre/sobre",
-    component: () => import("@/views/Sobre/Sobre.vue"),
     meta: { permission: ["ADMIN", "TEC"] },
   },
 

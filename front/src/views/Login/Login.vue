@@ -187,7 +187,6 @@ export default {
       try {
         if (this.loginForm.email != "") {
           const response = await LoginService.enviarPin(this.loginForm);
-          console.log(response);
 
           if (response.status == 201) {
             this.step = 2;
@@ -216,9 +215,15 @@ export default {
     async authenticateUser() {
       try {
         const response = await LoginService.authenticate(this.loginForm);
-        console.log(response);
+
+        // if (response == null) {
+        //   return mixinUtils.methods.messageSwalToast(
+        //     "error",
+        //     "Usuário não habilitado para utilizar o Sistema!"
+        //   );
+        // }
+
         if (response.status == 200) {
-          
           this.$router.push("/");
 
           return mixinUtils.methods.messageSwalToast(

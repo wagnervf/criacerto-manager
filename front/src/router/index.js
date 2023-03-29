@@ -18,28 +18,39 @@ router.beforeEach((to, from, next) => {
 
   const permissionsPage = to.meta.permission;
 
-  //console.log(user);
-  //console.log(permissionsPage);
+  //if (to.fullPath == "/dashboard") {
+  // return next({ name: "Dashboard" });
+  //}
 
-  if (to.fullPath == "/dashboard") {
-    return next({ name: "Dashboard" });
-  }
-
-  if (typeof permissionsPage == "undefined") {
-    return next({ name: "login" });
-  }
-
-  //else {
-  //console.log("else");
+  // if (typeof permissionsPage == "undefined") {
+  //   return next({ name: "login" });
+  // }
 
   //Checar token expirado +1 dia
-  if (to.name !== "login") {
-    if (checkTokenExpired(user) == null) return next({ name: "login" });
-  }
+  // if (to.name !== "login" && to.name !== "Dashboard") {
+  //   if (checkTokenExpired(user) == null || checkUserNotEnabledManager(user)) {
+  //     LoginService.logout();
+  //     return next({ name: "login" });
+  //   }
+  // }
+
+  // if (to.fullPath !== "/dashboard") {
+  //   if (checkUserEnabledManager(user)) {
+  //     LoginService.logout();
+  //     return next({ name: "login" });
+  //   }
+  // }
 
   // Páginas públicas
   if (permissionsPage.includes("PUBLIC")) {
     return next();
+  }
+
+  if (!permissionsPage.includes("PUBLIC")) {
+    if (checkTokenExpired(user) == null || checkUserNotEnabledManager(user)) {
+      LoginService.logout();
+      return next({ name: "login" });
+    }
   }
 
   // Não está logado, vá para login
@@ -52,10 +63,6 @@ router.beforeEach((to, from, next) => {
     return next();
   }
 
-  //  if (permissionsPage.includes("ADMIN") && !user.admin) {
-  //    return next({ name: "Dashboard" });
-  //  }
-
   // Permissão padrão e estou logado
   if (permissionsPage.includes("TEC") && user.logado) {
     return next();
@@ -63,20 +70,22 @@ router.beforeEach((to, from, next) => {
   //}
 });
 
+function checkUserNotEnabledManager(user) {
+  return typeof user.manager == undefined || user.manager == false;
+}
+
 // Verifica se token está expirado
 function checkTokenExpired(user) {
-  if (!user) {
-    return null;
-  }
-
   const now = new Date();
+
+  if (!user) return null;
 
   if (now.getTime() > user.dateExpired) {
     LoginService.logout();
     return null;
+  } else {
+    return true;
   }
-
-  return true;
 }
 
 export default router;

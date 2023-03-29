@@ -10,11 +10,6 @@
       class="mx-auto"
       tile
     >
-      <!-- 
-      <v-toolbar class="elevation-0 grey lighten-4">
-        <v-toolbar-title>Lista dos Usuários</v-toolbar-title>
-      </v-toolbar> -->
-
       <v-row
         class="px-4 text-left"
         tag="v-card-text"
@@ -73,64 +68,84 @@
 
               <v-divider class="my-2" />
 
-              <v-col class="text-center py-4 my-4">
+              <v-col class="text-center py-4 my-4 d-flex">
                 <v-form
                   ref="form"
                   v-model="valid"
                   lazy-validation
                   class="pa-2 white ma-2"
                 >
-                  <label class="text--title">
-                    <v-icon left>mdi-badge-account</v-icon>
-                    Administrador do Sistema
-                  </label>
-                  <v-simple-table class="my-4">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <v-switch
-                            v-model="selecionado[0].admin"
-                            :label="selecionado[0].admin ? 'SIM' : 'NÃO'"
-                            class="mx-2 text-center"
-                            id="switchh"
-                          />
-                        </td>
-                        <td>
-                          <v-btn
-                            color="success"
-                            :disabled="!valid"
-                            @click="validate"
-                            class="mx-2"
-                            dark
-                            title="Salvar"
-                            fab
-                            small
-                          >
-                            <v-icon dark>
-                              mdi-content-save
-                            </v-icon>
-                          </v-btn>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </v-simple-table>
+                  <v-list-item two-line>
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        Administrador do Sistema
+                      </v-list-item-title>
+                      <v-list-item-subtitle
+                        class="d-flex justify-center mx-auto"
+                      >
+                        <v-switch
+                          v-model="selecionado[0].admin"
+                          :label="selecionado[0].admin ? 'SIM' : 'NÃO'"
+                          class="mx-2"
+                          id="switchh"
+                        />
+                      </v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                  <v-list-item two-line>
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        Usuário do Manager
+                      </v-list-item-title>
+                      <v-list-item-subtitle
+                        class="d-flex justify-center mx-auto"
+                      >
+                        <v-switch
+                          v-model="selecionado[0].manager"
+                          :label="selecionado[0].manager ? 'SIM' : 'NÃO'"
+                          class="mx-2 text-center"
+                          id="switchh"
+                        />
+                      </v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+
+                  <v-col>
+                    <v-btn
+                      color="success"
+                      :disabled="!valid"
+                      @click="validate"
+                      class="mx-2"
+                      dark
+                      title="Salvar"
+                    >
+                      Salvar
+                      <v-icon
+                        right
+                        dark
+                      >
+                        mdi-content-save
+                      </v-icon>
+                    </v-btn>
+                  </v-col>
+
+                  <v-divider />
+
+                  <v-list-item
+                    two-line
+                    class="mt-6"
+                  >
+                    <v-list-item-content>
+                      <v-list-item-title class="subtitle-1">
+                        Atualizado
+                      </v-list-item-title>
+                      <v-list-item-subtitle class="subtitle-2">
+                        {{ selecionado[0].changed }}
+                      </v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
                 </v-form>
-
-                <v-divider />
-
-                <v-list-item
-                  two-line
-                  class="mt-6"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title class="subtitle-1">
-                      Atualizado
-                    </v-list-item-title>
-                    <v-list-item-subtitle class="subtitle-2">
-                      {{ selecionado[0].changed }}
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
               </v-col>
             </v-card>
           </v-scroll-y-transition>
@@ -164,6 +179,7 @@ export default {
     formRegister: {
       id: "",
       admin: false,
+      manager: false,
     },
     switch: true,
     valid: false,
@@ -192,6 +208,7 @@ export default {
 
   computed: {
     foiSelecionado() {
+      //console.log(this.selecionado[0]);
       return Object.keys(this.selecionado).length > 0;
     },
     listaCarregada() {
@@ -207,7 +224,15 @@ export default {
   watch: {
     "formRegister.admin"() {
       this.openSalvar = true;
-      //  }
+    },
+
+    selecionado: {
+      handler: function (val) {
+        if (typeof val[0].admin != undefined) {
+          this.selecionado[0].manager = val[0].admin;
+        }
+      },
+      deep: true,
     },
   },
 
@@ -230,6 +255,7 @@ export default {
         this.formRegister = {
           id: this.selecionado[0]._id,
           admin: this.selecionado[0].admin,
+          manager: this.selecionado[0].manager,
         };
 
         const response = await UsuariosServices.updateUsuario(
@@ -276,7 +302,6 @@ export default {
     async getUsuarios() {
       try {
         const response = await UsuariosServices.getListaUsuarios();
-
         if (typeof response == "undefined" || response.status != 200) {
           return mixinUtils.methods.messageSwalToast(
             "error",

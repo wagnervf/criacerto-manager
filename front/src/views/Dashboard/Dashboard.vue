@@ -29,30 +29,6 @@
         <dashboardFilterVue />
       </v-row>
 
-      <v-expansion-panels>
-        <v-expansion-panel>
-          <v-expansion-panel-header expand-icon="mdi-menu-down">
-            <v-icon>mdi-iconName</v-icon>
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-col class="col-md-4 text-end">
-              <v-btn
-                color="primary"
-                dark
-                tile
-                class="mb-2"
-                block
-              >
-                Acessart Todas as Simulações
-                <v-icon dark>
-                  mdi-arrow-right
-                </v-icon>
-              </v-btn>
-            </v-col>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-
       <v-row class="pa-0 my-1 px-2">
         <dashboardCardsSimulacoes />
       </v-row>
