@@ -19,27 +19,11 @@
         @input="setEstado"
       />
     </v-row>
-
-    <!-- <v-row class="d-flex justify-space-between ma-6">
-      <v-select
-        label="Estado"
-        :items="estados"
-        required
-        outlined
-        class="pa-2"
-      ></v-select>
-      <v-select
-        :items="cidade"
-        label="Cidades"
-        required
-        outlined
-        class="pa-2"
-      ></v-select>
-    </v-row> -->
   </div>
 </template>
 
 <script>
+
 export default {
   name: "FormCustom",
 
@@ -51,12 +35,6 @@ export default {
   },
 
   data: () => ({
-    // valid: true,
-    // form: {
-    //   email: this.user?.email || "",
-    //   name: this.user?.name || "",
-    // },
-    // select: null,
     estados: ["Item 1", "Item 2", "Item 3", "Item 4"],
     cidade: ["Item 1", "Item 2", "Item 3", "Item 4"],
   }),

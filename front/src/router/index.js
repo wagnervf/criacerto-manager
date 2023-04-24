@@ -18,29 +18,6 @@ router.beforeEach((to, from, next) => {
 
   const permissionsPage = to.meta.permission;
 
-  //if (to.fullPath == "/dashboard") {
-  // return next({ name: "Dashboard" });
-  //}
-
-  // if (typeof permissionsPage == "undefined") {
-  //   return next({ name: "login" });
-  // }
-
-  //Checar token expirado +1 dia
-  // if (to.name !== "login" && to.name !== "Dashboard") {
-  //   if (checkTokenExpired(user) == null || checkUserNotEnabledManager(user)) {
-  //     LoginService.logout();
-  //     return next({ name: "login" });
-  //   }
-  // }
-
-  // if (to.fullPath !== "/dashboard") {
-  //   if (checkUserEnabledManager(user)) {
-  //     LoginService.logout();
-  //     return next({ name: "login" });
-  //   }
-  // }
-
   // Páginas públicas
   if (permissionsPage.includes("PUBLIC")) {
     return next();
@@ -67,7 +44,6 @@ router.beforeEach((to, from, next) => {
   if (permissionsPage.includes("TEC") && user.logado) {
     return next();
   }
-  //}
 });
 
 function checkUserNotEnabledManager(user) {

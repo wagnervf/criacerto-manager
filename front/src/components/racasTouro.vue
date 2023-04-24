@@ -338,10 +338,6 @@ export default {
       this.label = "";
     },
 
-    // parserDataStore() {
-    //   this.racasTouro = this.parametros;
-    // },
-
     inserirTouro() {
       this.label = "Inserir Nova Raça";
       this.openInput = !this.openInput;

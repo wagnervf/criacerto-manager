@@ -36,21 +36,6 @@ export default {
     }
   },
 
-  //  storeMenuApi: (dados) => {
-  //   return httpAxios
-  //     .post("menu/", dados, {
-  //       headers: { Authorization: AuthStr },
-  //     })
-  //     .then(function(response) {
-  //       console.log(response)
-  //       return response;
-  //     })
-  //     .catch(function(error) {
-  //       console.log(error.response);
-  //       return error.response;
-  //     });
-  // },
-
   async saveTiposSimulacoes(dados) {
     try {
       const response = await ApiAxios().post("/simulacao/save", dados);
@@ -68,8 +53,6 @@ export default {
       // this.$router.push("/");
     }
   },
-
-  // TODO: fAZERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
 
   updateTiposSimulacoes: (id, dados) =>
     ApiAxios()

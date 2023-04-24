@@ -52,6 +52,7 @@
 </template>
 
 <script>
+
 import Menu from "../assets/json/menu.json";
 import LoginService from "../services/LoginService";
 

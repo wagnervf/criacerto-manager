@@ -69,8 +69,6 @@
 <script>
 import brasil from "../assets/json/brasil.json";
 
-// const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export default {
   name: "ComponenteEstado",
   data() {
@@ -135,9 +133,7 @@ export default {
 
   watch: {
     estado() {
-      //  console.log(brasil[this.estado].cidades);
       this.cidades = brasil[this.estado].cidades;
-      // console.log();
     },
   },
 

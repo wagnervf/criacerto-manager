@@ -1,5 +1,4 @@
 import ApiAxios from "./ApiAxios";
-// import { AuthStr } from "../Core/tokenConnectServices";
 
 const URL_API = process.env.VUE_APP_URL_API;
 const URL_IATF = process.env.VUE_APP_URL_IATF;

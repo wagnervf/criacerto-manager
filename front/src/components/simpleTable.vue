@@ -28,13 +28,6 @@
               </v-icon>
             </v-list-item-avatar>
             <v-list-item-content class="pa-4 pr-0 mr-0">
-              <!-- <v-list-item-title class="blue-grey--text text--bold text-h6">
-                {{ title }}
-              </v-list-item-title>
-              <v-list-item-subtitle class="text-wrap">
-                {{ subtitle }}
-              </v-list-item-subtitle> -->
-
               <v-list-item-subtitle class="text-wrap py-4 grey--text">
                 <p class="text-subtitle-2 font-weight-light ma-0">
                   Atualizado
@@ -193,7 +186,6 @@ export default {
   components: {},
   data: () => ({
     panel: [],
-    // title: "Lista dos Parâmetros da Monta Natural",
     icon: "mdi-view-list",
   }),
 
@@ -210,7 +202,6 @@ export default {
 
   methods: {
     recarregarDadosNoComponentePai() {
-      //this.function();
       this.$emit("reloaddados");
     },
   },

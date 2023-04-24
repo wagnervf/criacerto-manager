@@ -13,20 +13,7 @@ export default {
 
   data: () => ({}),
 
-  methods: {
-    // getTipos() {
-    //   TiposSimulacoesServices.getTiposSimulacoes().then((resposta) => {
-    //     this.desserts = this.mapedMenu(resposta.tipos);
-    //     console.log(resposta.tipos);
-    //   });
-    // },
-    //  mapedMenu(value) {
-    //   return value.map((val) => ({
-    //     id: val._id,
-    //     descricao: val.descricao,
-    //     ativo: val.ativo,
-    //   }));
-    // },
+  methods: {  
   },
 };
 </script>

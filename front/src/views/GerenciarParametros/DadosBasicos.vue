@@ -26,15 +26,11 @@
 </template>
 
 <script>
-// import FormCustom from "../../components/FormCustom.vue";
-//import ListEstados from "../../components/estados.vue";
 import RacasTouro from "../../components/racasTouro.vue";
 import titleToolbarListTeal from "../../components/titleToolbarListTeal.vue";
 export default {
   name: "ViewDadosBasicos",
   components: {
-    // FormCustom ,
-    // ListEstados,
     titleToolbarListTeal,
     RacasTouro,
   },
@@ -77,10 +73,6 @@ export default {
       this.form.cidade = e;
     },
 
-    // updateUser(userForm) {
-    //   console.log("updating", userForm);
-    //   // call an API to update the existing user
-    // },
   },
 };
 </script>

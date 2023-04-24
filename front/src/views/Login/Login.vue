@@ -142,9 +142,7 @@
 <script>
 import mixinUtils from "../../mixins/mixin-utils";
 import LoginService from "@/services/LoginService";
-// import Snackbar from "../../components/Snackbar.vue";
 import { mapState } from "vuex";
-// import { mapActions } from 'vuex';
 
 export default {
   mixins: [mixinUtils],
@@ -168,7 +166,7 @@ export default {
         (v) => /.+@.+\..+/.test(v) || "O e-mail é inválido",
       ],
       loginForm: {
-        email: "wagnerfreiria@gmail.com",
+        email: "",
         pin: "",
       },
       snackbar: false,
@@ -215,13 +213,6 @@ export default {
     async authenticateUser() {
       try {
         const response = await LoginService.authenticate(this.loginForm);
-
-        // if (response == null) {
-        //   return mixinUtils.methods.messageSwalToast(
-        //     "error",
-        //     "Usuário não habilitado para utilizar o Sistema!"
-        //   );
-        // }
 
         if (response.status == 200) {
           this.$router.push("/");

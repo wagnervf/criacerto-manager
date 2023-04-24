@@ -254,27 +254,6 @@ export default [
     },
   },
 
-  // {
-  //   name: "Usuarios Meu Perfil",
-  //   path: "usuarios/perfil",
-  //   component: () => import("@/views/Usuarios/Perfil.vue"),
-  //   meta: {
-  //     breadCrumb: [
-  //       {
-  //         text: "Início",
-  //         disabled: true,
-  //         href: "/",
-  //       },
-  //       {
-  //         text: "Meu Perfil",
-  //         href: "/usuarios/perfil",
-  //         disabled: false,
-  //       },
-  //     ],
-  //     permission: ["ADMIN", "TEC"],
-  //   },
-  // },
-
   {
     name: "Ajuda",
     path: "Ajuda/ajuda",
@@ -409,27 +388,6 @@ export default [
     },
   },
 
-  // {
-  //   name: "Documentacao",
-  //   path: "Documentacao",
-  //   component: () => import("@/views/Documentacao/Index.vue"),
-  //   meta: {
-  //     breadCrumb: [
-  //       {
-  //         text: "Início",
-  //         disabled: true,
-  //         href: "/",
-  //       },
-  //       {
-  //         text: "Documentação",
-  //         href: "/documentacao",
-  //         disabled: false,
-  //       },
-  //     ],
-  //     permission: ["ADMIN"],
-  //   },
-  // },
-
   {
     name: "Configuracoes",
     path: "Configuracoes/configuracoes",
@@ -444,10 +402,3 @@ export default [
     meta: { permission: ["ADMIN", "TEC"] },
   },
 ];
-
-// {
-//   "id": 5,
-//   "title": "Documentação",
-//   "icon": "mdi-text-box",
-//   "to": "/documentacao"
-//     },

@@ -26,30 +26,6 @@
         </td>
       </template>
     </v-data-table>
-    <!-- <v-expansion-panels
-      v-model="panel"
-      :readonly="readonly"
-      multiple
-      elevation-3
-    >
-      <v-expansion-panel>
-        <v-expansion-panel-header class="text-h5">
-          {{ title }}
-        </v-expansion-panel-header>
-        <v-divider />
-        <p class="pa-4 text-subtitle-1">
-          {{ subtitle }}
-        </p>
-        <v-expansion-panel-content class="grey lighten-3 pa-4 ma-4">
-          <v-data-table
-            :headers="headers"
-            :items="conteudo"
-            :items-per-page="5"
-            class="elevation-1"
-          />
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels> -->
   </div>
 </template>
 
